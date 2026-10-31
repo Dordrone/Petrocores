@@ -1,0 +1,124 @@
+{
+  "id": "demo",
+  "titre": { "fr": "Épisode de démonstration", "en": "Demo episode", "es": "Episodio de demostración" },
+  "intro": {
+    "fr": "Ceci est un épisode fictif pour tester le moteur de jeu. Trois étapes, puis une énigme finale.",
+    "en": "This is a fictional episode to test the game engine. Three steps, then a final riddle.",
+    "es": "Este es un episodio ficticio para probar el motor del juego. Tres etapas y un enigma final."
+  },
+  "avertissement": {
+    "fr": "Démo : le code d'accès est DEMO. En jeu réel, attention à la circulation.",
+    "en": "Demo: the access code is DEMO. In a real game, watch out for traffic.",
+    "es": "Demo: el código de acceso es DEMO. En el juego real, cuidado con el tráfico."
+  },
+  "duree_min": 10,
+  "photos_dossier": "../scenario/saint-genies/photos/",
+  "codes_equipe": ["yjk3xi"],
+  "penalites": { "indice_s": 120, "solution_s": 300 },
+  "etapes": [
+    {
+      "id": 1,
+      "nom": { "fr": "La place (démo)", "en": "The square (demo)", "es": "La plaza (demo)" },
+      "consigne_trajet": {
+        "fr": "Rejoignez le point rouge sur la carte.",
+        "en": "Reach the red dot on the map.",
+        "es": "Llegue al punto rojo del mapa."
+      },
+      "lat": 44.99479, "lon": 1.25107, "rayon_m": 25,
+      "photo": "sg_0093.jpg",
+      "recit": {
+        "fr": "Un messager vous attendait ici. Il vous laisse une question simple.",
+        "en": "A messenger was waiting for you here. He leaves you a simple question.",
+        "es": "Un mensajero le esperaba aquí. Le deja una pregunta sencilla."
+      },
+      "type": "texte",
+      "question": {
+        "fr": "Quel animal est le roi de la savane ?",
+        "en": "Which animal is the king of the savannah?",
+        "es": "¿Qué animal es el rey de la sabana?"
+      },
+      "reponses": ["lion", "leon"],
+      "indices": [
+        { "fr": "Il a une crinière.", "en": "It has a mane.", "es": "Tiene melena." },
+        { "fr": "Il rugit.", "en": "It roars.", "es": "Ruge." }
+      ],
+      "apres": { "fr": "Exact : le lion.", "en": "Correct: the lion.", "es": "Exacto: el león." },
+      "fragment": "4"
+    },
+    {
+      "id": 2,
+      "nom": { "fr": "Le château (démo)", "en": "The castle (demo)", "es": "El castillo (demo)" },
+      "lat": 44.99450, "lon": 1.25054, "rayon_m": 25,
+      "selection": "joueur",
+      "variantes": [
+        {
+          "id": "interieur",
+          "label": { "fr": "Version intérieur (si c'est ouvert)", "en": "Indoor version (if open)", "es": "Versión interior (si está abierto)" },
+          "photo": "sg_0078.jpg",
+          "recit": { "fr": "Vous entrez dans la cour.", "en": "You enter the courtyard.", "es": "Entra en el patio." },
+          "type": "choix",
+          "question": { "fr": "Combien font 2 + 2 ?", "en": "What is 2 + 2?", "es": "¿Cuánto son 2 + 2?" },
+          "choix": [
+            { "id": "a", "fr": "Trois", "en": "Three", "es": "Tres" },
+            { "id": "b", "fr": "Quatre", "en": "Four", "es": "Cuatro" },
+            { "id": "c", "fr": "Cinq", "en": "Five", "es": "Cinco" }
+          ],
+          "reponses": ["b"],
+          "indices": [
+            { "fr": "Comptez sur vos doigts.", "en": "Count on your fingers.", "es": "Cuente con los dedos." },
+            { "fr": "C'est plus que trois.", "en": "It is more than three.", "es": "Es más que tres." }
+          ],
+          "apres": { "fr": "Bravo, le compte est bon.", "en": "Well done, that adds up.", "es": "Bravo, la cuenta sale." }
+        },
+        {
+          "id": "exterieur",
+          "label": { "fr": "Version extérieur", "en": "Outdoor version", "es": "Versión exterior" },
+          "recit": { "fr": "Vous restez dehors.", "en": "You stay outside.", "es": "Se queda fuera." },
+          "type": "photo",
+          "photo_repere": "sg_0092.jpg",
+          "question": { "fr": "Trouvez ce détail autour de vous.", "en": "Find this detail around you.", "es": "Encuentre este detalle a su alrededor." },
+          "reponses": [],
+          "apres": { "fr": "Bien vu !", "en": "Well spotted!", "es": "¡Bien visto!" }
+        }
+      ],
+      "fragment": "2"
+    },
+    {
+      "id": 3,
+      "nom": { "fr": "Le coffre (démo)", "en": "The chest (demo)", "es": "El cofre (demo)" },
+      "deverrouillage": "reponse",
+      "photo": "sg_0061.jpg",
+      "recit": {
+        "fr": "Sans bouger, un coffre apparaît. Cette étape s'ouvre par la bonne réponse, pas par le GPS.",
+        "en": "Without moving, a chest appears. This step opens with the right answer, not with GPS.",
+        "es": "Sin moverse, aparece un cofre. Esta etapa se abre con la respuesta correcta, no con el GPS."
+      },
+      "type": "code",
+      "question": { "fr": "Tapez le code 1234.", "en": "Enter the code 1234.", "es": "Escriba el código 1234." },
+      "reponses": ["1234"],
+      "indices": [
+        { "fr": "Quatre chiffres.", "en": "Four digits.", "es": "Cuatro cifras." },
+        { "fr": "Ils se suivent.", "en": "They are in sequence.", "es": "Son consecutivos." }
+      ],
+      "apres": { "fr": "Le coffre s'ouvre.", "en": "The chest opens.", "es": "El cofre se abre." },
+      "fragment": "7"
+    }
+  ],
+  "final": {
+    "question": {
+      "fr": "Assemblez vos trois fragments dans l'ordre pour former le code.",
+      "en": "Put your three fragments together in order to form the code.",
+      "es": "Una sus tres fragmentos en orden para formar el código."
+    },
+    "indices": [
+      { "fr": "Trois chiffres.", "en": "Three digits.", "es": "Tres cifras." },
+      { "fr": "Il commence par 4.", "en": "It starts with 4.", "es": "Empieza por 4." }
+    ],
+    "reponse": "427",
+    "texte": {
+      "fr": "Vous avez gagné un fragment de la carte (démo).",
+      "en": "You have won a piece of the map (demo).",
+      "es": "Ha ganado un fragmento del mapa (demo)."
+    }
+  }
+}

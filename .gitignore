@@ -1,0 +1,11 @@
+Photos*iCloud/
+scenario/saint-genies/_travail/
+scenario/voix-essais/
+*.MOV
+*.mov
+*.keystore
+*.jks
+keystore/
+.DS_Store
+Thumbs.db
+scenario/saint-genies/parcours-propose.md
