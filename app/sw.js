@@ -1,5 +1,5 @@
 // Incrémenter VERSION à CHAQUE publication, et ajouter tout nouveau fichier à ASSETS.
-const VERSION = 'petrocores-v3';
+const VERSION = 'petrocores-v4';
 const MEDIA = 'petrocores-media'; // épisodes et photos, remplis par l'app (survit aux versions)
 const DELAI_RESEAU_MS = 3000;     // réseau faible au village : on bascule vite sur le cache
 
@@ -14,7 +14,8 @@ const ASSETS = [
   './icons/icon-192.png',
   './icons/icon-512.png',
   './icons/icon-maskable.png',
-  './icons/apple-touch-icon.png'
+  './icons/apple-touch-icon.png',
+  './icons/blason.png'
 ];
 
 self.addEventListener('install', e => {

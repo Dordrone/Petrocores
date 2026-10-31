@@ -609,7 +609,7 @@ function lancerPartie() {
 
 function ecranAccueil(v) {
   v.append(
-    el('img', { class: 'cachet', src: 'icons/icon-192.png', alt: '' }),
+    el('img', { class: 'cachet', src: 'icons/blason.png', alt: '' }),
     el('h1', {}, L(ep.titre)),
     choixLangue(),
     el('p', { class: 'texte', style: 'margin-top:14px' }, L(ep.intro)));

@@ -37,6 +37,7 @@
   puis Claude Code remet `SOUS_TITRES_INTRO = true` dans `app/app.js`.
 
 ## Prochain pour Claude Code
+- FAIT le 31/10 (sw v4) : nouvelle croix fournie par Gonzalo. Croix seule sur fond noir dans `app/icons/icon-*.png` et `apple-touch-icon.png` ; blason complet avec devise (`app/icons/blason.png`) sur l'écran d'accueil.
 - FAIT le 31/10 (sw v3) : `CORRECTIONS_TERRAIN_31-10.md` points 1, 2 et 3 (voir « Corrections terrain » dans le mode d'emploi du moteur).
   Vérifié sur ordinateur avec positions simulées et en ligne ; RESTE à retester au village sur téléphone.
 - Vidéo d'intro v2 (31/10, 19h40) : Gonzalo a monté sa propre version (1031.mp4, HEVC 2160x2880, 31 Mo, illisible sur Chrome Android).
