@@ -30,12 +30,10 @@
 - Après validation : écrire `scenario/saint-genies/episode.json` complet en FR/EN/ES (textes, voix, indices, réponses).
 
 ## Prochain pour Claude Code
-- GitHub (31/10) : organisation Dordrone créée ; dépôt git local prêt (branche main), lien vers GitHub PAS encore configuré.
-  BLOQUÉ : la création du dépôt et l'ajout du lien (`git remote add`) ont été refusés par le contrôle de sécurité de Claude Code.
-  Gonzalo doit créer le dépôt vide et autoriser ces actions.
-  Ensuite : `git remote add origin https://github.com/Dordrone/Petrocores.git`, `git push -u origin main`, activer Pages (main, racine), vérifier en ligne.
-  Attention : Pages gratuit = dépôt public, donc réponses et `parcours-propose.md` lisibles par tous.
-- Publier (GitHub Pages) pour le test sur téléphone (le GPS exige une adresse https).
+- GitHub (31/10) : dépôt public `Dordrone/Petrocores` créé par Gonzalo, code envoyé (branche main).
+  Dépôt public = tout y est lisible. `parcours-propose.md` reste hors du dépôt (.gitignore), copie locale seulement.
+  À prévoir : `episode.json` contiendra les réponses → les cacher avant le vrai lancement.
+- Après activation de Pages par Gonzalo (Settings → Pages → main, racine) : vérifier en ligne, puis test sur téléphone.
 - Système de licences Sentia (pour l'instant : liste de codes dans l'épisode).
 Plus tard : emballage Android (PWABuilder/Bubblewrap) pour Google Play — clé de signature hors du dépôt.
 
