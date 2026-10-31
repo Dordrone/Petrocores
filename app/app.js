@@ -63,6 +63,10 @@ const UI = {
   tempsFinal: { fr: 'Temps de votre équipe', en: "Your team's time", es: 'Tiempo de su equipo' },
   dontPenalites: { fr: 'dont {p} de pénalités', en: 'including {p} of penalties', es: 'de los cuales {p} de penalización' },
   min: { fr: 'min', en: 'min', es: 'min' },
+  toucherCommencer: { fr: 'Touchez pour commencer', en: 'Tap to begin', es: 'Toque para empezar' },
+  passer: { fr: 'Passer', en: 'Skip', es: 'Saltar' },
+  revoirIntro: { fr: "Revoir l'intro", en: 'Watch the intro again', es: 'Volver a ver la intro' },
+  fermer: { fr: 'Fermer', en: 'Close', es: 'Cerrar' },
 };
 
 const DEBUG = new URLSearchParams(location.search).get('debug') === '1';
@@ -381,7 +385,7 @@ function parler(textes) {
   };
   suite();
 }
-function parlerAuto(textes) { if (S && S.voix) parler(textes); }
+function parlerAuto(textes) { if (S && S.voix && !finIntro) parler(textes); }
 
 // ---------- Écran allumé ----------
 let verrouEcran = null, eveilVoulu = false;
@@ -411,7 +415,60 @@ function ouvrirCouche(contenu, surClic) {
   history.pushState({ couche: 1 }, '');
 }
 function fermerCouche() { if (!$('couche').hidden) history.back(); }
-window.addEventListener('popstate', () => { $('couche').hidden = true; });
+window.addEventListener('popstate', () => {
+  $('couche').hidden = true;
+  if (finIntro) finIntro();
+});
+
+// ---------- Vidéo d'intro ----------
+// iPhone : le son ne démarre qu'après un toucher, d'où l'écran « Touchez pour commencer ».
+let finIntro = null;
+
+function urlIntro() { return new URL(ep.intro_video, location.href).href; }
+function urlSousTitres(l) { return urlIntro().replace(/\.mp4$/i, '.' + l + '.vtt'); }
+
+function jouerIntro(suite) {
+  arreterVoix();
+  const zone = $('intro');
+  let fermee = false;
+  const fermer = () => {
+    if (fermee) return;
+    fermee = true;
+    history.back();
+  };
+  const video = el('video', { src: urlIntro(), preload: 'auto', playsInline: true, onended: fermer, onerror: fermer },
+    ...LANGUES.map(l => el('track', { kind: 'subtitles', srclang: l, label: l.toUpperCase(), src: urlSousTitres(l), default: l === langue })));
+  video.setAttribute('playsinline', '');
+  const montrerSousTitres = () => {
+    for (const p of video.textTracks) p.mode = p.language === langue ? 'showing' : 'disabled';
+  };
+  video.addEventListener('loadedmetadata', montrerSousTitres);
+  const toucher = bouton(t('toucherCommencer'), () => {
+    toucher.hidden = true;
+    montrerSousTitres();
+    video.play().catch(() => { toucher.hidden = false; });
+  }, 'toucher');
+  toucher.className = 'toucher';
+  const passer = el('button', { type: 'button', class: 'passer', onclick: fermer }, t('passer'));
+  zone.replaceChildren(video, toucher, passer);
+  zone.hidden = false;
+  finIntro = () => {
+    finIntro = null;
+    video.pause();
+    zone.hidden = true;
+    zone.replaceChildren();
+    if (suite) suite();
+  };
+  history.pushState({ intro: 1 }, '');
+}
+function ouvrirMenu() {
+  ouvrirCouche(el('div', { class: 'cadre' },
+    bouton(t('revoirIntro'), () => {
+      window.addEventListener('popstate', () => jouerIntro(), { once: true });
+      fermerCouche();
+    }),
+    bouton(t('fermer'), fermerCouche, 'second')));
+}
 
 function ouvrirPhoto(src) {
   ouvrirCouche(el('img', { class: 'plein', src, alt: '' }), fermerCouche);
@@ -448,6 +505,7 @@ function afficher() {
 function majBarre() {
   document.documentElement.lang = langue;
   $('b-langue').textContent = langue.toUpperCase();
+  $('b-menu').hidden = !ep.intro_video;
   if (!S) return;
   $('b-voix').textContent = S.voix ? '🔊' : '🔇';
   $('b-etape').textContent = S.phase === 'final' ? t('enigmeFinale')
@@ -512,7 +570,11 @@ function ecranAccueil(v) {
       }
       S = nouvelEtat(equipe);
       lancerPartie();
-      entrerEtape(0);
+      if (!ep.intro_video) { entrerEtape(0); return; }
+      jouerIntro(() => {
+        S.debut = Date.now();   // le chrono part après l'intro
+        entrerEtape(0);
+      });
     }));
   }
   if (etatHorsLigne) v.append(el('p', { class: 'discret', id: 'horsligne' }, etatHorsLigne()));
@@ -702,6 +764,7 @@ async function preparerHorsLigne() {
   if (!window.caches) return;
   const cache = await caches.open(CACHE_MEDIA);
   const urls = [urlEpisode.href, ...listePhotos()];
+  if (ep.intro_video) urls.push(urlIntro(), ...LANGUES.map(urlSousTitres));
   let faits = 0, echecs = [];
   const maj = () => {
     etatHorsLigne = () => faits < urls.length ? t('horsLigne') + ' : ' + faits + '/' + urls.length
@@ -710,9 +773,13 @@ async function preparerHorsLigne() {
     if (n) n.textContent = etatHorsLigne();
   };
   maj();
+  // Laisse le service worker finir son précache, pour ne pas retélécharger la vidéo.
+  if ('serviceWorker' in navigator) {
+    await Promise.race([navigator.serviceWorker.ready, new Promise(ok => setTimeout(ok, 15000))]);
+  }
   for (const u of urls) {
     try {
-      if (u === urlEpisode.href || !(await cache.match(u))) await cache.add(u);
+      if (u === urlEpisode.href || !(await caches.match(u))) await cache.add(u);
     } catch (e) {
       if (!(await cache.match(u))) { echecs.push(u); diagnostics.push('Fichier introuvable : ' + u); }
     }
@@ -773,6 +840,7 @@ async function demarrer() {
     sauver();
     majBarre();
   });
+  $('b-menu').addEventListener('click', ouvrirMenu);
   document.addEventListener('click', debloquerVoix, { once: true });
   window.addEventListener('resize', dessinerCarte);
   setInterval(() => {

@@ -28,8 +28,17 @@
 
 ## Prochain pour Claude (chat)
 - Après validation : écrire `scenario/saint-genies/episode.json` complet en FR/EN/ES (textes, voix, indices, réponses).
+  Y mettre `"intro_video": "media/intro_saint_genies.mp4"` (ce fichier n'existe pas encore ; le champ n'est que dans `app/demo-episode.json`).
 
 ## Prochain pour Claude Code
+- NOUVEAU (31/10, demandé par Gonzalo) — VIDÉO D'INTRO avant la 1re étape :
+  fichier `scenario/intro/intro_saint_genies.mp4` (17,5 s, 1080x1440, ~5 Mo, voix d'Aymeric incluse) — photo réelle → brume →
+  templier au loin → templier proche. Fabriquée par `scenario/intro/monter_intro.py`. (`intro_provisoire_photo.mp4` = ancienne, ne pas utiliser.)
+  Dans l'app : plein écran après le choix de langue, bouton « Passer », son lancé par un toucher (règle iOS), sous-titres FR/EN/ES,
+  fichier dans le précache (hors-ligne), chemin lu dans episode.json (champ "intro_video").
+  Sous-titres PRÊTS et validés (texte exact de l'audio, minutage mesuré) : `scenario/intro/intro_saint_genies.{fr,en,es}.vtt`
+  → balises <track> de la vidéo, langue = langue choisie ; à copier à côté de la vidéo et à mettre aussi dans le précache. `scenario/intro/_brouillons/` = à ignorer (et dans .gitignore).
+  → FAIT par Claude Code le 31/10 (voir « Vidéo d'intro » dans le mode d'emploi du moteur) ; reste le test iPhone + Android.
 - GitHub (31/10) : dépôt public `Dordrone/Petrocores` créé par Gonzalo, code envoyé (branche main).
   Dépôt public = tout y est lisible. `parcours-propose.md` reste hors du dépôt (.gitignore), copie locale seulement.
   À prévoir : `episode.json` contiendra les réponses → les cacher avant le vrai lancement.
@@ -44,6 +53,11 @@ Plus tard : emballage Android (PWABuilder/Bubblewrap) pour Google Play — clé 
 - `?debug=1` : liste à l'écran les erreurs de l'épisode (traductions manquantes, etc.) et affiche toujours « je suis arrivé ».
 - Tester en local : serveur à la racine du projet (`python -m http.server 8123`), puis `localhost:8123/app/`.
 - À chaque publication : incrémenter VERSION dans `app/sw.js`.
+- Vidéo d'intro (31/10, sw v2) : fichiers dans `app/media/`, copiés depuis `scenario/intro/` (`.mp4` + 3 `.vtt`, texte et minutage inchangés).
+  Jouée après « Commencer », avant la 1re étape : « Touchez pour commencer », « Passer », sous-titres de la langue choisie.
+  Le chrono démarre après la vidéo. « Revoir l'intro » : menu ☰ de la barre de jeu. Reprise d'une partie : pas de vidéo.
+  Si la vidéo ne se charge pas, le jeu passe directement à la 1re étape.
+  `scenario/intro/` n'est PAS envoyé sur GitHub (dépôt public) : seule la copie de `app/media/` est en ligne.
 
 ## Format de episode.json (schéma d'origine + ajouts, modèle complet : `app/demo-episode.json`)
 { "id":"saint-genies-0", "titre":{fr,en,es}, "intro":{fr,en,es}, "duree_min":75,
