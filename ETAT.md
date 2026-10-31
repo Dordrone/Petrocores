@@ -61,6 +61,7 @@ Plus tard : emballage Android (PWABuilder/Bubblewrap) pour Google Play — clé 
 
 ## Format de episode.json (schéma d'origine + ajouts, modèle complet : `app/demo-episode.json`)
 { "id":"saint-genies-0", "titre":{fr,en,es}, "intro":{fr,en,es}, "duree_min":75,
+  "intro_video":"media/intro_saint_genies.mp4",   // facultatif : chemin depuis `app/` ; les .fr/.en/.es.vtt à côté, même nom
   "avertissement":{fr,en,es},            // facultatif : encadré d'accueil (circulation, respect, part de fiction)
   "codes_equipe":["hash"],               // facultatif : sans ce champ, pas de code demandé (hash djb2-xor du code en majuscules)
   "penalites":{"indice_s":120,"solution_s":300},  // facultatif : ce sont les valeurs par défaut
