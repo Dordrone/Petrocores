@@ -1,5 +1,5 @@
 // Incrémenter VERSION à CHAQUE publication, et ajouter tout nouveau fichier à ASSETS.
-const VERSION = 'petrocores-v2';
+const VERSION = 'petrocores-v3';
 const MEDIA = 'petrocores-media'; // épisodes et photos, remplis par l'app (survit aux versions)
 const DELAI_RESEAU_MS = 3000;     // réseau faible au village : on bascule vite sur le cache
 
@@ -11,10 +11,6 @@ const ASSETS = [
   './manifest.webmanifest',
   './demo-episode.json',
   './fragment-carte.svg',
-  './media/intro_saint_genies.mp4',
-  './media/intro_saint_genies.fr.vtt',
-  './media/intro_saint_genies.en.vtt',
-  './media/intro_saint_genies.es.vtt',
   './icons/icon-192.png',
   './icons/icon-512.png',
   './icons/icon-maskable.png',
@@ -65,32 +61,11 @@ function cacheDabord(req) {
   }));
 }
 
-// L'iPhone demande les vidéos par morceaux (Range) : sans réponse 206, pas de lecture hors-ligne.
-async function video(req) {
-  const rep = await caches.match(req.url);
-  if (!rep) return fetch(req);
-  const plage = /bytes=(\d+)-(\d*)/.exec(req.headers.get('range') || '');
-  if (!plage) return rep;
-  const octets = await rep.arrayBuffer();
-  const debut = Number(plage[1]);
-  const fin = Math.min(plage[2] ? Number(plage[2]) : octets.byteLength - 1, octets.byteLength - 1);
-  return new Response(octets.slice(debut, fin + 1), {
-    status: 206,
-    statusText: 'Partial Content',
-    headers: {
-      'Content-Type': 'video/mp4',
-      'Content-Length': String(fin - debut + 1),
-      'Content-Range': 'bytes ' + debut + '-' + fin + '/' + octets.byteLength,
-      'Accept-Ranges': 'bytes'
-    }
-  });
-}
-
 self.addEventListener('fetch', e => {
   if (e.request.method !== 'GET') return;
   const url = new URL(e.request.url);
   if (url.origin !== location.origin) return;
-  if (url.pathname.endsWith('.mp4')) { e.respondWith(video(e.request)); return; }
+  if (url.pathname.endsWith('.mp4')) return; // l'iPhone lit les vidéos par morceaux : réseau direct
   const image = e.request.destination === 'image';
   e.respondWith(image ? cacheDabord(e.request) : reseauDabord(e.request));
 });

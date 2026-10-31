@@ -5,10 +5,22 @@
 
 const LANGUES = ['fr', 'en', 'es'];
 const VOIX_LANG = { fr: 'fr-FR', en: 'en-GB', es: 'es-ES' };
-const ACCURACY_MAX = 50;          // m : au-delà, on ignore la position
-const RAYON_DEFAUT = 25;          // m
-const GPS_MUET_MS = 20000;        // pas de position fiable depuis 20 s → bouton de secours
+// Réglages GPS, à ajuster après les tests au village.
+const RAYON_DEFAUT = 10;          // m : l'épisode peut le changer par étape avec "rayon_m"
+const ACCURACY_DECLENCHE = 15;    // m : au-delà, la position ne peut pas déclencher l'arrivée
+const ACCURACY_MAX = 50;          // m : au-delà, on n'affiche plus de distance
+const ACCURACY_EXACTE = 100;      // m : au-delà, la position exacte est sans doute désactivée
+const EXACTE_ATTENTE_MS = 15000;  // durée au-delà de ACCURACY_EXACTE avant d'afficher le conseil
+const CONFIRMATIONS = 2;          // positions fiables consécutives dans le cercle
+const LISSAGE_NB = 3;             // positions fiables moyennées (poids 1/précision²)
+const LISSAGE_AGE_MS = 10000;     // positions plus anciennes exclues de la moyenne
+const SECOURS_DISTANCE_M = 25;    // proche du lieu mais GPS imprécis → bouton de secours
+const GPS_MUET_MS = 20000;        // pas de position assez précise depuis 20 s → bouton de secours
 const TRAJET_LONG_MS = 180000;    // 3 min sur un trajet (étapes à 50–150 m) → bouton de secours
+// Réglages du son et de la vidéo.
+const VOIX_ATTENTE_MS = 1000;     // attente maximale du chargement des voix
+const LECTURE_ATTENTE_MS = 1500;  // lecture automatique pas démarrée → le bouton clignote
+const SOUS_TITRES_INTRO = false;  // à remettre à true quand les .vtt seront recalés sur la vidéo
 const PENALITE_INDICE_S = 120;
 const PENALITE_SOLUTION_S = 300;
 const CACHE_MEDIA = 'petrocores-media';
@@ -38,12 +50,18 @@ const UI = {
   rendezVous: { fr: 'Rendez-vous à ce lieu', en: 'Go to this place', es: 'Vaya a este lugar' },
   ecranAllume: { fr: "Gardez l'écran allumé : téléphone verrouillé, le GPS s'arrête.", en: 'Keep the screen on: when the phone locks, GPS stops.', es: 'Mantenga la pantalla encendida: con el teléfono bloqueado, el GPS se detiene.' },
   gpsAttente: { fr: 'Recherche du GPS…', en: 'Looking for GPS…', es: 'Buscando el GPS…' },
-  gpsOk: { fr: 'GPS précis à {n} m', en: 'GPS accurate to {n} m', es: 'GPS preciso a {n} m' },
-  gpsFaible: { fr: 'GPS faible ({n} m)', en: 'Weak GPS ({n} m)', es: 'GPS débil ({n} m)' },
+  gpsOk: { fr: 'Précision ± {n} m', en: 'Accuracy ± {n} m', es: 'Precisión ± {n} m' },
+  gpsFaible: { fr: 'Position approximative (précision ± {n} m)', en: 'Approximate position (accuracy ± {n} m)', es: 'Posición aproximada (precisión ± {n} m)' },
+  gpsExact: { fr: 'Activez la position exacte pour votre navigateur (iPhone : Réglages > Chrome ou Safari > Position > Position exacte ; Android : autorisations de Chrome > Position > Position exacte).', en: 'Turn on precise location for your browser (iPhone: Settings > Chrome or Safari > Location > Precise Location; Android: Chrome permissions > Location > Use precise location).', es: 'Active la ubicación exacta para su navegador (iPhone: Ajustes > Chrome o Safari > Ubicación > Ubicación exacta; Android: permisos de Chrome > Ubicación > Usar ubicación exacta).' },
   gpsRefuse: { fr: 'GPS refusé : autorisez la position, ou utilisez le bouton ci-dessous.', en: 'GPS denied: allow location, or use the button below.', es: 'GPS denegado: autorice la ubicación o use el botón de abajo.' },
   gpsAbsent: { fr: 'GPS indisponible : utilisez le bouton ci-dessous.', en: 'GPS unavailable: use the button below.', es: 'GPS no disponible: use el botón de abajo.' },
   arrive: { fr: 'Je suis arrivé', en: 'I have arrived', es: 'He llegado' },
   ecouter: { fr: '🔊 Écouter', en: '🔊 Listen', es: '🔊 Escuchar' },
+  ecouterNarrateur: { fr: '▶ Écouter {n}', en: '▶ Listen to {n}', es: '▶ Escuchar a {n}' },
+  testSon: { fr: 'Test du son', en: 'Sound check', es: 'Prueba de sonido' },
+  testerSon: { fr: '▶ Tester le son', en: '▶ Test the sound', es: '▶ Probar el sonido' },
+  phraseTest: { fr: "Si vous m'entendez, tout est prêt.", en: 'If you can hear me, everything is ready.', es: 'Si me oye, todo está listo.' },
+  rappelSon: { fr: "Vous n'entendez rien ? Désactivez le mode silencieux de l'iPhone et montez le volume.", en: "Can't hear anything? Turn off silent mode on your iPhone and turn up the volume.", es: '¿No oye nada? Desactive el modo silencio del iPhone y suba el volumen.' },
   votreReponse: { fr: 'Votre réponse', en: 'Your answer', es: 'Su respuesta' },
   valider: { fr: 'Valider', en: 'Submit', es: 'Validar' },
   trouve: { fr: 'Trouvé !', en: 'Found it!', es: '¡Encontrado!' },
@@ -224,6 +242,7 @@ function texteSolution(e) {
 
 // ---------- GPS ----------
 let idWatch = null, pos = null, gpsErreur = null, dernierFixBon = 0, debutTrajet = 0;
+let fixes = [], lisse = null, confirmations = 0, imprecisDepuis = 0;
 
 function distanceM(a, b) {
   const R = 6371000, rad = Math.PI / 180;
@@ -234,30 +253,53 @@ function distanceM(a, b) {
 function demarrerGps() {
   debutTrajet = dernierFixBon = Date.now();
   gpsErreur = null;
+  oublierFixes();
   if (!navigator.geolocation) { gpsErreur = 'absent'; majTrajet(); return; }
   if (idWatch !== null) return;
   idWatch = navigator.geolocation.watchPosition(
-    p => surPosition({ lat: p.coords.latitude, lon: p.coords.longitude, acc: p.coords.accuracy }),
+    p => surPosition({ lat: p.coords.latitude, lon: p.coords.longitude, acc: p.coords.accuracy, ts: p.timestamp }),
     err => { gpsErreur = err.code === 1 ? 'refuse' : null; majTrajet(); },
-    { enableHighAccuracy: true, maximumAge: 5000, timeout: 15000 }
+    { enableHighAccuracy: true, maximumAge: 0, timeout: 20000 }
   );
+}
+function oublierFixes() {
+  fixes = [];
+  lisse = null;
+  confirmations = 0;
+}
+function positionLissee() {
+  const recents = fixes.filter(f => fixes[fixes.length - 1].ts - f.ts < LISSAGE_AGE_MS);
+  const poids = f => 1 / Math.max(f.acc, 1) ** 2;
+  const total = recents.reduce((s, f) => s + poids(f), 0);
+  return {
+    lat: recents.reduce((s, f) => s + f.lat * poids(f), 0) / total,
+    lon: recents.reduce((s, f) => s + f.lon * poids(f), 0) / total
+  };
 }
 function arreterGps() {
   if (idWatch !== null) navigator.geolocation.clearWatch(idWatch);
   idWatch = null;
 }
 function surPosition(p) {
+  if (p.ts === undefined) p.ts = Date.now();
+  const nouvelle = !pos || p.ts !== pos.ts;
   pos = p;
   gpsErreur = null;
-  if (S && S.phase === 'trajet' && p.acc <= ACCURACY_MAX) {
+  if (p.acc <= ACCURACY_EXACTE) imprecisDepuis = 0;
+  else if (!imprecisDepuis) imprecisDepuis = Date.now();
+  if (S && S.phase === 'trajet' && nouvelle && p.acc <= ACCURACY_DECLENCHE) {
     dernierFixBon = Date.now();
+    fixes = fixes.concat(p).slice(-LISSAGE_NB);
+    lisse = positionLissee();
     const e = resoudre(S.idx);
-    if (distanceM(p, e) <= (e.rayon_m || RAYON_DEFAUT)) { arrivee(); return; }
+    confirmations = distanceM(lisse, e) <= (e.rayon_m || RAYON_DEFAUT) ? confirmations + 1 : 0;
+    if (confirmations >= CONFIRMATIONS) { arrivee(); return; }
   }
   majTrajet();
 }
 function arrivee() {
   arreterGps();
+  oublierFixes();
   if (navigator.vibrate) navigator.vibrate([120, 60, 120]);
   S.phase = 'enigme';
   sauver();
@@ -266,14 +308,24 @@ function arrivee() {
 function majTrajet() {
   if (!S || S.phase !== 'trajet' || !$('distance')) return;
   const e = resoudre(S.idx);
-  const fiable = pos && pos.acc <= ACCURACY_MAX;
-  $('distance').textContent = pos ? Math.round(distanceM(pos, e)) + ' m' : '… m';
+  const precise = pos && pos.acc <= ACCURACY_DECLENCHE;
+  const utilisable = pos && pos.acc <= ACCURACY_MAX;
+  const brute = pos ? distanceM(pos, e) : null;
+  $('distance').textContent = utilisable ? (precise ? '' : '≈ ') + Math.round(brute) + ' m' : '… m';
   $('gps').textContent = gpsErreur === 'refuse' ? t('gpsRefuse')
     : gpsErreur === 'absent' ? t('gpsAbsent')
     : !pos ? t('gpsAttente')
-    : t(fiable ? 'gpsOk' : 'gpsFaible', { n: Math.round(pos.acc) });
+    : t(precise ? 'gpsOk' : 'gpsFaible', { n: Math.round(pos.acc) });
   const now = Date.now();
-  $('secours').hidden = !(DEBUG || gpsErreur || now - dernierFixBon > GPS_MUET_MS || now - debutTrajet > TRAJET_LONG_MS);
+  $('gps-exact').hidden = !(imprecisDepuis && now - imprecisDepuis > EXACTE_ATTENTE_MS);
+  const sansPrecision = now - dernierFixBon > GPS_MUET_MS && (!utilisable || brute <= SECOURS_DISTANCE_M);
+  $('secours').hidden = !(DEBUG || gpsErreur || sansPrecision || now - debutTrajet > TRAJET_LONG_MS);
+  if (DEBUG) {
+    const m = d => d === null ? '-' : d.toFixed(1) + ' m';
+    $('debug-gps').textContent = 'acc ' + (pos ? m(pos.acc) : '-') + ' | brute ' + m(brute)
+      + ' | lissée ' + m(lisse ? distanceM(lisse, e) : null)
+      + ' | conf ' + confirmations + '/' + CONFIRMATIONS + ' | rayon ' + (e.rayon_m || RAYON_DEFAUT) + ' m';
+  }
   dessinerCarte();
 }
 
@@ -322,12 +374,14 @@ function dessinerCarte() {
     g.beginPath(); g.moveTo(X(pos), Y(pos)); g.lineTo(X(cible), Y(cible)); g.stroke();
     g.setLineDash([]);
   }
-  g.fillStyle = 'rgba(140,47,35,.15)';
-  g.beginPath(); g.arc(X(cible), Y(cible), Math.max(14, (cible.rayon_m || RAYON_DEFAUT) * pxParM), 0, 7); g.fill();
   g.fillStyle = '#8c2f23';
   g.beginPath(); g.arc(X(cible), Y(cible), 13, 0, 7); g.fill();
   g.fillStyle = '#fff';
   g.fillText(S.idx + 1, X(cible), Y(cible));
+  g.fillStyle = 'rgba(140,47,35,.15)';
+  g.strokeStyle = '#8c2f23';
+  g.lineWidth = 2;
+  g.beginPath(); g.arc(X(cible), Y(cible), (cible.rayon_m || RAYON_DEFAUT) * pxParM, 0, 7); g.fill(); g.stroke();
 
   if (pos) {
     g.fillStyle = 'rgba(38,99,178,.15)';
@@ -342,7 +396,15 @@ function dessinerCarte() {
 }
 
 // ---------- Voix ----------
-let voixDebloquee = false, lectureId = 0;
+let voixDebloquee = false, lectureId = 0, voixPretes = null;
+
+function preparerVoix() {
+  if (!window.speechSynthesis || speechSynthesis.getVoices().length) return;
+  voixPretes = new Promise(ok => {
+    speechSynthesis.addEventListener('voiceschanged', ok, { once: true });
+    setTimeout(ok, VOIX_ATTENTE_MS);
+  }).then(() => { voixPretes = null; });
+}
 
 function debloquerVoix() {
   if (voixDebloquee || !window.speechSynthesis) return;
@@ -373,19 +435,30 @@ function parler(textes) {
   if (!window.speechSynthesis) return;
   const texte = textes.filter(Boolean).join('\n');
   const phrases = texte.match(/[^.!?…\n]+[.!?…]*/g) || [];
-  const id = lectureId, voix = choisirVoix();
-  let i = 0;
-  const suite = () => {
-    if (id !== lectureId || i >= phrases.length) return;
-    const u = new SpeechSynthesisUtterance(phrases[i++].trim());
-    u.lang = VOIX_LANG[langue];
-    if (voix) u.voice = voix;
-    u.onend = suite;
-    speechSynthesis.speak(u);
+  const id = lectureId;
+  const lancer = () => {
+    const voix = choisirVoix();
+    let i = 0;
+    const suite = () => {
+      if (id !== lectureId || i >= phrases.length) return;
+      const u = new SpeechSynthesisUtterance(phrases[i++].trim());
+      u.lang = VOIX_LANG[langue];
+      if (voix) u.voice = voix;
+      u.onend = suite;
+      speechSynthesis.speak(u);
+    };
+    suite();
   };
-  suite();
+  // Voix déjà chargées : on parle tout de suite, pour rester dans le geste du joueur.
+  if (voixPretes) voixPretes.then(lancer); else lancer();
 }
 function parlerAuto(textes) { if (S && S.voix && !finIntro) parler(textes); }
+function surveillerLecture(bouton) {
+  setTimeout(() => {
+    const parle = window.speechSynthesis && speechSynthesis.speaking;
+    if (bouton.isConnected && !parle) bouton.classList.add('clignote');
+  }, LECTURE_ATTENTE_MS);
+}
 
 // ---------- Écran allumé ----------
 let verrouEcran = null, eveilVoulu = false;
@@ -437,7 +510,7 @@ function jouerIntro(suite) {
     history.back();
   };
   const video = el('video', { src: urlIntro(), preload: 'auto', playsInline: true, onended: fermer, onerror: fermer },
-    ...LANGUES.map(l => el('track', { kind: 'subtitles', srclang: l, label: l.toUpperCase(), src: urlSousTitres(l), default: l === langue })));
+    ...(SOUS_TITRES_INTRO ? LANGUES : []).map(l => el('track', { kind: 'subtitles', srclang: l, label: l.toUpperCase(), src: urlSousTitres(l), default: l === langue })));
   video.setAttribute('playsinline', '');
   const montrerSousTitres = () => {
     for (const p of video.textTracks) p.mode = p.language === langue ? 'showing' : 'disabled';
@@ -495,6 +568,7 @@ function afficher() {
   if (S && S.phase === 'trajet' && enJeu) demarrerGps(); else arreterGps();
   v.replaceChildren();
   if (!afficher.jeu) ecranAccueil(v);
+  else if (S.phase === 'son') ecranSon(v);
   else if (S.phase === 'variante') ecranVariante(v);
   else if (S.phase === 'trajet') ecranTrajet(v);
   else if (S.phase === 'enigme' || S.phase === 'final') ecranEnigme(v);
@@ -570,17 +644,28 @@ function ecranAccueil(v) {
       }
       S = nouvelEtat(equipe);
       lancerPartie();
-      if (!ep.intro_video) { entrerEtape(0); return; }
-      jouerIntro(() => {
-        S.debut = Date.now();   // le chrono part après l'intro
-        entrerEtape(0);
-      });
+      const suite = () => {
+        S.phase = 'son';
+        sauver();
+        afficher();
+      };
+      if (ep.intro_video) jouerIntro(suite); else suite();
     }));
   }
   if (etatHorsLigne) v.append(el('p', { class: 'discret', id: 'horsligne' }, etatHorsLigne()));
   else v.append(el('p', { class: 'discret', id: 'horsligne' }));
   ajouterBoutonInstaller(v);
   if (DEBUG && diagnostics.length) v.append(el('div', { id: 'diagnostic' }, diagnostics.join('\n')));
+}
+
+function ecranSon(v) {
+  v.append(el('h2', {}, t('testSon')));
+  v.append(bouton(t('testerSon'), () => parler([t('phraseTest')]), 'ecouter'));
+  v.append(el('p', { class: 'encart' }, t('rappelSon')));
+  v.append(bouton(t('continuer'), () => {
+    S.debut = Date.now();   // le chrono part ici, après l'intro et le test du son
+    entrerEtape(0);
+  }));
 }
 
 function ecranVariante(v) {
@@ -600,6 +685,8 @@ function ecranTrajet(v) {
   v.append(el('p', { class: 'texte' }, L(e.consigne_trajet) || t('rendezVous')));
   v.append(el('canvas', { id: 'carte' }));
   v.append(el('p', { id: 'distance' }), el('p', { id: 'gps', class: 'discret' }));
+  if (DEBUG) v.append(el('p', { id: 'debug-gps' }));
+  v.append(el('div', { id: 'gps-exact', class: 'encart alerte', hidden: true }, t('gpsExact')));
   v.append(bouton(t('arrive'), arrivee, 'second'));
   v.lastChild.id = 'secours';
   v.lastChild.hidden = true;
@@ -616,7 +703,11 @@ function ecranEnigme(v) {
   if (e.photo) v.append(imagePhoto(e.photo));
   if (e.recit) v.append(el('p', { class: 'texte' }, L(e.recit)));
   const textes = [L(e.recit), L(e.question)];
-  v.append(bouton(t('ecouter'), () => parler(textes), 'leger'));
+  const ecoute = bouton(ep.narrateur ? t('ecouterNarrateur', { n: L(ep.narrateur) }) : t('ecouter'), () => {
+    ecoute.classList.remove('clignote');
+    parler(textes);
+  }, 'ecouter');
+  v.append(ecoute);
   if (e.question) v.append(el('p', { class: 'question texte' }, L(e.question)));
 
   const msg = el('div', { class: 'message' });
@@ -653,6 +744,7 @@ function ecranEnigme(v) {
   }
   if (e.question) zoneIndices(v, e);
   parlerAuto(textes);
+  surveillerLecture(ecoute);
 }
 
 function zoneIndices(v, e) {
@@ -764,7 +856,6 @@ async function preparerHorsLigne() {
   if (!window.caches) return;
   const cache = await caches.open(CACHE_MEDIA);
   const urls = [urlEpisode.href, ...listePhotos()];
-  if (ep.intro_video) urls.push(urlIntro(), ...LANGUES.map(urlSousTitres));
   let faits = 0, echecs = [];
   const maj = () => {
     etatHorsLigne = () => faits < urls.length ? t('horsLigne') + ' : ' + faits + '/' + urls.length
@@ -773,13 +864,9 @@ async function preparerHorsLigne() {
     if (n) n.textContent = etatHorsLigne();
   };
   maj();
-  // Laisse le service worker finir son précache, pour ne pas retélécharger la vidéo.
-  if ('serviceWorker' in navigator) {
-    await Promise.race([navigator.serviceWorker.ready, new Promise(ok => setTimeout(ok, 15000))]);
-  }
   for (const u of urls) {
     try {
-      if (u === urlEpisode.href || !(await caches.match(u))) await cache.add(u);
+      if (u === urlEpisode.href || !(await cache.match(u))) await cache.add(u);
     } catch (e) {
       if (!(await cache.match(u))) { echecs.push(u); diagnostics.push('Fichier introuvable : ' + u); }
     }
@@ -804,6 +891,7 @@ function verifierEpisode() {
   };
   trilingue(ep.titre, 'titre');
   trilingue(ep.intro, 'intro');
+  trilingue(ep.narrateur, 'narrateur');
   trilingue(ep.avertissement, 'avertissement');
   ep.etapes.forEach((e, i) => {
     const ou = 'etape ' + (i + 1);
@@ -841,6 +929,7 @@ async function demarrer() {
     majBarre();
   });
   $('b-menu').addEventListener('click', ouvrirMenu);
+  preparerVoix();
   document.addEventListener('click', debloquerVoix, { once: true });
   window.addEventListener('resize', dessinerCarte);
   setInterval(() => {

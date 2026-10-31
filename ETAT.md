@@ -30,7 +30,20 @@
 - Après validation : écrire `scenario/saint-genies/episode.json` complet en FR/EN/ES (textes, voix, indices, réponses).
   Y mettre `"intro_video": "media/intro_saint_genies.mp4"` (ce fichier n'existe pas encore ; le champ n'est que dans `app/demo-episode.json`).
 
+  Mise à jour Claude Code (31/10, sw v3) : mettre plutôt `"intro_video": "media/intro_saint_genies_v2_mobile.mp4"`,
+  et ajouter `"narrateur": {"fr":"Frère Aymeric","en":"Brother Aymeric","es":"Fray Aymeric"}` (texte du grand bouton « ▶ Écouter … »).
+  Ne mettre "rayon_m" que pour une étape qui s'écarte des 10 m par défaut.
+- Recaler les sous-titres sur la vidéo v2 (14,4 s) : à livrer à côté de la vidéo sous le nom `intro_saint_genies_v2_mobile.{fr,en,es}.vtt`,
+  puis Claude Code remet `SOUS_TITRES_INTRO = true` dans `app/app.js`.
+
 ## Prochain pour Claude Code
+- FAIT le 31/10 (sw v3) : `CORRECTIONS_TERRAIN_31-10.md` points 1, 2 et 3 (voir « Corrections terrain » dans le mode d'emploi du moteur).
+  Vérifié sur ordinateur avec positions simulées et en ligne ; RESTE à retester au village sur téléphone.
+- Vidéo d'intro v2 (31/10, 19h40) : Gonzalo a monté sa propre version (1031.mp4, HEVC 2160x2880, 31 Mo, illisible sur Chrome Android).
+  Claude chat l'a convertie : `app/media/intro_saint_genies_v2.mp4` (H.264 1080x1440, 3,1 Mo) et `..._v2_mobile.mp4` (720x960, 1,4 Mo, À UTILISER dans l'app).
+  L'original reste dans app/media/1031.mp4 mais est EXCLU de git (.gitignore) — ne pas le pousser, ne pas le précacher. Si déjà poussé : git rm --cached app/media/1031.mp4. Sous-titres .vtt à recaler sur la v2 (minutage à vérifier).
+  Toujours EN ATTENTE côté app (voir CORRECTIONS point 3).
+- 🔴 PRIORITÉ (31/10 soir, test terrain) : appliquer `CORRECTIONS_TERRAIN_31-10.md` (GPS 10 m, son). Vidéo mise en attente.
 - NOUVEAU (31/10, demandé par Gonzalo) — VIDÉO D'INTRO avant la 1re étape :
   fichier `scenario/intro/intro_saint_genies.mp4` (17,5 s, 1080x1440, ~5 Mo, voix d'Aymeric incluse) — photo réelle → brume →
   templier au loin → templier proche. Fabriquée par `scenario/intro/monter_intro.py`. (`intro_provisoire_photo.mp4` = ancienne, ne pas utiliser.)
@@ -58,10 +71,19 @@ Plus tard : emballage Android (PWABuilder/Bubblewrap) pour Google Play — clé 
   Le chrono démarre après la vidéo. « Revoir l'intro » : menu ☰ de la barre de jeu. Reprise d'une partie : pas de vidéo.
   Si la vidéo ne se charge pas, le jeu passe directement à la 1re étape.
   `scenario/intro/` n'est PAS envoyé sur GitHub (dépôt public) : seule la copie de `app/media/` est en ligne.
+- Corrections terrain (31/10, sw v3) — remplacent ce qui précède quand ça diffère :
+  GPS : rayon 10 m par défaut, déclenchement avec précision <= 15 m et 2 positions fiables consécutives dans le cercle
+  (position lissée : moyenne des 3 dernières de moins de 10 s). Réglages regroupés en haut de `app/app.js`.
+  Bouton « Je suis arrivé » : si proche (<= 25 m) ou distance inconnue, sans position précise depuis 20 s ; aussi GPS refusé ou 3 min de trajet.
+  Conseil « position exacte » si la précision reste > 100 m pendant 15 s. `?debug=1` affiche précision, distance brute, lissée, confirmations.
+  Son : après l'intro, écran « Test du son » ; le chrono part quand on le quitte. Grand bouton « ▶ Écouter … » sur l'énigme, qui clignote si la lecture n'a pas démarré en 1,5 s.
+  Vidéo : `intro_saint_genies_v2_mobile.mp4` (720x960, 14,4 s), hors du service worker, donc réseau NÉCESSAIRE pour la voir (sans réseau : on passe directement au test du son).
+  Sous-titres désactivés (`SOUS_TITRES_INTRO = false`). `1031.mp4` et `intro_saint_genies_v2.mp4` ne sont pas sur GitHub ; l'ancienne `intro_saint_genies.mp4` et ses .vtt y restent, inutilisés.
 
 ## Format de episode.json (schéma d'origine + ajouts, modèle complet : `app/demo-episode.json`)
 { "id":"saint-genies-0", "titre":{fr,en,es}, "intro":{fr,en,es}, "duree_min":75,
-  "intro_video":"media/intro_saint_genies.mp4",   // facultatif : chemin depuis `app/` ; les .fr/.en/.es.vtt à côté, même nom
+  "intro_video":"media/intro_saint_genies_v2_mobile.mp4",   // facultatif : chemin depuis `app/` ; les .fr/.en/.es.vtt à côté, même nom
+  "narrateur":{fr,en,es},                // facultatif : nom sur le bouton « ▶ Écouter … » (rayon_m des étapes : 10 par défaut)
   "avertissement":{fr,en,es},            // facultatif : encadré d'accueil (circulation, respect, part de fiction)
   "codes_equipe":["hash"],               // facultatif : sans ce champ, pas de code demandé (hash djb2-xor du code en majuscules)
   "penalites":{"indice_s":120,"solution_s":300},  // facultatif : ce sont les valeurs par défaut
