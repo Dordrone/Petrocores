@@ -7,7 +7,7 @@
   GPS extraits → `scenario/saint-genies/_travail/gps_photos.json`, planche contact → `_travail/planche.jpg`,
   parcours proposé (8 étapes, GPS, énigmes) → `scenario/saint-genies/parcours-propose.md`.
 - 2026-10-31 : Claude Code : moteur de jeu complet dans `app/` (les 9 points de la liste), testé sur ordinateur
-  avec `app/demo-episode.json` (partie entière, reprise, hors-ligne). PAS encore publié ni testé sur téléphone.
+  avec `app/demo-episode.json` (partie entière, reprise, hors-ligne). Publié le même jour ; PAS encore testé sur téléphone.
 
 ## Décision GitHub (31/10)
 - PAS de deuxième compte GitHub (règle GitHub : 1 seul compte gratuit par personne).
@@ -33,7 +33,8 @@
 - GitHub (31/10) : dépôt public `Dordrone/Petrocores` créé par Gonzalo, code envoyé (branche main).
   Dépôt public = tout y est lisible. `parcours-propose.md` reste hors du dépôt (.gitignore), copie locale seulement.
   À prévoir : `episode.json` contiendra les réponses → les cacher avant le vrai lancement.
-- Après activation de Pages par Gonzalo (Settings → Pages → main, racine) : vérifier en ligne, puis test sur téléphone.
+- 2026-10-31 : Pages actif et vérifié : https://dordrone.github.io/Petrocores/ (démo jouable, hors-ligne prêt, fichiers privés bien absents).
+  Reste : retours de Gonzalo sur le test téléphone (iPhone + Android : GPS réel, voix, installation).
 - Système de licences Sentia (pour l'instant : liste de codes dans l'épisode).
 Plus tard : emballage Android (PWABuilder/Bubblewrap) pour Google Play — clé de signature hors du dépôt.
 
