@@ -20,7 +20,7 @@ const TRAJET_LONG_MS = 180000;    // 3 min sur un trajet (étapes à 50–150 m)
 // Réglages du son et de la vidéo.
 const VOIX_ATTENTE_MS = 1000;     // attente maximale du chargement des voix
 const LECTURE_ATTENTE_MS = 1500;  // lecture automatique pas démarrée → le bouton clignote
-const SOUS_TITRES_INTRO = false;  // à remettre à true quand les .vtt seront recalés sur la vidéo
+const SOUS_TITRES_INTRO = true;   // false coupe les sous-titres si les .vtt ne collent plus à la vidéo
 const PENALITE_INDICE_S = 120;
 const PENALITE_SOLUTION_S = 300;
 const CACHE_MEDIA = 'petrocores-media';

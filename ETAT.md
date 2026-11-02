@@ -37,6 +37,20 @@
   puis Claude Code remet `SOUS_TITRES_INTRO = true` dans `app/app.js`.
 
 ## Prochain pour Claude Code
+- FAIT le 02/11 (sw v5) : intro v4 branchée dans `app/demo-episode.json`, sous-titres réactivés (`SOUS_TITRES_INTRO = true`), .vtt inchangés. Vidéo hors ASSETS et non interceptée.
+  Poussés : le .mp4 v4 et ses 3 .vtt. Non poussés : 1031.mp4, complete.mp4, intro_v3_master.mp4, et v2/v3 restent inutilisés sur le PC.
+  Pour Claude chat : dans `scenario/saint-genies/episode.json`, écrire `"intro_video": "media/intro_saint_genies_v4.mp4"` (remplace les chemins v1/v2 indiqués plus haut et dans le format).
+  RESTE : tester l'intro et les sous-titres sur iPhone et Android.
+- ✅ INTRO OFFICIELLE = v4 (02/11 soir) : montage CapCut de Gonzalo (`scenario/intro/complete.mp4`, 50 Mo, HEVC — hors git) converti par Claude chat
+  → `app/media/intro_saint_genies_v4.mp4` (720x960, 23,2 s, 1,6 Mo, H.264, voix + musique de Gonzalo) + sous-titres calés
+  `intro_saint_genies_v4.{fr,en,es}.vtt` (voix de 10,4 s à 19,6 s). À utiliser dans les episode.json À LA PLACE de v2_mobile/v3,
+  sous-titres réactivés, .mp4 hors ASSETS et non intercepté par le sw, bumper VERSION.
+  ⚠ Musique : Gonzalo doit vérifier la licence du morceau (bibliothèque CapCut) avant publication commerciale / Google Play.
+  Les anciennes intros (v1, v2, v3) ne sont plus utilisées : ne pas les précacher ; ne pas pousser 1031.mp4, complete.mp4, intro_v3_master.mp4.
+- (ancien) INTRO v3 (02/11, faite par Claude chat) : `app/media/intro_saint_genies_v3.mp4` (720x960, 22,6 s, 1,7 Mo,
+  voix Zion Aquila seule, pas de musique) + sous-titres calés `intro_saint_genies_v3.{fr,en,es}.vtt` → remplacer v2_mobile dans les episode.json,
+  réactiver les sous-titres. Même règle : pas dans ASSETS, .mp4 non intercepté par le sw. Bumper VERSION.
+  Master haute qualité (pour CapCut / réseaux) : `scenario/intro/intro_v3_master.mp4` (hors app). Montage : `scenario/intro/monter_intro_v3.py`.
 - FAIT le 31/10 (sw v4) : nouvelle croix fournie par Gonzalo. Croix seule sur fond noir dans `app/icons/icon-*.png` et `apple-touch-icon.png` ; blason complet avec devise (`app/icons/blason.png`) sur l'écran d'accueil.
 - FAIT le 31/10 (sw v3) : `CORRECTIONS_TERRAIN_31-10.md` points 1, 2 et 3 (voir « Corrections terrain » dans le mode d'emploi du moteur).
   Vérifié sur ordinateur avec positions simulées et en ligne ; RESTE à retester au village sur téléphone.

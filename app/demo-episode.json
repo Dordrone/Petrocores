@@ -12,7 +12,7 @@
     "es": "Demo: el código de acceso es DEMO. En el juego real, cuidado con el tráfico."
   },
   "duree_min": 10,
-  "intro_video": "media/intro_saint_genies_v2_mobile.mp4",
+  "intro_video": "media/intro_saint_genies_v4.mp4",
   "narrateur": { "fr": "Frère Aymeric", "en": "Brother Aymeric", "es": "Fray Aymeric" },
   "photos_dossier": "../scenario/saint-genies/photos/",
   "codes_equipe": ["yjk3xi"],
