@@ -67,6 +67,14 @@ p { margin: 0 0 12px; }
 .clignote { animation: clignote 1s infinite; }
 @keyframes clignote { 50% { opacity: .35; } }
 .bouton:disabled { opacity: .5; }
+a.bouton { display: flex; align-items: center; justify-content: center; text-align: center; text-decoration: none; }
+.bouton.retour { display: inline-flex; width: auto; min-height: 40px; margin: 0; padding: 6px 14px; }
+.bouton.village { min-height: 64px; font-size: 22px; }
+.bouton.bientot { background: var(--carte); color: var(--gris); border: 2px dashed var(--trait); }
+.bouton.bientot:disabled { opacity: 1; cursor: default; }
+.mention { display: block; font-size: 14px; font-weight: normal; }
+.centre { text-align: center; }
+#distance.village { font-size: 26px; }
 .ligne { display: flex; gap: 8px; }
 .ligne > * { flex: 1; }
 .langue { min-height: 44px; background: var(--carte); border: 2px solid var(--trait); border-radius: 8px; cursor: pointer; }

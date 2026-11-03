@@ -1,6 +1,7 @@
 'use strict';
 // Moteur de jeu Pétrocores. Aucun texte de scénario ici : tout vient de l'episode.json.
-// ?episode=saint-genies lit ../scenario/saint-genies/episode.json ; sans paramètre : demo-episode.json.
+// Sans paramètre : accueil, un bouton par village (villages.json).
+// ?episode=saint-genies lit ../scenario/saint-genies/episode.json ; ?episode=demo : demo-episode.json.
 // ?debug=1 affiche les erreurs de l'épisode et le bouton « je suis arrivé » en permanence.
 
 const LANGUES = ['fr', 'en', 'es'];
@@ -58,10 +59,6 @@ const UI = {
   arrive: { fr: 'Je suis arrivé', en: 'I have arrived', es: 'He llegado' },
   ecouter: { fr: '🔊 Écouter', en: '🔊 Listen', es: '🔊 Escuchar' },
   ecouterNarrateur: { fr: '▶ Écouter {n}', en: '▶ Listen to {n}', es: '▶ Escuchar a {n}' },
-  testSon: { fr: 'Test du son', en: 'Sound check', es: 'Prueba de sonido' },
-  testerSon: { fr: '▶ Tester le son', en: '▶ Test the sound', es: '▶ Probar el sonido' },
-  phraseTest: { fr: "Si vous m'entendez, tout est prêt.", en: 'If you can hear me, everything is ready.', es: 'Si me oye, todo está listo.' },
-  rappelSon: { fr: "Vous n'entendez rien ? Désactivez le mode silencieux de l'iPhone et montez le volume.", en: "Can't hear anything? Turn off silent mode on your iPhone and turn up the volume.", es: '¿No oye nada? Desactive el modo silencio del iPhone y suba el volumen.' },
   votreReponse: { fr: 'Votre réponse', en: 'Your answer', es: 'Su respuesta' },
   valider: { fr: 'Valider', en: 'Submit', es: 'Validar' },
   trouve: { fr: 'Trouvé !', en: 'Found it!', es: '¡Encontrado!' },
@@ -85,13 +82,27 @@ const UI = {
   passer: { fr: 'Passer', en: 'Skip', es: 'Saltar' },
   revoirIntro: { fr: "Revoir l'intro", en: 'Watch the intro again', es: 'Volver a ver la intro' },
   fermer: { fr: 'Fermer', en: 'Close', es: 'Cerrar' },
+  erreurVillages: { fr: 'Impossible de charger la liste des villages. Vérifiez votre connexion.', en: 'Could not load the list of villages. Check your connection.', es: 'No se pudo cargar la lista de pueblos. Compruebe su conexión.' },
+  episodeAbsent: { fr: "Ce village n'est pas encore prêt. Revenez bientôt !", en: 'This village is not ready yet. Come back soon!', es: 'Este pueblo aún no está listo. ¡Vuelva pronto!' },
+  choisirVillage: { fr: 'Choisissez votre village', en: 'Choose your village', es: 'Elija su pueblo' },
+  bientot: { fr: 'Bientôt', en: 'Coming soon', es: 'Próximamente' },
+  retourVillages: { fr: '← Villages', en: '← Villages', es: '← Pueblos' },
+  demo: { fr: 'Démo (test)', en: 'Demo (test)', es: 'Demo (prueba)' },
+  vousEtesA: { fr: 'Vous êtes à {d}', en: 'You are {d} away', es: 'Está a {d}' },
+  activerLocalisation: { fr: 'Activez la localisation pour voir la distance.', en: 'Turn on location to see the distance.', es: 'Active la ubicación para ver la distancia.' },
+  rendezVousLieu: { fr: 'Rendez-vous : {l}', en: 'Meeting point: {l}', es: 'Punto de encuentro: {l}' },
+  arriveParking: { fr: '✓ Vous êtes arrivés : {l}. Touchez « Commencer ».', en: '✓ You have arrived: {l}. Tap “Start”.', es: '✓ Ha llegado: {l}. Toque «Empezar».' },
+  itineraire: { fr: '🧭 Itinéraire', en: '🧭 Directions', es: '🧭 Cómo llegar' },
+  ouvrirAvec: { fr: 'Ouvrir avec :', en: 'Open with:', es: 'Abrir con:' },
+  plansApple: { fr: 'Plans (Apple)', en: 'Apple Maps', es: 'Mapas (Apple)' },
 };
 
 const DEBUG = new URLSearchParams(location.search).get('debug') === '1';
 const $ = id => document.getElementById(id);
 
 let langue = 'fr';
-let ep = null;          // épisode chargé
+let ep = null;          // épisode chargé (null sur l'accueil des villages)
+let slugEpisode = null;
 let urlEpisode = null;
 let urlPhotos = null;
 let S = null;           // état de la partie (sauvegardé)
@@ -219,6 +230,7 @@ function terminer() {
   S.fin = Date.now();
   S.phase = 'fin';
   sauver();
+  effacer('petrocores_en_cours');
   arreterEveil();
   afficher();
 }
@@ -560,6 +572,7 @@ function imagePhoto(nom) {
 
 // ---------- Écrans ----------
 function afficher() {
+  if (!ep) { afficherVillages(); return; }
   const v = $('vue');
   arreterVoix();
   const enJeu = S && S.phase && S.phase !== 'fin' && afficher.jeu;
@@ -568,7 +581,7 @@ function afficher() {
   if (S && S.phase === 'trajet' && enJeu) demarrerGps(); else arreterGps();
   v.replaceChildren();
   if (!afficher.jeu) ecranAccueil(v);
-  else if (S.phase === 'son') ecranSon(v);
+  else if (S.phase === 'son') { S.debut = Date.now(); entrerEtape(0); }  // ancien écran « Test du son »
   else if (S.phase === 'variante') ecranVariante(v);
   else if (S.phase === 'trajet') ecranTrajet(v);
   else if (S.phase === 'enigme' || S.phase === 'final') ecranEnigme(v);
@@ -602,6 +615,7 @@ function nouvelEtat(equipe) {
   return { equipe, debut: Date.now(), fin: null, penalite: 0, idx: 0, phase: null, voix: true, variantes: {}, indices: {}, solutions: {}, fragments: {} };
 }
 function lancerPartie() {
+  ecrire('petrocores_en_cours', { slug: slugEpisode, titre: ep.titre });
   debloquerVoix();
   demanderEveil();
   afficher.jeu = true;
@@ -609,6 +623,7 @@ function lancerPartie() {
 
 function ecranAccueil(v) {
   v.append(
+    el('a', { class: 'bouton leger retour', href: lienPage() }, t('retourVillages')),
     el('img', { class: 'cachet', src: 'icons/blason.png', alt: '' }),
     el('h1', {}, L(ep.titre)),
     choixLangue(),
@@ -626,6 +641,7 @@ function ecranAccueil(v) {
     }));
     v.append(bouton(t('nouvelle'), () => confirmer(t('nouvelleConfirme'), () => {
       effacer(cleSauvegarde());
+      effacer('petrocores_en_cours');
       S = null;
       afficher();
     }), 'second'));
@@ -644,10 +660,10 @@ function ecranAccueil(v) {
       }
       S = nouvelEtat(equipe);
       lancerPartie();
+      // Le son est débloqué par le toucher « Touchez pour commencer » de la vidéo : pas d'écran de test.
       const suite = () => {
-        S.phase = 'son';
-        sauver();
-        afficher();
+        S.debut = Date.now();   // le chrono part après l'intro
+        entrerEtape(0);
       };
       if (ep.intro_video) jouerIntro(suite); else suite();
     }));
@@ -656,16 +672,6 @@ function ecranAccueil(v) {
   else v.append(el('p', { class: 'discret', id: 'horsligne' }));
   ajouterBoutonInstaller(v);
   if (DEBUG && diagnostics.length) v.append(el('div', { id: 'diagnostic' }, diagnostics.join('\n')));
-}
-
-function ecranSon(v) {
-  v.append(el('h2', {}, t('testSon')));
-  v.append(bouton(t('testerSon'), () => parler([t('phraseTest')]), 'ecouter'));
-  v.append(el('p', { class: 'encart' }, t('rappelSon')));
-  v.append(bouton(t('continuer'), () => {
-    S.debut = Date.now();   // le chrono part ici, après l'intro et le test du son
-    entrerEtape(0);
-  }));
 }
 
 function ecranVariante(v) {
@@ -817,11 +823,153 @@ function ecranFin(v) {
   v.append(bouton(t('ecouter'), () => parler(textes), 'leger'));
   v.append(bouton(t('nouvelle'), () => confirmer(t('nouvelleConfirme'), () => {
     effacer(cleSauvegarde());
+    effacer('petrocores_en_cours');
     S = null;
     afficher.jeu = false;
     afficher();
   }), 'second'));
   parlerAuto(textes);
+}
+
+// ---------- Accueil : un bouton par village (villages.json), distance au parking, itinéraire ----------
+const RAYON_PARKING = 25;   // m : si villages.json ne donne pas "rayon_m" pour le point d'arrivée
+let villages = [], villageOuvert = null;
+let idWatchVillage = null, posVillage = null, gpsVillageErreur = false, confirmVillage = 0, arriveVillage = false;
+
+function lienPage(slug) {
+  const p = new URLSearchParams();
+  if (slug) p.set('episode', slug);
+  if (DEBUG) p.set('debug', '1');
+  return 'index.html' + (p.toString() ? '?' + p : '');
+}
+function texteDistance(m) {
+  if (m < 1000) return (m < 100 ? Math.round(m) : Math.round(m / 10) * 10) + ' m';
+  const dec = m < 100000 ? 1 : 0;
+  return (m / 1000).toLocaleString(VOIX_LANG[langue], { minimumFractionDigits: dec, maximumFractionDigits: dec }) + ' km';
+}
+function afficherVillages() {
+  const v = $('vue');
+  document.documentElement.lang = langue;
+  $('barre').hidden = true;
+  v.replaceChildren();
+  if (villageOuvert) ecranVillage(v, villageOuvert); else ecranVillages(v);
+  window.scrollTo(0, 0);
+}
+function ecranVillages(v) {
+  v.append(el('img', { class: 'cachet', src: 'icons/blason.png', alt: '' }), choixLangue(),
+    el('h1', { class: 'centre' }, t('choisirVillage')));
+  const enCours = lire('petrocores_en_cours');
+  if (enCours && enCours.slug) v.append(el('a', { class: 'bouton', href: lienPage(enCours.slug) }, t('reprendre') + ' · ' + L(enCours.titre)));
+  for (const x of villages) {
+    const ouvert = x.statut === 'ouvert';
+    v.append(el('button', { type: 'button', class: 'bouton village' + (ouvert ? '' : ' bientot'), disabled: !ouvert, onclick: () => ouvrirVillage(x) },
+      L(x.nom), ouvert ? null : el('span', { class: 'mention' }, t('bientot'))));
+  }
+  if (DEBUG) v.append(el('a', { class: 'bouton leger', href: lienPage('demo') }, t('demo')));
+  ajouterBoutonInstaller(v);
+}
+function ouvrirVillage(x) {
+  villageOuvert = x;
+  history.pushState({ village: x.id }, '');   // le bouton retour Android revient à la liste
+  afficherVillages();
+  demarrerGpsVillage();
+}
+function fermerVillage() {
+  arreterGpsVillage();
+  villageOuvert = null;
+  afficherVillages();
+}
+window.addEventListener('popstate', ev => {
+  if (!ep && villageOuvert && !(ev.state && ev.state.village)) fermerVillage();
+});
+function ecranVillage(v, x) {
+  const a = x.arrivee;
+  v.append(bouton(t('retourVillages'), () => history.back(), 'leger retour'), el('h1', {}, L(x.nom)));
+  if (a) {
+    v.append(el('p', { id: 'distance', class: 'village' }), el('p', { id: 'gps', class: 'discret' }));
+    if (DEBUG) v.append(el('p', { id: 'debug-gps' }));
+    v.append(el('div', { id: 'arrive-parking', class: 'encart', hidden: true }, t('arriveParking', { l: L(a.label) })));
+    if (a.label) v.append(el('p', {}, t('rendezVousLieu', { l: L(a.label) })));
+  }
+  if (x.duree_min) v.append(el('p', { class: 'discret' }, t('duree') + ' : ' + x.duree_min + ' ' + t('min')));
+  if (a) v.append(bouton(t('itineraire'), () => ouvrirItineraire(a), 'second'));
+  if (x.statut === 'ouvert' && x.episode) v.append(el('a', { class: 'bouton', href: lienPage(x.episode) }, t('commencer')));
+  majVillage();
+}
+function ouvrirItineraire(a) {
+  const ll = a.lat + ',' + a.lon;
+  const applis = [
+    ['Google Maps', 'https://www.google.com/maps/dir/?api=1&destination=' + ll + '&travelmode=driving'],
+    [t('plansApple'), 'https://maps.apple.com/?daddr=' + ll + '&dirflg=d'],
+    ['Waze', 'https://waze.com/ul?ll=' + ll + '&navigate=yes']
+  ];
+  if (/iphone|ipad|ipod/i.test(navigator.userAgent)) applis.unshift(applis.splice(1, 1)[0]);
+  ouvrirCouche(el('div', { class: 'cadre' },
+    el('p', {}, t('ouvrirAvec')),
+    ...applis.map(([nom, url]) => el('a', { class: 'bouton second', href: url, target: '_blank', rel: 'noopener' }, nom)),
+    bouton(t('fermer'), fermerCouche, 'leger')));
+}
+function demarrerGpsVillage() {
+  posVillage = null;
+  gpsVillageErreur = false;
+  confirmVillage = 0;
+  arriveVillage = false;
+  if (!navigator.geolocation) { gpsVillageErreur = true; majVillage(); return; }
+  if (idWatchVillage !== null) return;
+  idWatchVillage = navigator.geolocation.watchPosition(
+    p => surPositionVillage({ lat: p.coords.latitude, lon: p.coords.longitude, acc: p.coords.accuracy, ts: p.timestamp }),
+    err => { if (err.code === 1) { gpsVillageErreur = true; majVillage(); } },
+    { enableHighAccuracy: true, maximumAge: 0, timeout: 20000 }
+  );
+}
+function arreterGpsVillage() {
+  if (idWatchVillage !== null) navigator.geolocation.clearWatch(idWatchVillage);
+  idWatchVillage = null;
+}
+function surPositionVillage(p) {
+  if (p.ts === undefined) p.ts = Date.now();
+  const nouvelle = !posVillage || p.ts !== posVillage.ts;
+  posVillage = p;
+  gpsVillageErreur = false;
+  const a = villageOuvert && villageOuvert.arrivee;
+  if (a && nouvelle && p.acc <= ACCURACY_DECLENCHE) {
+    confirmVillage = distanceM(p, a) <= (a.rayon_m || RAYON_PARKING) ? confirmVillage + 1 : 0;
+    if (confirmVillage >= CONFIRMATIONS && !arriveVillage) {
+      arriveVillage = true;
+      if (navigator.vibrate) navigator.vibrate([120, 60, 120]);
+    }
+  }
+  majVillage();
+}
+function majVillage() {
+  const a = villageOuvert && villageOuvert.arrivee;
+  if (!a || !$('distance')) return;
+  const p = posVillage;
+  const brute = p ? distanceM(p, a) : null;
+  // Loin du parking, une position imprécise suffit : ± 300 m ne change rien à « 12,4 km ».
+  const utilisable = p && (p.acc <= ACCURACY_MAX || p.acc * 10 <= brute);
+  const approx = p && p.acc > ACCURACY_DECLENCHE && brute < 1000;
+  $('distance').textContent = gpsVillageErreur ? '' : utilisable ? t('vousEtesA', { d: (approx ? '≈ ' : '') + texteDistance(brute) }) : '… m';
+  $('gps').textContent = gpsVillageErreur ? t('activerLocalisation')
+    : !p ? t('gpsAttente')
+    : t(p.acc <= ACCURACY_DECLENCHE ? 'gpsOk' : 'gpsFaible', { n: Math.round(p.acc) });
+  $('arrive-parking').hidden = !arriveVillage;
+  if (DEBUG) {
+    $('debug-gps').textContent = 'acc ' + (p ? p.acc.toFixed(1) + ' m' : '-') + ' | brute ' + (p ? brute.toFixed(1) + ' m' : '-')
+      + ' | conf ' + confirmVillage + '/' + CONFIRMATIONS + ' | rayon ' + (a.rayon_m || RAYON_PARKING) + ' m';
+  }
+}
+async function demarrerVillages() {
+  try {
+    const r = await fetch('villages.json');
+    if (!r.ok) throw new Error(r.status);
+    villages = (await r.json()).villages || [];
+  } catch (e) {
+    $('vue').replaceChildren(el('p', {}, t('erreurVillages')));
+    return;
+  }
+  afficherVillages();
+  if (DEBUG) window.PETRO = { surPositionVillage };
 }
 
 // ---------- Installation ----------
@@ -940,14 +1088,16 @@ async function demarrer() {
   if ('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catch(() => {});
 
   const slug = params.get('episode');
-  const chemin = slug && /^[a-z0-9-]+$/.test(slug) ? '../scenario/' + slug + '/episode.json' : 'demo-episode.json';
-  urlEpisode = new URL(chemin, location.href);
+  if (!slug || !/^[a-z0-9-]+$/.test(slug)) { demarrerVillages(); return; }
+  slugEpisode = slug;
+  urlEpisode = new URL(slug === 'demo' ? 'demo-episode.json' : '../scenario/' + slug + '/episode.json', location.href);
   try {
     const r = await fetch(urlEpisode);
     if (!r.ok) throw new Error(r.status);
     ep = await r.json();
   } catch (e) {
-    $('vue').replaceChildren(el('p', {}, t('erreurEpisode')));
+    $('vue').replaceChildren(el('p', {}, t(String(e.message) === '404' ? 'episodeAbsent' : 'erreurEpisode')),
+      el('a', { class: 'bouton second', href: lienPage() }, t('retourVillages')));
     return;
   }
   urlPhotos = new URL(ep.photos_dossier || 'photos/', urlEpisode);

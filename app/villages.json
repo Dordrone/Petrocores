@@ -1,0 +1,23 @@
+{
+  "_note": "Liste des villages de l'écran d'accueil. Ajouter un village = ajouter un bloc. 'arrivee' = parking où les joueurs se garent (cible de l'itinéraire).",
+  "villages": [
+    {
+      "id": "saint-genies",
+      "nom": { "fr": "Saint-Geniès", "en": "Saint-Geniès", "es": "Saint-Geniès" },
+      "statut": "ouvert",
+      "episode": "saint-genies",
+      "arrivee": { "lat": 44.994108, "lon": 1.253759, "rayon_m": 25,
+                   "label": { "fr": "Parking du lavoir", "en": "Wash-house car park", "es": "Aparcamiento del lavadero" } },
+      "duree_min": 45
+    },
+    {
+      "id": "sarlat",
+      "nom": { "fr": "Sarlat", "en": "Sarlat", "es": "Sarlat" },
+      "statut": "bientot",
+      "episode": null,
+      "arrivee": { "lat": 44.8890, "lon": 1.2167, "rayon_m": 25,
+                   "label": { "fr": "Sarlat (point provisoire)", "en": "Sarlat (provisional point)", "es": "Sarlat (punto provisional)" } },
+      "_a_faire": "Coordonnées PROVISOIRES (centre de Sarlat) : Gonzalo doit donner le vrai parking."
+    }
+  ]
+}

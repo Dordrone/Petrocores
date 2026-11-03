@@ -17,6 +17,27 @@
 - Plus tard : domaine perso possible (ex. jeu.dordrone.fr, CNAME chez OVH).
 - Vérifier le déploiement Pages après chaque push (échecs silencieux fréquents, cf. méthode Sentia).
 
+## Saint-Geniès — base de travail (02/11)
+- Textes COMPLETS des panneaux « Balade patrimoine » : `scenario/saint-genies/panneaux.md` (seule source de faits pour les énigmes).
+- Photos renommées par Gonzalo → copies web `scenario/saint-genies/photos/sg_<nom>.jpg` (ex. sg_l_eglise_init.jpg) ; correspondance anciens numéros/GPS :
+  `scenario/saint-genies/_travail/correspondance_photos.json`. Les anciens sg_00XX.jpg restent (utilisés par la démo).
+- Départ : PARKING DU LAVOIR, GPS 44.994108, 1.253759 (point donné par Gonzalo le 03/11, centre du parking ; ancien point photo « Le Lavoir (1) » : 44.993917, 1.254025) ; grand parking ~300 m² autour du point → rayon_m 25 pour ce point (exception à la règle des 10 m) = point d'ARRIVÉE/accueil seulement (intro vidéo, consignes, trajet guidé).
+  DÉBUT DU JEU = panneau de l'église, GPS 44.994094, 1.250122, rayon 10 m — POINT DE DÉPART COMMUN À TOUTES LES ÉQUIPES
+  (décision Gonzalo 03/11) : la vidéo d'intro (identique pour tous) se joue ICI ; ensuite chaque équipe part vers un point différent
+  (rotation de la boucle). Les énigmes de l'église deviennent une station de la boucle (pour éviter que tout le monde reste à l'église).
+  Chaque piste aura AUSSI sa propre vidéo (Frère Aymeric) → champ "video" par étape dans episode.json (même règles que l'intro). Étape 1 = l'église → `scenario/saint-genies/etape1_eglise.md`.
+- Blason Salignac réel = cour du château (souvent fermée) → jamais comme lieu à trouver. Modillons : pas de comptage, photo-repère.
+- À FAIRE plus tard : allonger les parcours pour ~45 min de jeu.
+- PISTE 0 au panneau de l'église (Gonzalo 03/11, soir) : vidéo intro + 1re énigme SUR LE PANNEAU (clocher 15e, clapet Salignac) pour tous,
+  puis l'app donne à chaque équipe sa prochaine destination. Les énigmes intérieur/chevet vont dans la station M. Détail : scenario/saint-genies/etape1_eglise.md (v3).
+- STATIONS (Gonzalo 03/11) : P parking (arrivée) → E église (départ commun + intro) → D abbé Delprat (totem salle des fêtes 44.993722,1.250558)
+  → M modillons (chevet, GPS approx 44.99412,1.25048 à relever) → F école de filles (totem « Les écoles » 44.994792,1.251058) → T trésor (lieu à choisir).
+  Parcours (onglet « Parcours » de Petrocores_Saint-Genies_Etape1.xlsx) : A = E-D-M-F-T ; B = E-M-F-D-T ; C = E-F-D-M-T. Une vidéo Aymeric par station.
+- IDÉE GONZALO (03/11) — plusieurs groupes le même jour : chaque équipe fait les étapes dans un ORDRE DIFFÉRENT (rotations d'une boucle),
+  pour ne pas se marcher dessus ; tous finissent au même point final où se trouve un trésor physique (cartes trésor) caché par Gonzalo,
+  ouvert seulement si toutes les pistes sont résolues. Spéc moteur à venir (Claude chat) : "parcours" = liste d'ordres possibles,
+  ordre attribué par équipe (code d'équipe ou n° de départ), étape finale commune et verrouillée tant que tous les fragments ne sont pas trouvés.
+
 ## En attente de Gonzalo
 - (fait) Voix choisie le 31/10 : voix IA « essai 3 » baissée de 3 demi-tons, SANS écho → `scenario/voix-reference/aymeric_reference.mp3`.
 - Valider/corriger `parcours-propose.md` (ordre, énigmes) ; compter sur place les croix de Saint-André (étape 5) ;
@@ -37,6 +58,18 @@
   puis Claude Code remet `SOUS_TITRES_INTRO = true` dans `app/app.js`.
 
 ## Prochain pour Claude Code
+- FAIT le 03/11 (sw v6) : `CONSIGNES_ACCUEIL_03-11.md` points 1 et 2.
+  Accueil = `app/index.html` sans paramètre : blason, langue, un bouton par village de `app/villages.json` (« bientot » = grisé + « Bientôt »).
+  Fiche village : distance en direct au point "arrivee" (affichée de loin même si le GPS est imprécis, « ≈ » sous 1 km si précision > 15 m),
+  « Activez la localisation… » si GPS refusé, message « Vous êtes arrivés » à moins de rayon_m (25 m par défaut) après 2 positions précises,
+  « 🧭 Itinéraire » → Google Maps / Plans / Waze (Plans en premier sur iPhone), durée, puis « Commencer » → `index.html?episode=<episode>`.
+  « ← Villages » sur la fiche et sur l'écran d'équipe ; le bouton retour Android revient à la liste. Partie en cours → bouton « Reprendre » sur la liste.
+  Démo désormais à `index.html?episode=demo` (bouton « Démo (test) » visible seulement avec ?debug=1).
+  Test du son supprimé : vidéo → 1re étape directement, chrono lancé à la fin de la vidéo. villages.json ajouté au précache.
+  ⚠ Pour Claude chat : `scenario/saint-genies/episode.json` n'existe pas encore → « Commencer » sur Saint-Geniès affiche « Ce village n'est pas encore prêt ».
+  ⚠ Pour Claude chat : l'intro se joue encore juste après « Commencer » (au parking). Pour la jouer au panneau de l'église (décision du 03/11),
+  il faudra un champ "video" par étape (prévu au point 3 des consignes) : à spécifier, puis Claude Code l'ajoute au moteur.
+- 🔴 NOUVEAU (03/11) : appliquer `CONSIGNES_ACCUEIL_03-11.md` (accueil villages + distance + itinéraire Maps/Plans/Waze, `app/villages.json` ; suppression de l'écran test du son).
 - FAIT le 02/11 (sw v5) : intro v4 branchée dans `app/demo-episode.json`, sous-titres réactivés (`SOUS_TITRES_INTRO = true`), .vtt inchangés. Vidéo hors ASSETS et non interceptée.
   Poussés : le .mp4 v4 et ses 3 .vtt. Non poussés : 1031.mp4, complete.mp4, intro_v3_master.mp4, et v2/v3 restent inutilisés sur le PC.
   Pour Claude chat : dans `scenario/saint-genies/episode.json`, écrire `"intro_video": "media/intro_saint_genies_v4.mp4"` (remplace les chemins v1/v2 indiqués plus haut et dans le format).
