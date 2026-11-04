@@ -21,7 +21,12 @@ const TRAJET_LONG_MS = 180000;    // 3 min sur un trajet (étapes à 50–150 m)
 // Réglages du son et de la vidéo.
 const VOIX_ATTENTE_MS = 1000;     // attente maximale du chargement des voix
 const LECTURE_ATTENTE_MS = 1500;  // lecture automatique pas démarrée → le bouton clignote
-const SOUS_TITRES_INTRO = true;   // false coupe les sous-titres si les .vtt ne collent plus à la vidéo
+const SOUS_TITRES_VIDEOS = true;  // false coupe les sous-titres si les .vtt ne collent plus aux vidéos
+// Panneau de la vidéo de bienvenue : le joueur doit voir le même décor que la vidéo.
+const RAYON_BIENVENUE = 5;        // m, si "bienvenue_lieu" ne donne pas "rayon_m"
+const ACCURACY_BIENVENUE = 8;     // m, si "bienvenue_lieu" ne donne pas "precision_m"
+const SECOURS_PANNEAU_M = 15;     // à moins de 15 m…
+const SECOURS_PANNEAU_MS = 15000; // …depuis 15 s sans déclenchement → « Je suis devant le panneau »
 const PENALITE_INDICE_S = 120;
 const PENALITE_SOLUTION_S = 300;
 const CACHE_MEDIA = 'petrocores-media';
@@ -70,7 +75,6 @@ const UI = {
   etaitReponse: { fr: 'La réponse était : {r}', en: 'The answer was: {r}', es: 'La respuesta era: {r}' },
   bravo: { fr: 'Bien joué !', en: 'Well done!', es: '¡Bien hecho!' },
   fragment: { fr: 'Fragment obtenu', en: 'Fragment found', es: 'Fragmento obtenido' },
-  fragments: { fr: 'Vos fragments', en: 'Your fragments', es: 'Sus fragmentos' },
   suivante: { fr: 'Étape suivante', en: 'Next step', es: 'Siguiente etapa' },
   versFinale: { fr: "Vers l'énigme finale", en: 'On to the final riddle', es: 'Hacia el enigma final' },
   terminer: { fr: 'Terminer', en: 'Finish', es: 'Terminar' },
@@ -95,6 +99,19 @@ const UI = {
   itineraire: { fr: '🧭 Itinéraire', en: '🧭 Directions', es: '🧭 Cómo llegar' },
   ouvrirAvec: { fr: 'Ouvrir avec :', en: 'Open with:', es: 'Abrir con:' },
   plansApple: { fr: 'Plans (Apple)', en: 'Apple Maps', es: 'Mapas (Apple)' },
+  bienvenue: { fr: 'Bienvenue', en: 'Welcome', es: 'Bienvenida' },
+  suivezMoi: { fr: "Bienvenue ! Suivez-moi jusqu'au point rouge.", en: 'Welcome! Follow me to the red dot.', es: '¡Bienvenidos! Síganme hasta el punto rojo.' },
+  devantPanneau: { fr: 'Je suis devant le panneau', en: 'I am in front of the sign', es: 'Estoy delante del panel' },
+  revoirBienvenue: { fr: 'Revoir la bienvenue', en: 'Watch the welcome again', es: 'Volver a ver la bienvenida' },
+  revoirVideo: { fr: 'Revoir : {n}', en: 'Watch again: {n}', es: 'Volver a ver: {n}' },
+  parcours: { fr: 'Parcours {n}', en: 'Route {n}', es: 'Recorrido {n}' },
+  choisirParcours: { fr: "Votre parcours (donné par l'organisateur)", en: 'Your route (given by the organiser)', es: 'Su recorrido (indicado por el organizador)' },
+  parcoursVide: { fr: 'Choisissez votre parcours.', en: 'Choose your route.', es: 'Elija su recorrido.' },
+  prochaine: { fr: 'Prochaine destination : {n}', en: 'Next destination: {n}', es: 'Próximo destino: {n}' },
+  carnet: { fr: '📜 Carnet', en: '📜 Notebook', es: '📜 Cuaderno' },
+  fragmentsTrouves: { fr: 'Fragments trouvés : {n}/{t}', en: 'Fragments found: {n}/{t}', es: 'Fragmentos encontrados: {n}/{t}' },
+  manqueUn: { fr: 'Il vous manque 1 fragment.', en: 'You are missing 1 fragment.', es: 'Le falta 1 fragmento.' },
+  manquent: { fr: 'Il vous manque {n} fragments.', en: 'You are missing {n} fragments.', es: 'Le faltan {n} fragmentos.' },
 };
 
 const DEBUG = new URLSearchParams(location.search).get('debug') === '1';
@@ -197,6 +214,29 @@ function etapeCourante() {
 }
 function cleEtape() { return S.phase === 'final' ? 'final' : String(S.idx); }
 
+// Ordre des étapes de l'équipe (indices dans ep.etapes) : "depart" commun, puis les "stations" de son "parcours".
+// Sans "parcours" dans l'épisode : toutes les étapes dans l'ordre du fichier.
+function indexEtape(id) { return ep.etapes.findIndex(e => String(e.id) === String(id)); }
+function calculerOrdre(choix) {
+  if (!ep.parcours) return ep.etapes.map((_, i) => i);
+  const stations = ep.stations || {};
+  const ids = (ep.depart || []).concat(...(ep.parcours[choix] || []).map(s => stations[s] || []));
+  return ids.map(indexEtape).filter(i => i >= 0);
+}
+// Sauvegardes d'avant les parcours : ordre linéaire.
+function completerEtat() {
+  if (!S.ordre) { S.ordre = ep.etapes.map((_, i) => i); S.rang = S.idx; }
+  if (!S.vues) S.vues = [];
+}
+
+function commencerJeu() {
+  S.debut = Date.now();   // le chrono part au début du jeu, après la bienvenue
+  entrerRang(0);
+}
+function entrerRang(r) {
+  S.rang = r;
+  entrerEtape(S.ordre[r]);
+}
 function entrerEtape(i) {
   S.idx = i;
   const base = ep.etapes[i];
@@ -208,16 +248,36 @@ function entrerEtape(i) {
 }
 function apresVariante() {
   const e = resoudre(S.idx);
-  const parGps = e.deverrouillage !== 'reponse' && aDesCoordonnees(e);
-  S.phase = parGps ? 'trajet' : 'enigme';
+  if (e.deverrouillage !== 'reponse' && aDesCoordonnees(e)) { S.phase = 'trajet'; sauver(); afficher(); }
+  else ouvrirEnigme();
+}
+// Vidéo de l'étape : champ "video", ou "intro_video" pour la 1re étape de l'équipe.
+function videoEtape(i) {
+  const e = resoudre(i);
+  return e.video || (i === S.ordre[0] && ep.intro_video) || null;
+}
+// À l'arrivée sur une étape : sa vidéo (une seule fois), puis le récit et la question.
+function ouvrirEnigme() {
+  S.phase = 'enigme';
+  const video = videoEtape(S.idx);
+  const nouvelle = video && !S.vues.includes(video);
+  if (nouvelle) S.vues.push(video);
   sauver();
-  afficher();
+  if (nouvelle) jouerVideo(video, afficher); else afficher();
 }
 function etapeSuivante() {
-  if (S.idx + 1 < ep.etapes.length) entrerEtape(S.idx + 1);
+  if (S.rang + 1 < S.ordre.length) entrerRang(S.rang + 1);
   else if (ep.final) { S.phase = 'final'; sauver(); afficher(); }
   else terminer();
 }
+
+// ---------- Fragments : une case par fragment du parcours, rangée selon "position" ----------
+function casesFragments() {
+  const cases = S.ordre.map(i => ({ i, e: resoudre(i) })).filter(x => x.e.fragment !== undefined && x.e.fragment !== null);
+  cases.sort((a, b) => (a.e.position || 99) - (b.e.position || 99));
+  return cases.map(x => S.fragments[x.i]);   // undefined : pas encore trouvé
+}
+function fragmentsManquants() { return casesFragments().filter(f => f === undefined).length; }
 function reussir() {
   if (S.phase === 'final') { terminer(); return; }
   const e = resoudre(S.idx);
@@ -254,7 +314,18 @@ function texteSolution(e) {
 
 // ---------- GPS ----------
 let idWatch = null, pos = null, gpsErreur = null, dernierFixBon = 0, debutTrajet = 0;
-let fixes = [], lisse = null, confirmations = 0, imprecisDepuis = 0;
+let fixes = [], lisse = null, confirmations = 0, imprecisDepuis = 0, presDepuis = 0;
+
+function enTrajet() { return !!S && (S.phase === 'trajet' || S.phase === 'bienvenue'); }
+// Lieu visé : l'étape en cours, ou le panneau de la vidéo de bienvenue (rayon et précision plus stricts).
+function cible() {
+  if (S.phase !== 'bienvenue') return resoudre(S.idx);
+  const b = ep.bienvenue_lieu;
+  return Object.assign({ nom: UI.bienvenue, consigne_trajet: UI.suivezMoi }, b, {
+    rayon_m: b.rayon_m || RAYON_BIENVENUE, precision_m: b.precision_m || ACCURACY_BIENVENUE, panneau: true
+  });
+}
+function precisionVoulue(c) { return c.precision_m || ACCURACY_DECLENCHE; }
 
 function distanceM(a, b) {
   const R = 6371000, rad = Math.PI / 180;
@@ -278,6 +349,7 @@ function oublierFixes() {
   fixes = [];
   lisse = null;
   confirmations = 0;
+  presDepuis = 0;
 }
 function positionLissee() {
   const recents = fixes.filter(f => fixes[fixes.length - 1].ts - f.ts < LISSAGE_AGE_MS);
@@ -299,11 +371,11 @@ function surPosition(p) {
   gpsErreur = null;
   if (p.acc <= ACCURACY_EXACTE) imprecisDepuis = 0;
   else if (!imprecisDepuis) imprecisDepuis = Date.now();
-  if (S && S.phase === 'trajet' && nouvelle && p.acc <= ACCURACY_DECLENCHE) {
+  const e = enTrajet() ? cible() : null;
+  if (e && nouvelle && p.acc <= precisionVoulue(e)) {
     dernierFixBon = Date.now();
     fixes = fixes.concat(p).slice(-LISSAGE_NB);
     lisse = positionLissee();
-    const e = resoudre(S.idx);
     confirmations = distanceM(lisse, e) <= (e.rayon_m || RAYON_DEFAUT) ? confirmations + 1 : 0;
     if (confirmations >= CONFIRMATIONS) { arrivee(); return; }
   }
@@ -313,14 +385,12 @@ function arrivee() {
   arreterGps();
   oublierFixes();
   if (navigator.vibrate) navigator.vibrate([120, 60, 120]);
-  S.phase = 'enigme';
-  sauver();
-  afficher();
+  if (S.phase === 'bienvenue') voirBienvenue(); else ouvrirEnigme();
 }
 function majTrajet() {
-  if (!S || S.phase !== 'trajet' || !$('distance')) return;
-  const e = resoudre(S.idx);
-  const precise = pos && pos.acc <= ACCURACY_DECLENCHE;
+  if (!enTrajet() || !$('distance')) return;
+  const e = cible();
+  const precise = pos && pos.acc <= precisionVoulue(e);
   const utilisable = pos && pos.acc <= ACCURACY_MAX;
   const brute = pos ? distanceM(pos, e) : null;
   $('distance').textContent = utilisable ? (precise ? '' : '≈ ') + Math.round(brute) + ' m' : '… m';
@@ -331,10 +401,14 @@ function majTrajet() {
   const now = Date.now();
   $('gps-exact').hidden = !(imprecisDepuis && now - imprecisDepuis > EXACTE_ATTENTE_MS);
   const sansPrecision = now - dernierFixBon > GPS_MUET_MS && (!utilisable || brute <= SECOURS_DISTANCE_M);
-  $('secours').hidden = !(DEBUG || gpsErreur || sansPrecision || now - debutTrajet > TRAJET_LONG_MS);
+  // Panneau de bienvenue : rayon de 5 m difficile à atteindre près des murs → secours après 15 s à moins de 15 m.
+  if (e.panneau && utilisable && brute <= SECOURS_PANNEAU_M) { if (!presDepuis) presDepuis = now; }
+  else presDepuis = 0;
+  const panneauBloque = presDepuis && now - presDepuis > SECOURS_PANNEAU_MS;
+  $('secours').hidden = !(DEBUG || gpsErreur || sansPrecision || panneauBloque || now - debutTrajet > TRAJET_LONG_MS);
   if (DEBUG) {
     const m = d => d === null ? '-' : d.toFixed(1) + ' m';
-    $('debug-gps').textContent = 'acc ' + (pos ? m(pos.acc) : '-') + ' | brute ' + m(brute)
+    $('debug-gps').textContent = 'acc ' + (pos ? m(pos.acc) : '-') + ' (≤ ' + precisionVoulue(e) + ') | brute ' + m(brute)
       + ' | lissée ' + m(lisse ? distanceM(lisse, e) : null)
       + ' | conf ' + confirmations + '/' + CONFIRMATIONS + ' | rayon ' + (e.rayon_m || RAYON_DEFAUT) + ' m';
   }
@@ -352,10 +426,12 @@ function dessinerCarte() {
   g.setTransform(ratio, 0, 0, ratio, 0, 0);
   g.clearRect(0, 0, W, H);
 
-  const cible = resoudre(S.idx);
+  const vise = cible();
   const faites = [];
-  for (let i = 0; i < S.idx; i++) { const e = resoudre(i); if (aDesCoordonnees(e)) faites.push({ e, n: i + 1 }); }
-  const pts = [cible].concat(faites.map(f => f.e));
+  if (S.phase !== 'bienvenue') {
+    for (let r = 0; r < S.rang; r++) { const e = resoudre(S.ordre[r]); if (aDesCoordonnees(e)) faites.push({ e, n: r + 1 }); }
+  }
+  const pts = [vise].concat(faites.map(f => f.e));
   if (pos) pts.push(pos);
 
   const lat0 = pts.reduce((s, p) => s + p.lat, 0) / pts.length;
@@ -383,17 +459,17 @@ function dessinerCarte() {
     g.strokeStyle = '#8c2f23';
     g.lineWidth = 2;
     g.setLineDash([7, 6]);
-    g.beginPath(); g.moveTo(X(pos), Y(pos)); g.lineTo(X(cible), Y(cible)); g.stroke();
+    g.beginPath(); g.moveTo(X(pos), Y(pos)); g.lineTo(X(vise), Y(vise)); g.stroke();
     g.setLineDash([]);
   }
   g.fillStyle = '#8c2f23';
-  g.beginPath(); g.arc(X(cible), Y(cible), 13, 0, 7); g.fill();
+  g.beginPath(); g.arc(X(vise), Y(vise), 13, 0, 7); g.fill();
   g.fillStyle = '#fff';
-  g.fillText(S.idx + 1, X(cible), Y(cible));
+  g.fillText(S.phase === 'bienvenue' ? '★' : S.rang + 1, X(vise), Y(vise));
   g.fillStyle = 'rgba(140,47,35,.15)';
   g.strokeStyle = '#8c2f23';
   g.lineWidth = 2;
-  g.beginPath(); g.arc(X(cible), Y(cible), (cible.rayon_m || RAYON_DEFAUT) * pxParM, 0, 7); g.fill(); g.stroke();
+  g.beginPath(); g.arc(X(vise), Y(vise), (vise.rayon_m || RAYON_DEFAUT) * pxParM, 0, 7); g.fill(); g.stroke();
 
   if (pos) {
     g.fillStyle = 'rgba(38,99,178,.15)';
@@ -505,36 +581,61 @@ window.addEventListener('popstate', () => {
   if (finIntro) finIntro();
 });
 
-// ---------- Vidéo d'intro ----------
+// ---------- Vidéos (bienvenue, intro, vidéo d'étape) ----------
 // iPhone : le son ne démarre qu'après un toucher, d'où l'écran « Touchez pour commencer ».
+// Chemin avec {lang} : une vidéo par langue (voix dans la vidéo) ; si elle manque, version fr.
+// Sous-titres à côté de la vidéo : x.mp4 → x.fr.vtt / x.en.vtt / x.es.vtt ; vidéo par langue : x.fr.mp4 → x.fr.vtt
+// (et x.fr.en.vtt pour sous-titrer en anglais la version fr de secours).
 let finIntro = null;
 
-function urlIntro() { return new URL(ep.intro_video, location.href).href; }
-function urlSousTitres(l) { return urlIntro().replace(/\.mp4$/i, '.' + l + '.vtt'); }
+function urlMedia(chemin) { return new URL(chemin, location.href).href; }
 
-function jouerIntro(suite) {
+function jouerVideo(chemin, suite) {
   arreterVoix();
   const zone = $('intro');
-  let fermee = false;
+  const modele = chemin.includes('{lang}');
+  let fermee = false, lancee = false, vl = modele ? langue : null;
   const fermer = () => {
     if (fermee) return;
     fermee = true;
     history.back();
   };
-  const video = el('video', { src: urlIntro(), preload: 'auto', playsInline: true, onended: fermer, onerror: fermer },
-    ...(SOUS_TITRES_INTRO ? LANGUES : []).map(l => el('track', { kind: 'subtitles', srclang: l, label: l.toUpperCase(), src: urlSousTitres(l), default: l === langue })));
+  const video = el('video', { preload: 'auto', playsInline: true, onended: fermer });
   video.setAttribute('playsinline', '');
   const montrerSousTitres = () => {
-    for (const p of video.textTracks) p.mode = p.language === langue ? 'showing' : 'disabled';
+    const pistes = [...video.querySelectorAll('track')];
+    const voulue = pistes.find(p => p.srclang === langue && !p.dataset.ko) || pistes.find(p => p.srclang === 'fr' && !p.dataset.ko);
+    for (const p of pistes) p.track.mode = p === voulue ? 'showing' : 'disabled';
   };
-  video.addEventListener('loadedmetadata', montrerSousTitres);
   const toucher = bouton(t('toucherCommencer'), () => {
     toucher.hidden = true;
+    lancee = true;
     montrerSousTitres();
     video.play().catch(() => { toucher.hidden = false; });
   }, 'toucher');
   toucher.className = 'toucher';
+  const charger = () => {
+    const src = urlMedia(modele ? chemin.replace('{lang}', vl) : chemin);
+    const vtt = l => src.replace(/\.mp4$/i, '.' + l + '.vtt');
+    const pistes = !SOUS_TITRES_VIDEOS ? []
+      : !modele ? LANGUES.map(l => [l, vtt(l)])
+      : vl === langue ? [[langue, src.replace(/\.mp4$/i, '.vtt')]]
+      : [[langue, vtt(langue)], ['fr', src.replace(/\.mp4$/i, '.vtt')]];
+    video.replaceChildren(...pistes.map(([l, s]) => {
+      const p = el('track', { kind: 'subtitles', srclang: l, label: l.toUpperCase(), src: s });
+      p.addEventListener('error', () => { p.dataset.ko = '1'; montrerSousTitres(); });
+      return p;
+    }));
+    video.src = src;
+    montrerSousTitres();
+    if (lancee) video.play().catch(() => { toucher.hidden = false; });
+  };
+  video.addEventListener('error', () => {
+    if (modele && vl !== 'fr') { vl = 'fr'; charger(); } else fermer();   // vidéo introuvable : on passe
+  });
+  video.addEventListener('loadedmetadata', montrerSousTitres);
   const passer = el('button', { type: 'button', class: 'passer', onclick: fermer }, t('passer'));
+  charger();
   zone.replaceChildren(video, toucher, passer);
   zone.hidden = false;
   finIntro = () => {
@@ -546,13 +647,29 @@ function jouerIntro(suite) {
   };
   history.pushState({ intro: 1 }, '');
 }
+function nomVideo(chemin) {
+  if (chemin === ep.bienvenue_video) return t('revoirBienvenue');
+  const i = ep.etapes.findIndex((_, k) => videoEtape(k) === chemin);
+  return i >= 0 ? t('revoirVideo', { n: L(resoudre(i).nom) }) : t('revoirIntro');
+}
+// Le menu se ferme (retour arrière) avant d'ouvrir la suite, pour garder l'historique propre.
+function apresMenu(action) {
+  return () => {
+    window.addEventListener('popstate', action, { once: true });
+    fermerCouche();
+  };
+}
 function ouvrirMenu() {
   ouvrirCouche(el('div', { class: 'cadre' },
-    bouton(t('revoirIntro'), () => {
-      window.addEventListener('popstate', () => jouerIntro(), { once: true });
-      fermerCouche();
-    }),
-    bouton(t('fermer'), fermerCouche, 'second')));
+    bouton(t('carnet'), apresMenu(ouvrirCarnet)),
+    ...S.vues.map(chemin => bouton(nomVideo(chemin), apresMenu(() => jouerVideo(chemin)), 'second')),
+    bouton(t('fermer'), fermerCouche, 'leger')));
+}
+function ouvrirCarnet() {
+  ouvrirCouche(el('div', { class: 'cadre' },
+    el('h2', {}, t('carnet')),
+    zoneFragments() || el('p', { class: 'discret' }, t('fragmentsTrouves', { n: 0, t: 0 })),
+    bouton(t('fermer'), fermerCouche, 'leger')));
 }
 
 function ouvrirPhoto(src) {
@@ -578,12 +695,12 @@ function afficher() {
   const enJeu = S && S.phase && S.phase !== 'fin' && afficher.jeu;
   $('barre').hidden = !afficher.jeu;
   majBarre();
-  if (S && S.phase === 'trajet' && enJeu) demarrerGps(); else arreterGps();
+  if (enTrajet() && enJeu) demarrerGps(); else arreterGps();
   v.replaceChildren();
   if (!afficher.jeu) ecranAccueil(v);
-  else if (S.phase === 'son') { S.debut = Date.now(); entrerEtape(0); }  // ancien écran « Test du son »
+  else if (S.phase === 'son') commencerJeu();   // ancien écran « Test du son »
   else if (S.phase === 'variante') ecranVariante(v);
-  else if (S.phase === 'trajet') ecranTrajet(v);
+  else if (enTrajet()) ecranTrajet(v);
   else if (S.phase === 'enigme' || S.phase === 'final') ecranEnigme(v);
   else if (S.phase === 'apres') ecranApres(v);
   else ecranFin(v);
@@ -592,12 +709,12 @@ function afficher() {
 function majBarre() {
   document.documentElement.lang = langue;
   $('b-langue').textContent = langue.toUpperCase();
-  $('b-menu').hidden = !ep.intro_video;
   if (!S) return;
   $('b-voix').textContent = S.voix ? '🔊' : '🔇';
-  $('b-etape').textContent = S.phase === 'final' ? t('enigmeFinale')
+  $('b-etape').textContent = (S.parcours ? S.parcours + ' · ' : '') + (S.phase === 'final' ? t('enigmeFinale')
     : S.phase === 'fin' ? S.equipe
-    : t('etape') + ' ' + (S.idx + 1) + '/' + ep.etapes.length;
+    : S.phase === 'bienvenue' ? t('bienvenue')
+    : t('etape') + ' ' + (S.rang + 1) + '/' + S.ordre.length);
   majChrono();
 }
 function majChrono() { if (S) $('b-chrono').textContent = chronoTexte(secondesJeu()); }
@@ -611,8 +728,23 @@ function changerLangue(l) {
   ecrire('petrocores_langue', l);
   afficher();
 }
-function nouvelEtat(equipe) {
-  return { equipe, debut: Date.now(), fin: null, penalite: 0, idx: 0, phase: null, voix: true, variantes: {}, indices: {}, solutions: {}, fragments: {} };
+function nouvelEtat(equipe, parcours) {
+  return {
+    equipe, parcours, ordre: calculerOrdre(parcours), rang: 0, debut: Date.now(), fin: null, penalite: 0, idx: 0, phase: null,
+    voix: true, variantes: {}, indices: {}, solutions: {}, fragments: {}, vues: []
+  };
+}
+// Après l'écran d'équipe : trajet jusqu'au panneau de la vidéo de bienvenue, ou la vidéo tout de suite, ou le jeu.
+function debutPartie() {
+  if (ep.bienvenue_lieu) { S.phase = 'bienvenue'; sauver(); afficher(); }
+  else if (ep.bienvenue_video) voirBienvenue();
+  else commencerJeu();
+}
+function voirBienvenue() {
+  if (!ep.bienvenue_video) { commencerJeu(); return; }
+  if (!S.vues.includes(ep.bienvenue_video)) S.vues.push(ep.bienvenue_video);
+  sauver();
+  jouerVideo(ep.bienvenue_video, commencerJeu);
 }
 function lancerPartie() {
   ecrire('petrocores_en_cours', { slug: slugEpisode, titre: ep.titre });
@@ -651,6 +783,17 @@ function ecranAccueil(v) {
     const msg = el('div', { class: 'message' });
     v.append(el('label', { htmlFor: 'nom' }, t('equipe')), nom);
     if (ep.codes_equipe) v.append(el('label', { htmlFor: 'code' }, t('code')), code);
+    // Parcours : l'organisateur dit à chaque groupe sa lettre (ordre différent des stations).
+    let parcours = null;
+    if (ep.parcours) {
+      const choix = Object.keys(ep.parcours).map(k => el('button', {
+        type: 'button', class: 'langue', 'data-k': k, onclick: () => {
+          parcours = k;
+          for (const b of choix) b.classList.toggle('actif', b.dataset.k === k);
+        }
+      }, t('parcours', { n: k })));
+      v.append(el('label', {}, t('choisirParcours')), el('div', { class: 'ligne parcours' }, ...choix));
+    }
     v.append(msg, bouton(t('commencer'), () => {
       const equipe = nom.value.trim();
       if (!equipe) { msg.textContent = t('equipeVide'); return; }
@@ -658,14 +801,10 @@ function ecranAccueil(v) {
         msg.textContent = t('codeFaux');
         return;
       }
-      S = nouvelEtat(equipe);
+      if (ep.parcours && !parcours) { msg.textContent = t('parcoursVide'); return; }
+      S = nouvelEtat(equipe, parcours);
       lancerPartie();
-      // Le son est débloqué par le toucher « Touchez pour commencer » de la vidéo : pas d'écran de test.
-      const suite = () => {
-        S.debut = Date.now();   // le chrono part après l'intro
-        entrerEtape(0);
-      };
-      if (ep.intro_video) jouerIntro(suite); else suite();
+      debutPartie();
     }));
   }
   if (etatHorsLigne) v.append(el('p', { class: 'discret', id: 'horsligne' }, etatHorsLigne()));
@@ -686,14 +825,14 @@ function ecranVariante(v) {
 }
 
 function ecranTrajet(v) {
-  const e = resoudre(S.idx);
+  const e = cible();
   v.append(el('h2', {}, L(e.nom)));
   v.append(el('p', { class: 'texte' }, L(e.consigne_trajet) || t('rendezVous')));
   v.append(el('canvas', { id: 'carte' }));
   v.append(el('p', { id: 'distance' }), el('p', { id: 'gps', class: 'discret' }));
   if (DEBUG) v.append(el('p', { id: 'debug-gps' }));
   v.append(el('div', { id: 'gps-exact', class: 'encart alerte', hidden: true }, t('gpsExact')));
-  v.append(bouton(t('arrive'), arrivee, 'second'));
+  v.append(bouton(t(e.panneau ? 'devantPanneau' : 'arrive'), arrivee, 'second'));
   v.lastChild.id = 'secours';
   v.lastChild.hidden = true;
   if (e.photo) v.append(imagePhoto(e.photo));
@@ -705,7 +844,12 @@ function ecranEnigme(v) {
   const e = etapeCourante();
   const type = e.type || 'texte';
   v.append(el('h2', {}, S.phase === 'final' ? t('enigmeFinale') : L(e.nom)));
-  if (S.phase === 'final') v.append(zoneFragments());
+  if (S.phase === 'final') {
+    v.append(zoneFragments());
+    // Finale verrouillée tant qu'il manque un fragment.
+    const n = fragmentsManquants();
+    if (n) { v.append(el('div', { class: 'encart alerte' }, n === 1 ? t('manqueUn') : t('manquent', { n }))); return; }
+  }
   if (e.photo) v.append(imagePhoto(e.photo));
   if (e.recit) v.append(el('p', { class: 'texte' }, L(e.recit)));
   const textes = [L(e.recit), L(e.question)];
@@ -787,11 +931,13 @@ function zoneIndices(v, e) {
 }
 
 function zoneFragments() {
-  const liste = Object.keys(S.fragments).sort((a, b) => a - b).map(k => S.fragments[k]);
-  if (!liste.length) return null;
+  const cases = casesFragments();
+  if (!cases.length) return null;
+  const trouves = cases.filter(f => f !== undefined).length;
   return el('div', {},
-    el('p', { class: 'discret' }, t('fragments')),
-    el('div', { class: 'fragments' }, ...liste.map(f => el('span', { class: 'fragment' }, f))));
+    el('p', { class: 'discret' }, t('fragmentsTrouves', { n: trouves, t: cases.length })),
+    el('div', { class: 'fragments' }, ...cases.map(f =>
+      el('span', { class: 'fragment' + (f === undefined ? ' vide' : '') }, f === undefined ? '?' : f))));
 }
 
 function ecranApres(v) {
@@ -805,7 +951,12 @@ function ecranApres(v) {
   }
   const textes = [L(e.apres)];
   v.append(bouton(t('ecouter'), () => parler(textes), 'leger'));
-  const dernier = S.idx + 1 >= ep.etapes.length;
+  const dernier = S.rang + 1 >= S.ordre.length;
+  if (!dernier) {
+    // Nouveau lieu (pas une question enchaînée au même endroit) : on annonce la destination.
+    const suite = resoudre(S.ordre[S.rang + 1]);
+    if (suite.deverrouillage !== 'reponse' && aDesCoordonnees(suite)) v.append(el('p', { class: 'question' }, t('prochaine', { n: L(suite.nom) })));
+  }
   v.append(bouton(t(!dernier ? 'suivante' : ep.final ? 'versFinale' : 'terminer'), etapeSuivante));
   parlerAuto(textes);
 }
@@ -1050,6 +1201,19 @@ function verifierEpisode() {
     });
     if (e.selection === 'heure' && !e.variantes) pb.push(ou + ' : selection « heure » sans variantes');
   });
+  if (ep.bienvenue_lieu) {
+    trilingue(ep.bienvenue_lieu.nom, 'bienvenue_lieu.nom');
+    trilingue(ep.bienvenue_lieu.consigne_trajet, 'bienvenue_lieu.consigne_trajet');
+    if (!aDesCoordonnees(ep.bienvenue_lieu)) pb.push('bienvenue_lieu : lat/lon manquants');
+  }
+  if (ep.parcours) {
+    const stations = ep.stations || {};
+    for (const id of ep.depart || []) if (indexEtape(id) < 0) pb.push('depart : étape « ' + id + ' » inconnue');
+    for (const s in stations) for (const id of stations[s]) if (indexEtape(id) < 0) pb.push('stations.' + s + ' : étape « ' + id + ' » inconnue');
+    for (const k in ep.parcours) for (const s of ep.parcours[k]) if (!stations[s]) pb.push('parcours ' + k + ' : station « ' + s + ' » inconnue');
+  }
+  const positions = ep.etapes.map(e => e.position).filter(x => x !== undefined);
+  if (new Set(positions).size !== positions.length) pb.push('fragments : deux étapes ont la même « position »');
   if (ep.final) {
     for (const c of ['question', 'recit', 'texte']) trilingue(ep.final[c], 'final.' + c);
     (ep.final.indices || []).forEach((x, i) => trilingue(x, 'final.indices[' + i + ']'));
@@ -1083,7 +1247,7 @@ async function demarrer() {
   setInterval(() => {
     if (!S || !afficher.jeu) return;
     if (S.phase !== 'fin') majChrono();
-    if (S.phase === 'trajet') majTrajet();
+    if (enTrajet()) majTrajet();
   }, 1000);
   if ('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catch(() => {});
 
@@ -1103,6 +1267,7 @@ async function demarrer() {
   urlPhotos = new URL(ep.photos_dossier || 'photos/', urlEpisode);
   diagnostics = verifierEpisode();
   S = lire(cleSauvegarde());
+  if (S) completerEtat();
   afficher.jeu = false;
   afficher();
   preparerHorsLigne();

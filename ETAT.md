@@ -48,6 +48,13 @@
 - Vérifier le nom « Pétrocores » (INPI + domaine), accord mairie, assurance.
 
 ## Prochain pour Claude (chat)
+- ✅ FAIT (04/11, nuit) : `scenario/saint-genies/episode.json` écrit au NOUVEAU format (voir CONSIGNES_VIDEOS_PARCOURS_04-11.md) :
+  bienvenue_video {lang} + bienvenue_lieu (lavoir, 5 m), depart = e0a/e0b (panneau église, vidéo intro v4 sur e0a),
+  stations D (d1-d3), M (m1-m3), F (f1-f3), parcours A/B/C, fragments 1(pos1) 3(pos2) 2(pos3) 7(pos4) → final 1327.
+  Trilingue complet, 11 étapes, toutes les photos présentes. Généré par `scenario/saint-genies/_travail/fabriquer_episode.py`
+  (modifier ce script puis le relancer plutôt que d'éditer le JSON à la main).
+  ⚠ Le moteur actuel ne connaît pas encore depart/stations/parcours/position/bienvenue_* → Claude Code doit appliquer les consignes du 04/11.
+  À vérifier sur place par Gonzalo : indice m1 « pan à droite, près du cyprès » ; GPS du chevet (m1) ; texte final du coffre (lieu du trésor).
 - Après validation : écrire `scenario/saint-genies/episode.json` complet en FR/EN/ES (textes, voix, indices, réponses).
   Y mettre `"intro_video": "media/intro_saint_genies.mp4"` (ce fichier n'existe pas encore ; le champ n'est que dans `app/demo-episode.json`).
 
@@ -58,6 +65,26 @@
   puis Claude Code remet `SOUS_TITRES_INTRO = true` dans `app/app.js`.
 
 ## Prochain pour Claude Code
+- FAIT le 04/11 (sw v7) : `CONSIGNES_VIDEOS_PARCOURS_04-11.md` points 1 à 4, testé sur ordinateur avec positions simulées (`app/demo-episode.json` les utilise tous).
+  Déroulé : écran d'équipe (nom, code, choix « Parcours A/B/C » obligatoire si l'épisode a "parcours") → « Commencer » →
+  trajet guidé « Bienvenue » vers "bienvenue_lieu" (déclenche à <= 5 m, précision <= 8 m, 2 positions ; secours « Je suis devant le panneau »
+  après 15 s à moins de 15 m) → vidéo de bienvenue dans la langue choisie → le chrono part → 1re étape de "depart" (panneau de l'église) :
+  à l'arrivée GPS, "intro_video" puis l'énigme → stations dans l'ordre du parcours → finale.
+  Sans "bienvenue_lieu" mais avec "bienvenue_video" : la vidéo se joue juste après « Commencer ».
+  Vidéo par langue : `{lang}` dans le chemin ; si la langue manque → version fr, avec `x.fr.<langue>.vtt` si présent, sinon sous-titres fr.
+  Vidéos FR/EN/ES de bienvenue + .vtt poussées. Chaque vidéo n'est jouée qu'une fois ; menu ☰ : « 📜 Carnet » + « Revoir … » pour chaque vidéo vue.
+  Après une étape, « Prochaine destination : <nom> » quand l'étape suivante est un nouveau lieu GPS.
+  Carnet / finale : une case par fragment du parcours, rangée par "position" (« ? » si pas trouvé) ; finale bloquée avec « Il vous manque N fragments ».
+  Barre : lettre du parcours (« B · Étape 2/3 »). ?debug=1 : vérifie depart/stations/parcours, positions en double, et affiche la précision exigée.
+  Anciennes sauvegardes : ordre linéaire. Non vérifié : téléphone réel, et le secours « devant le panneau » sans ?debug=1 (en debug le bouton est toujours là).
+  Pour Claude chat — nouveaux champs episode.json (voir aussi le format plus bas) :
+    "bienvenue_video":"media/bienvenue_saint_genies.{lang}.mp4", "bienvenue_lieu":{"lat","lon","rayon_m":5, "precision_m":8 (facultatif),
+    "nom":{fr,en,es}, "consigne_trajet":{fr,en,es}, "photo":"x.jpg" (facultatifs : sinon « Bienvenue ! Suivez-moi jusqu'au point rouge. »)},
+    "depart":[ids], "stations":{"D":[ids]}, "parcours":{"A":["D","M","F"]}, et sur les étapes "video":"media/x.mp4", "position":1..4 (avec "fragment").
+    Les "id" d'étape doivent être uniques (comparés en texte). "intro_video" = vidéo de la 1re étape de "depart".
+- 🔴 NOUVEAU (04/11) : appliquer `CONSIGNES_VIDEOS_PARCOURS_04-11.md` (bienvenue vidéo au parking par langue, intro au panneau de l'église,
+  champ "video" par étape, parcours A/B/C, fragments + finale verrouillée). Bienvenue jouée au PANNEAU DU LAVOIR (44.993917,1.254025, rayon 5 m), pas au parking. Vidéo bienvenue FR prête : app/media/bienvenue_saint_genies.fr.mp4 (+ .fr.vtt) —
+  version locale SANS synchro labiale exacte (choix de Gonzalo, pour économiser les crédits Runway).
 - FAIT le 03/11 (sw v6) : `CONSIGNES_ACCUEIL_03-11.md` points 1 et 2.
   Accueil = `app/index.html` sans paramètre : blason, langue, un bouton par village de `app/villages.json` (« bientot » = grisé + « Bientôt »).
   Fiche village : distance en direct au point "arrivee" (affichée de loin même si le GPS est imprécis, « ≈ » sous 1 km si précision > 15 m),

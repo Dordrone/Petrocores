@@ -107,6 +107,8 @@ label { display: block; margin: 12px 0 4px; font-size: 16px; }
   border-radius: 6px; font-size: 22px; font-weight: bold;
   font-family: Arial, sans-serif;
 }
+.fragment.vide { background: none; color: var(--gris); border: 2px dashed var(--trait); }
+.ligne.parcours { flex-wrap: wrap; }
 .temps { font-size: 42px; font-weight: bold; text-align: center; font-variant-numeric: tabular-nums; margin: 8px 0 0; color: var(--rouge); }
 .image-fin { display: block; width: 100%; max-width: 340px; margin: 12px auto; }
 

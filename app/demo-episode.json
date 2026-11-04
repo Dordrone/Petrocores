@@ -2,9 +2,9 @@
   "id": "demo",
   "titre": { "fr": "Épisode de démonstration", "en": "Demo episode", "es": "Episodio de demostración" },
   "intro": {
-    "fr": "Ceci est un épisode fictif pour tester le moteur de jeu. Trois étapes, puis une énigme finale.",
-    "en": "This is a fictional episode to test the game engine. Three steps, then a final riddle.",
-    "es": "Este es un episodio ficticio para probar el motor del juego. Tres etapas y un enigma final."
+    "fr": "Ceci est un épisode fictif pour tester le moteur de jeu. Un départ commun, puis deux stations dans l'ordre de votre parcours (A ou B), puis une énigme finale.",
+    "en": "This is a fictional episode to test the game engine. A shared start, then two stations in the order of your route (A or B), then a final riddle.",
+    "es": "Este es un episodio ficticio para probar el motor del juego. Una salida común, luego dos estaciones en el orden de su recorrido (A o B) y un enigma final."
   },
   "avertissement": {
     "fr": "Démo : le code d'accès est DEMO. En jeu réel, attention à la circulation.",
@@ -12,11 +12,16 @@
     "es": "Demo: el código de acceso es DEMO. En el juego real, cuidado con el tráfico."
   },
   "duree_min": 10,
+  "bienvenue_video": "media/bienvenue_saint_genies.{lang}.mp4",
+  "bienvenue_lieu": { "lat": 44.993917, "lon": 1.254025, "rayon_m": 5 },
   "intro_video": "media/intro_saint_genies_v4.mp4",
   "narrateur": { "fr": "Frère Aymeric", "en": "Brother Aymeric", "es": "Fray Aymeric" },
   "photos_dossier": "../scenario/saint-genies/photos/",
   "codes_equipe": ["yjk3xi"],
   "penalites": { "indice_s": 120, "solution_s": 300 },
+  "depart": [1],
+  "stations": { "C": [2], "K": [3] },
+  "parcours": { "A": ["C", "K"], "B": ["K", "C"] },
   "etapes": [
     {
       "id": 1,
@@ -45,7 +50,7 @@
         { "fr": "Il rugit.", "en": "It roars.", "es": "Ruge." }
       ],
       "apres": { "fr": "Exact : le lion.", "en": "Correct: the lion.", "es": "Exacto: el león." },
-      "fragment": "4"
+      "fragment": "4", "position": 1
     },
     {
       "id": 2,
@@ -83,7 +88,7 @@
           "apres": { "fr": "Bien vu !", "en": "Well spotted!", "es": "¡Bien visto!" }
         }
       ],
-      "fragment": "2"
+      "fragment": "2", "position": 2
     },
     {
       "id": 3,
@@ -103,7 +108,7 @@
         { "fr": "Ils se suivent.", "en": "They are in sequence.", "es": "Son consecutivos." }
       ],
       "apres": { "fr": "Le coffre s'ouvre.", "en": "The chest opens.", "es": "El cofre se abre." },
-      "fragment": "7"
+      "fragment": "7", "position": 3
     }
   ],
   "final": {
