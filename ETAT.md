@@ -65,6 +65,14 @@
   puis Claude Code remet `SOUS_TITRES_INTRO = true` dans `app/app.js`.
 
 ## Prochain pour Claude Code
+- FAIT le 05/11 (sw v10) : `CONSIGNES_VOIX_SENTIA_05-11.md`. choisirVoix() = pickVoice() de Sentia à l'identique (en-US, bonus « siri »),
+  chaque phrase lue avec lang = fr-FR / en-US / es-ES, vitesse 0.96, hauteur 1, voix recalculée à chaque phrase. Mêmes réglages pour
+  « ▶ Écouter », les indices, l'après-étape et la fin. Texte absent dans la langue choisie → rien n'est lu (plus de repli sur le français) ;
+  l'écran garde l'affichage en français. En ?debug=1 : ligne « Voix : <nom> <langue> » sur l'écran d'équipe et sur chaque énigme, et message
+  « Rien à lire en EN… » si le texte manque. Testé sur PC (n'a que des voix françaises → « Voix : aucune pour en-US » : le navigateur prend
+  alors sa voix par défaut, c'est le seul cas où l'accent peut revenir ; sur téléphone, installer la voix anglaise/espagnole dans les réglages).
+- 🔴 NOUVEAU (05/11) : `CONSIGNES_VOIX_SENTIA_05-11.md` — voix du téléphone recopiée À L'IDENTIQUE de Sentia (en-US, rate 0.96, pitch 1, bonus siri), plus de préférence voix d'homme ; jamais de texte d'une autre langue.
+- ℹ️ (05/11) FFmpeg est installé sur le PC de Gonzalo (build gyan.dev dans %LOCALAPPDATA%\ffmpeg, ajouté au PATH utilisateur ; winget absent). Rouvrir le terminal pour l'utiliser.
 - FAIT le 05/11 (sw v9), demande de Gonzalo :
   1) Seules les photos UTILISÉES sont sur GitHub (14 : 10 de Saint-Geniès + 4 de la démo). Les 93 autres retirées du dépôt
      (git rm --cached : toujours sur le PC, mais encore dans l'historique git). Règle : ne pousser une photo que si un episode.json la cite.
@@ -72,6 +80,8 @@
      Tout le monde voit la vidéo FR ; en anglais/espagnol, sous-titres `bienvenue_saint_genies.fr.en.vtt` / `.fr.es.vtt`
      (texte des anciens .en/.es.vtt, minutage de la voix française). Pas de changement de code ni d'episode.json : c'est le secours prévu
      (vidéo de la langue absente → version fr + sous-titres de la langue). Intro à l'église : déjà la vidéo FR avec sous-titres EN/ES.
+     Contrôle ffmpeg (05/11) : voix de bienvenue FR à 5,2–8,3 / 9,3–11,9 / 12,8–17,0 / 17,8–19,4 s = les 4 sous-titres (écart ≤ 0,3 s) ;
+     intro v4 : voix au-dessus de la musique vers 10,4 / 13,6 / 18,0 s = début des 3 sous-titres. Rien à recaler.
 - FAIT le 05/11 (sw v8) : `scenario/saint-genies/episode.json` + les 107 photos de `scenario/saint-genies/photos/` poussés.
   Vérifié avec ?debug=1 (positions simulées) : aucun diagnostic, « ✓ Prêt à jouer sans réseau » ; parcours A = e0a e0b D M F,
   B = e0a e0b M F D, C = e0a e0b F D M ; bienvenue au panneau du lavoir → 1re étape e0a « Le grand panneau de l'église »

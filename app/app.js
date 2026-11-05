@@ -5,7 +5,8 @@
 // ?debug=1 affiche les erreurs de l'épisode et le bouton « je suis arrivé » en permanence.
 
 const LANGUES = ['fr', 'en', 'es'];
-const VOIX_LANG = { fr: 'fr-FR', en: 'en-GB', es: 'es-ES' };
+const VOIX_LANG = { fr: 'fr-FR', en: 'en-US', es: 'es-ES' };   // comme Sentia (validé terrain)
+const VOIX_VITESSE = 0.96, VOIX_HAUTEUR = 1;
 // Réglages GPS, à ajuster après les tests au village.
 const RAYON_DEFAUT = 10;          // m : l'épisode peut le changer par étape avec "rayon_m"
 const ACCURACY_DECLENCHE = 15;    // m : au-delà, la position ne peut pas déclencher l'arrivée
@@ -501,19 +502,34 @@ function debloquerVoix() {
   u.volume = 0;
   speechSynthesis.speak(u);
 }
+// Choix de voix recopié de Sentia (pickVoice) : 1) code régional exact (en-US, es-ES),
+// 2) sinon même langue de base ; bonus aux voix installées et de qualité.
 function choisirVoix() {
-  const cible = VOIX_LANG[langue].toLowerCase();
-  let meilleure = null, score = -1;
-  for (const v of speechSynthesis.getVoices()) {
-    const l = v.lang.toLowerCase().replace('_', '-');
+  const voices = window.speechSynthesis.getVoices();
+  if (!voices.length) return null;
+  const want = VOIX_LANG[langue].toLowerCase();
+  const base = langue.toLowerCase();
+  const score = v => {
+    const vl = (v.lang || '').toLowerCase().replace('_', '-');
     let s = 0;
-    if (l === cible) s += 100; else if (l.split('-')[0] === langue) s += 40; else continue;
+    if (vl === want) s += 100;
+    else if (vl.startsWith(base)) s += 40;
+    else return -1;
     if (v.localService) s += 10;
-    if (/google|natural|enhanced|premium/i.test(v.name)) s += 8;
-    if (s > score) { score = s; meilleure = v; }
-  }
-  return meilleure;
+    if (/google|natural|enhanced|premium|siri/i.test(v.name)) s += 8;
+    return s;
+  };
+  let best = null, bestS = -1;
+  voices.forEach(v => { const s = score(v); if (s > bestS) { bestS = s; best = v; } });
+  return bestS >= 0 ? best : null;
 }
+function nomVoix() {
+  const v = window.speechSynthesis && choisirVoix();
+  return 'Voix : ' + (v ? v.name + ' ' + v.lang : 'aucune pour ' + VOIX_LANG[langue]);
+}
+function majDebugVoix() { const n = $('debug-voix'); if (n) n.textContent = nomVoix(); }
+// Texte à lire : seulement dans la langue choisie, jamais le français en repli (sinon « accent français »).
+function aLire(o) { return o ? o[langue] || '' : ''; }
 function arreterVoix() {
   lectureId++;
   if (window.speechSynthesis) speechSynthesis.cancel();
@@ -522,15 +538,19 @@ function parler(textes) {
   arreterVoix();
   if (!window.speechSynthesis) return;
   const texte = textes.filter(Boolean).join('\n');
+  if (!texte.trim()) { if (DEBUG) toast('Rien à lire en ' + langue.toUpperCase() + " (texte absent de l'épisode)"); return; }
   const phrases = texte.match(/[^.!?…\n]+[.!?…]*/g) || [];
   const id = lectureId;
   const lancer = () => {
-    const voix = choisirVoix();
+    majDebugVoix();
     let i = 0;
     const suite = () => {
       if (id !== lectureId || i >= phrases.length) return;
       const u = new SpeechSynthesisUtterance(phrases[i++].trim());
       u.lang = VOIX_LANG[langue];
+      u.rate = VOIX_VITESSE;
+      u.pitch = VOIX_HAUTEUR;
+      const voix = choisirVoix();   // recalculée à chaque lecture, comme Sentia
       if (voix) u.voice = voix;
       u.onend = suite;
       speechSynthesis.speak(u);
@@ -810,6 +830,7 @@ function ecranAccueil(v) {
   if (etatHorsLigne) v.append(el('p', { class: 'discret', id: 'horsligne' }, etatHorsLigne()));
   else v.append(el('p', { class: 'discret', id: 'horsligne' }));
   ajouterBoutonInstaller(v);
+  if (DEBUG) { v.append(el('p', { id: 'debug-voix', class: 'discret' })); majDebugVoix(); }
   if (DEBUG && diagnostics.length) v.append(el('div', { id: 'diagnostic' }, diagnostics.join('\n')));
 }
 
@@ -852,12 +873,13 @@ function ecranEnigme(v) {
   }
   if (e.photo) v.append(imagePhoto(e.photo));
   if (e.recit) v.append(el('p', { class: 'texte' }, L(e.recit)));
-  const textes = [L(e.recit), L(e.question)];
+  const textes = [aLire(e.recit), aLire(e.question)];
   const ecoute = bouton(ep.narrateur ? t('ecouterNarrateur', { n: L(ep.narrateur) }) : t('ecouter'), () => {
     ecoute.classList.remove('clignote');
     parler(textes);
   }, 'ecouter');
   v.append(ecoute);
+  if (DEBUG) { v.append(el('p', { id: 'debug-voix', class: 'discret' })); majDebugVoix(); }
   if (e.question) v.append(el('p', { class: 'question texte' }, L(e.question)));
 
   const msg = el('div', { class: 'message' });
@@ -916,7 +938,7 @@ function zoneIndices(v, e) {
         sauver();
         majChrono();
         maj();
-        parler([L(indices[vus])]);
+        parler([aLire(indices[vus])]);
       }, 'leger'));
     } else if ((e.reponses || []).length) {
       const p = dureeTexte(penaliteSolution());
@@ -949,7 +971,7 @@ function ecranApres(v) {
     v.append(el('p', { class: 'discret' }, t('fragment')));
     v.append(el('div', { class: 'fragments' }, el('span', { class: 'fragment' }, S.fragments[S.idx])));
   }
-  const textes = [L(e.apres)];
+  const textes = [aLire(e.apres)];
   v.append(bouton(t('ecouter'), () => parler(textes), 'leger'));
   const dernier = S.rang + 1 >= S.ordre.length;
   if (!dernier) {
@@ -970,7 +992,7 @@ function ecranFin(v) {
   if (S.penalite) v.append(el('p', { class: 'discret', style: 'text-align:center' }, t('dontPenalites', { p: dureeTexte(S.penalite) })));
   v.append(el('img', { class: 'image-fin', src: f.image ? urlPhoto(f.image) : 'fragment-carte.svg', alt: '' }));
   if (f.texte) v.append(el('p', { class: 'texte' }, L(f.texte)));
-  const textes = [L(f.texte)];
+  const textes = [aLire(f.texte)];
   v.append(bouton(t('ecouter'), () => parler(textes), 'leger'));
   v.append(bouton(t('nouvelle'), () => confirmer(t('nouvelleConfirme'), () => {
     effacer(cleSauvegarde());
