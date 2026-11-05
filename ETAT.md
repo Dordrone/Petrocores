@@ -65,6 +65,13 @@
   puis Claude Code remet `SOUS_TITRES_INTRO = true` dans `app/app.js`.
 
 ## Prochain pour Claude Code
+- FAIT le 05/11 (sw v9), demande de Gonzalo :
+  1) Seules les photos UTILISÉES sont sur GitHub (14 : 10 de Saint-Geniès + 4 de la démo). Les 93 autres retirées du dépôt
+     (git rm --cached : toujours sur le PC, mais encore dans l'historique git). Règle : ne pousser une photo que si un episode.json la cite.
+  2) Vidéos de bienvenue EN et ES MISES DE CÔTÉ (lèvres pas synchronisées) : retirées du dépôt (et ajoutées au .gitignore), gardées sur le PC.
+     Tout le monde voit la vidéo FR ; en anglais/espagnol, sous-titres `bienvenue_saint_genies.fr.en.vtt` / `.fr.es.vtt`
+     (texte des anciens .en/.es.vtt, minutage de la voix française). Pas de changement de code ni d'episode.json : c'est le secours prévu
+     (vidéo de la langue absente → version fr + sous-titres de la langue). Intro à l'église : déjà la vidéo FR avec sous-titres EN/ES.
 - FAIT le 05/11 (sw v8) : `scenario/saint-genies/episode.json` + les 107 photos de `scenario/saint-genies/photos/` poussés.
   Vérifié avec ?debug=1 (positions simulées) : aucun diagnostic, « ✓ Prêt à jouer sans réseau » ; parcours A = e0a e0b D M F,
   B = e0a e0b M F D, C = e0a e0b F D M ; bienvenue au panneau du lavoir → 1re étape e0a « Le grand panneau de l'église »

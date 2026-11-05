@@ -14,3 +14,8 @@ scenario/intro/originaux/
 app/media/1031.mp4
 scenario/intro/complete.mp4
 scenario/intro/intro_v3_master.mp4
+# Bienvenue EN/ES mises de côté (05/11) : vidéo FR + sous-titres EN/ES à la place
+app/media/bienvenue_saint_genies.en.mp4
+app/media/bienvenue_saint_genies.es.mp4
+app/media/bienvenue_saint_genies.en.vtt
+app/media/bienvenue_saint_genies.es.vtt
