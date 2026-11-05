@@ -1,0 +1,653 @@
+{
+  "id": "saint-genies-1",
+  "titre": {
+    "fr": "Saint-Geniès – Le premier sceau",
+    "en": "Saint-Geniès – The First Seal",
+    "es": "Saint-Geniès – El primer sello"
+  },
+  "intro": {
+    "fr": "Octobre 1307 : le roi fait arrêter les Templiers. Frère Aymeric, en fuite, traverse Saint-Geniès avec un secret. Suivez sa trace dans le village et réunissez les quatre chiffres du code.",
+    "en": "October 1307: the King has the Templars arrested. Brother Aymeric, on the run, passes through Saint-Geniès with a secret. Follow his trail through the village and gather the four digits of the code.",
+    "es": "Octubre de 1307: el rey manda arrestar a los templarios. Fray Aymeric, huyendo, atraviesa Saint-Geniès con un secreto. Seguid su rastro por el pueblo y reunid las cuatro cifras del código."
+  },
+  "avertissement": {
+    "fr": "Attention à la circulation dans le bourg. Respectez les lieux : l'église est un lieu de culte, entrez en silence et pas pendant les offices. Frère Aymeric et son secret sont une fiction ; les lieux, les dates et les familles sont réels.",
+    "en": "Watch out for traffic in the village. Respect the places: the church is a place of worship, enter quietly and not during services. Brother Aymeric and his secret are fiction; the places, dates and families are real.",
+    "es": "Cuidado con el tráfico en el pueblo. Respetad los lugares: la iglesia es un lugar de culto, entrad en silencio y no durante los oficios. Fray Aymeric y su secreto son ficción; los lugares, las fechas y las familias son reales."
+  },
+  "duree_min": 45,
+  "narrateur": {
+    "fr": "Frère Aymeric",
+    "en": "Brother Aymeric",
+    "es": "Fray Aymeric"
+  },
+  "photos_dossier": "../scenario/saint-genies/photos/",
+  "penalites": {
+    "indice_s": 120,
+    "solution_s": 300
+  },
+  "bienvenue_video": "media/bienvenue_saint_genies.{lang}.mp4",
+  "bienvenue_lieu": {
+    "lat": 44.993917,
+    "lon": 1.254025,
+    "rayon_m": 5,
+    "nom": {
+      "fr": "Le panneau du lavoir",
+      "en": "The wash-house sign",
+      "es": "El panel del lavadero"
+    },
+    "consigne_trajet": {
+      "fr": "Rejoignez le panneau à côté du lavoir : Frère Aymeric vous y attend.",
+      "en": "Go to the sign next to the wash-house: Brother Aymeric is waiting for you there.",
+      "es": "Id al panel junto al lavadero: Fray Aymeric os espera allí."
+    }
+  },
+  "intro_video": "media/intro_saint_genies_v4.mp4",
+  "depart": [
+    "e0a",
+    "e0b"
+  ],
+  "stations": {
+    "D": [
+      "d1",
+      "d2",
+      "d3"
+    ],
+    "M": [
+      "m1",
+      "m2",
+      "m3"
+    ],
+    "F": [
+      "f1",
+      "f2",
+      "f3"
+    ]
+  },
+  "parcours": {
+    "A": [
+      "D",
+      "M",
+      "F"
+    ],
+    "B": [
+      "M",
+      "F",
+      "D"
+    ],
+    "C": [
+      "F",
+      "D",
+      "M"
+    ]
+  },
+  "etapes": [
+    {
+      "id": "e0a",
+      "nom": {
+        "fr": "Le grand panneau de l'église",
+        "en": "The great church sign",
+        "es": "El gran panel de la iglesia"
+      },
+      "lat": 44.994094,
+      "lon": 1.250122,
+      "deverrouillage": "gps",
+      "photo": "sg_totem_l_eglise_1.jpg",
+      "video": "media/intro_saint_genies_v4.mp4",
+      "consigne_trajet": {
+        "fr": "Rendez-vous devant le grand panneau « Balade patrimoine » de l'église.",
+        "en": "Go to the large « Balade patrimoine » sign in front of the church.",
+        "es": "Id delante del gran panel « Balade patrimoine » de la iglesia."
+      },
+      "recit": {
+        "fr": "Voici ma première épreuve. Les pierres de cette église ont traversé huit siècles ; le panneau devant vous montre son plan, une couleur par siècle.",
+        "en": "Here is my first trial. The stones of this church have crossed eight centuries; the sign before you shows its plan, one colour per century.",
+        "es": "He aquí mi primera prueba. Las piedras de esta iglesia han atravesado ocho siglos; el panel que tenéis delante muestra su plano, un color por siglo."
+      },
+      "type": "code",
+      "question": {
+        "fr": "Ma tour d'entrée n'a jamais servi à défendre le village, malgré son air massif. De quel siècle est-elle ? (en chiffres)",
+        "en": "My entrance tower never defended the village, despite its massive look. Which century is it from? (in figures)",
+        "es": "Mi torre de entrada nunca defendió el pueblo, pese a su aspecto macizo. ¿De qué siglo es? (en cifras)"
+      },
+      "reponses": [
+        "15",
+        "xv",
+        "15e",
+        "xve"
+      ],
+      "indices": [
+        {
+          "fr": "Cherchez le clocher-porche dans les explications à droite du plan.",
+          "en": "Look for the porch-tower in the notes to the right of the plan.",
+          "es": "Buscad el campanario-pórtico en las explicaciones a la derecha del plano."
+        },
+        {
+          "fr": "C'est le point n°2 du panneau.",
+          "en": "It is point no. 2 on the sign.",
+          "es": "Es el punto n.º 2 del panel."
+        }
+      ],
+      "apres": {
+        "fr": "Le quinzième siècle. Retenez le premier chiffre : 1. C'est le premier chiffre de mon code.",
+        "en": "The fifteenth century. Remember the first digit: 1. It is the first digit of my code.",
+        "es": "El siglo quince. Recordad la primera cifra: 1. Es la primera cifra de mi código."
+      },
+      "fragment": "1",
+      "position": 1
+    },
+    {
+      "id": "e0b",
+      "nom": {
+        "fr": "Le blason caché",
+        "en": "The hidden coat of arms",
+        "es": "El escudo escondido"
+      },
+      "lat": 44.994094,
+      "lon": 1.250122,
+      "deverrouillage": "reponse",
+      "photo": "sg_totem_l_eglise_4.jpg",
+      "recit": {
+        "fr": "En 1307, quand le roi fit arrêter mes frères, des seigneurs d'ici m'ont ouvert leur porte. Leur blason d'or se cache sous l'un des clapets de ce panneau.",
+        "en": "In 1307, when the King had my brothers arrested, lords of this place opened their door to me. Their golden coat of arms hides under one of the flaps of this sign.",
+        "es": "En 1307, cuando el rey mandó arrestar a mis hermanos, unos señores de aquí me abrieron su puerta. Su escudo de oro se esconde bajo una de las solapas de este panel."
+      },
+      "type": "texte",
+      "question": {
+        "fr": "Soulevez le bon clapet : quelle famille m'a accueilli ?",
+        "en": "Lift the right flap: which family took me in?",
+        "es": "Levantad la solapa correcta: ¿qué familia me acogió?"
+      },
+      "reponses": [
+        "salignac",
+        "famille de salignac",
+        "les salignac"
+      ],
+      "indices": [
+        {
+          "fr": "Un blason d'or à trois bandes vertes.",
+          "en": "A golden coat of arms with three green bands.",
+          "es": "Un escudo de oro con tres bandas verdes."
+        },
+        {
+          "fr": "Le nom commence par SAL…",
+          "en": "The name starts with SAL…",
+          "es": "El nombre empieza por SAL…"
+        }
+      ],
+      "apres": {
+        "fr": "Les Salignac, seigneurs de Saint-Geniès de 1282 à 1422. Ils ont gardé mon secret… mais je l'ai dispersé dans le village. Suivez-moi.",
+        "en": "The Salignacs, lords of Saint-Geniès from 1282 to 1422. They kept my secret… but I scattered it through the village. Follow me.",
+        "es": "Los Salignac, señores de Saint-Geniès de 1282 a 1422. Guardaron mi secreto… pero lo dispersé por el pueblo. Seguidme."
+      }
+    },
+    {
+      "id": "d1",
+      "nom": {
+        "fr": "L'abbé Delprat",
+        "en": "Father Delprat",
+        "es": "El abad Delprat"
+      },
+      "lat": 44.993722,
+      "lon": 1.250558,
+      "deverrouillage": "gps",
+      "photo": "sg_totem_sale_des_fetes_1.jpg",
+      "consigne_trajet": {
+        "fr": "Rejoignez le totem de l'abbé Delprat, près de la salle des fêtes.",
+        "en": "Go to Father Delprat's totem, near the village hall.",
+        "es": "Id al tótem del abad Delprat, junto a la sala de fiestas."
+      },
+      "recit": {
+        "fr": "Des siècles après moi, un autre homme d'Église a réuni ce village : l'abbé Delprat. Lisez son totem.",
+        "en": "Centuries after me, another churchman brought this village together: Father Delprat. Read his totem.",
+        "es": "Siglos después de mí, otro hombre de Iglesia unió este pueblo: el abad Delprat. Leed su tótem."
+      },
+      "type": "code",
+      "question": {
+        "fr": "En quelle année a-t-il créé l'association Saint-Roch ?",
+        "en": "In which year did he found the Saint-Roch association?",
+        "es": "¿En qué año fundó la asociación Saint-Roch?"
+      },
+      "reponses": [
+        "1946"
+      ],
+      "indices": [
+        {
+          "fr": "C'est juste après la guerre.",
+          "en": "It is just after the war.",
+          "es": "Es justo después de la guerra."
+        },
+        {
+          "fr": "Lisez la première phrase du panneau : 194…",
+          "en": "Read the first sentence of the sign: 194…",
+          "es": "Leed la primera frase del panel: 194…"
+        }
+      ],
+      "apres": {
+        "fr": "1946. Sa fanfare est née d'un chœur qui chantait sous le vitrail de saint Geniès et saint Roch.",
+        "en": "1946. His band was born from a choir that sang beneath the window of Saint Geniès and Saint Roch.",
+        "es": "1946. Su banda nació de un coro que cantaba bajo la vidriera de san Geniès y san Roque."
+      }
+    },
+    {
+      "id": "d2",
+      "nom": {
+        "fr": "La fanfare",
+        "en": "The marching band",
+        "es": "La banda"
+      },
+      "lat": 44.993722,
+      "lon": 1.250558,
+      "deverrouillage": "reponse",
+      "photo": "sg_totem_sale_des_fetes_2.jpg",
+      "recit": {
+        "fr": "Pour sa fanfare, l'abbé a recruté des jeunes des paroisses voisines, sans aucune expérience musicale.",
+        "en": "For his band, the priest recruited young people from neighbouring parishes, with no musical experience at all.",
+        "es": "Para su banda, el abad reclutó jóvenes de las parroquias vecinas, sin ninguna experiencia musical."
+      },
+      "type": "code",
+      "question": {
+        "fr": "Combien de jeunes a-t-il recrutés ?",
+        "en": "How many young people did he recruit?",
+        "es": "¿Cuántos jóvenes reclutó?"
+      },
+      "reponses": [
+        "27",
+        "vingt-sept",
+        "vingt sept",
+        "twenty-seven",
+        "veintisiete"
+      ],
+      "indices": [
+        {
+          "fr": "La réponse est écrite en lettres sur le panneau « Un homme d'exception ».",
+          "en": "The answer is written in words on the « Un homme d'exception » panel.",
+          "es": "La respuesta está escrita en letras en el panel « Un homme d'exception »."
+        },
+        {
+          "fr": "Entre 20 et 30.",
+          "en": "Between 20 and 30.",
+          "es": "Entre 20 y 30."
+        }
+      ],
+      "apres": {
+        "fr": "Vingt-sept. Gardez le premier chiffre : 2. Il prend la troisième place de mon code.",
+        "en": "Twenty-seven. Keep the first digit: 2. It takes the third place in my code.",
+        "es": "Veintisiete. Guardad la primera cifra: 2. Ocupa el tercer lugar de mi código."
+      },
+      "fragment": "2",
+      "position": 3
+    },
+    {
+      "id": "d3",
+      "nom": {
+        "fr": "Le terrain d'en face",
+        "en": "The land opposite",
+        "es": "El terreno de enfrente"
+      },
+      "lat": 44.993722,
+      "lon": 1.250558,
+      "deverrouillage": "reponse",
+      "photo": "sg_totem_sale_des_fetes_2.jpg",
+      "recit": {
+        "fr": "Réunir le village en un même lieu, hors de son église : c'était son idée.",
+        "en": "Bringing the village together in one place, outside his church: that was his idea.",
+        "es": "Reunir el pueblo en un mismo lugar, fuera de su iglesia: esa era su idea."
+      },
+      "type": "texte",
+      "question": {
+        "fr": "En 1961, qu'a-t-il fait construire sur le terrain face à vous, avant la salle des fêtes ?",
+        "en": "In 1961, what did he have built on the land opposite you, before the village hall?",
+        "es": "En 1961, ¿qué mandó construir en el terreno frente a vosotros, antes de la sala de fiestas?"
+      },
+      "reponses": [
+        "piscine",
+        "une piscine",
+        "la piscine",
+        "pool",
+        "swimming pool",
+        "a swimming pool",
+        "piscina",
+        "una piscina"
+      ],
+      "indices": [
+        {
+          "fr": "La Saint-Roch a appris à nager à des générations d'enfants.",
+          "en": "Saint-Roch taught generations of children to swim.",
+          "es": "La Saint-Roch enseñó a nadar a generaciones de niños."
+        },
+        {
+          "fr": "On y nage.",
+          "en": "You swim in it.",
+          "es": "Se nada en ella."
+        }
+      ],
+      "apres": {
+        "fr": "Une piscine, puis une salle des fêtes : les premières du canton de Salignac !",
+        "en": "A swimming pool, then a village hall: the first in the Salignac district!",
+        "es": "Una piscina y luego una sala de fiestas: ¡las primeras del cantón de Salignac!"
+      }
+    },
+    {
+      "id": "m1",
+      "nom": {
+        "fr": "Le gardien qui crie",
+        "en": "The screaming guardian",
+        "es": "El guardián que grita"
+      },
+      "lat": 44.99412,
+      "lon": 1.25048,
+      "deverrouillage": "gps",
+      "photo": "sg_modillons_2.jpg",
+      "consigne_trajet": {
+        "fr": "Faites le tour de l'église jusqu'à son chevet, la partie arrondie à l'arrière.",
+        "en": "Walk around the church to its apse, the rounded part at the back.",
+        "es": "Rodead la iglesia hasta su cabecera, la parte redondeada de atrás."
+      },
+      "recit": {
+        "fr": "Sous le toit du chevet, des têtes de pierre gardent l'église depuis le Moyen Âge : grimaçantes, étranges, parfois des bêtes fantastiques. L'une d'elles crie depuis huit siècles.",
+        "en": "Under the roof of the apse, stone heads have guarded the church since the Middle Ages: grimacing, strange, sometimes fantastic beasts. One of them has been screaming for eight centuries.",
+        "es": "Bajo el tejado de la cabecera, cabezas de piedra guardan la iglesia desde la Edad Media: muecas, rostros extraños, a veces bestias fantásticas. Una de ellas grita desde hace ocho siglos."
+      },
+      "type": "photo",
+      "photo_repere": "sg_modillon_bouche_ouverte.jpg",
+      "reponses": [],
+      "question": {
+        "fr": "Retrouvez ce gardien à la bouche grande ouverte.",
+        "en": "Find this guardian with its mouth wide open.",
+        "es": "Encontrad a este guardián con la boca abierta de par en par."
+      },
+      "indices": [
+        {
+          "fr": "Levez les yeux sous le bord du toit.",
+          "en": "Look up under the edge of the roof.",
+          "es": "Levantad la vista bajo el borde del tejado."
+        },
+        {
+          "fr": "Il est sur le pan à droite, près du cyprès.",
+          "en": "It is on the right-hand side, near the cypress tree.",
+          "es": "Está en el lado derecho, cerca del ciprés."
+        }
+      ],
+      "apres": {
+        "fr": "Vous l'avez trouvé. Il murmure un chiffre : 3. Il prend la deuxième place de mon code.",
+        "en": "You found it. It whispers a digit: 3. It takes the second place in my code.",
+        "es": "Lo habéis encontrado. Susurra una cifra: 3. Ocupa el segundo lugar de mi código."
+      },
+      "fragment": "3",
+      "position": 2
+    },
+    {
+      "id": "m2",
+      "nom": {
+        "fr": "Le vitrail des deux saints",
+        "en": "The window of the two saints",
+        "es": "La vidriera de los dos santos"
+      },
+      "lat": 44.99412,
+      "lon": 1.25048,
+      "deverrouillage": "reponse",
+      "photo": "sg_l_eglise_interieur_2.jpg",
+      "recit": {
+        "fr": "Entrez dans l'église, en silence. Un vitrail réunit le saint qui a donné son nom au village et le patron de la paroisse.",
+        "en": "Enter the church quietly. A stained-glass window brings together the saint who gave his name to the village and the patron of the parish.",
+        "es": "Entrad en la iglesia, en silencio. Una vidriera reúne al santo que dio nombre al pueblo y al patrón de la parroquia."
+      },
+      "type": "texte",
+      "question": {
+        "fr": "L'un des deux saints porte un bâton et son chien l'accompagne. Qui est-il ?",
+        "en": "One of the two saints carries a staff and his dog is with him. Who is he?",
+        "es": "Uno de los dos santos lleva un bastón y le acompaña su perro. ¿Quién es?"
+      },
+      "reponses": [
+        "roch",
+        "saint roch",
+        "st roch",
+        "saint-roch",
+        "roque",
+        "san roque",
+        "rocco"
+      ],
+      "indices": [
+        {
+          "fr": "Ce n'est pas saint Geniès.",
+          "en": "It is not Saint Geniès.",
+          "es": "No es san Geniès."
+        },
+        {
+          "fr": "C'est aussi le nom de l'association de l'abbé Delprat.",
+          "en": "It is also the name of Father Delprat's association.",
+          "es": "Es también el nombre de la asociación del abad Delprat."
+        }
+      ],
+      "apres": {
+        "fr": "Saint Roch, patron de la paroisse, avec son bâton de pèlerin et son chien fidèle.",
+        "en": "Saint Roch, patron of the parish, with his pilgrim's staff and faithful dog.",
+        "es": "San Roque, patrón de la parroquia, con su bastón de peregrino y su perro fiel."
+      }
+    },
+    {
+      "id": "m3",
+      "nom": {
+        "fr": "La Vierge de 1940",
+        "en": "The 1940 Virgin",
+        "es": "La Virgen de 1940"
+      },
+      "lat": 44.99412,
+      "lon": 1.25048,
+      "deverrouillage": "reponse",
+      "photo": "sg_l_eglise_interieur_3.jpg",
+      "recit": {
+        "fr": "Dans l'église se trouve une statue de la Vierge à l'Enfant. Elle a été offerte pour dire merci.",
+        "en": "In the church stands a statue of the Virgin and Child. It was given as a thank-you.",
+        "es": "En la iglesia hay una estatua de la Virgen con el Niño. Fue regalada como agradecimiento."
+      },
+      "type": "texte",
+      "question": {
+        "fr": "En 1940, un réfugié l'a offerte pour remercier les villageois qui l'avaient accueilli. De quelle région venait-il ?",
+        "en": "In 1940, a refugee gave it to thank the villagers who had taken him in. Which region did he come from?",
+        "es": "En 1940, un refugiado la regaló para agradecer a los vecinos que lo acogieron. ¿De qué región venía?"
+      },
+      "reponses": [
+        "alsace",
+        "l'alsace",
+        "alsacien",
+        "alsacia"
+      ],
+      "indices": [
+        {
+          "fr": "La réponse est sous le clapet « La statue de la Vierge » du grand panneau.",
+          "en": "The answer is under the « La statue de la Vierge » flap on the great sign.",
+          "es": "La respuesta está bajo la solapa « La statue de la Vierge » del gran panel."
+        },
+        {
+          "fr": "Une région de l'est de la France, à la frontière allemande.",
+          "en": "A region in eastern France, on the German border.",
+          "es": "Una región del este de Francia, en la frontera alemana."
+        }
+      ],
+      "apres": {
+        "fr": "L'Alsace. Saint-Geniès a toujours su accueillir ceux qui fuyaient… comme moi.",
+        "en": "Alsace. Saint-Geniès has always welcomed those who fled… like me.",
+        "es": "Alsacia. Saint-Geniès siempre supo acoger a quienes huían… como yo."
+      }
+    },
+    {
+      "id": "f1",
+      "nom": {
+        "fr": "L'école des filles",
+        "en": "The girls' school",
+        "es": "La escuela de niñas"
+      },
+      "lat": 44.994792,
+      "lon": 1.251058,
+      "deverrouillage": "gps",
+      "photo": "sg_totem_les_ecoles_1.jpg",
+      "consigne_trajet": {
+        "fr": "Rejoignez le totem « Les écoles de Saint-Geniès », près de la mairie.",
+        "en": "Go to the « Les écoles de Saint-Geniès » totem, near the town hall.",
+        "es": "Id al tótem « Les écoles de Saint-Geniès », junto al ayuntamiento."
+      },
+      "recit": {
+        "fr": "Ici, l'histoire de l'école de Saint-Geniès a commencé par une école de filles, tenue par des religieuses.",
+        "en": "Here, the story of Saint-Geniès's school began with a girls' school run by nuns.",
+        "es": "Aquí, la historia de la escuela de Saint-Geniès empezó con una escuela de niñas dirigida por religiosas."
+      },
+      "type": "code",
+      "question": {
+        "fr": "En quelle année une école publique pour filles a-t-elle enfin ouvert ?",
+        "en": "In which year did a state school for girls finally open?",
+        "es": "¿En qué año abrió por fin una escuela pública para niñas?"
+      },
+      "reponses": [
+        "1927"
+      ],
+      "indices": [
+        {
+          "fr": "L'école a été laïcisée en 1901, mais il a fallu attendre…",
+          "en": "The school was secularised in 1901, but there was a long wait…",
+          "es": "La escuela se laicizó en 1901, pero hubo que esperar…"
+        },
+        {
+          "fr": "Dans les années 1920.",
+          "en": "In the 1920s.",
+          "es": "En los años 1920."
+        }
+      ],
+      "apres": {
+        "fr": "1927, dans l'ancien relais en contrebas du bourg.",
+        "en": "1927, in the old coaching inn below the village.",
+        "es": "1927, en la antigua posta, abajo del pueblo."
+      }
+    },
+    {
+      "id": "f2",
+      "nom": {
+        "fr": "Le chemin qui sépare",
+        "en": "The dividing path",
+        "es": "El camino que separa"
+      },
+      "lat": 44.994792,
+      "lon": 1.251058,
+      "deverrouillage": "reponse",
+      "photo": "sg_totem_les_ecoles_2.jpg",
+      "recit": {
+        "fr": "En 1877, le conseil municipal voyait « d'un mauvais œil » l'école des filles trop près de celle des garçons. On les a séparées par un chemin.",
+        "en": "In 1877, the town council took « a dim view » of the girls' school being too close to the boys'. They were separated by a path.",
+        "es": "En 1877, el consejo municipal veía « con malos ojos » que la escuela de niñas estuviera tan cerca de la de niños. Las separaron con un camino."
+      },
+      "type": "code",
+      "question": {
+        "fr": "Quelle était la largeur de ce chemin, en mètres, sans la lisière ?",
+        "en": "How wide was this path, in metres, not counting the border strip?",
+        "es": "¿Qué anchura tenía ese camino, en metros, sin contar el linde?"
+      },
+      "reponses": [
+        "7",
+        "sept",
+        "seven",
+        "siete"
+      ],
+      "indices": [
+        {
+          "fr": "Panneau « L'école des garçons et des filles ».",
+          "en": "Panel « L'école des garçons et des filles ».",
+          "es": "Panel « L'école des garçons et des filles »."
+        },
+        {
+          "fr": "La lisière, elle, faisait 2,50 m.",
+          "en": "The border strip itself was 2.50 m.",
+          "es": "El linde medía 2,50 m."
+        }
+      ],
+      "apres": {
+        "fr": "Sept mètres ! Retenez ce 7 : c'est le dernier chiffre de mon code.",
+        "en": "Seven metres! Remember this 7: it is the last digit of my code.",
+        "es": "¡Siete metros! Recordad este 7: es la última cifra de mi código."
+      },
+      "fragment": "7",
+      "position": 4
+    },
+    {
+      "id": "f3",
+      "nom": {
+        "fr": "La récréation",
+        "en": "Break time",
+        "es": "El recreo"
+      },
+      "lat": 44.994792,
+      "lon": 1.251058,
+      "deverrouillage": "reponse",
+      "photo": "sg_totem_les_ecoles_1.jpg",
+      "recit": {
+        "fr": "Les élèves de l'école des filles n'avaient pas de cour : on les emmenait jouer ailleurs, sur la butte.",
+        "en": "The pupils of the girls' school had no playground: they were taken to play elsewhere, up on the hill.",
+        "es": "Las alumnas de la escuela de niñas no tenían patio: las llevaban a jugar a otro sitio, en la loma."
+      },
+      "type": "texte",
+      "question": {
+        "fr": "Autour de quel monument les élèves allaient-elles en récréation ?",
+        "en": "Around which monument did the pupils spend their break time?",
+        "es": "¿Alrededor de qué monumento iban las alumnas al recreo?"
+      },
+      "reponses": [
+        "cheylard",
+        "chapelle du cheylard",
+        "la chapelle du cheylard",
+        "la chapelle",
+        "chapelle",
+        "chapel",
+        "the chapel",
+        "capilla",
+        "la capilla"
+      ],
+      "indices": [
+        {
+          "fr": "C'est une chapelle sur le promontoire qui domine le bourg.",
+          "en": "It is a chapel on the promontory above the village.",
+          "es": "Es una capilla en el promontorio que domina el pueblo."
+        },
+        {
+          "fr": "La chapelle du Ch…",
+          "en": "The chapel of Ch…",
+          "es": "La capilla del Ch…"
+        }
+      ],
+      "apres": {
+        "fr": "La chapelle du Cheylard. Retenez ce nom : c'est là que tout se termine.",
+        "en": "The Cheylard chapel. Remember the name: that is where it all ends.",
+        "es": "La capilla del Cheylard. Recordad ese nombre: allí termina todo."
+      }
+    }
+  ],
+  "final": {
+    "question": {
+      "fr": "Assemblez vos quatre chiffres, chacun à sa place, pour former le code de mon secret.",
+      "en": "Put your four digits together, each in its place, to form the code of my secret.",
+      "es": "Juntad vuestras cuatro cifras, cada una en su sitio, para formar el código de mi secreto."
+    },
+    "reponse": "1327",
+    "indices": [
+      {
+        "fr": "Ouvrez le carnet : chaque chiffre a sa place.",
+        "en": "Open the notebook: each digit has its place.",
+        "es": "Abrid el cuaderno: cada cifra tiene su sitio."
+      },
+      {
+        "fr": "C'est une année : celle où l'on bâtit la chapelle du Cheylard.",
+        "en": "It is a year: the year the Cheylard chapel was built.",
+        "es": "Es un año: el de la construcción de la capilla del Cheylard."
+      }
+    ],
+    "recit": {
+      "fr": "Vingt ans après ma fuite, en 1327, Gaubert la Chaminade fit bâtir la chapelle du Cheylard… et y fit peindre saint Georges, apparu aux croisés. Ce n'était pas un hasard.",
+      "en": "Twenty years after my escape, in 1327, Gaubert la Chaminade had the Cheylard chapel built… and had Saint George painted there, who appeared to the crusaders. It was no coincidence.",
+      "es": "Veinte años después de mi huida, en 1327, Gaubert la Chaminade mandó construir la capilla del Cheylard… y pintar en ella a san Jorge, aparecido a los cruzados. No fue casualidad."
+    },
+    "texte": {
+      "fr": "1327 ! Vous avez percé le premier sceau. [À COMPLÉTER par Gonzalo : où récupérer le coffre et les cartes trésor.]",
+      "en": "1327! You have broken the first seal. [TO BE COMPLETED by Gonzalo: where to collect the chest and treasure cards.]",
+      "es": "¡1327! Habéis roto el primer sello. [A COMPLETAR por Gonzalo: dónde recoger el cofre y las cartas del tesoro.]"
+    }
+  }
+}

@@ -1264,7 +1264,8 @@ async function demarrer() {
       el('a', { class: 'bouton second', href: lienPage() }, t('retourVillages')));
     return;
   }
-  urlPhotos = new URL(ep.photos_dossier || 'photos/', urlEpisode);
+  // "photos_dossier" se lit depuis app/, comme les vidéos ; sans ce champ : photos/ à côté de l'épisode.
+  urlPhotos = ep.photos_dossier ? new URL(ep.photos_dossier, location.href) : new URL('photos/', urlEpisode);
   diagnostics = verifierEpisode();
   S = lire(cleSauvegarde());
   if (S) completerEtat();

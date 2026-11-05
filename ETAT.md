@@ -65,6 +65,18 @@
   puis Claude Code remet `SOUS_TITRES_INTRO = true` dans `app/app.js`.
 
 ## Prochain pour Claude Code
+- FAIT le 05/11 (sw v8) : `scenario/saint-genies/episode.json` + les 107 photos de `scenario/saint-genies/photos/` poussés.
+  Vérifié avec ?debug=1 (positions simulées) : aucun diagnostic, « ✓ Prêt à jouer sans réseau » ; parcours A = e0a e0b D M F,
+  B = e0a e0b M F D, C = e0a e0b F D M ; bienvenue au panneau du lavoir → 1re étape e0a « Le grand panneau de l'église »
+  avec la photo sg_totem_l_eglise_1.jpg, puis vidéo intro v4 à l'arrivée, puis l'énigme.
+  Bug moteur corrigé : "photos_dossier" était lu depuis le dossier de l'épisode → photos introuvables pour Saint-Geniès.
+  Il se lit maintenant depuis `app/` (comme les vidéos) ; sans ce champ, `photos/` à côté de l'épisode. episode.json n'a pas été modifié.
+  Rappel : dépôt public → les réponses de episode.json sont lisibles en ligne (à cacher avant le vrai lancement).
+- 🔴 URGENT (05/11, test terrain) : Gonzalo a joué la DÉMO (1re étape au totem des écoles) car le vrai jeu n'est PAS en ligne.
+  Pousser `scenario/saint-genies/episode.json` (mis à jour le 05/11 : photos = totems, cf. scenario/saint-genies/photos_catalogue.md)
+  + TOUTES les photos de `scenario/saint-genies/photos/`. Vérifier : bienvenue au panneau du lavoir (reste là, validé par Gonzalo)
+  → 1re étape = panneau de l'église (44.994094,1.250122) avec photo sg_totem_l_eglise_1.jpg ET vidéo intro v4, pour A, B et C.
+- 🔴 NOUVEAU (04/11) : `CONSIGNES_VOIX_04-11.md` (voix d'HOMME native par langue : MP3 pré-enregistrés + secours synthèse masculine de la bonne langue).
 - FAIT le 04/11 (sw v7) : `CONSIGNES_VIDEOS_PARCOURS_04-11.md` points 1 à 4, testé sur ordinateur avec positions simulées (`app/demo-episode.json` les utilise tous).
   Déroulé : écran d'équipe (nom, code, choix « Parcours A/B/C » obligatoire si l'épisode a "parcours") → « Commencer » →
   trajet guidé « Bienvenue » vers "bienvenue_lieu" (déclenche à <= 5 m, précision <= 8 m, 2 positions ; secours « Je suis devant le panneau »
