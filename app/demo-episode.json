@@ -54,40 +54,27 @@
     },
     {
       "id": 2,
-      "nom": { "fr": "Le château (démo)", "en": "The castle (demo)", "es": "El castillo (demo)" },
+      "nom": { "fr": "Le panneau du château (démo)", "en": "The castle sign (demo)", "es": "El panel del castillo (demo)" },
       "lat": 44.99450, "lon": 1.25054,
-      "selection": "joueur",
-      "variantes": [
-        {
-          "id": "interieur",
-          "label": { "fr": "Version intérieur (si c'est ouvert)", "en": "Indoor version (if open)", "es": "Versión interior (si está abierto)" },
-          "photo": "sg_0078.jpg",
-          "recit": { "fr": "Vous entrez dans la cour.", "en": "You enter the courtyard.", "es": "Entra en el patio." },
-          "type": "choix",
-          "question": { "fr": "Combien font 2 + 2 ?", "en": "What is 2 + 2?", "es": "¿Cuánto son 2 + 2?" },
-          "choix": [
-            { "id": "a", "fr": "Trois", "en": "Three", "es": "Tres" },
-            { "id": "b", "fr": "Quatre", "en": "Four", "es": "Cuatro" },
-            { "id": "c", "fr": "Cinq", "en": "Five", "es": "Cinco" }
-          ],
-          "reponses": ["b"],
-          "indices": [
-            { "fr": "Comptez sur vos doigts.", "en": "Count on your fingers.", "es": "Cuente con los dedos." },
-            { "fr": "C'est plus que trois.", "en": "It is more than three.", "es": "Es más que tres." }
-          ],
-          "apres": { "fr": "Bravo, le compte est bon.", "en": "Well done, that adds up.", "es": "Bravo, la cuenta sale." }
-        },
-        {
-          "id": "exterieur",
-          "label": { "fr": "Version extérieur", "en": "Outdoor version", "es": "Versión exterior" },
-          "recit": { "fr": "Vous restez dehors.", "en": "You stay outside.", "es": "Se queda fuera." },
-          "type": "photo",
-          "photo_repere": "sg_0092.jpg",
-          "question": { "fr": "Trouvez ce détail autour de vous.", "en": "Find this detail around you.", "es": "Encuentre este detalle a su alrededor." },
-          "reponses": [],
-          "apres": { "fr": "Bien vu !", "en": "Well spotted!", "es": "¡Bien visto!" }
-        }
+      "photo": "sg_totem_chateau_1.jpg",
+      "recit": {
+        "fr": "Restez dehors, devant le grand panneau du château : on n'entre jamais dans la cour.",
+        "en": "Stay outside, in front of the large castle sign: never go into the courtyard.",
+        "es": "Quédese fuera, delante del gran panel del castillo: nunca se entra en el patio."
+      },
+      "type": "choix",
+      "question": { "fr": "Combien font 2 + 2 ?", "en": "What is 2 + 2?", "es": "¿Cuánto son 2 + 2?" },
+      "choix": [
+        { "id": "a", "fr": "Trois", "en": "Three", "es": "Tres" },
+        { "id": "b", "fr": "Quatre", "en": "Four", "es": "Cuatro" },
+        { "id": "c", "fr": "Cinq", "en": "Five", "es": "Cinco" }
       ],
+      "reponses": ["b"],
+      "indices": [
+        { "fr": "Comptez sur vos doigts.", "en": "Count on your fingers.", "es": "Cuente con los dedos." },
+        { "fr": "C'est plus que trois.", "en": "It is more than three.", "es": "Es más que tres." }
+      ],
+      "apres": { "fr": "Bravo, le compte est bon.", "en": "Well done, that adds up.", "es": "Bravo, la cuenta sale." },
       "fragment": "2", "position": 2
     },
     {

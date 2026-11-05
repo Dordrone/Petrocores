@@ -65,6 +65,16 @@
   puis Claude Code remet `SOUS_TITRES_INTRO = true` dans `app/app.js`.
 
 ## Prochain pour Claude Code
+- FAIT le 05/11 (sw v11) : `CONSIGNES_CHATEAU_05-11.md`.
+  1) Station sans fragment : le moteur l'accepte sans modification (une case du carnet par étape AVEC fragment seulement).
+     Testé en local : Saint-Geniès joué en entier pour A, B et C (14 étapes, station C c1-c2-c3 jouée à sa place), finale « 4/4 » = 1 3 2 7,
+     code 1327 accepté, aucun diagnostic, « ✓ Prêt à jouer sans réseau ».
+  2) Démo : l'étape « Le château (démo) » avec choix intérieur/cour est remplacée par « Le panneau du château (démo) », dehors,
+     photo sg_totem_chateau_1.jpg (plus de variantes dans la démo).
+  3) Poussés : episode.json (14 étapes) + photos utilisées = 15 (ajout sg_totem_chateau_1, sg_totem_chateau_1_hd, sg_chateau_et_tour ;
+     retrait de sg_0078 et sg_0092 que plus rien n'utilise, gardées sur le PC).
+- 🔴 NOUVEAU (05/11 16h) : `CONSIGNES_CHATEAU_05-11.md` — jamais dans la cour du château ; station C (panneau + disque des blasons, dehors) ajoutée à episode.json ; nettoyer la démo.
+- ✅ 05/11 : voix Sentia appliquée, OK en ligne (en local sur PC Windows = voix Microsoft, normal).
 - FAIT le 05/11 (sw v10) : `CONSIGNES_VOIX_SENTIA_05-11.md`. choisirVoix() = pickVoice() de Sentia à l'identique (en-US, bonus « siri »),
   chaque phrase lue avec lang = fr-FR / en-US / es-ES, vitesse 0.96, hauteur 1, voix recalculée à chaque phrase. Mêmes réglages pour
   « ▶ Écouter », les indices, l'après-étape et la fin. Texte absent dans la langue choisie → rien n'est lu (plus de repli sur le français) ;

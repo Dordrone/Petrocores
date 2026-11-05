@@ -62,23 +62,31 @@
       "f1",
       "f2",
       "f3"
+    ],
+    "C": [
+      "c1",
+      "c2",
+      "c3"
     ]
   },
   "parcours": {
     "A": [
       "D",
+      "C",
       "M",
       "F"
     ],
     "B": [
       "M",
       "F",
+      "C",
       "D"
     ],
     "C": [
       "F",
       "D",
-      "M"
+      "M",
+      "C"
     ]
   },
   "etapes": [
@@ -617,6 +625,147 @@
         "fr": "La chapelle du Cheylard. Retenez ce nom : c'est là que tout se termine.",
         "en": "The Cheylard chapel. Remember the name: that is where it all ends.",
         "es": "La capilla del Cheylard. Recordad ese nombre: allí termina todo."
+      }
+    },
+    {
+      "id": "c1",
+      "nom": {
+        "fr": "Le château d'en bas",
+        "en": "The lower castle",
+        "es": "El castillo de abajo"
+      },
+      "lat": 44.9945,
+      "lon": 1.25054,
+      "deverrouillage": "gps",
+      "photo": "sg_totem_chateau_1.jpg",
+      "consigne_trajet": {
+        "fr": "Rejoignez le grand panneau du château, sur la place. Restez dehors : la cour est privée.",
+        "en": "Go to the large castle sign on the square. Stay outside: the courtyard is private.",
+        "es": "Id al gran panel del castillo, en la plaza. Quedaos fuera: el patio es privado."
+      },
+      "recit": {
+        "fr": "Ce château n'existait pas encore à mon époque : on l'a bâti plus tard, en reliant deux maisons de chevaliers. Lisez son histoire sur le panneau.",
+        "en": "This castle did not exist yet in my time: it was built later, by joining two knights' houses. Read its story on the sign.",
+        "es": "Este castillo aún no existía en mi época: se construyó más tarde, uniendo dos casas de caballeros. Leed su historia en el panel."
+      },
+      "type": "code",
+      "question": {
+        "fr": "De quel siècle datent les deux maisons de chevaliers ? (en chiffres)",
+        "en": "Which century are the two knights' houses from? (in figures)",
+        "es": "¿De qué siglo son las dos casas de caballeros? (en cifras)"
+      },
+      "reponses": [
+        "13",
+        "xiii",
+        "13e",
+        "xiiie"
+      ],
+      "indices": [
+        {
+          "fr": "Regardez la partie « 800 ans d'histoire », point n°1.",
+          "en": "Look at the « 800 ans d'histoire » part, point no. 1.",
+          "es": "Mirad la parte « 800 ans d'histoire », punto n.º 1."
+        },
+        {
+          "fr": "Le siècle juste avant 1307.",
+          "en": "The century just before 1307.",
+          "es": "El siglo justo antes de 1307."
+        }
+      ],
+      "apres": {
+        "fr": "Le treizième siècle : ces maisons, je les ai connues. J'y ai frappé une nuit de 1307.",
+        "en": "The thirteenth century: I knew those houses. I knocked on their door one night in 1307.",
+        "es": "El siglo trece: conocí esas casas. Llamé a su puerta una noche de 1307."
+      }
+    },
+    {
+      "id": "c2",
+      "nom": {
+        "fr": "La roue des blasons",
+        "en": "The wheel of arms",
+        "es": "La rueda de los escudos"
+      },
+      "lat": 44.9945,
+      "lon": 1.25054,
+      "deverrouillage": "reponse",
+      "photo": "sg_totem_chateau_1_hd.jpg",
+      "recit": {
+        "fr": "Quatre familles ont tenu ce village. Sur le panneau, faites tourner le disque et rendez à chacune son blason.",
+        "en": "Four families held this village. On the sign, turn the disc and give each one back its coat of arms.",
+        "es": "Cuatro familias gobernaron este pueblo. En el panel, girad el disco y devolved a cada una su escudo."
+      },
+      "type": "code",
+      "question": {
+        "fr": "Notez la lettre du blason de la famille 1, puis 2, puis 3, puis 4 : quel mot de 4 lettres obtenez-vous ?",
+        "en": "Write the letter of the arms of family 1, then 2, then 3, then 4: which 4-letter word do you get?",
+        "es": "Anotad la letra del escudo de la familia 1, luego 2, luego 3, luego 4: ¿qué palabra de 4 letras obtenéis?"
+      },
+      "reponses": [
+        "dcab",
+        "d c a b",
+        "d-c-a-b",
+        "1d2c3a4b",
+        "1-d 2-c 3-a 4-b"
+      ],
+      "indices": [
+        {
+          "fr": "La famille 1 a des écureuils, la famille 3 un lion.",
+          "en": "Family 1 has squirrels, family 3 a lion.",
+          "es": "La familia 1 tiene ardillas, la familia 3 un león."
+        },
+        {
+          "fr": "Ça commence par D… et finit par …B.",
+          "en": "It starts with D… and ends with …B.",
+          "es": "Empieza por D… y termina por …B."
+        }
+      ],
+      "apres": {
+        "fr": "D, C, A, B. Les écureuils, les bandes d'or, le lion, l'or et le rouge : vous savez lire les blasons comme un chevalier.",
+        "en": "D, C, A, B. The squirrels, the golden bands, the lion, the gold and red: you read coats of arms like a knight.",
+        "es": "D, C, A, B. Las ardillas, las bandas de oro, el león, el oro y el rojo: leéis los escudos como un caballero."
+      }
+    },
+    {
+      "id": "c3",
+      "nom": {
+        "fr": "La place rehaussée",
+        "en": "The raised square",
+        "es": "La plaza elevada"
+      },
+      "lat": 44.9945,
+      "lon": 1.25054,
+      "deverrouillage": "reponse",
+      "photo": "sg_chateau_et_tour.jpg",
+      "recit": {
+        "fr": "Regardez le bas du château : des fenêtres ont disparu sous vos pieds quand on a fait passer une route dans le bourg.",
+        "en": "Look at the bottom of the castle: windows vanished under your feet when a road was built through the village.",
+        "es": "Mirad la parte baja del castillo: unas ventanas desaparecieron bajo vuestros pies cuando se abrió una carretera en el pueblo."
+      },
+      "type": "code",
+      "question": {
+        "fr": "En quelle année a-t-on rehaussé la place ?",
+        "en": "In which year was the square raised?",
+        "es": "¿En qué año se elevó la plaza?"
+      },
+      "reponses": [
+        "1850"
+      ],
+      "indices": [
+        {
+          "fr": "Point n°3 du panneau.",
+          "en": "Point no. 3 on the sign.",
+          "es": "Punto n.º 3 del panel."
+        },
+        {
+          "fr": "Au milieu du 19e siècle.",
+          "en": "In the middle of the 19th century.",
+          "es": "A mediados del siglo XIX."
+        }
+      ],
+      "apres": {
+        "fr": "1850. Les pierres se cachent, mais ne mentent pas. Continuez : mon secret vous attend ailleurs.",
+        "en": "1850. Stones hide, but they do not lie. Go on: my secret awaits you elsewhere.",
+        "es": "1850. Las piedras se esconden, pero no mienten. Seguid: mi secreto os espera en otro lugar."
       }
     }
   ],
