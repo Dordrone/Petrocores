@@ -25,14 +25,14 @@
   "etapes": [
     {
       "id": 1,
-      "nom": { "fr": "La place (démo)", "en": "The square (demo)", "es": "La plaza (demo)" },
+      "nom": { "fr": "Le panneau de l'église (démo)", "en": "The church sign (demo)", "es": "El panel de la iglesia (demo)" },
       "consigne_trajet": {
-        "fr": "Rejoignez le point rouge sur la carte.",
-        "en": "Reach the red dot on the map.",
-        "es": "Llegue al punto rojo del mapa."
+        "fr": "Rejoignez le grand panneau « Balade patrimoine » de l'église (point rouge sur la carte).",
+        "en": "Go to the large “Balade patrimoine” sign by the church (red dot on the map).",
+        "es": "Vaya al gran panel «Balade patrimoine» de la iglesia (punto rojo del mapa)."
       },
-      "lat": 44.99479, "lon": 1.25107,
-      "photo": "sg_0093.jpg",
+      "lat": 44.994094, "lon": 1.250122,
+      "photo": "sg_totem_l_eglise_1.jpg",
       "recit": {
         "fr": "Un messager vous attendait ici. Il vous laisse une question simple.",
         "en": "A messenger was waiting for you here. He leaves you a simple question.",

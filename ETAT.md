@@ -65,6 +65,11 @@
   puis Claude Code remet `SOUS_TITRES_INTRO = true` dans `app/app.js`.
 
 ## Prochain pour Claude Code
+- FAIT le 05/11 (sw v12) : retour terrain de Gonzalo — après la vidéo du lavoir, l'image suivante était le totem des ÉCOLES.
+  Cause : c'était la DÉMO (étape 1 « La place (démo) » placée aux écoles, 44.99479,1.25107, photo sg_0093.jpg = totem des écoles).
+  Le vrai jeu (?episode=saint-genies) était déjà bon : 1re étape e0a = panneau de l'église + sg_totem_l_eglise_1.jpg pour A, B, C.
+  Démo corrigée comme le vrai jeu : étape 1 = « Le panneau de l'église (démo) », GPS 44.994094,1.250122, photo sg_totem_l_eglise_1.jpg.
+  sg_0093.jpg n'est plus utilisée → retirée du dépôt (gardée sur le PC). Photos en ligne : 14.
 - FAIT le 05/11 (sw v11) : `CONSIGNES_CHATEAU_05-11.md`.
   1) Station sans fragment : le moteur l'accepte sans modification (une case du carnet par étape AVEC fragment seulement).
      Testé en local : Saint-Geniès joué en entier pour A, B et C (14 étapes, station C c1-c2-c3 jouée à sa place), finale « 4/4 » = 1 3 2 7,
