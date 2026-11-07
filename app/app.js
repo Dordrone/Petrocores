@@ -27,6 +27,7 @@ const SOUS_TITRES_VIDEOS = true;  // false coupe les sous-titres si les .vtt ne 
 const RAYON_BIENVENUE = 5;        // m, si "bienvenue_lieu" ne donne pas "rayon_m"
 const ACCURACY_BIENVENUE = 8;     // m, si "bienvenue_lieu" ne donne pas "precision_m"
 const SECOURS_PANNEAU_M = 15;     // à moins de 15 m…
+const BOUTON_PANNEAU_TOUJOURS = true; // PROVISOIRE (tests entre amis, 07/11) : « Je suis devant le panneau » toujours visible. Remettre false avant la version payante.
 const SECOURS_PANNEAU_MS = 15000; // …depuis 15 s sans déclenchement → « Je suis devant le panneau »
 const PENALITE_INDICE_S = 120;
 const PENALITE_SOLUTION_S = 300;
@@ -406,7 +407,7 @@ function majTrajet() {
   if (e.panneau && utilisable && brute <= SECOURS_PANNEAU_M) { if (!presDepuis) presDepuis = now; }
   else presDepuis = 0;
   const panneauBloque = presDepuis && now - presDepuis > SECOURS_PANNEAU_MS;
-  $('secours').hidden = !(DEBUG || gpsErreur || sansPrecision || panneauBloque || now - debutTrajet > TRAJET_LONG_MS);
+  $('secours').hidden = !(BOUTON_PANNEAU_TOUJOURS || DEBUG || gpsErreur || sansPrecision || panneauBloque || now - debutTrajet > TRAJET_LONG_MS);
   if (DEBUG) {
     const m = d => d === null ? '-' : d.toFixed(1) + ' m';
     $('debug-gps').textContent = 'acc ' + (pos ? m(pos.acc) : '-') + ' (≤ ' + precisionVoulue(e) + ') | brute ' + m(brute)
@@ -534,31 +535,25 @@ function arreterVoix() {
   lectureId++;
   if (window.speechSynthesis) speechSynthesis.cancel();
 }
+let lectureEnCours = null;   // garde une référence (sinon Chrome peut « oublier » la phrase en cours)
 function parler(textes) {
   arreterVoix();
   if (!window.speechSynthesis) return;
-  const texte = textes.filter(Boolean).join('\n');
-  if (!texte.trim()) { if (DEBUG) toast('Rien à lire en ' + langue.toUpperCase() + " (texte absent de l'épisode)"); return; }
-  const phrases = texte.match(/[^.!?…\n]+[.!?…]*/g) || [];
-  const id = lectureId;
-  const lancer = () => {
-    majDebugVoix();
-    let i = 0;
-    const suite = () => {
-      if (id !== lectureId || i >= phrases.length) return;
-      const u = new SpeechSynthesisUtterance(phrases[i++].trim());
-      u.lang = VOIX_LANG[langue];
-      u.rate = VOIX_VITESSE;
-      u.pitch = VOIX_HAUTEUR;
-      const voix = choisirVoix();   // recalculée à chaque lecture, comme Sentia
-      if (voix) u.voice = voix;
-      u.onend = suite;
-      speechSynthesis.speak(u);
-    };
-    suite();
-  };
-  // Voix déjà chargées : on parle tout de suite, pour rester dans le geste du joueur.
-  if (voixPretes) voixPretes.then(lancer); else lancer();
+  const texte = textes.filter(Boolean).join(' ').replace(/\s+/g, ' ').trim();
+  if (!texte) { if (DEBUG) toast('Rien à lire en ' + langue.toUpperCase() + " (texte absent de l'épisode)"); return; }
+  // 06/11 : comme Sentia, UNE seule lecture, lancée tout de suite dans le geste du joueur
+  // (plus d'attente des voix ni de découpage en phrases : sur téléphone, iOS refusait la lecture différée).
+  majDebugVoix();
+  try { speechSynthesis.resume(); } catch (e) { /* iOS après une vidéo : moteur parfois en pause */ }
+  const u = new SpeechSynthesisUtterance(texte);
+  u.lang = VOIX_LANG[langue];
+  u.rate = VOIX_VITESSE;
+  u.pitch = VOIX_HAUTEUR;
+  const voix = choisirVoix();
+  if (voix) u.voice = voix;
+  u.onerror = e => { if (DEBUG) toast('Voix : erreur ' + (e.error || '')); };
+  lectureEnCours = u;
+  speechSynthesis.speak(u);
 }
 function parlerAuto(textes) { if (S && S.voix && !finIntro) parler(textes); }
 function surveillerLecture(bouton) {
@@ -853,10 +848,11 @@ function ecranTrajet(v) {
   v.append(el('p', { id: 'distance' }), el('p', { id: 'gps', class: 'discret' }));
   if (DEBUG) v.append(el('p', { id: 'debug-gps' }));
   v.append(el('div', { id: 'gps-exact', class: 'encart alerte', hidden: true }, t('gpsExact')));
-  v.append(bouton(t(e.panneau ? 'devantPanneau' : 'arrive'), arrivee, 'second'));
-  v.lastChild.id = 'secours';
-  v.lastChild.hidden = true;
   if (e.photo) v.append(imagePhoto(e.photo));
+  // 07/11 : bouton sous la photo du panneau ; toujours visible tant que BOUTON_PANNEAU_TOUJOURS = true.
+  v.append(bouton(t(BOUTON_PANNEAU_TOUJOURS || e.panneau ? 'devantPanneau' : 'arrive'), arrivee, 'second'));
+  v.lastChild.id = 'secours';
+  v.lastChild.hidden = !BOUTON_PANNEAU_TOUJOURS;
   v.append(el('p', { class: 'discret' }, t('ecranAllume')));
   majTrajet();
 }
@@ -872,6 +868,9 @@ function ecranEnigme(v) {
     if (n) { v.append(el('div', { class: 'encart alerte' }, n === 1 ? t('manqueUn') : t('manquent', { n }))); return; }
   }
   if (e.photo) v.append(imagePhoto(e.photo));
+  // 07/11 : revoir la vidéo de cette étape directement (en plus du menu ☰).
+  const videoIci = S.phase !== 'final' ? videoEtape(S.idx) : null;
+  if (videoIci && S.vues.includes(videoIci)) v.append(bouton(t('revoirVideo', { n: L(e.nom) }), () => jouerVideo(videoIci), 'leger'));
   if (e.recit) v.append(el('p', { class: 'texte' }, L(e.recit)));
   const textes = [aLire(e.recit), aLire(e.question)];
   const ecoute = bouton(ep.narrateur ? t('ecouterNarrateur', { n: L(ep.narrateur) }) : t('ecouter'), () => {
@@ -1265,6 +1264,7 @@ async function demarrer() {
   $('b-menu').addEventListener('click', ouvrirMenu);
   preparerVoix();
   document.addEventListener('click', debloquerVoix, { once: true });
+  document.addEventListener('touchend', debloquerVoix, { once: true });
   window.addEventListener('resize', dessinerCarte);
   setInterval(() => {
     if (!S || !afficher.jeu) return;
