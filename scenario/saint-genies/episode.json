@@ -367,10 +367,10 @@
       },
       "type": "code",
       "reponses": [
-        "10",
-        "dix",
-        "ten",
-        "diez"
+        "14",
+        "quatorze",
+        "fourteen",
+        "catorce"
       ],
       "question": {
         "fr": "Combien de têtes sculptées gardent le chevet sous le bord du toit ?",
@@ -384,15 +384,15 @@
           "es": "Levantad la vista bajo el borde del tejado y rodead la cabecera contando."
         },
         {
-          "fr": "Ne comptez que les têtes sculptées. Le nombre est entre 8 et 12.",
-          "en": "Count only the carved heads. The number is between 8 and 12.",
-          "es": "Contad solo las cabezas esculpidas. El número está entre 8 y 12."
+          "fr": "Il y a 21 pierres sous le toit, mais certaines sont lisses ou trop usées : ne comptez que les vraies têtes.",
+          "en": "There are 21 stones under the roof, but some are plain or too worn: count only the real heads.",
+          "es": "Hay 21 piedras bajo el tejado, pero algunas son lisas o están muy gastadas: contad solo las cabezas de verdad."
         }
       ],
       "apres": {
-        "fr": "Dix gardiens de pierre… et l'un d'eux crie, la bouche grande ouverte. Il murmure un chiffre : 3. Il prend la deuxième place de mon code.",
-        "en": "Ten stone guardians… and one of them screams, mouth wide open. It whispers a digit: 3. It takes the second place in my code.",
-        "es": "Diez guardianes de piedra… y uno de ellos grita, con la boca abierta de par en par. Susurra una cifra: 3. Ocupa el segundo lugar de mi código."
+        "fr": "Quatorze gardiens de pierre… et le treizième crie, la bouche grande ouverte. Il murmure un chiffre : 3. Il prend la deuxième place de mon code.",
+        "en": "Fourteen stone guardians… and the thirteenth screams, mouth wide open. It whispers a digit: 3. It takes the second place in my code.",
+        "es": "Catorce guardianes de piedra… y el decimotercero grita, con la boca abierta de par en par. Susurra una cifra: 3. Ocupa el segundo lugar de mi código."
       },
       "fragment": "3",
       "position": 2
@@ -425,6 +425,9 @@
         "saint roch",
         "st roch",
         "saint-roch",
+        "rock",
+        "roc",
+        "rok",
         "roque",
         "san roque",
         "rocco"
@@ -619,6 +622,9 @@
       },
       "reponses": [
         "cheylard",
+        "seinard",
+        "cheinard",
+        "chaylard",
         "chapelle du cheylard",
         "la chapelle du cheylard",
         "la chapelle",
