@@ -56,6 +56,7 @@ const UI = {
   enigmeFinale: { fr: 'Énigme finale', en: 'Final riddle', es: 'Enigma final' },
   choisirVariante: { fr: 'Comment voulez-vous jouer cette étape ?', en: 'How do you want to play this step?', es: '¿Cómo quiere jugar esta etapa?' },
   rendezVous: { fr: 'Rendez-vous à ce lieu', en: 'Go to this place', es: 'Vaya a este lugar' },
+  silence: { fr: '🤫 Par respect pour ce lieu de culte, Frère Aymeric se tait ici. Lisez l\'énigme en silence.', en: '🤫 Out of respect for this place of worship, Brother Aymeric stays silent here. Read the riddle quietly.', es: '🤫 Por respeto a este lugar de culto, Fray Aymeric guarda silencio aquí. Leed el enigma en silencio.' },
   ecranAllume: { fr: "Gardez l'écran allumé : téléphone verrouillé, le GPS s'arrête.", en: 'Keep the screen on: when the phone locks, GPS stops.', es: 'Mantenga la pantalla encendida: con el teléfono bloqueado, el GPS se detiene.' },
   gpsAttente: { fr: 'Recherche du GPS…', en: 'Looking for GPS…', es: 'Buscando el GPS…' },
   gpsOk: { fr: 'Précision ± {n} m', en: 'Accuracy ± {n} m', es: 'Precisión ± {n} m' },
@@ -539,6 +540,7 @@ let lectureEnCours = null;   // garde une référence (sinon Chrome peut « oubl
 function parler(textes) {
   arreterVoix();
   if (!window.speechSynthesis) return;
+  if (lieuSilencieux()) return;
   const texte = textes.filter(Boolean).join(' ').replace(/\s+/g, ' ').trim();
   if (!texte) { if (DEBUG) toast('Rien à lire en ' + langue.toUpperCase() + " (texte absent de l'épisode)"); return; }
   // 06/11 : comme Sentia, UNE seule lecture, lancée tout de suite dans le geste du joueur
@@ -554,6 +556,10 @@ function parler(textes) {
   u.onerror = e => { if (DEBUG) toast('Voix : erreur ' + (e.error || '')); };
   lectureEnCours = u;
   speechSynthesis.speak(u);
+}
+// 07/11 : étapes marquées "silence": true dans l'épisode (intérieur de l'église) → aucune voix.
+function lieuSilencieux() {
+  try { return !!(S && S.phase !== 'final' && ep.etapes[S.idx] && resoudre(S.idx).silence); } catch (e) { return false; }
 }
 function parlerAuto(textes) { if (S && S.voix && !finIntro) parler(textes); }
 function surveillerLecture(bouton) {
@@ -878,6 +884,7 @@ function ecranEnigme(v) {
     parler(textes);
   }, 'ecouter');
   v.append(ecoute);
+  if (e.silence && S.phase !== 'final') { ecoute.hidden = true; v.append(el('div', { class: 'encart' }, t('silence'))); }
   if (DEBUG) { v.append(el('p', { id: 'debug-voix', class: 'discret' })); majDebugVoix(); }
   if (e.question) v.append(el('p', { class: 'question texte' }, L(e.question)));
 
@@ -971,7 +978,7 @@ function ecranApres(v) {
     v.append(el('div', { class: 'fragments' }, el('span', { class: 'fragment' }, S.fragments[S.idx])));
   }
   const textes = [aLire(e.apres)];
-  v.append(bouton(t('ecouter'), () => parler(textes), 'leger'));
+  if (!lieuSilencieux()) v.append(bouton(t('ecouter'), () => parler(textes), 'leger'));
   const dernier = S.rang + 1 >= S.ordre.length;
   if (!dernier) {
     // Nouveau lieu (pas une question enchaînée au même endroit) : on annonce la destination.
