@@ -365,30 +365,34 @@
         "en": "Under the roof of the apse, stone heads have guarded the church since the Middle Ages: grimacing, strange, sometimes fantastic beasts. One of them has been screaming for eight centuries.",
         "es": "Bajo el tejado de la cabecera, cabezas de piedra guardan la iglesia desde la Edad Media: muecas, rostros extraños, a veces bestias fantásticas. Una de ellas grita desde hace ocho siglos."
       },
-      "type": "photo",
-      "photo_repere": "sg_modillon_bouche_ouverte.jpg",
-      "reponses": [],
+      "type": "code",
+      "reponses": [
+        "10",
+        "dix",
+        "ten",
+        "diez"
+      ],
       "question": {
-        "fr": "Retrouvez ce gardien à la bouche grande ouverte.",
-        "en": "Find this guardian with its mouth wide open.",
-        "es": "Encontrad a este guardián con la boca abierta de par en par."
+        "fr": "Combien de têtes sculptées gardent le chevet sous le bord du toit ?",
+        "en": "How many carved heads guard the apse under the edge of the roof?",
+        "es": "¿Cuántas cabezas esculpidas guardan la cabecera bajo el borde del tejado?"
       },
       "indices": [
         {
-          "fr": "Levez les yeux sous le bord du toit.",
-          "en": "Look up under the edge of the roof.",
-          "es": "Levantad la vista bajo el borde del tejado."
+          "fr": "Levez les yeux sous le bord du toit et faites le tour du chevet en comptant.",
+          "en": "Look up under the edge of the roof and walk round the apse counting.",
+          "es": "Levantad la vista bajo el borde del tejado y rodead la cabecera contando."
         },
         {
-          "fr": "Il est sur le pan à droite, près du cyprès.",
-          "en": "It is on the right-hand side, near the cypress tree.",
-          "es": "Está en el lado derecho, cerca del ciprés."
+          "fr": "Ne comptez que les têtes sculptées. Le nombre est entre 8 et 12.",
+          "en": "Count only the carved heads. The number is between 8 and 12.",
+          "es": "Contad solo las cabezas esculpidas. El número está entre 8 y 12."
         }
       ],
       "apres": {
-        "fr": "Vous l'avez trouvé. Il murmure un chiffre : 3. Il prend la deuxième place de mon code.",
-        "en": "You found it. It whispers a digit: 3. It takes the second place in my code.",
-        "es": "Lo habéis encontrado. Susurra una cifra: 3. Ocupa el segundo lugar de mi código."
+        "fr": "Dix gardiens de pierre… et l'un d'eux crie, la bouche grande ouverte. Il murmure un chiffre : 3. Il prend la deuxième place de mon code.",
+        "en": "Ten stone guardians… and one of them screams, mouth wide open. It whispers a digit: 3. It takes the second place in my code.",
+        "es": "Diez guardianes de piedra… y uno de ellos grita, con la boca abierta de par en par. Susurra una cifra: 3. Ocupa el segundo lugar de mi código."
       },
       "fragment": "3",
       "position": 2
@@ -453,12 +457,11 @@
       "lat": 44.99412,
       "lon": 1.25048,
       "deverrouillage": "reponse",
-      "silence": true,
-      "photo": "sg_l_eglise_interieur_3.jpg",
+      "photo": "sg_eglise_vierge_portail.jpg",
       "recit": {
-        "fr": "Dans l'église se trouve une statue de la Vierge à l'Enfant. Elle a été offerte pour dire merci.",
-        "en": "In the church stands a statue of the Virgin and Child. It was given as a thank-you.",
-        "es": "En la iglesia hay una estatua de la Virgen con el Niño. Fue regalada como agradecimiento."
+        "fr": "Ressortez de l'église et levez les yeux : au-dessus du portail, une Vierge à l'Enfant veille sur le village. Elle a été offerte pour dire merci.",
+        "en": "Leave the church and look up: above the doorway, a Virgin and Child watches over the village. It was given as a thank-you.",
+        "es": "Salid de la iglesia y levantad la vista: sobre el pórtico, una Virgen con el Niño vela por el pueblo. Fue ofrecida para dar las gracias."
       },
       "type": "texte",
       "question": {
@@ -653,7 +656,7 @@
       "lat": 44.9945,
       "lon": 1.25054,
       "deverrouillage": "gps",
-      "photo": "sg_totem_chateau_1.jpg",
+      "photo": "sg_chateau_place_1.jpg",
       "consigne_trajet": {
         "fr": "Rejoignez le grand panneau du château, sur la place. Restez dehors : la cour est privée.",
         "en": "Go to the large castle sign on the square. Stay outside: the courtyard is private.",
