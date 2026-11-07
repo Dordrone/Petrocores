@@ -403,7 +403,8 @@
       "lat": 44.99412,
       "lon": 1.25048,
       "deverrouillage": "reponse",
-      "photo": "sg_l_eglise_interieur_2.jpg",
+      "silence": true,
+      "photo": "sg_eglise_vitrail_saint_roch.jpg",
       "recit": {
         "fr": "Entrez dans l'église, en silence. Un vitrail réunit le saint qui a donné son nom au village et le patron de la paroisse.",
         "en": "Enter the church quietly. A stained-glass window brings together the saint who gave his name to the village and the patron of the parish.",
@@ -431,9 +432,9 @@
           "es": "No es san Geniès."
         },
         {
-          "fr": "C'est aussi le nom de l'association de l'abbé Delprat.",
-          "en": "It is also the name of Father Delprat's association.",
-          "es": "Es también el nombre de la asociación del abad Delprat."
+          "fr": "Lisez l'inscription en bas à gauche du vitrail.",
+          "en": "Read the inscription at the bottom left of the window.",
+          "es": "Leed la inscripción abajo a la izquierda de la vidriera."
         }
       ],
       "apres": {
@@ -452,6 +453,7 @@
       "lat": 44.99412,
       "lon": 1.25048,
       "deverrouillage": "reponse",
+      "silence": true,
       "photo": "sg_l_eglise_interieur_3.jpg",
       "recit": {
         "fr": "Dans l'église se trouve une statue de la Vierge à l'Enfant. Elle a été offerte pour dire merci.",
@@ -749,7 +751,7 @@
       "lat": 44.9945,
       "lon": 1.25054,
       "deverrouillage": "reponse",
-      "photo": "sg_chateau_et_tour.jpg",
+      "photo": "sg_chateau_place_1.jpg",
       "recit": {
         "fr": "Regardez le bas du château : des fenêtres ont disparu sous vos pieds quand on a fait passer une route dans le bourg.",
         "en": "Look at the bottom of the castle: windows vanished under your feet when a road was built through the village.",
