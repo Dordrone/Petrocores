@@ -111,6 +111,12 @@ label { display: block; margin: 12px 0 4px; font-size: 16px; }
 .ligne.parcours { flex-wrap: wrap; }
 .temps { font-size: 42px; font-weight: bold; text-align: center; font-variant-numeric: tabular-nums; margin: 8px 0 0; color: var(--rouge); }
 .image-fin { display: block; width: 100%; max-width: 340px; margin: 12px auto; }
+.carte-fin { position: relative; max-width: 340px; margin: 12px auto 30px; }
+.carte-fin .image-fin { margin: 0; }
+.sceau-fin { position: absolute; right: -12px; bottom: -28px; width: 44%; transform: rotate(-12deg);
+  filter: drop-shadow(2px 4px 4px rgba(0, 0, 0, .45)); animation: tampon .6s ease-out both .3s; }
+@keyframes tampon { from { opacity: 0; transform: rotate(-30deg) scale(1.8); } to { opacity: 1; transform: rotate(-12deg) scale(1); } }
+.nom-sceau { text-align: center; font-weight: bold; font-size: 1.2em; margin: 4px 0; }
 
 #couche {
   position: fixed; inset: 0; z-index: 50;
@@ -139,6 +145,8 @@ label { display: block; margin: 12px 0 4px; font-size: 16px; }
   background: rgba(0, 0, 0, .55); color: var(--parchemin);
   border: 1px solid var(--parchemin); border-radius: 8px; cursor: pointer;
 }
+
+#intro .revoir { right: auto; left: 16px; }
 
 #toast {
   position: fixed; left: 16px; right: 16px; bottom: calc(20px + env(safe-area-inset-bottom)); z-index: 60;

@@ -29,6 +29,9 @@ const ACCURACY_BIENVENUE = 8;     // m, si "bienvenue_lieu" ne donne pas "precis
 const SECOURS_PANNEAU_M = 15;     // à moins de 15 m…
 const BOUTON_PANNEAU_TOUJOURS = true; // PROVISOIRE (tests entre amis, 07/11) : « Je suis devant le panneau » toujours visible. Remettre false avant la version payante.
 const SECOURS_PANNEAU_MS = 15000; // …depuis 15 s sans déclenchement → « Je suis devant le panneau »
+// 07/11 : sceau de fin selon les pénalités (secondes) : 0 = or, ≤ 10 min = argent, ≤ 20 min = bronze, au-delà = bois.
+const SCEAUX = [[0, 'or'], [600, 'argent'], [1200, 'bronze'], [Infinity, 'bois']];
+function sceauGagne(pen) { return SCEAUX.find(([max]) => (pen || 0) <= max)[1]; }
 const PENALITE_INDICE_S = 120;
 const PENALITE_SOLUTION_S = 300;
 const CACHE_MEDIA = 'petrocores-media';
@@ -81,12 +84,23 @@ const UI = {
   suivante: { fr: 'Étape suivante', en: 'Next step', es: 'Siguiente etapa' },
   versFinale: { fr: "Vers l'énigme finale", en: 'On to the final riddle', es: 'Hacia el enigma final' },
   terminer: { fr: 'Terminer', en: 'Finish', es: 'Terminar' },
+  sceau_or: { fr: "Sceau d'or", en: 'Gold seal', es: 'Sello de oro' },
+  sceau_argent: { fr: "Sceau d'argent", en: 'Silver seal', es: 'Sello de plata' },
+  sceau_bronze: { fr: 'Sceau de bronze', en: 'Bronze seal', es: 'Sello de bronce' },
+  sceau_bois: { fr: 'Sceau de bois', en: 'Wooden seal', es: 'Sello de madera' },
+  sceauMot_or: { fr: "Sans la moindre aide ! Vous méritez le sceau d'or des Templiers.", en: 'Without any help! You deserve the Templars’ gold seal.', es: '¡Sin ninguna ayuda! Merecéis el sello de oro de los templarios.' },
+  sceauMot_argent: { fr: "Un peu d'aide, mais un vrai courage : voici le sceau d'argent.", en: 'A little help, but true courage: here is the silver seal.', es: 'Un poco de ayuda, pero verdadero valor: aquí tenéis el sello de plata.' },
+  sceauMot_bronze: { fr: 'Le chemin fut long, mais vous êtes allés au bout : le sceau de bronze est à vous.', en: 'The road was long, but you made it to the end: the bronze seal is yours.', es: 'El camino fue largo, pero llegasteis al final: el sello de bronce es vuestro.' },
+  sceauMot_bois: { fr: "Même le plus humble des frères reçoit un sceau : celui de bois. Revenez tenter l'or !", en: 'Even the humblest brother receives a seal: the wooden one. Come back and try for gold!', es: 'Hasta el más humilde de los hermanos recibe un sello: el de madera. ¡Volved a intentar el oro!' },
   victoire: { fr: 'Mission accomplie !', en: 'Mission accomplished!', es: '¡Misión cumplida!' },
   tempsFinal: { fr: 'Temps de votre équipe', en: "Your team's time", es: 'Tiempo de su equipo' },
   dontPenalites: { fr: 'dont {p} de pénalités', en: 'including {p} of penalties', es: 'de los cuales {p} de penalización' },
   min: { fr: 'min', en: 'min', es: 'min' },
   toucherCommencer: { fr: 'Touchez pour commencer', en: 'Tap to begin', es: 'Toque para empezar' },
   passer: { fr: 'Passer', en: 'Skip', es: 'Saltar' },
+  passerConfirme: { fr: 'Toucher encore pour passer', en: 'Tap again to skip', es: 'Toque otra vez para saltar' },
+  revoirDebut: { fr: '↺ Revoir', en: '↺ Replay', es: '↺ Volver a ver' },
+  allerEtape: { fr: 'Aller à une étape (test)', en: 'Go to a step (test)', es: 'Ir a una etapa (prueba)' },
   revoirIntro: { fr: "Revoir l'intro", en: 'Watch the intro again', es: 'Volver a ver la intro' },
   fermer: { fr: 'Fermer', en: 'Close', es: 'Cerrar' },
   erreurVillages: { fr: 'Impossible de charger la liste des villages. Vérifiez votre connexion.', en: 'Could not load the list of villages. Check your connection.', es: 'No se pudo cargar la lista de pueblos. Compruebe su conexión.' },
@@ -299,9 +313,37 @@ function terminer() {
 }
 
 // ---------- Réponses ----------
+// 07/11 : tolérance aux petites fautes (« le rissonnage », « les rissonnages », « chapelle du Cheylar »…).
+// Les nombres restent exacts (codes, années). Mots courts (< 5 lettres) : exacts. Sinon 1 faute, 2 au-delà de 8 lettres.
+const MOTS_VIDES = new Set(['le', 'la', 'les', 'l', 'un', 'une', 'des', 'de', 'du', 'd', 'au', 'aux', 'the', 'a', 'an', 'of', 'el', 'los', 'las', 'lo', 'del', 'saint', 'st', 'san', 'chapelle', 'chapel', 'capilla', 'famille', 'family', 'familia']);
+function motsUtiles(s) {
+  return normaliser(s).split(' ').filter(m => m && !MOTS_VIDES.has(m)).map(m => m.length > 4 ? m.replace(/[sx]$/, '') : m);
+}
+function distance(a, b) {
+  const d = Array.from({ length: a.length + 1 }, (_, i) => [i]);
+  for (let j = 1; j <= b.length; j++) d[0][j] = j;
+  for (let i = 1; i <= a.length; i++) for (let j = 1; j <= b.length; j++)
+    d[i][j] = Math.min(d[i - 1][j] + 1, d[i][j - 1] + 1, d[i - 1][j - 1] + (a[i - 1] === b[j - 1] ? 0 : 1));
+  return d[a.length][b.length];
+}
+function motProche(saisi, attendu) {
+  if (saisi === attendu) return true;
+  if (/^\d+$/.test(attendu) || attendu.length < 5) return false;
+  return distance(saisi, attendu) <= (attendu.length > 8 ? 2 : 1);
+}
 function bonneReponse(e, saisie) {
   const r = (e.reponses || []).map(normaliser);
-  return r.includes(normaliser(saisie));
+  const n = normaliser(saisie);
+  if (r.includes(n)) return true;
+  if (!n || /^\d+$/.test(n)) return false;           // un nombre faux reste faux
+  const saisis = motsUtiles(saisie);
+  if (!saisis.length) return false;
+  return (e.reponses || []).some(rep => {
+    const attendus = motsUtiles(rep);
+    if (!attendus.length || /^\d+$/.test(attendus.join(''))) return false;
+    // chaque mot attendu doit se retrouver (à une petite faute près) dans la réponse du joueur
+    return attendus.every(a => saisis.some(m => motProche(m, a)));
+  });
 }
 function choixEstBon(e, c) {
   const noms = [c.id, c.fr, c.en, c.es].filter(x => x !== undefined).map(normaliser);
@@ -655,9 +697,19 @@ function jouerVideo(chemin, suite) {
     if (modele && vl !== 'fr') { vl = 'fr'; charger(); } else fermer();   // vidéo introuvable : on passe
   });
   video.addEventListener('loadedmetadata', montrerSousTitres);
-  const passer = el('button', { type: 'button', class: 'passer', onclick: fermer }, t('passer'));
+  // 07/11 : « Passer » demande 2 touchers (évite qu'un enfant saute la vidéo par erreur) ; « Revoir » la relance du début.
+  let armer = null;
+  const passer = el('button', { type: 'button', class: 'passer', onclick: () => {
+    if (armer) { clearTimeout(armer); fermer(); return; }
+    passer.textContent = t('passerConfirme');
+    armer = setTimeout(() => { armer = null; passer.textContent = t('passer'); }, 3000);
+  } }, t('passer'));
+  const revoir = el('button', { type: 'button', class: 'passer revoir', onclick: () => {
+    lancee = true; toucher.hidden = true; montrerSousTitres();
+    video.currentTime = 0; video.play().catch(() => { toucher.hidden = false; });
+  } }, t('revoirDebut'));
   charger();
-  zone.replaceChildren(video, toucher, passer);
+  zone.replaceChildren(video, toucher, revoir, passer);
   zone.hidden = false;
   finIntro = () => {
     finIntro = null;
@@ -680,9 +732,20 @@ function apresMenu(action) {
     fermerCouche();
   };
 }
+// 07/11 (tests) : reprendre la partie à n'importe quelle étape de son parcours (ex. après une remise à zéro, depuis l'église).
+function ouvrirAllerEtape() {
+  ouvrirCouche(el('div', { class: 'cadre' },
+    el('h2', {}, t('allerEtape')),
+    ...S.ordre.map((i, r) => bouton((r + 1) + '. ' + L(resoudre(i).nom), apresMenu(() => {
+      if (!S.debut || S.phase === 'bienvenue') S.debut = Date.now();
+      entrerRang(r);
+    }), r === S.rang ? '' : 'second')),
+    bouton(t('fermer'), fermerCouche, 'leger')));
+}
 function ouvrirMenu() {
   ouvrirCouche(el('div', { class: 'cadre' },
     bouton(t('carnet'), apresMenu(ouvrirCarnet)),
+    ...(BOUTON_PANNEAU_TOUJOURS ? [bouton(t('allerEtape'), apresMenu(ouvrirAllerEtape), 'second')] : []),
     ...S.vues.map(chemin => bouton(nomVideo(chemin), apresMenu(() => jouerVideo(chemin)), 'second')),
     bouton(t('fermer'), fermerCouche, 'leger')));
 }
@@ -996,9 +1059,14 @@ function ecranFin(v) {
   v.append(el('p', { class: 'discret', style: 'text-align:center;margin:0' }, S.equipe + ' · ' + t('tempsFinal')));
   v.append(el('p', { class: 'temps' }, chronoTexte(secondesJeu())));
   if (S.penalite) v.append(el('p', { class: 'discret', style: 'text-align:center' }, t('dontPenalites', { p: dureeTexte(S.penalite) })));
-  v.append(el('img', { class: 'image-fin', src: f.image ? urlPhoto(f.image) : 'fragment-carte.svg', alt: '' }));
+  const sceau = sceauGagne(S.penalite);
+  v.append(el('div', { class: 'carte-fin' },
+    el('img', { class: 'image-fin', src: f.image ? urlPhoto(f.image) : 'fragment-carte.svg', alt: '' }),
+    el('img', { class: 'sceau-fin', src: 'sceaux/sceau_' + sceau + '.png', alt: t('sceau_' + sceau) })));
+  v.append(el('p', { class: 'nom-sceau' }, t('sceau_' + sceau)));
+  v.append(el('p', { class: 'texte' }, t('sceauMot_' + sceau)));
   if (f.texte) v.append(el('p', { class: 'texte' }, L(f.texte)));
-  const textes = [aLire(f.texte)];
+  const textes = [UI['sceauMot_' + sceau][langue] || UI['sceauMot_' + sceau].fr, aLire(f.texte)];
   v.append(bouton(t('ecouter'), () => parler(textes), 'leger'));
   v.append(bouton(t('nouvelle'), () => confirmer(t('nouvelleConfirme'), () => {
     effacer(cleSauvegarde());
