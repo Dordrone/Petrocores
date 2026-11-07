@@ -67,6 +67,11 @@
       "c1",
       "c2",
       "c3"
+    ],
+    "L": [
+      "l1",
+      "l2",
+      "l3"
     ]
   },
   "parcours": {
@@ -74,15 +79,18 @@
       "D",
       "C",
       "M",
+      "L",
       "F"
     ],
     "B": [
       "M",
+      "L",
       "F",
       "C",
       "D"
     ],
     "C": [
+      "L",
       "F",
       "D",
       "M",
@@ -343,14 +351,14 @@
         "en": "The screaming guardian",
         "es": "El guardián que grita"
       },
-      "lat": 44.99412,
-      "lon": 1.25048,
+      "lat": 44.99409,
+      "lon": 1.25117,
       "deverrouillage": "gps",
-      "photo": "sg_modillons_2.jpg",
+      "photo": "sg_totem_la_pierre_1.jpg",
       "consigne_trajet": {
-        "fr": "Faites le tour de l'église jusqu'à son chevet, la partie arrondie à l'arrière.",
-        "en": "Walk around the church to its apse, the rounded part at the back.",
-        "es": "Rodead la iglesia hasta su cabecera, la parte redondeada de atrás."
+        "fr": "Faites le tour de l'église jusqu'au totem « La pierre dans tous ses états », face au chevet (la partie arrondie à l'arrière).",
+        "en": "Walk around the church to the « La pierre dans tous ses états » totem, facing the apse (the rounded part at the back).",
+        "es": "Rodead la iglesia hasta el tótem « La pierre dans tous ses états », frente a la cabecera (la parte redondeada de atrás)."
       },
       "recit": {
         "fr": "Sous le toit du chevet, des têtes de pierre gardent l'église depuis le Moyen Âge : grimaçantes, étranges, parfois des bêtes fantastiques. L'une d'elles crie depuis huit siècles.",
@@ -546,15 +554,21 @@
       },
       "type": "code",
       "question": {
-        "fr": "Quelle était la largeur de ce chemin, en mètres, sans la lisière ?",
-        "en": "How wide was this path, in metres, not counting the border strip?",
-        "es": "¿Qué anchura tenía ese camino, en metros, sin contar el linde?"
+        "fr": "Chemin plus lisière : quelle largeur totale séparait les deux écoles, en mètres ?",
+        "en": "Path plus border strip: what total width separated the two schools, in metres?",
+        "es": "Camino más linde: ¿qué anchura total separaba las dos escuelas, en metros?"
       },
       "reponses": [
-        "7",
-        "sept",
-        "seven",
-        "siete"
+        "9,50",
+        "9,5",
+        "9.5",
+        "9.50",
+        "9,50 m",
+        "9,5 m",
+        "9.5 m",
+        "9 m 50",
+        "9m50",
+        "950 cm"
       ],
       "indices": [
         {
@@ -563,15 +577,15 @@
           "es": "Panel « L'école des garçons et des filles »."
         },
         {
-          "fr": "La lisière, elle, faisait 2,50 m.",
-          "en": "The border strip itself was 2.50 m.",
-          "es": "El linde medía 2,50 m."
+          "fr": "Additionnez la largeur du chemin et celle de la lisière.",
+          "en": "Add the width of the path and the width of the border strip.",
+          "es": "Sumad la anchura del camino y la del linde."
         }
       ],
       "apres": {
-        "fr": "Sept mètres ! Retenez ce 7 : c'est le dernier chiffre de mon code.",
-        "en": "Seven metres! Remember this 7: it is the last digit of my code.",
-        "es": "¡Siete metros! Recordad este 7: es la última cifra de mi código."
+        "fr": "9,50 mètres, dont 7 pour le seul chemin. Retenez ce 7 : c'est le dernier chiffre de mon code.",
+        "en": "9.50 metres, 7 of them for the path alone. Remember this 7: it is the last digit of my code.",
+        "es": "9,50 metros, de los cuales 7 para el camino. Recordad este 7: es la última cifra de mi código."
       },
       "fragment": "7",
       "position": 4
@@ -766,6 +780,149 @@
         "fr": "1850. Les pierres se cachent, mais ne mentent pas. Continuez : mon secret vous attend ailleurs.",
         "en": "1850. Stones hide, but they do not lie. Go on: my secret awaits you elsewhere.",
         "es": "1850. Las piedras se esconden, pero no mienten. Seguid: mi secreto os espera en otro lugar."
+      }
+    },
+    {
+      "id": "l1",
+      "nom": {
+        "fr": "Les toits de pierre",
+        "en": "The stone roofs",
+        "es": "Los tejados de piedra"
+      },
+      "lat": 44.99428,
+      "lon": 1.24915,
+      "deverrouillage": "gps",
+      "photo": "sg_totem_la_lauze_1.jpg",
+      "consigne_trajet": {
+        "fr": "Montez au jardin, à l'ouest de l'église : le totem « La Lauze » vous attend, à côté du grand cadre photo.",
+        "en": "Go up to the garden west of the church: the « La Lauze » sign awaits you, next to the big photo frame.",
+        "es": "Subid al jardín, al oeste de la iglesia: el panel « La Lauze » os espera, junto al gran marco de fotos."
+      },
+      "recit": {
+        "fr": "Regardez les toits du village : ils sont faits de pierre. En mon temps déjà, les lauziers levaient ces plaques dans le sol. Mais un tel toit est lourd, et il faut le bâtir avec rigueur.",
+        "en": "Look at the village roofs: they are made of stone. Already in my time, roofers lifted these slabs from the ground. But such a roof is heavy, and it must be built with care.",
+        "es": "Mirad los tejados del pueblo: son de piedra. Ya en mi época, los lauzeros levantaban esas losas del suelo. Pero un tejado así pesa, y hay que construirlo con rigor."
+      },
+      "type": "code",
+      "question": {
+        "fr": "Quelle pente, en degrés, doit avoir un toit de lauze ?",
+        "en": "What slope, in degrees, must a lauze roof have?",
+        "es": "¿Qué pendiente, en grados, debe tener un tejado de lauze?"
+      },
+      "reponses": [
+        "45",
+        "45°",
+        "45 degres",
+        "45 degrees",
+        "45 grados"
+      ],
+      "indices": [
+        {
+          "fr": "Point n°2 du panneau.",
+          "en": "Point no. 2 on the sign.",
+          "es": "Punto n.º 2 del panel."
+        },
+        {
+          "fr": "La moitié d'un angle droit.",
+          "en": "Half of a right angle.",
+          "es": "La mitad de un ángulo recto."
+        }
+      ],
+      "apres": {
+        "fr": "Quarante-cinq degrés : une pente raide, pour que la pierre tienne et que la pluie glisse.",
+        "en": "Forty-five degrees: a steep slope, so the stone holds and the rain slides off.",
+        "es": "Cuarenta y cinco grados: una pendiente fuerte, para que la piedra aguante y la lluvia resbale."
+      }
+    },
+    {
+      "id": "l2",
+      "nom": {
+        "fr": "Le poids du ciel",
+        "en": "The weight of the sky",
+        "es": "El peso del cielo"
+      },
+      "lat": 44.99428,
+      "lon": 1.24915,
+      "deverrouillage": "reponse",
+      "photo": "sg_totem_la_lauze_1.jpg",
+      "recit": {
+        "fr": "Un toit de lauze écrase les murs : c'est pour cela qu'ils sont si épais, jusqu'à un mètre.",
+        "en": "A lauze roof crushes the walls: that is why they are so thick, up to one metre.",
+        "es": "Un tejado de lauze aplasta los muros: por eso son tan gruesos, hasta un metro."
+      },
+      "type": "code",
+      "question": {
+        "fr": "Combien de kilos peut peser, au maximum, un seul mètre carré de toit de lauze ?",
+        "en": "How many kilos can a single square metre of lauze roof weigh, at most?",
+        "es": "¿Cuántos kilos puede pesar, como máximo, un solo metro cuadrado de tejado de lauze?"
+      },
+      "reponses": [
+        "800",
+        "800 kg",
+        "800kg"
+      ],
+      "indices": [
+        {
+          "fr": "Toujours le point n°2.",
+          "en": "Still point no. 2.",
+          "es": "Siempre el punto n.º 2."
+        },
+        {
+          "fr": "Entre 500 et … : prenez le plus grand.",
+          "en": "Between 500 and …: take the larger one.",
+          "es": "Entre 500 y …: tomad el mayor."
+        }
+      ],
+      "apres": {
+        "fr": "Huit cents kilos ! Le poids d'un cheval de guerre sur chaque mètre carré.",
+        "en": "Eight hundred kilos! The weight of a warhorse on every square metre.",
+        "es": "¡Ochocientos kilos! El peso de un caballo de guerra en cada metro cuadrado."
+      }
+    },
+    {
+      "id": "l3",
+      "nom": {
+        "fr": "Le secret des lauziers",
+        "en": "The roofers' secret",
+        "es": "El secreto de los lauzeros"
+      },
+      "lat": 44.99428,
+      "lon": 1.24915,
+      "deverrouillage": "reponse",
+      "photo": "sg_totem_la_lauze_1.jpg",
+      "recit": {
+        "fr": "Les lauziers ont leurs mots secrets, comme nous les Templiers. Soulevez les quatre clapets du panneau : ils racontent les étapes d'un toit.",
+        "en": "Roofers have their secret words, like us Templars. Lift the four flaps of the sign: they tell the steps of building a roof.",
+        "es": "Los lauzeros tienen sus palabras secretas, como nosotros los templarios. Levantad las cuatro solapas del panel: cuentan las etapas de un tejado."
+      },
+      "type": "texte",
+      "question": {
+        "fr": "Comment s'appelle l'étape où l'on répartit les lauzes sur le toit, bloquées en désordre entre les lattes ?",
+        "en": "What is the step called where the lauzes are spread over the roof, wedged at random between the battens?",
+        "es": "¿Cómo se llama la etapa en la que se reparten las lauzes por el tejado, encajadas en desorden entre los listones?"
+      },
+      "reponses": [
+        "rissonnage",
+        "le rissonnage",
+        "risonnage",
+        "rissonage"
+      ],
+      "indices": [
+        {
+          "fr": "C'est l'étape n°3.",
+          "en": "It is step no. 3.",
+          "es": "Es la etapa n.º 3."
+        },
+        {
+          "fr": "Le mot commence par RISS…",
+          "en": "The word starts with RISS…",
+          "es": "La palabra empieza por RISS…"
+        }
+      ],
+      "apres": {
+        "fr": "Le rissonnage. Peu de gens connaissent ce mot : vous voilà initiés. Avant de partir, faites-vous une photo dans le grand cadre : le château et l'église vous regardent.",
+        "en": "Rissonnage. Few people know this word: you are now initiates. Before leaving, take a photo in the big frame: the castle and the church are watching you.",
+        "es": "El rissonnage. Poca gente conoce esta palabra: ya sois iniciados. Antes de iros, haceos una foto en el gran marco: el castillo y la iglesia os miran."
       }
     }
   ],
