@@ -1,5 +1,5 @@
 // Incrémenter VERSION à CHAQUE publication, et ajouter tout nouveau fichier à ASSETS.
-const VERSION = 'petrocores-v16';
+const VERSION = 'petrocores-v17';
 const MEDIA = 'petrocores-media'; // épisodes et photos, remplis par l'app (survit aux versions)
 const DELAI_RESEAU_MS = 3000;     // réseau faible au village : on bascule vite sur le cache
 
@@ -71,7 +71,7 @@ self.addEventListener('fetch', e => {
   if (e.request.method !== 'GET') return;
   const url = new URL(e.request.url);
   if (url.origin !== location.origin) return;
-  if (url.pathname.endsWith('.mp4')) return; // l'iPhone lit les vidéos par morceaux : réseau direct
+  if (url.pathname.endsWith('.mp4') || url.pathname.endsWith('.mp3')) return; // l'iPhone lit les vidéos par morceaux : réseau direct
   const image = e.request.destination === 'image';
   e.respondWith(image ? cacheDabord(e.request) : reseauDabord(e.request));
 });

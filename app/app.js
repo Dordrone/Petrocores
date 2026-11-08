@@ -577,16 +577,23 @@ function aLire(o) { return o ? o[langue] || '' : ''; }
 function arreterVoix() {
   lectureId++;
   if (window.speechSynthesis) speechSynthesis.cancel();
+  try { lecteur.pause(); } catch (e) { /* rien */ }
 }
-let lectureEnCours = null;   // garde une référence (sinon Chrome peut « oublier » la phrase en cours)
-function parler(textes) {
-  arreterVoix();
-  if (!window.speechSynthesis) return;
-  if (lieuSilencieux()) return;
-  const texte = textes.filter(Boolean).join(' ').replace(/\s+/g, ' ').trim();
-  if (!texte) { if (DEBUG) toast('Rien à lire en ' + langue.toUpperCase() + " (texte absent de l'épisode)"); return; }
-  // 06/11 : comme Sentia, UNE seule lecture, lancée tout de suite dans le geste du joueur
-  // (plus d'attente des voix ni de découpage en phrases : sur téléphone, iOS refusait la lecture différée).
+// 08/11 : voix enregistrées d'Aymeric (OmniVoice) : media/voix/<langue>/<etape>_<champ>.mp3, listées dans media/voix/index.json.
+// Un MP3 n'est joué que si son texte est EXACTEMENT celui de l'épisode (sinon texte modifié depuis → voix du téléphone).
+const VOIX_MP3 = true;
+const lecteur = new Audio();
+let indexVoix = null;
+fetch('media/voix/index.json').then(r => r.ok ? r.json() : null).then(j => { indexVoix = j; }).catch(() => {});
+const normVoix = s => String(s).replace(/[’']/g, "'").replace(/\s+/g, ' ').trim();
+function fichierVoix(k, texte) {
+  const x = VOIX_MP3 && indexVoix && indexVoix[langue] && indexVoix[langue][k];
+  return x && normVoix(x.texte) === normVoix(texte) ? x.fichier : null;
+}
+function cleVoix(champ) { return (S.phase === 'final' ? 'final' : ep.etapes[S.idx].id) + '_' + champ; }
+function voixItem(o, k) { const t = aLire(o); return t ? { t, k } : ''; }
+function direTTS(texte, apres) {
+  if (!window.speechSynthesis) { if (apres) apres(); return; }
   majDebugVoix();
   try { speechSynthesis.resume(); } catch (e) { /* iOS après une vidéo : moteur parfois en pause */ }
   const u = new SpeechSynthesisUtterance(texte);
@@ -596,8 +603,31 @@ function parler(textes) {
   const voix = choisirVoix();
   if (voix) u.voice = voix;
   u.onerror = e => { if (DEBUG) toast('Voix : erreur ' + (e.error || '')); };
+  if (apres) u.onend = apres;
   lectureEnCours = u;
   speechSynthesis.speak(u);
+}
+let lectureEnCours = null;   // garde une référence (sinon Chrome peut « oublier » la phrase en cours)
+function parler(textes) {
+  arreterVoix();
+  if (lieuSilencieux()) return;
+  // éléments : texte simple, ou { t: texte, k: clé du MP3 }
+  const items = textes.filter(Boolean).map(x => typeof x === 'string' ? { t: x } : x).filter(x => x.t && x.t.trim());
+  if (!items.length) { if (DEBUG) toast('Rien à lire en ' + langue.toUpperCase() + " (texte absent de l'épisode)"); return; }
+  const id = lectureId;
+  let i = 0;
+  const suite = () => {
+    if (id !== lectureId || i >= items.length) return;
+    const it = items[i++];
+    const f = it.k && fichierVoix(it.k, it.t);
+    if (DEBUG) toast(f ? '🎙 ' + f : '📱 voix du téléphone');
+    if (!f) { direTTS(it.t, suite); return; }
+    lecteur.onended = suite;
+    lecteur.onerror = () => { if (id === lectureId) direTTS(it.t, suite); };
+    lecteur.src = f;
+    lecteur.play().catch(() => { if (id === lectureId) direTTS(it.t, suite); });
+  };
+  suite();
 }
 // 07/11 : étapes marquées "silence": true dans l'épisode (intérieur de l'église) → aucune voix.
 function lieuSilencieux() {
@@ -606,7 +636,7 @@ function lieuSilencieux() {
 function parlerAuto(textes) { if (S && S.voix && !finIntro) parler(textes); }
 function surveillerLecture(bouton) {
   setTimeout(() => {
-    const parle = window.speechSynthesis && speechSynthesis.speaking;
+    const parle = (window.speechSynthesis && speechSynthesis.speaking) || !lecteur.paused;
     if (bouton.isConnected && !parle) bouton.classList.add('clignote');
   }, LECTURE_ATTENTE_MS);
 }
@@ -941,7 +971,7 @@ function ecranEnigme(v) {
   const videoIci = S.phase !== 'final' ? videoEtape(S.idx) : null;
   if (videoIci && S.vues.includes(videoIci)) v.append(bouton(t('revoirVideo', { n: L(e.nom) }), () => jouerVideo(videoIci), 'leger'));
   if (e.recit) v.append(el('p', { class: 'texte' }, L(e.recit)));
-  const textes = [aLire(e.recit), aLire(e.question)];
+  const textes = [voixItem(e.recit, cleVoix('recit')), voixItem(e.question, cleVoix('question'))];
   const ecoute = bouton(ep.narrateur ? t('ecouterNarrateur', { n: L(ep.narrateur) }) : t('ecouter'), () => {
     ecoute.classList.remove('clignote');
     parler(textes);
@@ -1007,7 +1037,7 @@ function zoneIndices(v, e) {
         sauver();
         majChrono();
         maj();
-        parler([aLire(indices[vus])]);
+        parler([voixItem(indices[vus], cleVoix('indice' + (vus + 1)))]);
       }, 'leger'));
     } else if ((e.reponses || []).length) {
       const p = dureeTexte(penaliteSolution());
@@ -1040,7 +1070,7 @@ function ecranApres(v) {
     v.append(el('p', { class: 'discret' }, t('fragment')));
     v.append(el('div', { class: 'fragments' }, el('span', { class: 'fragment' }, S.fragments[S.idx])));
   }
-  const textes = [aLire(e.apres)];
+  const textes = [voixItem(e.apres, cleVoix('apres'))];
   if (!lieuSilencieux()) v.append(bouton(t('ecouter'), () => parler(textes), 'leger'));
   const dernier = S.rang + 1 >= S.ordre.length;
   if (!dernier) {
@@ -1066,7 +1096,7 @@ function ecranFin(v) {
   v.append(el('p', { class: 'nom-sceau' }, t('sceau_' + sceau)));
   v.append(el('p', { class: 'texte' }, t('sceauMot_' + sceau)));
   if (f.texte) v.append(el('p', { class: 'texte' }, L(f.texte)));
-  const textes = [UI['sceauMot_' + sceau][langue] || UI['sceauMot_' + sceau].fr, aLire(f.texte)];
+  const textes = [{ t: UI['sceauMot_' + sceau][langue] || UI['sceauMot_' + sceau].fr, k: 'sceau_' + sceau }, aLire(f.texte)];
   v.append(bouton(t('ecouter'), () => parler(textes), 'leger'));
   v.append(bouton(t('nouvelle'), () => confirmer(t('nouvelleConfirme'), () => {
     effacer(cleSauvegarde());
