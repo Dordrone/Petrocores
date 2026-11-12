@@ -1,5 +1,5 @@
 // Incrémenter VERSION à CHAQUE publication, et ajouter tout nouveau fichier à ASSETS.
-const VERSION = 'petrocores-v17';
+const VERSION = 'petrocores-v18';
 const MEDIA = 'petrocores-media'; // épisodes et photos, remplis par l'app (survit aux versions)
 const DELAI_RESEAU_MS = 3000;     // réseau faible au village : on bascule vite sur le cache
 

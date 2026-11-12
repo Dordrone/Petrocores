@@ -14,6 +14,7 @@ Plan complet : https://claude.ai/code/artifact/6af65ad3-aa05-4444-9541-ff22e567f
 - Ne jamais toucher aux autres dépôts de xlloollx.
 
 ## Règles
+- ⛔ CRÉDITS : ne JAMAIS utiliser Runway (ni aucun service payant à crédits) sans l'accord explicite de Gonzalo, à chaque fois. Proposer d'abord : quoi + coût estimé, puis attendre son « oui ». Préférer les solutions gratuites/locales (comme Sentia : voix du téléphone dans la bonne langue).
 - Gonzalo n'est pas développeur : réponses simples, en français.
 - Méthode Sentia : PWA vanilla HTML/CSS/JS, pas de framework ni de build ; trilingue {fr,en,es} obligatoire pour tout texte affiché ou lu.
 - Le code ne contient AUCUN texte de scénario : il lit `scenario/<village>/episode.json`.

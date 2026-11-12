@@ -1,3 +1,21 @@
+# ✅ VOIX OFFICIELLE DE FRÈRE AYMERIC (décision 02/11/2026) — à utiliser pour TOUS les enregistrements
+Outil : Runway (abonnement Pro de Gonzalo) → generate_speech
+- model      : eleven_v4
+- voiceId    : t2969wgUwHbBoVCZNHRU   (« Zion Aquila – Deep, Aged & Warm », bibliothèque ElevenLabs, homme mûr, grave)
+- speed      : 0.85
+- stability  : 0.5
+- languageCode : fr
+- ⚠ MISE À JOUR 04/11 (leçon Sentia n°1) : PAS la voix française pour l'anglais et l'espagnol (accent, prononciation fausse).
+  Une voix d'homme NATIVE par langue, mêmes réglages (eleven_v4, speed 0.85, stability 0.5) :
+  · FR : Zion Aquila        t2969wgUwHbBoVCZNHRU
+  · EN : « Adam – Steady, Rich and Round » (britannique, mûr)   Gsndh0O5AnuI2Hj3YUlA
+  · ES : « Abel – Deep, Nuanced and Appealing » (Espagne, grave) bsEDAkNZWaEolZ7vEeVJ
+- Pauses : « ... » dans le texte + balise [pause] entre les phrases.
+- Pas d'écho, pas de changement de hauteur (la voix est déjà grave).
+- Référence : tâche Runway cf6bdf59-7490-4d24-bb09-ca27c89dfb09 (« Aymeric intro FR - Zion Aquila », 10,1 s).
+- Voix de secours si besoin : « David – Professional Narrator » (fEtpdogpDkBrq53KdupV), mêmes réglages.
+Les anciennes voix (essais 1-3, aymeric_reference.mp3) sont REMPLACÉES.
+
 # Voix du narrateur — « Frère Aymeric, templier d'outre-tombe »
 
 ## Le personnage

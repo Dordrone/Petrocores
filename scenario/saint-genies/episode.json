@@ -26,24 +26,10 @@
     "indice_s": 120,
     "solution_s": 300
   },
-  "bienvenue_video": "media/bienvenue_saint_genies.{lang}.mp4",
-  "bienvenue_lieu": {
-    "lat": 44.993917,
-    "lon": 1.254025,
-    "rayon_m": 5,
-    "nom": {
-      "fr": "Le panneau du lavoir",
-      "en": "The wash-house sign",
-      "es": "El panel del lavadero"
-    },
-    "consigne_trajet": {
-      "fr": "Rejoignez le panneau à côté du lavoir : Frère Aymeric vous y attend.",
-      "en": "Go to the sign next to the wash-house: Brother Aymeric is waiting for you there.",
-      "es": "Id al panel junto al lavadero: Fray Aymeric os espera allí."
-    }
-  },
-  "intro_video": "media/intro_saint_genies_v4.mp4",
   "depart": [
+    "p0",
+    "p1",
+    "p2",
     "e0a",
     "e0b"
   ],
@@ -98,6 +84,154 @@
     ]
   },
   "etapes": [
+    {
+      "id": "p0",
+      "nom": {
+        "fr": "Le panneau de bienvenue",
+        "en": "The welcome sign",
+        "es": "El panel de bienvenida"
+      },
+      "lat": 44.99414,
+      "lon": 1.25383,
+      "deverrouillage": "gps",
+      "photo": "sg_totem_00_bienvenue_plan.jpg",
+      "consigne_trajet": {
+        "fr": "Garez-vous sur l'aire du lavoir et approchez-vous du grand panneau « Bienvenue ».",
+        "en": "Park at the wash-house car park and walk up to the big 'Bienvenue' sign.",
+        "es": "Aparcad en el área del lavadero y acercaos al gran panel «Bienvenue»."
+      },
+      "recit": {
+        "fr": "Voyageurs, avant de me rencontrer, prouvez-moi que vous savez lire ce pays. Ce panneau montre toute la balade du village.",
+        "en": "Travellers, before you meet me, prove that you can read this land. This sign shows the whole village trail.",
+        "es": "Viajeros, antes de conocerme, demostradme que sabéis leer esta tierra. Este panel muestra todo el paseo del pueblo."
+      },
+      "type": "code",
+      "question": {
+        "fr": "Combien de stations numérotées compte la balade patrimoine ? (en chiffres)",
+        "en": "How many numbered stations does the heritage trail have? (in digits)",
+        "es": "¿Cuántas estaciones numeradas tiene el paseo patrimonial? (en cifras)"
+      },
+      "reponses": [
+        "12",
+        "douze",
+        "twelve",
+        "doce"
+      ],
+      "indices": [
+        {
+          "fr": "Comptez les numéros dans la liste du panneau.",
+          "en": "Count the numbers in the list on the sign.",
+          "es": "Contad los números de la lista del panel."
+        },
+        {
+          "fr": "La dernière station, ce sont les écoles.",
+          "en": "The last station is the schools.",
+          "es": "La última estación son las escuelas."
+        }
+      ],
+      "apres": {
+        "fr": "Douze. Vous savez compter, c'est un début. Descendez maintenant vers le lavoir, au bord de l'eau.",
+        "en": "Twelve. You can count, that is a start. Now go down to the wash-house, by the water.",
+        "es": "Doce. Sabéis contar, ya es algo. Bajad ahora al lavadero, junto al agua."
+      }
+    },
+    {
+      "id": "p1",
+      "nom": {
+        "fr": "L'eau de neige",
+        "en": "The snow water",
+        "es": "El agua de nieve"
+      },
+      "lat": 44.99406,
+      "lon": 1.25408,
+      "deverrouillage": "gps",
+      "photo": "sg_totem_01_eau_1.jpg",
+      "consigne_trajet": {
+        "fr": "Rejoignez le totem « Les usages de l'eau », à côté du lavoir.",
+        "en": "Go to the 'Les usages de l'eau' (uses of water) post next to the wash-house.",
+        "es": "Id al tótem «Les usages de l'eau» (los usos del agua), junto al lavadero."
+      },
+      "recit": {
+        "fr": "Ici, les lavandières frappaient le linge à genoux. Et dans ce village, une femme savait soigner les brûlures avec une étrange eau de neige.",
+        "en": "Here the washerwomen beat the linen on their knees. And in this village, one woman could heal burns with a strange snow water.",
+        "es": "Aquí las lavanderas golpeaban la ropa de rodillas. Y en este pueblo, una mujer sabía curar las quemaduras con una extraña agua de nieve."
+      },
+      "type": "texte",
+      "question": {
+        "fr": "Soulevez les clapets : quel est le prénom de celle qui savait « enlever le feu » ?",
+        "en": "Lift the flaps: what was the first name of the woman who could 'take the fire away'?",
+        "es": "Levantad las solapas: ¿cuál era el nombre de la mujer que sabía «quitar el fuego»?"
+      },
+      "reponses": [
+        "honorine"
+      ],
+      "indices": [
+        {
+          "fr": "Cherchez le clapet « L'eau de neige miraculeuse ».",
+          "en": "Look for the flap 'L'eau de neige miraculeuse'.",
+          "es": "Buscad la solapa «L'eau de neige miraculeuse»."
+        },
+        {
+          "fr": "Son prénom commence par HONO…",
+          "en": "Her name starts with HONO…",
+          "es": "Su nombre empieza por HONO…"
+        }
+      ],
+      "apres": {
+        "fr": "Honorine. Les guérisseurs gardaient leurs secrets, comme moi le mien. Regardez maintenant le panneau du train, juste à côté.",
+        "en": "Honorine. Healers kept their secrets, as I keep mine. Now look at the railway sign, right next to it.",
+        "es": "Honorine. Los curanderos guardaban sus secretos, como yo el mío. Mirad ahora el panel del tren, justo al lado."
+      }
+    },
+    {
+      "id": "p2",
+      "nom": {
+        "fr": "Le train",
+        "en": "The train",
+        "es": "El tren"
+      },
+      "lat": 44.99392,
+      "lon": 1.25401,
+      "deverrouillage": "gps",
+      "photo": "sg_totem_02_train_1.jpg",
+      "video_apres": "media/bienvenue_saint_genies.{lang}.mp4",
+      "consigne_trajet": {
+        "fr": "Avancez de quelques pas jusqu'au totem « Le train à Saint-Geniès ».",
+        "en": "Walk a few steps to the 'Le train à Saint-Geniès' post.",
+        "es": "Avanzad unos pasos hasta el tótem «Le train à Saint-Geniès»."
+      },
+      "recit": {
+        "fr": "Bien après moi, une machine de fer et de fumée est venue jusqu'ici. Le village s'était battu pendant des années pour avoir sa gare.",
+        "en": "Long after my time, a machine of iron and smoke came all the way here. The village had fought for years to get its station.",
+        "es": "Mucho después de mí, una máquina de hierro y humo llegó hasta aquí. El pueblo luchó durante años para tener su estación."
+      },
+      "type": "code",
+      "question": {
+        "fr": "En quelle année la ligne Condat-Sarlat ouvrit-elle ? (en chiffres)",
+        "en": "In what year did the Condat–Sarlat line open? (in digits)",
+        "es": "¿En qué año se abrió la línea Condat-Sarlat? (en cifras)"
+      },
+      "reponses": [
+        "1899"
+      ],
+      "indices": [
+        {
+          "fr": "C'est à la fin du dix-neuvième siècle.",
+          "en": "It is at the end of the nineteenth century.",
+          "es": "Es a finales del siglo diecinueve."
+        },
+        {
+          "fr": "Première phrase du panneau : 18…",
+          "en": "First sentence of the sign: 18…",
+          "es": "Primera frase del panel: 18…"
+        }
+      ],
+      "apres": {
+        "fr": "Juste. Et maintenant, écoutez-moi bien…",
+        "en": "Correct. And now, listen to me carefully…",
+        "es": "Correcto. Y ahora, escuchadme bien…"
+      }
+    },
     {
       "id": "e0a",
       "nom": {

@@ -282,7 +282,15 @@ function ouvrirEnigme() {
   sauver();
   if (nouvelle) jouerVideo(video, afficher); else afficher();
 }
+// "video_apres" : vidéo jouée une seule fois en quittant l'étape réussie (ex. la bienvenue après l'échauffement).
 function etapeSuivante() {
+  const video = resoudre(S.idx).video_apres;
+  if (video && !S.vues.includes(video)) {
+    S.vues.push(video);
+    sauver();
+    jouerVideo(video, etapeSuivante);
+    return;
+  }
   if (S.rang + 1 < S.ordre.length) entrerRang(S.rang + 1);
   else if (ep.final) { S.phase = 'final'; sauver(); afficher(); }
   else terminer();
@@ -752,7 +760,7 @@ function jouerVideo(chemin, suite) {
 }
 function nomVideo(chemin) {
   if (chemin === ep.bienvenue_video) return t('revoirBienvenue');
-  const i = ep.etapes.findIndex((_, k) => videoEtape(k) === chemin);
+  const i = ep.etapes.findIndex((_, k) => videoEtape(k) === chemin || resoudre(k).video_apres === chemin);
   return i >= 0 ? t('revoirVideo', { n: L(resoudre(i).nom) }) : t('revoirIntro');
 }
 // Le menu se ferme (retour arrière) avant d'ouvrir la suite, pour garder l'historique propre.

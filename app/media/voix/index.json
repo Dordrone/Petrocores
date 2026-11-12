@@ -32,7 +32,7 @@
   },
   "e0b_recit": {
    "fichier": "media/voix/fr/e0b_recit.mp3",
-   "duree": 12.7,
+   "duree": 12.0,
    "texte": "En 1307, quand le roi fit arrêter mes frères, des seigneurs d'ici m'ont ouvert leur porte. Leur blason d'or se cache sous l'un des clapets de ce panneau."
   },
   "e0b_question": {
@@ -504,6 +504,96 @@
    "fichier": "media/voix/fr/sceau_bois.mp3",
    "duree": 6.8,
    "texte": "Même le plus humble des frères reçoit un sceau : celui de bois. Revenez tenter l'or !"
+  },
+  "p0_consigne_trajet": {
+   "fichier": "media/voix/fr/p0_consigne_trajet.mp3",
+   "duree": 5.8,
+   "texte": "Garez-vous sur l'aire du lavoir et approchez-vous du grand panneau « Bienvenue »."
+  },
+  "p0_recit": {
+   "fichier": "media/voix/fr/p0_recit.mp3",
+   "duree": 9.1,
+   "texte": "Voyageurs, avant de me rencontrer, prouvez-moi que vous savez lire ce pays. Ce panneau montre toute la balade du village."
+  },
+  "p0_question": {
+   "fichier": "media/voix/fr/p0_question.mp3",
+   "duree": 5.7,
+   "texte": "Combien de stations numérotées compte la balade patrimoine ? (en chiffres)"
+  },
+  "p0_indice1": {
+   "fichier": "media/voix/fr/p0_indice1.mp3",
+   "duree": 3.6,
+   "texte": "Comptez les numéros dans la liste du panneau."
+  },
+  "p0_indice2": {
+   "fichier": "media/voix/fr/p0_indice2.mp3",
+   "duree": 2.7,
+   "texte": "La dernière station, ce sont les écoles."
+  },
+  "p0_apres": {
+   "fichier": "media/voix/fr/p0_apres.mp3",
+   "duree": 8.0,
+   "texte": "Douze. Vous savez compter, c'est un début. Descendez maintenant vers le lavoir, au bord de l'eau."
+  },
+  "p1_consigne_trajet": {
+   "fichier": "media/voix/fr/p1_consigne_trajet.mp3",
+   "duree": 4.8,
+   "texte": "Rejoignez le totem « Les usages de l'eau », à côté du lavoir."
+  },
+  "p1_recit": {
+   "fichier": "media/voix/fr/p1_recit.mp3",
+   "duree": 10.8,
+   "texte": "Ici, les lavandières frappaient le linge à genoux. Et dans ce village, une femme savait soigner les brûlures avec une étrange eau de neige."
+  },
+  "p1_question": {
+   "fichier": "media/voix/fr/p1_question.mp3",
+   "duree": 5.4,
+   "texte": "Soulevez les clapets : quel est le prénom de celle qui savait « enlever le feu » ?"
+  },
+  "p1_indice1": {
+   "fichier": "media/voix/fr/p1_indice1.mp3",
+   "duree": 4.3,
+   "texte": "Cherchez le clapet « L'eau de neige miraculeuse »."
+  },
+  "p1_indice2": {
+   "fichier": "media/voix/fr/p1_indice2.mp3",
+   "duree": 2.7,
+   "texte": "Son prénom commence par HONO…"
+  },
+  "p1_apres": {
+   "fichier": "media/voix/fr/p1_apres.mp3",
+   "duree": 9.3,
+   "texte": "Honorine. Les guérisseurs gardaient leurs secrets, comme moi le mien. Regardez maintenant le panneau du train, juste à côté."
+  },
+  "p2_consigne_trajet": {
+   "fichier": "media/voix/fr/p2_consigne_trajet.mp3",
+   "duree": 5.7,
+   "texte": "Avancez de quelques pas jusqu'au totem « Le train à Saint-Geniès »."
+  },
+  "p2_recit": {
+   "fichier": "media/voix/fr/p2_recit.mp3",
+   "duree": 11.1,
+   "texte": "Bien après moi, une machine de fer et de fumée est venue jusqu'ici. Le village s'était battu pendant des années pour avoir sa gare."
+  },
+  "p2_question": {
+   "fichier": "media/voix/fr/p2_question.mp3",
+   "duree": 5.3,
+   "texte": "En quelle année la ligne Condat-Sarlat ouvrit-elle ? (en chiffres)"
+  },
+  "p2_indice1": {
+   "fichier": "media/voix/fr/p2_indice1.mp3",
+   "duree": 3.3,
+   "texte": "C'est à la fin du dix-neuvième siècle."
+  },
+  "p2_indice2": {
+   "fichier": "media/voix/fr/p2_indice2.mp3",
+   "duree": 2.9,
+   "texte": "Première phrase du panneau : 18…"
+  },
+  "p2_apres": {
+   "fichier": "media/voix/fr/p2_apres.mp3",
+   "duree": 3.6,
+   "texte": "Juste. Et maintenant, écoutez-moi bien…"
   }
  },
  "en": {
@@ -1011,6 +1101,96 @@
    "fichier": "media/voix/en/sceau_bois.mp3",
    "duree": 7.2,
    "texte": "Even the humblest brother receives a seal: the wooden one. Come back and try for gold!"
+  },
+  "p0_consigne_trajet": {
+   "fichier": "media/voix/en/p0_consigne_trajet.mp3",
+   "duree": 6.0,
+   "texte": "Park at the wash-house car park and walk up to the big 'Bienvenue' sign."
+  },
+  "p0_recit": {
+   "fichier": "media/voix/en/p0_recit.mp3",
+   "duree": 9.0,
+   "texte": "Travellers, before you meet me, prove that you can read this land. This sign shows the whole village trail."
+  },
+  "p0_question": {
+   "fichier": "media/voix/en/p0_question.mp3",
+   "duree": 5.7,
+   "texte": "How many numbered stations does the heritage trail have? (in digits)"
+  },
+  "p0_indice1": {
+   "fichier": "media/voix/en/p0_indice1.mp3",
+   "duree": 3.6,
+   "texte": "Count the numbers in the list on the sign."
+  },
+  "p0_indice2": {
+   "fichier": "media/voix/en/p0_indice2.mp3",
+   "duree": 2.9,
+   "texte": "The last station is the schools."
+  },
+  "p0_apres": {
+   "fichier": "media/voix/en/p0_apres.mp3",
+   "duree": 6.8,
+   "texte": "Twelve. You can count, that is a start. Now go down to the wash-house, by the water."
+  },
+  "p1_consigne_trajet": {
+   "fichier": "media/voix/en/p1_consigne_trajet.mp3",
+   "duree": 6.1,
+   "texte": "Go to the 'Les usages de l'eau' (uses of water) post next to the wash-house."
+  },
+  "p1_recit": {
+   "fichier": "media/voix/en/p1_recit.mp3",
+   "duree": 10.4,
+   "texte": "Here the washerwomen beat the linen on their knees. And in this village, one woman could heal burns with a strange snow water."
+  },
+  "p1_question": {
+   "fichier": "media/voix/en/p1_question.mp3",
+   "duree": 6.9,
+   "texte": "Lift the flaps: what was the first name of the woman who could 'take the fire away'?"
+  },
+  "p1_indice1": {
+   "fichier": "media/voix/en/p1_indice1.mp3",
+   "duree": 4.0,
+   "texte": "Look for the flap 'L'eau de neige miraculeuse'."
+  },
+  "p1_indice2": {
+   "fichier": "media/voix/en/p1_indice2.mp3",
+   "duree": 2.4,
+   "texte": "Her name starts with HONO…"
+  },
+  "p1_apres": {
+   "fichier": "media/voix/en/p1_apres.mp3",
+   "duree": 8.3,
+   "texte": "Honorine. Healers kept their secrets, as I keep mine. Now look at the railway sign, right next to it."
+  },
+  "p2_consigne_trajet": {
+   "fichier": "media/voix/en/p2_consigne_trajet.mp3",
+   "duree": 4.6,
+   "texte": "Walk a few steps to the 'Le train à Saint-Geniès' post."
+  },
+  "p2_recit": {
+   "fichier": "media/voix/en/p2_recit.mp3",
+   "duree": 9.7,
+   "texte": "Long after my time, a machine of iron and smoke came all the way here. The village had fought for years to get its station."
+  },
+  "p2_question": {
+   "fichier": "media/voix/en/p2_question.mp3",
+   "duree": 4.8,
+   "texte": "In what year did the Condat–Sarlat line open? (in digits)"
+  },
+  "p2_indice1": {
+   "fichier": "media/voix/en/p2_indice1.mp3",
+   "duree": 3.7,
+   "texte": "It is at the end of the nineteenth century."
+  },
+  "p2_indice2": {
+   "fichier": "media/voix/en/p2_indice2.mp3",
+   "duree": 3.3,
+   "texte": "First sentence of the sign: 18…"
+  },
+  "p2_apres": {
+   "fichier": "media/voix/en/p2_apres.mp3",
+   "duree": 3.6,
+   "texte": "Correct. And now, listen to me carefully…"
   }
  },
  "es": {
@@ -1518,6 +1698,96 @@
    "fichier": "media/voix/es/sceau_bois.mp3",
    "duree": 8.0,
    "texte": "Hasta el más humilde de los hermanos recibe un sello: el de madera. ¡Volved a intentar el oro!"
+  },
+  "p0_consigne_trajet": {
+   "fichier": "media/voix/es/p0_consigne_trajet.mp3",
+   "duree": 5.5,
+   "texte": "Aparcad en el área del lavadero y acercaos al gran panel «Bienvenue»."
+  },
+  "p0_recit": {
+   "fichier": "media/voix/es/p0_recit.mp3",
+   "duree": 10.0,
+   "texte": "Viajeros, antes de conocerme, demostradme que sabéis leer esta tierra. Este panel muestra todo el paseo del pueblo."
+  },
+  "p0_question": {
+   "fichier": "media/voix/es/p0_question.mp3",
+   "duree": 6.1,
+   "texte": "¿Cuántas estaciones numeradas tiene el paseo patrimonial? (en cifras)"
+  },
+  "p0_indice1": {
+   "fichier": "media/voix/es/p0_indice1.mp3",
+   "duree": 3.1,
+   "texte": "Contad los números de la lista del panel."
+  },
+  "p0_indice2": {
+   "fichier": "media/voix/es/p0_indice2.mp3",
+   "duree": 3.3,
+   "texte": "La última estación son las escuelas."
+  },
+  "p0_apres": {
+   "fichier": "media/voix/es/p0_apres.mp3",
+   "duree": 6.3,
+   "texte": "Doce. Sabéis contar, ya es algo. Bajad ahora al lavadero, junto al agua."
+  },
+  "p1_consigne_trajet": {
+   "fichier": "media/voix/es/p1_consigne_trajet.mp3",
+   "duree": 5.8,
+   "texte": "Id al tótem «Les usages de l'eau» (los usos del agua), junto al lavadero."
+  },
+  "p1_recit": {
+   "fichier": "media/voix/es/p1_recit.mp3",
+   "duree": 10.8,
+   "texte": "Aquí las lavanderas golpeaban la ropa de rodillas. Y en este pueblo, una mujer sabía curar las quemaduras con una extraña agua de nieve."
+  },
+  "p1_question": {
+   "fichier": "media/voix/es/p1_question.mp3",
+   "duree": 7.0,
+   "texte": "Levantad las solapas: ¿cuál era el nombre de la mujer que sabía «quitar el fuego»?"
+  },
+  "p1_indice1": {
+   "fichier": "media/voix/es/p1_indice1.mp3",
+   "duree": 4.2,
+   "texte": "Buscad la solapa «L'eau de neige miraculeuse»."
+  },
+  "p1_indice2": {
+   "fichier": "media/voix/es/p1_indice2.mp3",
+   "duree": 2.0,
+   "texte": "Su nombre empieza por HONO…"
+  },
+  "p1_apres": {
+   "fichier": "media/voix/es/p1_apres.mp3",
+   "duree": 9.3,
+   "texte": "Honorine. Los curanderos guardaban sus secretos, como yo el mío. Mirad ahora el panel del tren, justo al lado."
+  },
+  "p2_consigne_trajet": {
+   "fichier": "media/voix/es/p2_consigne_trajet.mp3",
+   "duree": 5.4,
+   "texte": "Avanzad unos pasos hasta el tótem «Le train à Saint-Geniès»."
+  },
+  "p2_recit": {
+   "fichier": "media/voix/es/p2_recit.mp3",
+   "duree": 10.0,
+   "texte": "Mucho después de mí, una máquina de hierro y humo llegó hasta aquí. El pueblo luchó durante años para tener su estación."
+  },
+  "p2_question": {
+   "fichier": "media/voix/es/p2_question.mp3",
+   "duree": 4.9,
+   "texte": "¿En qué año se abrió la línea Condat-Sarlat? (en cifras)"
+  },
+  "p2_indice1": {
+   "fichier": "media/voix/es/p2_indice1.mp3",
+   "duree": 3.3,
+   "texte": "Es a finales del siglo diecinueve."
+  },
+  "p2_indice2": {
+   "fichier": "media/voix/es/p2_indice2.mp3",
+   "duree": 3.2,
+   "texte": "Primera frase del panel: 18…"
+  },
+  "p2_apres": {
+   "fichier": "media/voix/es/p2_apres.mp3",
+   "duree": 3.3,
+   "texte": "Correcto. Y ahora, escuchadme bien…"
   }
  }
 }
