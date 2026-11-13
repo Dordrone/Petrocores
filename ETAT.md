@@ -66,6 +66,13 @@
    du texte dans index.json au lieu du texte. (3) BOUTON_PANNEAU_TOUJOURS et « Aller à une étape (test) » toujours actifs (tests entre amis).
    Depuis la v19 le jeu en ligne est PAYANT après l'église : les testeurs ont besoin d'un code (Gonzalo les crée sur la page admin).
    Reste : étape 5 achat web puis Play Store ; retirer les aides de test avant la vente.
+   ✅ 13/11 (Claude Code) — DOMAINE escape-game-dordogne.fr (OVH, payé 3 ans par Gonzalo) branché sur GitHub Pages :
+     DNS OVH : 4 A vers 185.199.108-111.153, CNAME www → dordrone.github.io (MX/SPF OVH intacts) ; fichier CNAME à la racine du dépôt
+     (créé par GitHub, NE PAS SUPPRIMER) ; HTTPS imposé. Le jeu = https://escape-game-dordogne.fr/app/ ; l'ancienne adresse
+     dordrone.github.io/Petrocores renvoie dessus. Serveur : CORS accepte la nouvelle adresse, QR de la page admin = nouvelle adresse.
+     Nouvelle adresse = nouveau site pour les téléphones : un code déjà saisi doit être retapé (compte comme un appareil de plus).
+     Mail : contact@escape-game-dordogne.fr (Zimbra Starter inclus), webmail https://webmail.mail.ovh.net.
+     Liens utiles + Excel des réponses dans le Google Drive de Gonzalo : « Mon Drive/Escape Game Dordogne » (privé).
    ⚠ Sentia est aussi sur Val Town (val sentia/sentiaStats) : à migrer avant le 10/12/2026, dans une séance séparée (dossier claude Sentia).
 2. `CONSIGNES_SON_TELEPHONE_06-11.md` (voix muette = mode silencieux probable ; message d'aide + bouton Tester la voix) : vérifier si c'est fait.
 3. Avant le vrai lancement : cacher les réponses (le dépôt est public) ; remettre BOUTON_PANNEAU_TOUJOURS à false.

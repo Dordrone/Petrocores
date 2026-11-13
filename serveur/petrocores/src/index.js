@@ -5,9 +5,9 @@
 //   /api/codes, /api/toggle, /api/export.csv, /api/cle, /api/stats : réservés à l'admin (en-tête x-pass)
 import { PAGE } from './page.js';
 
-const APP = 'https://dordrone.github.io/Petrocores/app/index.html';
+const APP = 'https://escape-game-dordogne.fr/app/index.html';
 // Origines autorisées à appeler l'API depuis un navigateur (l'app en ligne + les tests en local).
-const ORIGINES = ['https://dordrone.github.io', 'http://localhost:8123'];
+const ORIGINES = ['https://escape-game-dordogne.fr', 'https://www.escape-game-dordogne.fr', 'https://dordrone.github.io', 'http://localhost:8123'];
 const APPAREILS_DEFAUT = 2;
 // Alphabet des codes : pas de O/0, I/1, L (lisibles au comptoir et au téléphone).
 const ALPHABET = 'ABCDEFGHJKMNPQRSTUVWXYZ23456789';
