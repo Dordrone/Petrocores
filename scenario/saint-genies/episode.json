@@ -33,6 +33,13 @@
     "e0a",
     "e0b"
   ],
+  "gratuit": [
+    "p0",
+    "p1",
+    "p2",
+    "e0a",
+    "e0b"
+  ],
   "stations": {
     "D": [
       "d1",
@@ -333,772 +340,70 @@
     },
     {
       "id": "d1",
-      "nom": {
-        "fr": "L'abbé Delprat",
-        "en": "Father Delprat",
-        "es": "El abad Delprat"
-      },
-      "lat": 44.993722,
-      "lon": 1.250558,
-      "deverrouillage": "gps",
-      "photo": "sg_totem_sale_des_fetes_1.jpg",
-      "consigne_trajet": {
-        "fr": "Rejoignez le totem de l'abbé Delprat, près de la salle des fêtes.",
-        "en": "Go to Father Delprat's totem, near the village hall.",
-        "es": "Id al tótem del abad Delprat, junto a la sala de fiestas."
-      },
-      "recit": {
-        "fr": "Des siècles après moi, un autre homme d'Église a réuni ce village : l'abbé Delprat. Lisez son totem.",
-        "en": "Centuries after me, another churchman brought this village together: Father Delprat. Read his totem.",
-        "es": "Siglos después de mí, otro hombre de Iglesia unió este pueblo: el abad Delprat. Leed su tótem."
-      },
-      "type": "code",
-      "question": {
-        "fr": "En quelle année a-t-il créé l'association Saint-Roch ?",
-        "en": "In which year did he found the Saint-Roch association?",
-        "es": "¿En qué año fundó la asociación Saint-Roch?"
-      },
-      "reponses": [
-        "1946"
-      ],
-      "indices": [
-        {
-          "fr": "C'est juste après la guerre.",
-          "en": "It is just after the war.",
-          "es": "Es justo después de la guerra."
-        },
-        {
-          "fr": "Lisez la première phrase du panneau : 194…",
-          "en": "Read the first sentence of the sign: 194…",
-          "es": "Leed la primera frase del panel: 194…"
-        }
-      ],
-      "apres": {
-        "fr": "1946. Sa fanfare est née d'un chœur qui chantait sous le vitrail de saint Geniès et saint Roch.",
-        "en": "1946. His band was born from a choir that sang beneath the window of Saint Geniès and Saint Roch.",
-        "es": "1946. Su banda nació de un coro que cantaba bajo la vidriera de san Geniès y san Roque."
-      }
+      "verrou": true
     },
     {
       "id": "d2",
-      "nom": {
-        "fr": "La fanfare",
-        "en": "The marching band",
-        "es": "La banda"
-      },
-      "lat": 44.993722,
-      "lon": 1.250558,
-      "deverrouillage": "reponse",
-      "photo": "sg_totem_sale_des_fetes_2.jpg",
-      "recit": {
-        "fr": "Pour sa fanfare, l'abbé a recruté des jeunes des paroisses voisines, sans aucune expérience musicale.",
-        "en": "For his band, the priest recruited young people from neighbouring parishes, with no musical experience at all.",
-        "es": "Para su banda, el abad reclutó jóvenes de las parroquias vecinas, sin ninguna experiencia musical."
-      },
-      "type": "code",
-      "question": {
-        "fr": "Combien de jeunes a-t-il recrutés ?",
-        "en": "How many young people did he recruit?",
-        "es": "¿Cuántos jóvenes reclutó?"
-      },
-      "reponses": [
-        "27",
-        "vingt-sept",
-        "vingt sept",
-        "twenty-seven",
-        "veintisiete"
-      ],
-      "indices": [
-        {
-          "fr": "La réponse est écrite en lettres sur le panneau « Un homme d'exception ».",
-          "en": "The answer is written in words on the « Un homme d'exception » panel.",
-          "es": "La respuesta está escrita en letras en el panel « Un homme d'exception »."
-        },
-        {
-          "fr": "Entre 20 et 30.",
-          "en": "Between 20 and 30.",
-          "es": "Entre 20 y 30."
-        }
-      ],
-      "apres": {
-        "fr": "Vingt-sept. Gardez le premier chiffre : 2. Il prend la troisième place de mon code.",
-        "en": "Twenty-seven. Keep the first digit: 2. It takes the third place in my code.",
-        "es": "Veintisiete. Guardad la primera cifra: 2. Ocupa el tercer lugar de mi código."
-      },
-      "fragment": "2",
-      "position": 3
+      "verrou": true
     },
     {
       "id": "d3",
-      "nom": {
-        "fr": "Le terrain d'en face",
-        "en": "The land opposite",
-        "es": "El terreno de enfrente"
-      },
-      "lat": 44.993722,
-      "lon": 1.250558,
-      "deverrouillage": "reponse",
-      "photo": "sg_totem_sale_des_fetes_2.jpg",
-      "recit": {
-        "fr": "Réunir le village en un même lieu, hors de son église : c'était son idée.",
-        "en": "Bringing the village together in one place, outside his church: that was his idea.",
-        "es": "Reunir el pueblo en un mismo lugar, fuera de su iglesia: esa era su idea."
-      },
-      "type": "texte",
-      "question": {
-        "fr": "En 1961, qu'a-t-il fait construire sur le terrain face à vous, avant la salle des fêtes ?",
-        "en": "In 1961, what did he have built on the land opposite you, before the village hall?",
-        "es": "En 1961, ¿qué mandó construir en el terreno frente a vosotros, antes de la sala de fiestas?"
-      },
-      "reponses": [
-        "piscine",
-        "une piscine",
-        "la piscine",
-        "pool",
-        "swimming pool",
-        "a swimming pool",
-        "piscina",
-        "una piscina"
-      ],
-      "indices": [
-        {
-          "fr": "La Saint-Roch a appris à nager à des générations d'enfants.",
-          "en": "Saint-Roch taught generations of children to swim.",
-          "es": "La Saint-Roch enseñó a nadar a generaciones de niños."
-        },
-        {
-          "fr": "On y nage.",
-          "en": "You swim in it.",
-          "es": "Se nada en ella."
-        }
-      ],
-      "apres": {
-        "fr": "Une piscine, puis une salle des fêtes : les premières du canton de Salignac !",
-        "en": "A swimming pool, then a village hall: the first in the Salignac district!",
-        "es": "Una piscina y luego una sala de fiestas: ¡las primeras del cantón de Salignac!"
-      }
+      "verrou": true
     },
     {
       "id": "m1",
-      "nom": {
-        "fr": "Le gardien qui crie",
-        "en": "The screaming guardian",
-        "es": "El guardián que grita"
-      },
-      "lat": 44.99409,
-      "lon": 1.25117,
-      "deverrouillage": "gps",
-      "photo": "sg_totem_la_pierre_1.jpg",
-      "consigne_trajet": {
-        "fr": "Faites le tour de l'église jusqu'au totem « La pierre dans tous ses états », face au chevet (la partie arrondie à l'arrière).",
-        "en": "Walk around the church to the « La pierre dans tous ses états » totem, facing the apse (the rounded part at the back).",
-        "es": "Rodead la iglesia hasta el tótem « La pierre dans tous ses états », frente a la cabecera (la parte redondeada de atrás)."
-      },
-      "recit": {
-        "fr": "Sous le toit du chevet, des têtes de pierre gardent l'église depuis le Moyen Âge : grimaçantes, étranges, parfois des bêtes fantastiques. L'une d'elles crie depuis huit siècles.",
-        "en": "Under the roof of the apse, stone heads have guarded the church since the Middle Ages: grimacing, strange, sometimes fantastic beasts. One of them has been screaming for eight centuries.",
-        "es": "Bajo el tejado de la cabecera, cabezas de piedra guardan la iglesia desde la Edad Media: muecas, rostros extraños, a veces bestias fantásticas. Una de ellas grita desde hace ocho siglos."
-      },
-      "type": "code",
-      "reponses": [
-        "14",
-        "quatorze",
-        "fourteen",
-        "catorce"
-      ],
-      "question": {
-        "fr": "Combien de têtes sculptées gardent le chevet sous le bord du toit ?",
-        "en": "How many carved heads guard the apse under the edge of the roof?",
-        "es": "¿Cuántas cabezas esculpidas guardan la cabecera bajo el borde del tejado?"
-      },
-      "indices": [
-        {
-          "fr": "Levez les yeux sous le bord du toit et faites le tour du chevet en comptant.",
-          "en": "Look up under the edge of the roof and walk round the apse counting.",
-          "es": "Levantad la vista bajo el borde del tejado y rodead la cabecera contando."
-        },
-        {
-          "fr": "Il y a 21 pierres sous le toit, mais certaines sont lisses ou trop usées : ne comptez que les vraies têtes.",
-          "en": "There are 21 stones under the roof, but some are plain or too worn: count only the real heads.",
-          "es": "Hay 21 piedras bajo el tejado, pero algunas son lisas o están muy gastadas: contad solo las cabezas de verdad."
-        }
-      ],
-      "apres": {
-        "fr": "Quatorze gardiens de pierre… et le treizième crie, la bouche grande ouverte. Il murmure un chiffre : 3. Il prend la deuxième place de mon code.",
-        "en": "Fourteen stone guardians… and the thirteenth screams, mouth wide open. It whispers a digit: 3. It takes the second place in my code.",
-        "es": "Catorce guardianes de piedra… y el decimotercero grita, con la boca abierta de par en par. Susurra una cifra: 3. Ocupa el segundo lugar de mi código."
-      },
-      "fragment": "3",
-      "position": 2
+      "verrou": true
     },
     {
       "id": "m2",
-      "nom": {
-        "fr": "Le vitrail des deux saints",
-        "en": "The window of the two saints",
-        "es": "La vidriera de los dos santos"
-      },
-      "lat": 44.99412,
-      "lon": 1.25048,
-      "deverrouillage": "reponse",
-      "silence": true,
-      "photo": "sg_eglise_vitrail_saint_roch.jpg",
-      "recit": {
-        "fr": "Entrez dans l'église, en silence. Un vitrail réunit le saint qui a donné son nom au village et le patron de la paroisse.",
-        "en": "Enter the church quietly. A stained-glass window brings together the saint who gave his name to the village and the patron of the parish.",
-        "es": "Entrad en la iglesia, en silencio. Una vidriera reúne al santo que dio nombre al pueblo y al patrón de la parroquia."
-      },
-      "type": "texte",
-      "question": {
-        "fr": "L'un des deux saints porte un bâton et son chien l'accompagne. Qui est-il ?",
-        "en": "One of the two saints carries a staff and his dog is with him. Who is he?",
-        "es": "Uno de los dos santos lleva un bastón y le acompaña su perro. ¿Quién es?"
-      },
-      "reponses": [
-        "roch",
-        "saint roch",
-        "st roch",
-        "saint-roch",
-        "rock",
-        "roc",
-        "rok",
-        "roque",
-        "san roque",
-        "rocco"
-      ],
-      "indices": [
-        {
-          "fr": "Ce n'est pas saint Geniès.",
-          "en": "It is not Saint Geniès.",
-          "es": "No es san Geniès."
-        },
-        {
-          "fr": "Lisez l'inscription en bas à gauche du vitrail.",
-          "en": "Read the inscription at the bottom left of the window.",
-          "es": "Leed la inscripción abajo a la izquierda de la vidriera."
-        }
-      ],
-      "apres": {
-        "fr": "Saint Roch, patron de la paroisse, avec son bâton de pèlerin et son chien fidèle.",
-        "en": "Saint Roch, patron of the parish, with his pilgrim's staff and faithful dog.",
-        "es": "San Roque, patrón de la parroquia, con su bastón de peregrino y su perro fiel."
-      }
+      "verrou": true
     },
     {
       "id": "m3",
-      "nom": {
-        "fr": "La Vierge de 1940",
-        "en": "The 1940 Virgin",
-        "es": "La Virgen de 1940"
-      },
-      "lat": 44.99412,
-      "lon": 1.25048,
-      "deverrouillage": "reponse",
-      "photo": "sg_eglise_vierge_portail.jpg",
-      "recit": {
-        "fr": "Ressortez de l'église et levez les yeux : au-dessus du portail, une Vierge à l'Enfant veille sur le village. Elle a été offerte pour dire merci.",
-        "en": "Leave the church and look up: above the doorway, a Virgin and Child watches over the village. It was given as a thank-you.",
-        "es": "Salid de la iglesia y levantad la vista: sobre el pórtico, una Virgen con el Niño vela por el pueblo. Fue ofrecida para dar las gracias."
-      },
-      "type": "texte",
-      "question": {
-        "fr": "En 1940, un réfugié l'a offerte pour remercier les villageois qui l'avaient accueilli. De quelle région venait-il ?",
-        "en": "In 1940, a refugee gave it to thank the villagers who had taken him in. Which region did he come from?",
-        "es": "En 1940, un refugiado la regaló para agradecer a los vecinos que lo acogieron. ¿De qué región venía?"
-      },
-      "reponses": [
-        "alsace",
-        "l'alsace",
-        "alsacien",
-        "alsacia"
-      ],
-      "indices": [
-        {
-          "fr": "La réponse est sous le clapet « La statue de la Vierge » du grand panneau.",
-          "en": "The answer is under the « La statue de la Vierge » flap on the great sign.",
-          "es": "La respuesta está bajo la solapa « La statue de la Vierge » del gran panel."
-        },
-        {
-          "fr": "Une région de l'est de la France, à la frontière allemande.",
-          "en": "A region in eastern France, on the German border.",
-          "es": "Una región del este de Francia, en la frontera alemana."
-        }
-      ],
-      "apres": {
-        "fr": "L'Alsace. Saint-Geniès a toujours su accueillir ceux qui fuyaient… comme moi.",
-        "en": "Alsace. Saint-Geniès has always welcomed those who fled… like me.",
-        "es": "Alsacia. Saint-Geniès siempre supo acoger a quienes huían… como yo."
-      }
+      "verrou": true
     },
     {
       "id": "f1",
-      "nom": {
-        "fr": "L'école des filles",
-        "en": "The girls' school",
-        "es": "La escuela de niñas"
-      },
-      "lat": 44.994792,
-      "lon": 1.251058,
-      "deverrouillage": "gps",
-      "photo": "sg_totem_les_ecoles_1.jpg",
-      "consigne_trajet": {
-        "fr": "Rejoignez le totem « Les écoles de Saint-Geniès », près de la mairie.",
-        "en": "Go to the « Les écoles de Saint-Geniès » totem, near the town hall.",
-        "es": "Id al tótem « Les écoles de Saint-Geniès », junto al ayuntamiento."
-      },
-      "recit": {
-        "fr": "Ici, l'histoire de l'école de Saint-Geniès a commencé par une école de filles, tenue par des religieuses.",
-        "en": "Here, the story of Saint-Geniès's school began with a girls' school run by nuns.",
-        "es": "Aquí, la historia de la escuela de Saint-Geniès empezó con una escuela de niñas dirigida por religiosas."
-      },
-      "type": "code",
-      "question": {
-        "fr": "En quelle année une école publique pour filles a-t-elle enfin ouvert ?",
-        "en": "In which year did a state school for girls finally open?",
-        "es": "¿En qué año abrió por fin una escuela pública para niñas?"
-      },
-      "reponses": [
-        "1927"
-      ],
-      "indices": [
-        {
-          "fr": "L'école a été laïcisée en 1901, mais il a fallu attendre…",
-          "en": "The school was secularised in 1901, but there was a long wait…",
-          "es": "La escuela se laicizó en 1901, pero hubo que esperar…"
-        },
-        {
-          "fr": "Dans les années 1920.",
-          "en": "In the 1920s.",
-          "es": "En los años 1920."
-        }
-      ],
-      "apres": {
-        "fr": "1927, dans l'ancien relais en contrebas du bourg.",
-        "en": "1927, in the old coaching inn below the village.",
-        "es": "1927, en la antigua posta, abajo del pueblo."
-      }
+      "verrou": true
     },
     {
       "id": "f2",
-      "nom": {
-        "fr": "Le chemin qui sépare",
-        "en": "The dividing path",
-        "es": "El camino que separa"
-      },
-      "lat": 44.994792,
-      "lon": 1.251058,
-      "deverrouillage": "reponse",
-      "photo": "sg_totem_les_ecoles_2.jpg",
-      "recit": {
-        "fr": "En 1877, le conseil municipal voyait « d'un mauvais œil » l'école des filles trop près de celle des garçons. On les a séparées par un chemin.",
-        "en": "In 1877, the town council took « a dim view » of the girls' school being too close to the boys'. They were separated by a path.",
-        "es": "En 1877, el consejo municipal veía « con malos ojos » que la escuela de niñas estuviera tan cerca de la de niños. Las separaron con un camino."
-      },
-      "type": "code",
-      "question": {
-        "fr": "Chemin plus lisière : quelle largeur totale séparait les deux écoles, en mètres ?",
-        "en": "Path plus border strip: what total width separated the two schools, in metres?",
-        "es": "Camino más linde: ¿qué anchura total separaba las dos escuelas, en metros?"
-      },
-      "reponses": [
-        "9,50",
-        "9,5",
-        "9.5",
-        "9.50",
-        "9,50 m",
-        "9,5 m",
-        "9.5 m",
-        "9 m 50",
-        "9m50",
-        "950 cm"
-      ],
-      "indices": [
-        {
-          "fr": "Panneau « L'école des garçons et des filles ».",
-          "en": "Panel « L'école des garçons et des filles ».",
-          "es": "Panel « L'école des garçons et des filles »."
-        },
-        {
-          "fr": "Additionnez la largeur du chemin et celle de la lisière.",
-          "en": "Add the width of the path and the width of the border strip.",
-          "es": "Sumad la anchura del camino y la del linde."
-        }
-      ],
-      "apres": {
-        "fr": "9,50 mètres, dont 7 pour le seul chemin. Retenez ce 7 : c'est le dernier chiffre de mon code.",
-        "en": "9.50 metres, 7 of them for the path alone. Remember this 7: it is the last digit of my code.",
-        "es": "9,50 metros, de los cuales 7 para el camino. Recordad este 7: es la última cifra de mi código."
-      },
-      "fragment": "7",
-      "position": 4
+      "verrou": true
     },
     {
       "id": "f3",
-      "nom": {
-        "fr": "La récréation",
-        "en": "Break time",
-        "es": "El recreo"
-      },
-      "lat": 44.994792,
-      "lon": 1.251058,
-      "deverrouillage": "reponse",
-      "photo": "sg_totem_les_ecoles_1.jpg",
-      "recit": {
-        "fr": "Les élèves de l'école des filles n'avaient pas de cour : on les emmenait jouer ailleurs, sur la butte.",
-        "en": "The pupils of the girls' school had no playground: they were taken to play elsewhere, up on the hill.",
-        "es": "Las alumnas de la escuela de niñas no tenían patio: las llevaban a jugar a otro sitio, en la loma."
-      },
-      "type": "texte",
-      "question": {
-        "fr": "Autour de quel monument les élèves allaient-elles en récréation ?",
-        "en": "Around which monument did the pupils spend their break time?",
-        "es": "¿Alrededor de qué monumento iban las alumnas al recreo?"
-      },
-      "reponses": [
-        "cheylard",
-        "seinard",
-        "cheinard",
-        "chaylard",
-        "chapelle du cheylard",
-        "la chapelle du cheylard",
-        "la chapelle",
-        "chapelle",
-        "chapel",
-        "the chapel",
-        "capilla",
-        "la capilla"
-      ],
-      "indices": [
-        {
-          "fr": "C'est une chapelle sur le promontoire qui domine le bourg.",
-          "en": "It is a chapel on the promontory above the village.",
-          "es": "Es una capilla en el promontorio que domina el pueblo."
-        },
-        {
-          "fr": "La chapelle du Ch…",
-          "en": "The chapel of Ch…",
-          "es": "La capilla del Ch…"
-        }
-      ],
-      "apres": {
-        "fr": "La chapelle du Cheylard. Retenez ce nom : c'est là que tout se termine.",
-        "en": "The Cheylard chapel. Remember the name: that is where it all ends.",
-        "es": "La capilla del Cheylard. Recordad ese nombre: allí termina todo."
-      }
+      "verrou": true
     },
     {
       "id": "c1",
-      "nom": {
-        "fr": "Le château d'en bas",
-        "en": "The lower castle",
-        "es": "El castillo de abajo"
-      },
-      "lat": 44.9945,
-      "lon": 1.25054,
-      "deverrouillage": "gps",
-      "photo": "sg_chateau_place_1.jpg",
-      "consigne_trajet": {
-        "fr": "Rejoignez le grand panneau du château, sur la place. Restez dehors : la cour est privée.",
-        "en": "Go to the large castle sign on the square. Stay outside: the courtyard is private.",
-        "es": "Id al gran panel del castillo, en la plaza. Quedaos fuera: el patio es privado."
-      },
-      "recit": {
-        "fr": "Ce château n'existait pas encore à mon époque : on l'a bâti plus tard, en reliant deux maisons de chevaliers. Lisez son histoire sur le panneau.",
-        "en": "This castle did not exist yet in my time: it was built later, by joining two knights' houses. Read its story on the sign.",
-        "es": "Este castillo aún no existía en mi época: se construyó más tarde, uniendo dos casas de caballeros. Leed su historia en el panel."
-      },
-      "type": "code",
-      "question": {
-        "fr": "De quel siècle datent les deux maisons de chevaliers ? (en chiffres)",
-        "en": "Which century are the two knights' houses from? (in figures)",
-        "es": "¿De qué siglo son las dos casas de caballeros? (en cifras)"
-      },
-      "reponses": [
-        "13",
-        "xiii",
-        "13e",
-        "xiiie"
-      ],
-      "indices": [
-        {
-          "fr": "Regardez la partie « 800 ans d'histoire », point n°1.",
-          "en": "Look at the « 800 ans d'histoire » part, point no. 1.",
-          "es": "Mirad la parte « 800 ans d'histoire », punto n.º 1."
-        },
-        {
-          "fr": "Le siècle juste avant 1307.",
-          "en": "The century just before 1307.",
-          "es": "El siglo justo antes de 1307."
-        }
-      ],
-      "apres": {
-        "fr": "Le treizième siècle : ces maisons, je les ai connues. J'y ai frappé une nuit de 1307.",
-        "en": "The thirteenth century: I knew those houses. I knocked on their door one night in 1307.",
-        "es": "El siglo trece: conocí esas casas. Llamé a su puerta una noche de 1307."
-      }
+      "verrou": true
     },
     {
       "id": "c2",
-      "nom": {
-        "fr": "La roue des blasons",
-        "en": "The wheel of arms",
-        "es": "La rueda de los escudos"
-      },
-      "lat": 44.9945,
-      "lon": 1.25054,
-      "deverrouillage": "reponse",
-      "photo": "sg_totem_chateau_1_hd.jpg",
-      "recit": {
-        "fr": "Quatre familles ont tenu ce village. Sur le panneau, faites tourner le disque et rendez à chacune son blason.",
-        "en": "Four families held this village. On the sign, turn the disc and give each one back its coat of arms.",
-        "es": "Cuatro familias gobernaron este pueblo. En el panel, girad el disco y devolved a cada una su escudo."
-      },
-      "type": "code",
-      "question": {
-        "fr": "Notez la lettre du blason de la famille 1, puis 2, puis 3, puis 4 : quel mot de 4 lettres obtenez-vous ?",
-        "en": "Write the letter of the arms of family 1, then 2, then 3, then 4: which 4-letter word do you get?",
-        "es": "Anotad la letra del escudo de la familia 1, luego 2, luego 3, luego 4: ¿qué palabra de 4 letras obtenéis?"
-      },
-      "reponses": [
-        "dcab",
-        "d c a b",
-        "d-c-a-b",
-        "1d2c3a4b",
-        "1-d 2-c 3-a 4-b"
-      ],
-      "indices": [
-        {
-          "fr": "La famille 1 a des écureuils, la famille 3 un lion.",
-          "en": "Family 1 has squirrels, family 3 a lion.",
-          "es": "La familia 1 tiene ardillas, la familia 3 un león."
-        },
-        {
-          "fr": "Ça commence par D… et finit par …B.",
-          "en": "It starts with D… and ends with …B.",
-          "es": "Empieza por D… y termina por …B."
-        }
-      ],
-      "apres": {
-        "fr": "D, C, A, B. Les écureuils, les bandes d'or, le lion, l'or et le rouge : vous savez lire les blasons comme un chevalier.",
-        "en": "D, C, A, B. The squirrels, the golden bands, the lion, the gold and red: you read coats of arms like a knight.",
-        "es": "D, C, A, B. Las ardillas, las bandas de oro, el león, el oro y el rojo: leéis los escudos como un caballero."
-      }
+      "verrou": true
     },
     {
       "id": "c3",
-      "nom": {
-        "fr": "La place rehaussée",
-        "en": "The raised square",
-        "es": "La plaza elevada"
-      },
-      "lat": 44.9945,
-      "lon": 1.25054,
-      "deverrouillage": "reponse",
-      "photo": "sg_chateau_place_1.jpg",
-      "recit": {
-        "fr": "Regardez le bas du château : des fenêtres ont disparu sous vos pieds quand on a fait passer une route dans le bourg.",
-        "en": "Look at the bottom of the castle: windows vanished under your feet when a road was built through the village.",
-        "es": "Mirad la parte baja del castillo: unas ventanas desaparecieron bajo vuestros pies cuando se abrió una carretera en el pueblo."
-      },
-      "type": "code",
-      "question": {
-        "fr": "En quelle année a-t-on rehaussé la place ?",
-        "en": "In which year was the square raised?",
-        "es": "¿En qué año se elevó la plaza?"
-      },
-      "reponses": [
-        "1850"
-      ],
-      "indices": [
-        {
-          "fr": "Point n°3 du panneau.",
-          "en": "Point no. 3 on the sign.",
-          "es": "Punto n.º 3 del panel."
-        },
-        {
-          "fr": "Au milieu du 19e siècle.",
-          "en": "In the middle of the 19th century.",
-          "es": "A mediados del siglo XIX."
-        }
-      ],
-      "apres": {
-        "fr": "1850. Les pierres se cachent, mais ne mentent pas. Continuez : mon secret vous attend ailleurs.",
-        "en": "1850. Stones hide, but they do not lie. Go on: my secret awaits you elsewhere.",
-        "es": "1850. Las piedras se esconden, pero no mienten. Seguid: mi secreto os espera en otro lugar."
-      }
+      "verrou": true
     },
     {
       "id": "l1",
-      "nom": {
-        "fr": "Les toits de pierre",
-        "en": "The stone roofs",
-        "es": "Los tejados de piedra"
-      },
-      "lat": 44.99428,
-      "lon": 1.24915,
-      "deverrouillage": "gps",
-      "photo": "sg_totem_la_lauze_1.jpg",
-      "consigne_trajet": {
-        "fr": "Montez au jardin, à l'ouest de l'église : le totem « La Lauze » vous attend, à côté du grand cadre photo.",
-        "en": "Go up to the garden west of the church: the « La Lauze » sign awaits you, next to the big photo frame.",
-        "es": "Subid al jardín, al oeste de la iglesia: el panel « La Lauze » os espera, junto al gran marco de fotos."
-      },
-      "recit": {
-        "fr": "Regardez les toits du village : ils sont faits de pierre. En mon temps déjà, les lauziers levaient ces plaques dans le sol. Mais un tel toit est lourd, et il faut le bâtir avec rigueur.",
-        "en": "Look at the village roofs: they are made of stone. Already in my time, roofers lifted these slabs from the ground. But such a roof is heavy, and it must be built with care.",
-        "es": "Mirad los tejados del pueblo: son de piedra. Ya en mi época, los lauzeros levantaban esas losas del suelo. Pero un tejado así pesa, y hay que construirlo con rigor."
-      },
-      "type": "code",
-      "question": {
-        "fr": "Quelle pente, en degrés, doit avoir un toit de lauze ?",
-        "en": "What slope, in degrees, must a lauze roof have?",
-        "es": "¿Qué pendiente, en grados, debe tener un tejado de lauze?"
-      },
-      "reponses": [
-        "45",
-        "45°",
-        "45 degres",
-        "45 degrees",
-        "45 grados"
-      ],
-      "indices": [
-        {
-          "fr": "Point n°2 du panneau.",
-          "en": "Point no. 2 on the sign.",
-          "es": "Punto n.º 2 del panel."
-        },
-        {
-          "fr": "La moitié d'un angle droit.",
-          "en": "Half of a right angle.",
-          "es": "La mitad de un ángulo recto."
-        }
-      ],
-      "apres": {
-        "fr": "Quarante-cinq degrés : une pente raide, pour que la pierre tienne et que la pluie glisse.",
-        "en": "Forty-five degrees: a steep slope, so the stone holds and the rain slides off.",
-        "es": "Cuarenta y cinco grados: una pendiente fuerte, para que la piedra aguante y la lluvia resbale."
-      }
+      "verrou": true
     },
     {
       "id": "l2",
-      "nom": {
-        "fr": "Le poids du ciel",
-        "en": "The weight of the sky",
-        "es": "El peso del cielo"
-      },
-      "lat": 44.99428,
-      "lon": 1.24915,
-      "deverrouillage": "reponse",
-      "photo": "sg_totem_la_lauze_1.jpg",
-      "recit": {
-        "fr": "Un toit de lauze écrase les murs : c'est pour cela qu'ils sont si épais, jusqu'à un mètre.",
-        "en": "A lauze roof crushes the walls: that is why they are so thick, up to one metre.",
-        "es": "Un tejado de lauze aplasta los muros: por eso son tan gruesos, hasta un metro."
-      },
-      "type": "code",
-      "question": {
-        "fr": "Combien de kilos peut peser, au maximum, un seul mètre carré de toit de lauze ?",
-        "en": "How many kilos can a single square metre of lauze roof weigh, at most?",
-        "es": "¿Cuántos kilos puede pesar, como máximo, un solo metro cuadrado de tejado de lauze?"
-      },
-      "reponses": [
-        "800",
-        "800 kg",
-        "800kg"
-      ],
-      "indices": [
-        {
-          "fr": "Toujours le point n°2.",
-          "en": "Still point no. 2.",
-          "es": "Siempre el punto n.º 2."
-        },
-        {
-          "fr": "Entre 500 et … : prenez le plus grand.",
-          "en": "Between 500 and …: take the larger one.",
-          "es": "Entre 500 y …: tomad el mayor."
-        }
-      ],
-      "apres": {
-        "fr": "Huit cents kilos ! Le poids d'un cheval de guerre sur chaque mètre carré.",
-        "en": "Eight hundred kilos! The weight of a warhorse on every square metre.",
-        "es": "¡Ochocientos kilos! El peso de un caballo de guerra en cada metro cuadrado."
-      }
+      "verrou": true
     },
     {
       "id": "l3",
-      "nom": {
-        "fr": "Le secret des lauziers",
-        "en": "The roofers' secret",
-        "es": "El secreto de los lauzeros"
-      },
-      "lat": 44.99428,
-      "lon": 1.24915,
-      "deverrouillage": "reponse",
-      "photo": "sg_totem_la_lauze_1.jpg",
-      "recit": {
-        "fr": "Les lauziers ont leurs mots secrets, comme nous les Templiers. Soulevez les quatre clapets du panneau : ils racontent les étapes d'un toit.",
-        "en": "Roofers have their secret words, like us Templars. Lift the four flaps of the sign: they tell the steps of building a roof.",
-        "es": "Los lauzeros tienen sus palabras secretas, como nosotros los templarios. Levantad las cuatro solapas del panel: cuentan las etapas de un tejado."
-      },
-      "type": "texte",
-      "question": {
-        "fr": "Comment s'appelle l'étape où l'on répartit les lauzes sur le toit, bloquées en désordre entre les lattes ?",
-        "en": "What is the step called where the lauzes are spread over the roof, wedged at random between the battens?",
-        "es": "¿Cómo se llama la etapa en la que se reparten las lauzes por el tejado, encajadas en desorden entre los listones?"
-      },
-      "reponses": [
-        "rissonnage",
-        "le rissonnage",
-        "risonnage",
-        "rissonage"
-      ],
-      "indices": [
-        {
-          "fr": "C'est l'étape n°3.",
-          "en": "It is step no. 3.",
-          "es": "Es la etapa n.º 3."
-        },
-        {
-          "fr": "Le mot commence par RISS…",
-          "en": "The word starts with RISS…",
-          "es": "La palabra empieza por RISS…"
-        }
-      ],
-      "apres": {
-        "fr": "Le rissonnage. Peu de gens connaissent ce mot : vous voilà initiés. Avant de partir, faites-vous une photo dans le grand cadre : le château et l'église vous regardent.",
-        "en": "Rissonnage. Few people know this word: you are now initiates. Before leaving, take a photo in the big frame: the castle and the church are watching you.",
-        "es": "El rissonnage. Poca gente conoce esta palabra: ya sois iniciados. Antes de iros, haceos una foto en el gran marco: el castillo y la iglesia os miran."
-      }
+      "verrou": true
     }
   ],
   "final": {
-    "question": {
-      "fr": "Assemblez vos quatre chiffres, chacun à sa place, pour former le code de mon secret.",
-      "en": "Put your four digits together, each in its place, to form the code of my secret.",
-      "es": "Juntad vuestras cuatro cifras, cada una en su sitio, para formar el código de mi secreto."
-    },
-    "reponse": "1327",
-    "indices": [
-      {
-        "fr": "Ouvrez le carnet : chaque chiffre a sa place.",
-        "en": "Open the notebook: each digit has its place.",
-        "es": "Abrid el cuaderno: cada cifra tiene su sitio."
-      },
-      {
-        "fr": "C'est une année : celle où l'on bâtit la chapelle du Cheylard.",
-        "en": "It is a year: the year the Cheylard chapel was built.",
-        "es": "Es un año: el de la construcción de la capilla del Cheylard."
-      }
-    ],
-    "recit": {
-      "fr": "Vingt ans après ma fuite, en 1327, Gaubert la Chaminade fit bâtir la chapelle du Cheylard… et y fit peindre saint Georges, apparu aux croisés. Ce n'était pas un hasard.",
-      "en": "Twenty years after my escape, in 1327, Gaubert la Chaminade had the Cheylard chapel built… and had Saint George painted there, who appeared to the crusaders. It was no coincidence.",
-      "es": "Veinte años después de mi huida, en 1327, Gaubert la Chaminade mandó construir la capilla del Cheylard… y pintar en ella a san Jorge, aparecido a los cruzados. No fue casualidad."
-    },
-    "texte": {
-      "fr": "1327 ! Vous avez percé le premier sceau. [À COMPLÉTER par Gonzalo : où récupérer le coffre et les cartes trésor.]",
-      "en": "1327! You have broken the first seal. [TO BE COMPLETED by Gonzalo: where to collect the chest and treasure cards.]",
-      "es": "¡1327! Habéis roto el primer sello. [A COMPLETAR por Gonzalo: dónde recoger el cofre y las cartas del tesoro.]"
-    }
+    "verrou": true
+  },
+  "chiffre": {
+    "iv": "tZkwtCn6ncLaXeLk",
+    "donnees": "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"
   }
 }

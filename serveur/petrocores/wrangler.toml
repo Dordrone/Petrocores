@@ -1,0 +1,9 @@
+# Pétrocores — Worker Cloudflare + base D1. Déploiement : npx wrangler deploy (depuis ce dossier).
+name = "petrocores"
+main = "src/index.js"
+compatibility_date = "2026-10-01"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "petrocores"
+database_id = "8a418164-200c-43bc-9fdb-16068d761935"

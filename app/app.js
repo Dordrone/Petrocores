@@ -115,6 +115,21 @@ const UI = {
   arriveParking: { fr: '✓ Vous êtes arrivés : {l}. Touchez « Commencer ».', en: '✓ You have arrived: {l}. Tap “Start”.', es: '✓ Ha llegado: {l}. Toque «Empezar».' },
   itineraire: { fr: '🧭 Itinéraire', en: '🧭 Directions', es: '🧭 Cómo llegar' },
   ouvrirAvec: { fr: 'Ouvrir avec :', en: 'Open with:', es: 'Abrir con:' },
+  jaiUnCode: { fr: "🔑 J'ai un code", en: '🔑 I have a code', es: '🔑 Tengo un código' },
+  gratuitInfo: { fr: 'Le début du jeu est gratuit. Un code ouvre la suite.', en: 'The start of the game is free. A code unlocks the rest.', es: 'El principio del juego es gratis. Un código abre el resto.' },
+  codeTitre: { fr: 'Le jeu complet', en: 'The full game', es: 'El juego completo' },
+  codeExplication: { fr: "La suite de l'aventure demande un code. Saisissez celui que vous avez reçu.", en: 'The rest of the adventure needs a code. Enter the one you received.', es: 'El resto de la aventura requiere un código. Introduzca el que ha recibido.' },
+  codeChamp: { fr: 'Votre code', en: 'Your code', es: 'Su código' },
+  codeVerifier: { fr: 'Valider le code', en: 'Check the code', es: 'Validar el código' },
+  codeEnCours: { fr: 'Vérification…', en: 'Checking…', es: 'Comprobando…' },
+  codeOk: { fr: '✓ Jeu complet débloqué', en: '✓ Full game unlocked', es: '✓ Juego completo desbloqueado' },
+  code_inconnu: { fr: "Ce code n'existe pas. Vérifiez les lettres et les chiffres.", en: 'This code does not exist. Check the letters and digits.', es: 'Este código no existe. Compruebe las letras y las cifras.' },
+  code_desactive: { fr: 'Ce code a été désactivé.', en: 'This code has been deactivated.', es: 'Este código ha sido desactivado.' },
+  code_expire: { fr: 'Ce code a expiré.', en: 'This code has expired.', es: 'Este código ha caducado.' },
+  code_episode: { fr: 'Ce code est prévu pour un autre village.', en: 'This code is for another village.', es: 'Este código es para otro pueblo.' },
+  code_appareils: { fr: 'Ce code est déjà utilisé sur trop de téléphones.', en: 'This code is already in use on too many phones.', es: 'Este código ya se usa en demasiados teléfonos.' },
+  code_reseau: { fr: 'Pas de connexion : il faut du réseau pour vérifier le code (une seule fois).', en: 'No connection: a network is needed to check the code (only once).', es: 'Sin conexión: hace falta red para comprobar el código (solo una vez).' },
+  code_cle: { fr: "Code accepté, mais le jeu n'a pas pu s'ouvrir. Contactez l'organisateur.", en: 'Code accepted, but the game could not be opened. Contact the organiser.', es: 'Código aceptado, pero el juego no se pudo abrir. Contacte con el organizador.' },
   plansApple: { fr: 'Plans (Apple)', en: 'Apple Maps', es: 'Mapas (Apple)' },
   bienvenue: { fr: 'Bienvenue', en: 'Welcome', es: 'Bienvenida' },
   suivezMoi: { fr: "Bienvenue ! Suivez-moi jusqu'au point rouge.", en: 'Welcome! Follow me to the red dot.', es: '¡Bienvenidos! Síganme hasta el punto rojo.' },
@@ -244,6 +259,7 @@ function calculerOrdre(choix) {
 function completerEtat() {
   if (!S.ordre) { S.ordre = ep.etapes.map((_, i) => i); S.rang = S.idx; }
   if (!S.vues) S.vues = [];
+  if (!S.partie) S.partie = idAleatoire();
 }
 
 function commencerJeu() {
@@ -256,6 +272,8 @@ function entrerRang(r) {
 }
 function entrerEtape(i) {
   S.idx = i;
+  // Étape payante pas encore déchiffrée : on demande le code.
+  if (ep.etapes[i].verrou) { S.phase = 'code'; sauver(); afficher(); return; }
   const base = ep.etapes[i];
   if (base.variantes && !S.variantes[i]) {
     if (base.selection === 'heure') S.variantes[i] = varianteSelonHeure(base).id;
@@ -276,6 +294,7 @@ function videoEtape(i) {
 // À l'arrivée sur une étape : sa vidéo (une seule fois), puis le récit et la question.
 function ouvrirEnigme() {
   S.phase = 'enigme';
+  stat('etape', { etape: String(ep.etapes[S.idx].id) });
   const video = videoEtape(S.idx);
   const nouvelle = video && !S.vues.includes(video);
   if (nouvelle) S.vues.push(video);
@@ -315,6 +334,7 @@ function terminer() {
   S.fin = Date.now();
   S.phase = 'fin';
   sauver();
+  stat('fin', { duree: Math.round(secondesJeu()), sceau: sceauGagne(S.penalite) });
   effacer('petrocores_en_cours');
   arreterEveil();
   afficher();
@@ -774,7 +794,7 @@ function apresMenu(action) {
 function ouvrirAllerEtape() {
   ouvrirCouche(el('div', { class: 'cadre' },
     el('h2', {}, t('allerEtape')),
-    ...S.ordre.map((i, r) => bouton((r + 1) + '. ' + L(resoudre(i).nom), apresMenu(() => {
+    ...S.ordre.map((i, r) => bouton((r + 1) + '. ' + (L(resoudre(i).nom) || '🔒'), apresMenu(() => {
       if (!S.debut || S.phase === 'bienvenue') S.debut = Date.now();
       entrerRang(r);
     }), r === S.rang ? '' : 'second')),
@@ -809,6 +829,115 @@ function imagePhoto(nom) {
   return el('img', { class: 'photo', src, alt: '', onclick: () => ouvrirPhoto(src) });
 }
 
+// ---------- Accès payant : code client, déchiffrement, statistiques anonymes ----------
+// Serveur Cloudflare (dossier serveur/petrocores). En local, « ?serveur=http://localhost:8787 » vise le serveur de test.
+const PARAMS = new URLSearchParams(location.search);
+const SERVEUR_TEST = location.hostname === 'localhost' ? PARAMS.get('serveur') : null;
+const SERVEUR = SERVEUR_TEST || 'https://petrocores.petrocores.workers.dev';
+let codeEnAttente = PARAMS.get('code') || '';
+
+function idAleatoire() { return Array.from(crypto.getRandomValues(new Uint8Array(12)), x => x.toString(16).padStart(2, '0')).join(''); }
+function idAppareil() {
+  let a = lire('petrocores_appareil');
+  if (!a) { a = idAleatoire(); ecrire('petrocores_appareil', a); }
+  return a;
+}
+function cleAcces() { return 'petrocores_acces_' + slugEpisode; }
+function estVerrouille() { return !!ep.chiffre && !ep.ouvert; }
+const b64Octets = s => Uint8Array.from(atob(s), c => c.charCodeAt(0));
+
+// Remplace les étapes { id, verrou } par leur contenu déchiffré (AES-GCM, voir outils/chiffrer_episode.mjs). false si la clé ne convient pas.
+async function dechiffrerEpisode(cleB64) {
+  try {
+    const cle = await crypto.subtle.importKey('raw', b64Octets(cleB64), 'AES-GCM', false, ['decrypt']);
+    const clair = await crypto.subtle.decrypt({ name: 'AES-GCM', iv: b64Octets(ep.chiffre.iv) }, cle, b64Octets(ep.chiffre.donnees));
+    const secret = JSON.parse(new TextDecoder().decode(clair));
+    ep.etapes = ep.etapes.map(e => (e.verrou && secret.etapes[e.id]) || e);
+    if (secret.final) ep.final = secret.final;
+    ep.ouvert = true;
+    return true;
+  } catch (e) { return false; }
+}
+// Au chargement : rouvre le jeu avec la clé gardée sur ce téléphone (marche hors-ligne).
+async function ouvrirAccesGarde() {
+  const a = ep.chiffre && lire(cleAcces());
+  if (a && a.cle && !(await dechiffrerEpisode(a.cle))) effacer(cleAcces());   // l'épisode a changé de clé : le code sera redemandé
+}
+// Vérifie un code en ligne (une seule fois), garde la clé, déchiffre. Renvoie null si tout va bien, sinon le nom du message d'erreur.
+async function activerCode(saisie) {
+  let d;
+  try {
+    const r = await fetch(SERVEUR + '/api/verify', {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ code: saisie, appareil: idAppareil(), episode: slugEpisode })
+    });
+    d = await r.json();
+  } catch (e) { return 'code_reseau'; }
+  if (!d.ok) return UI['code_' + d.raison] ? 'code_' + d.raison : 'code_inconnu';
+  if (!d.cle || !(await dechiffrerEpisode(d.cle))) return 'code_cle';
+  ecrire(cleAcces(), { code: d.code, cle: d.cle });
+  codeEnAttente = '';
+  diagnostics = verifierEpisode();
+  preparerHorsLigne();   // les photos des étapes ouvertes passent en cache
+  return null;
+}
+function zoneCode(apres) {
+  const champ = el('input', { class: 'champ', type: 'text', autocomplete: 'off', autocapitalize: 'characters', placeholder: t('codeChamp'), value: codeEnAttente });
+  champ.setAttribute('autocorrect', 'off');
+  champ.setAttribute('spellcheck', 'false');
+  const msg = el('div', { class: 'message' });
+  const valider = bouton(t('codeVerifier'), async () => {
+    if (!champ.value.trim()) return;
+    valider.disabled = true;
+    msg.textContent = t('codeEnCours');
+    const erreur = await activerCode(champ.value);
+    valider.disabled = false;
+    if (erreur) { msg.textContent = t(erreur); return; }
+    toast(t('codeOk'));
+    apres();
+  });
+  champ.addEventListener('keydown', ev => { if (ev.key === 'Enter') valider.click(); });
+  return el('div', {}, champ, msg, valider);
+}
+// En cours de partie, à la fin de la partie gratuite.
+function ecranCode(v) {
+  v.append(el('h2', {}, t('codeTitre')), el('p', { class: 'texte' }, t('codeExplication')), zoneCode(() => entrerEtape(S.idx)));
+}
+// Depuis l'écran d'équipe.
+function ouvrirSaisieCode() {
+  ouvrirCouche(el('div', { class: 'cadre' },
+    el('h2', {}, t('codeTitre')),
+    zoneCode(() => { fermerCouche(); afficher(); }),
+    bouton(t('fermer'), fermerCouche, 'leger')));
+}
+
+// Statistiques anonymes (aucun nom, aucune position) : gardées dans une file si le réseau manque, envoyées dès qu'il revient.
+// Pas d'envoi pour la démo ni en ?debug=1 (sauf vers le serveur de test).
+function idEtapeStat() { return S.phase === 'final' ? 'final' : String(ep.etapes[S.idx].id); }
+function stat(ev, plus) {
+  if (!S || slugEpisode === 'demo' || (DEBUG && !SERVEUR_TEST)) return;
+  const a = lire(cleAcces());
+  const file = lire('petrocores_file') || [];
+  file.push(Object.assign({ ev, t: Date.now(), partie: S.partie, episode: slugEpisode, lang: langue, parcours: S.parcours || '', code: a ? a.code : '' }, plus));
+  ecrire('petrocores_file', file.slice(-300));
+  viderFile();
+}
+let envoiEnCours = false;
+async function viderFile() {
+  const file = lire('petrocores_file') || [];
+  if (!file.length || envoiEnCours || navigator.onLine === false) return;
+  envoiEnCours = true;
+  try {
+    const lot = file.slice(0, 100);
+    const r = await fetch(SERVEUR + '/api/event', {
+      method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ events: lot })
+    });
+    if (r.ok) ecrire('petrocores_file', (lire('petrocores_file') || []).slice(lot.length));
+  } catch (e) { /* hors-ligne : nouvel essai au prochain évènement ou au retour du réseau */ }
+  envoiEnCours = false;
+}
+window.addEventListener('online', viderFile);
+
 // ---------- Écrans ----------
 function afficher() {
   if (!ep) { afficherVillages(); return; }
@@ -821,6 +950,7 @@ function afficher() {
   v.replaceChildren();
   if (!afficher.jeu) ecranAccueil(v);
   else if (S.phase === 'son') commencerJeu();   // ancien écran « Test du son »
+  else if (S.phase === 'code') { if (ep.etapes[S.idx].verrou) ecranCode(v); else { entrerEtape(S.idx); return; } }
   else if (S.phase === 'variante') ecranVariante(v);
   else if (enTrajet()) ecranTrajet(v);
   else if (S.phase === 'enigme' || S.phase === 'final') ecranEnigme(v);
@@ -852,12 +982,13 @@ function changerLangue(l) {
 }
 function nouvelEtat(equipe, parcours) {
   return {
-    equipe, parcours, ordre: calculerOrdre(parcours), rang: 0, debut: Date.now(), fin: null, penalite: 0, idx: 0, phase: null,
+    equipe, parcours, partie: idAleatoire(), ordre: calculerOrdre(parcours), rang: 0, debut: Date.now(), fin: null, penalite: 0, idx: 0, phase: null,
     voix: true, variantes: {}, indices: {}, solutions: {}, fragments: {}, vues: []
   };
 }
 // Après l'écran d'équipe : trajet jusqu'au panneau de la vidéo de bienvenue, ou la vidéo tout de suite, ou le jeu.
 function debutPartie() {
+  stat('lancement');
   if (ep.bienvenue_lieu) { S.phase = 'bienvenue'; sauver(); afficher(); }
   else if (ep.bienvenue_video) voirBienvenue();
   else commencerJeu();
@@ -884,6 +1015,10 @@ function ecranAccueil(v) {
     el('p', { class: 'texte', style: 'margin-top:14px' }, L(ep.intro)));
   if (ep.duree_min) v.append(el('p', { class: 'discret' }, t('duree') + ' : ' + ep.duree_min + ' ' + t('min')));
   if (ep.avertissement) v.append(el('div', { class: 'encart alerte texte' }, L(ep.avertissement)));
+  if (ep.chiffre) {
+    if (estVerrouille()) v.append(el('p', { class: 'discret' }, t('gratuitInfo')), bouton(t('jaiUnCode'), ouvrirSaisieCode, 'second'));
+    else v.append(el('p', { class: 'discret' }, t('codeOk')));
+  }
 
   const enCours = S && S.phase;
   if (enCours) {
@@ -1042,6 +1177,7 @@ function zoneIndices(v, e) {
       actions.append(bouton(t('indice', { n: vus + 1, t: indices.length, p }), () => {
         S.indices[cle] = vus + 1;
         S.penalite += penaliteIndice();
+        stat('indice', { etape: idEtapeStat() });
         sauver();
         majChrono();
         maj();
@@ -1052,6 +1188,7 @@ function zoneIndices(v, e) {
       actions.append(bouton(t('solution', { p }), () => confirmer(t('solutionConfirme', { p }), () => {
         S.solutions[cle] = texteSolution(e);
         S.penalite += penaliteSolution();
+        stat('solution', { etape: idEtapeStat() });
         reussir();
       }), 'leger'));
     }
@@ -1327,6 +1464,7 @@ function verifierEpisode() {
   trilingue(ep.narrateur, 'narrateur');
   trilingue(ep.avertissement, 'avertissement');
   ep.etapes.forEach((e, i) => {
+    if (e.verrou) return;
     const ou = 'etape ' + (i + 1);
     verifierEtape(e, ou);
     (e.variantes || []).forEach(v => {
@@ -1348,7 +1486,7 @@ function verifierEpisode() {
   }
   const positions = ep.etapes.map(e => e.position).filter(x => x !== undefined);
   if (new Set(positions).size !== positions.length) pb.push('fragments : deux étapes ont la même « position »');
-  if (ep.final) {
+  if (ep.final && !ep.final.verrou) {
     for (const c of ['question', 'recit', 'texte']) trilingue(ep.final[c], 'final.' + c);
     (ep.final.indices || []).forEach((x, i) => trilingue(x, 'final.indices[' + i + ']'));
     if (!ep.final.reponse && !ep.final.reponses) pb.push('final : réponse manquante');
@@ -1401,12 +1539,19 @@ async function demarrer() {
   }
   // "photos_dossier" se lit depuis app/, comme les vidéos ; sans ce champ : photos/ à côté de l'épisode.
   urlPhotos = ep.photos_dossier ? new URL(ep.photos_dossier, location.href) : new URL('photos/', urlEpisode);
+  await ouvrirAccesGarde();
+  // Lien ou QR code « ?code=… » : le code est vérifié tout de suite ; s'il échoue, il reste pré-rempli dans l'écran de saisie.
+  let erreurCode = null;
+  const codeDuLien = estVerrouille() && codeEnAttente;
+  if (codeDuLien) erreurCode = await activerCode(codeDuLien);
   diagnostics = verifierEpisode();
   S = lire(cleSauvegarde());
   if (S) completerEtat();
   afficher.jeu = false;
   afficher();
+  if (codeDuLien) toast(t(erreurCode || 'codeOk'), 6000);
   preparerHorsLigne();
+  viderFile();
   if (DEBUG) window.PETRO = { surPosition };
 }
 demarrer();
