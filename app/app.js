@@ -93,6 +93,24 @@ const UI = {
   sceauMot_bronze: { fr: 'Le chemin fut long, mais vous êtes allés au bout : le sceau de bronze est à vous.', en: 'The road was long, but you made it to the end: the bronze seal is yours.', es: 'El camino fue largo, pero llegasteis al final: el sello de bronce es vuestro.' },
   sceauMot_bois: { fr: "Même le plus humble des frères reçoit un sceau : celui de bois. Revenez tenter l'or !", en: 'Even the humblest brother receives a seal: the wooden one. Come back and try for gold!', es: 'Hasta el más humilde de los hermanos recibe un sello: el de madera. ¡Volved a intentar el oro!' },
   victoire: { fr: 'Mission accomplie !', en: 'Mission accomplished!', es: '¡Misión cumplida!' },
+  // 14/11 : parchemin d'honneur (textes PROVISOIRES de Claude Code, à revoir par Claude chat).
+  nomsTitre: { fr: "Le parchemin de l'Ordre", en: "The Order's parchment", es: 'El pergamino de la Orden' },
+  nomsExplication: { fr: "Frère Aymeric veut graver vos noms sur le parchemin d'honneur des Templiers. Inscrivez les prénoms de votre compagnie.", en: "Brother Aymeric wants to engrave your names on the Templars' parchment of honour. Write the first names of your company.", es: 'Fray Aymeric quiere grabar vuestros nombres en el pergamino de honor de los templarios. Escribid los nombres de vuestra compañía.' },
+  nomsChamp: { fr: 'Prénom {n}', en: 'Name {n}', es: 'Nombre {n}' },
+  nomsSceller: { fr: '✒️ Sceller le parchemin', en: '✒️ Seal the parchment', es: '✒️ Sellar el pergamino' },
+  nomsModifier: { fr: '✏️ Modifier les noms', en: '✏️ Edit the names', es: '✏️ Cambiar los nombres' },
+  nomsPrive: { fr: 'Les noms restent sur ce téléphone.', en: 'The names stay on this phone.', es: 'Los nombres se quedan en este teléfono.' },
+  parcheminEnregistrer: { fr: '💾 Enregistrer le parchemin', en: '💾 Save the parchment', es: '💾 Guardar el pergamino' },
+  parcheminPartager: { fr: '📤 Partager', en: '📤 Share', es: '📤 Compartir' },
+  parcheminTitre: { fr: "Parchemin d'honneur", en: 'Parchment of Honour', es: 'Pergamino de honor' },
+  parcheminOrdre: { fr: "Ordre du Temple · Pétrocores", en: 'Order of the Temple · Pétrocores', es: 'Orden del Temple · Pétrocores' },
+  parcheminIntro: { fr: "Par la présente, l'Ordre du Temple reconnaît que", en: 'By these presents, the Order of the Temple recognises that', es: 'Por la presente, la Orden del Temple reconoce que' },
+  parcheminCompagnie: { fr: 'de la compagnie « {e} »', en: 'of the company “{e}”', es: 'de la compañía «{e}»' },
+  parcheminExploit: { fr: 'ont percé le secret de', en: 'have uncovered the secret of', es: 'han desvelado el secreto de' },
+  parcheminDate: { fr: 'le {d}, en {t}', en: 'on {d}, in {t}', es: 'el {d}, en {t}' },
+  parcheminChemin: { fr: 'Le chemin parcouru', en: 'The path taken', es: 'El camino recorrido' },
+  parcheminSigne: { fr: 'Frère Aymeric', en: 'Brother Aymeric', es: 'Fray Aymeric' },
+  parcheminRole: { fr: 'chevalier du Temple', en: 'Knight of the Temple', es: 'caballero del Temple' },
   tempsFinal: { fr: 'Temps de votre équipe', en: "Your team's time", es: 'Tiempo de su equipo' },
   dontPenalites: { fr: 'dont {p} de pénalités', en: 'including {p} of penalties', es: 'de los cuales {p} de penalización' },
   min: { fr: 'min', en: 'min', es: 'min' },
@@ -1227,7 +1245,243 @@ function ecranApres(v) {
   parlerAuto(textes);
 }
 
+// ---------- Parchemin d'honneur (14/11) : noms des joueurs + chemin + sceau, dessiné sur un canvas ----------
+// Les noms restent dans la sauvegarde du téléphone (S.noms) : rien n'est envoyé au serveur.
+const NOMS_MAX = 6;
+function ecranNoms(v) {
+  v.append(el('h1', {}, t('nomsTitre')));
+  v.append(el('p', { class: 'texte' }, t('nomsExplication')));
+  const champs = [];
+  for (let n = 0; n < NOMS_MAX; n++) {
+    const c = el('input', { class: 'champ', type: 'text', maxLength: 24, autocomplete: 'off', autocapitalize: 'words',
+      placeholder: t('nomsChamp', { n: n + 1 }), value: (S.noms || [])[n] || '' });
+    champs.push(c);
+    v.append(c);
+  }
+  v.append(el('p', { class: 'discret', style: 'text-align:center' }, t('nomsPrive')));
+  v.append(bouton(t('nomsSceller'), () => {
+    S.noms = champs.map(c => c.value.trim().replace(/\s+/g, ' ')).filter(Boolean);
+    S.nomsSaisis = true;
+    sauver();
+    afficher();
+  }));
+  v.append(bouton(t('passer'), () => { S.noms = S.noms || []; S.nomsSaisis = true; sauver(); afficher(); }, 'second'));
+  setTimeout(() => champs[0].focus(), 50);
+}
+
+function chargerImage(src) {
+  return new Promise(ok => { const i = new Image(); i.onload = () => ok(i); i.onerror = () => ok(null); i.src = src; });
+}
+// Hasard reproductible : le même parchemin à chaque affichage d'une même partie.
+function hasard(graine) {
+  let s = 0; for (const c of String(graine)) s = (s * 31 + c.charCodeAt(0)) >>> 0;
+  return () => { s = (s * 1664525 + 1013904223) >>> 0; return s / 4294967296; };
+}
+function lignesTexte(g, texte, largeur) {
+  const mots = texte.split(' '), lignes = [];
+  let l = '';
+  for (const m of mots) {
+    const essai = l ? l + ' ' + m : m;
+    if (g.measureText(essai).width > largeur && l) { lignes.push(l); l = m; } else l = essai;
+  }
+  if (l) lignes.push(l);
+  return lignes;
+}
+function texteAjuste(g, texte, x, y, largeur, police, taille) {
+  let tl = taille;
+  do { g.font = police.replace('{t}', tl); tl -= 2; } while (g.measureText(texte).width > largeur && tl > 14);
+  g.fillText(texte, x, y);
+}
+function croixTemple(g, x, y, r, couleur) {
+  g.save(); g.translate(x, y); g.fillStyle = couleur;
+  for (let k = 0; k < 4; k++) {
+    g.beginPath();
+    g.moveTo(-r * 0.16, -r * 0.16); g.lineTo(-r * 0.42, -r); g.quadraticCurveTo(0, -r * 0.86, r * 0.42, -r);
+    g.lineTo(r * 0.16, -r * 0.16); g.closePath(); g.fill();
+    g.rotate(Math.PI / 2);
+  }
+  g.fillRect(-r * 0.2, -r * 0.2, r * 0.4, r * 0.4);
+  g.restore();
+}
+function roseDesVents(g, x, y, r, encre) {
+  g.save(); g.translate(x, y); g.strokeStyle = encre; g.fillStyle = encre; g.lineWidth = 2;
+  g.beginPath(); g.arc(0, 0, r * 0.62, 0, 7); g.stroke();
+  for (let k = 0; k < 8; k++) {
+    const long = k % 2 === 0 ? r : r * 0.55;
+    g.beginPath(); g.moveTo(0, -long); g.lineTo(r * 0.12, 0); g.lineTo(0, r * 0.12); g.lineTo(-r * 0.12, 0); g.closePath();
+    k % 4 === 0 ? g.fill() : g.stroke();
+    g.rotate(Math.PI / 4);
+  }
+  g.rotate(0); g.font = 'bold ' + Math.round(r * 0.42) + 'px Georgia, serif'; g.textAlign = 'center';
+  g.fillText('N', 0, -r - 8);
+  g.restore();
+}
+// Points du chemin de l'équipe (étapes avec coordonnées, dans l'ordre joué, doublons proches retirés).
+function pointsChemin() {
+  const pts = [];
+  for (const i of S.ordre || []) {
+    const e = resoudre(i);
+    if (!aDesCoordonnees(e)) continue;
+    const der = pts[pts.length - 1];
+    if (der && distanceM(der, e) < 12) continue;
+    pts.push({ lat: e.lat, lon: e.lon });
+  }
+  return pts;
+}
+
+async function dessinerParchemin() {
+  const W = 1080, H = 1440;
+  const c = document.createElement('canvas'); c.width = W; c.height = H;
+  const g = c.getContext('2d');
+  const rnd = hasard((S.partie || '') + (S.equipe || ''));
+  const ENCRE = '#3b2a1a', ROUGE = '#8c2f23', OR = '#9a7432';
+  const sceau = sceauGagne(S.penalite);
+  const imgSceau = await chargerImage('sceaux/sceau_' + sceau + '.png');
+
+  // fond sombre + feuille au bord irrégulier
+  g.fillStyle = '#1c1a17'; g.fillRect(0, 0, W, H);
+  const bord = [];
+  const M = 34, pas = 26;
+  for (let x = M; x <= W - M; x += pas) bord.push([x, M + rnd() * 16]);
+  for (let y = M; y <= H - M; y += pas) bord.push([W - M - rnd() * 16, y]);
+  for (let x = W - M; x >= M; x -= pas) bord.push([x, H - M - rnd() * 16]);
+  for (let y = H - M; y >= M; y -= pas) bord.push([M + rnd() * 16, y]);
+  g.save();
+  g.shadowColor = 'rgba(0,0,0,.6)'; g.shadowBlur = 30;
+  g.beginPath(); bord.forEach(([x, y], k) => k ? g.lineTo(x, y) : g.moveTo(x, y)); g.closePath();
+  const fond = g.createRadialGradient(W / 2, H / 2, W * 0.2, W / 2, H / 2, W * 0.85);
+  fond.addColorStop(0, '#f1e2bd'); fond.addColorStop(0.65, '#e3c993'); fond.addColorStop(1, '#b98e52');
+  g.fillStyle = fond; g.fill();
+  g.restore();
+  g.save();
+  g.beginPath(); bord.forEach(([x, y], k) => k ? g.lineTo(x, y) : g.moveTo(x, y)); g.closePath(); g.clip();
+  // taches et grain du vieux papier
+  for (let k = 0; k < 900; k++) {
+    g.fillStyle = 'rgba(110,70,30,' + (rnd() * 0.06).toFixed(3) + ')';
+    g.beginPath(); g.arc(rnd() * W, rnd() * H, 1 + rnd() * 3, 0, 7); g.fill();
+  }
+  for (let k = 0; k < 7; k++) {
+    const x = rnd() * W, y = rnd() * H, r = 30 + rnd() * 90;
+    const tache = g.createRadialGradient(x, y, 0, x, y, r);
+    tache.addColorStop(0, 'rgba(140,95,40,.10)'); tache.addColorStop(1, 'rgba(140,95,40,0)');
+    g.fillStyle = tache; g.fillRect(x - r, y - r, 2 * r, 2 * r);
+  }
+  // bord brûlé
+  g.lineWidth = 26; g.strokeStyle = 'rgba(90,50,15,.35)';
+  g.beginPath(); bord.forEach(([x, y], k) => k ? g.lineTo(x, y) : g.moveTo(x, y)); g.closePath(); g.stroke();
+  g.restore();
+
+  // double cadre + coins
+  g.strokeStyle = OR; g.lineWidth = 3; g.strokeRect(84, 84, W - 168, H - 168);
+  g.lineWidth = 1.5; g.strokeRect(96, 96, W - 192, H - 192);
+  for (const [x, y] of [[90, 90], [W - 90, 90], [90, H - 90], [W - 90, H - 90]]) croixTemple(g, x, y, 22, ROUGE);
+
+  g.textAlign = 'center'; g.textBaseline = 'alphabetic'; g.fillStyle = ENCRE;
+  // en-tête
+  croixTemple(g, W / 2, 190, 52, ROUGE);
+  g.font = 'italic 30px Georgia, serif'; g.fillStyle = OR;
+  g.fillText(t('parcheminOrdre'), W / 2, 290);
+  g.fillStyle = ENCRE;
+  texteAjuste(g, t('parcheminTitre').toUpperCase(), W / 2, 366, W - 260, 'bold {t}px Georgia, serif', 70);
+  g.strokeStyle = OR; g.lineWidth = 2;
+  g.beginPath(); g.moveTo(260, 396); g.lineTo(W - 260, 396); g.stroke();
+  g.beginPath(); g.arc(W / 2, 396, 6, 0, 7); g.fillStyle = ROUGE; g.fill(); g.fillStyle = ENCRE;
+
+  // texte de reconnaissance
+  let y = 462;
+  g.font = 'italic 34px Georgia, serif';
+  g.fillText(t('parcheminIntro'), W / 2, y); y += 70;
+  const noms = (S.noms && S.noms.length) ? S.noms : [S.equipe];
+  g.fillStyle = ROUGE;
+  const ligneNoms = noms.length > 1 ? noms.slice(0, -1).join(', ') + ' & ' + noms[noms.length - 1] : noms[0];
+  g.font = 'bold italic 56px Georgia, serif';
+  let lignes = lignesTexte(g, ligneNoms, W - 260);
+  if (lignes.length > 2) { g.font = 'bold italic 44px Georgia, serif'; lignes = lignesTexte(g, ligneNoms, W - 240); }
+  for (const l of lignes.slice(0, 3)) { g.fillText(l, W / 2, y); y += 62; }
+  g.fillStyle = ENCRE;
+  if (S.noms && S.noms.length) { g.font = 'italic 32px Georgia, serif'; g.fillText(t('parcheminCompagnie', { e: S.equipe }), W / 2, y); y += 56; }
+  g.font = 'italic 34px Georgia, serif';
+  g.fillText(t('parcheminExploit'), W / 2, y); y += 58;
+  texteAjuste(g, L(ep.titre), W / 2, y, W - 240, 'bold {t}px Georgia, serif', 42); y += 54;
+  const date = new Date(S.fin || Date.now()).toLocaleDateString(VOIX_LANG[langue], { day: 'numeric', month: 'long', year: 'numeric' });
+  g.font = 'italic 32px Georgia, serif';
+  g.fillText(t('parcheminDate', { d: date, t: chronoTexte(secondesJeu()) }), W / 2, y);
+
+  // carte du chemin parcouru
+  const cx0 = 150, cy0 = y + 75, cw = W - 300, ch = 270;
+  g.strokeStyle = 'rgba(59,42,26,.55)'; g.lineWidth = 2; g.setLineDash([2, 6]);
+  g.strokeRect(cx0, cy0, cw, ch); g.setLineDash([]);
+  g.font = 'italic 24px Georgia, serif'; g.fillStyle = OR;
+  g.fillText(t('parcheminChemin'), W / 2, cy0 - 12);
+  roseDesVents(g, cx0 + 62, cy0 + 70, 40, 'rgba(59,42,26,.75)');
+  // collines et arbres à la plume
+  g.strokeStyle = 'rgba(59,42,26,.35)'; g.lineWidth = 2;
+  for (let k = 0; k < 5; k++) {
+    const hx = cx0 + 140 + rnd() * (cw - 220), hy = cy0 + 40 + rnd() * (ch - 70);
+    g.beginPath(); g.moveTo(hx - 26, hy); g.quadraticCurveTo(hx - 13, hy - 18, hx, hy); g.quadraticCurveTo(hx + 13, hy - 18, hx + 26, hy); g.stroke();
+  }
+  const pts = pointsChemin();
+  if (pts.length >= 2) {
+    const lat0 = pts.reduce((s, p) => s + p.lat, 0) / pts.length, k = Math.cos(lat0 * Math.PI / 180);
+    const xs = pts.map(p => p.lon * k), ys = pts.map(p => p.lat);
+    const mx = (Math.min(...xs) + Math.max(...xs)) / 2, my = (Math.min(...ys) + Math.max(...ys)) / 2;
+    const span = Math.max(Math.max(...xs) - Math.min(...xs), (Math.max(...ys) - Math.min(...ys)) * cw / ch, 0.0003);
+    const e = (cw - 160) / span;
+    const X = p => cx0 + cw / 2 + 30 + (p.lon * k - mx) * e, Y = p => cy0 + ch / 2 - (p.lat - my) * e;
+    g.strokeStyle = ROUGE; g.lineWidth = 4; g.setLineDash([12, 9]); g.lineCap = 'round';
+    g.beginPath(); pts.forEach((p, n) => n ? g.lineTo(X(p), Y(p)) : g.moveTo(X(p), Y(p))); g.stroke();
+    g.setLineDash([]);
+    pts.forEach((p, n) => {
+      if (n === pts.length - 1) return;
+      g.fillStyle = n === 0 ? ENCRE : '#5a4632';
+      g.beginPath(); g.arc(X(p), Y(p), n === 0 ? 11 : 7, 0, 7); g.fill();
+    });
+    const fin = pts[pts.length - 1];
+    g.strokeStyle = ROUGE; g.lineWidth = 7;
+    g.beginPath(); g.moveTo(X(fin) - 15, Y(fin) - 15); g.lineTo(X(fin) + 15, Y(fin) + 15);
+    g.moveTo(X(fin) + 15, Y(fin) - 15); g.lineTo(X(fin) - 15, Y(fin) + 15); g.stroke();
+  }
+
+  // signature + sceau
+  const sy = cy0 + ch + 70;
+  g.textAlign = 'left'; g.fillStyle = ENCRE;
+  g.font = 'italic 44px "Brush Script MT", "Segoe Script", cursive';
+  g.fillText(t('parcheminSigne'), 150, sy + 20);
+  g.strokeStyle = ENCRE; g.lineWidth = 1.5;
+  g.beginPath(); g.moveTo(150, sy + 36); g.lineTo(520, sy + 36); g.stroke();
+  g.font = 'italic 24px Georgia, serif'; g.fillText(t('parcheminRole'), 150, sy + 68);
+  g.fillStyle = ROUGE; g.font = 'bold 26px Georgia, serif';
+  g.fillText('✠ ' + t('sceau_' + sceau), 150, sy + 112);
+  g.textAlign = 'center'; g.font = '20px Georgia, serif'; g.fillStyle = 'rgba(59,42,26,.7)';
+  g.fillText('escape-game-dordogne.fr', W / 2, H - 112);
+  if (imgSceau) {
+    g.save(); g.translate(W - 260, sy + 40); g.rotate(-0.2);
+    g.shadowColor = 'rgba(0,0,0,.45)'; g.shadowBlur = 14; g.shadowOffsetY = 6;
+    g.drawImage(imgSceau, -110, -110, 220, 220 * imgSceau.height / imgSceau.width);
+    g.restore();
+  }
+  return c;
+}
+
+function nomFichierParchemin() {
+  return ('parchemin-' + (S.equipe || 'templiers')).normalize('NFD').replace(/[̀-ͯ]/g, '')
+    .replace(/[^a-zA-Z0-9]+/g, '-').toLowerCase() + '.png';
+}
+function enregistrerParchemin(canvas) {
+  const a = el('a', { href: canvas.toDataURL('image/png'), download: nomFichierParchemin() });
+  document.body.append(a); a.click(); a.remove();
+}
+function partagerParchemin(canvas) {
+  canvas.toBlob(blob => {
+    const f = new File([blob], nomFichierParchemin(), { type: 'image/png' });
+    if (navigator.canShare && navigator.canShare({ files: [f] })) {
+      navigator.share({ files: [f], title: t('parcheminTitre'), text: L(ep.titre) + ' · escape-game-dordogne.fr' }).catch(() => {});
+    } else enregistrerParchemin(canvas);
+  }, 'image/png');
+}
+
 function ecranFin(v) {
+  if (!S.nomsSaisis) { ecranNoms(v); return; }
   const f = ep.final || {};
   v.append(el('h1', {}, t('victoire')));
   if (S.solutions.final !== undefined) v.append(el('p', { class: 'discret' }, t('etaitReponse', { r: S.solutions.final })));
@@ -1235,9 +1489,15 @@ function ecranFin(v) {
   v.append(el('p', { class: 'temps' }, chronoTexte(secondesJeu())));
   if (S.penalite) v.append(el('p', { class: 'discret', style: 'text-align:center' }, t('dontPenalites', { p: dureeTexte(S.penalite) })));
   const sceau = sceauGagne(S.penalite);
-  v.append(el('div', { class: 'carte-fin' },
-    el('img', { class: 'image-fin', src: f.image ? urlPhoto(f.image) : 'fragment-carte.svg', alt: '' }),
-    el('img', { class: 'sceau-fin', src: 'sceaux/sceau_' + sceau + '.png', alt: t('sceau_' + sceau) })));
+  const image = el('img', { class: 'parchemin', alt: t('parcheminTitre') });
+  const actions = el('div', { class: 'actions-parchemin' });
+  v.append(image, actions);
+  dessinerParchemin().then(canvas => {
+    image.src = canvas.toDataURL('image/png');
+    actions.append(bouton(t('parcheminEnregistrer'), () => enregistrerParchemin(canvas)));
+    if (navigator.share) actions.append(bouton(t('parcheminPartager'), () => partagerParchemin(canvas), 'leger'));
+    actions.append(bouton(t('nomsModifier'), () => { S.nomsSaisis = false; sauver(); afficher(); }, 'leger'));
+  });
   v.append(el('p', { class: 'nom-sceau' }, t('sceau_' + sceau)));
   v.append(el('p', { class: 'texte' }, t('sceauMot_' + sceau)));
   if (f.texte) v.append(el('p', { class: 'texte' }, L(f.texte)));

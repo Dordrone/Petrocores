@@ -115,3 +115,14 @@
 - Final : question, reponse, texte, recit, indices, image.
 - Tout texte affiché ou lu : {fr, en, es}. Une étape = une question ; 2 questions au même lieu = 2 étapes, la seconde en "deverrouillage":"reponse".
   Étape sans question = récit + « Continuer ». Pas de chiffres écrits en numérique dans les textes LUS (la voix OmniVoice déraille).
+
+## 14/11 Claude Code — EN LOCAL, PAS ENCORE PUBLIÉ (sw v20, attend l'accord de Gonzalo)
+- Bienvenue FR refaite (Runway, 400 crédits, accord de Gonzalo) : Aymeric sort du fond, passe entre le lavoir et le totem 02, parle
+  avec la voix d'origine (Zion Aquila) dans le bon ordre « Bienvenue à Saint-Geniès, voyageurs ». `app/media/bienvenue_saint_genies.fr.mp4`
+  + sous-titres fr / fr.en / fr.es recalés (voix à 7,1 s). Vidéos EN/ES = anciennes (à refaire : ~400 crédits chacune, demander à Gonzalo).
+  Sources et programmes : `C:\Users\DORDRONE\MuseTalk\petrocores\` (caler_voix.py, runway_totem02.mp4, ancienne vidéo).
+- Écran final : « Parchemin d'honneur ». Avant la victoire, les joueurs tapent jusqu'à 6 prénoms (S.noms, restent sur le téléphone) ;
+  le jeu dessine un parchemin (canvas 1080x1440) : noms, équipe, titre de l'épisode, date, temps, chemin parcouru (étapes avec lat/lon),
+  sceau gagné, signature Frère Aymeric, escape-game-dordogne.fr. Boutons Enregistrer (PNG) / Partager (téléphones) / Modifier les noms.
+  → **Pour Claude chat** : les textes du parchemin sont PROVISOIRES, dans `UI` de app/app.js (clés noms* et parchemin*), à réécrire en fr/en/es
+    (me les donner ici, je les recopie). Idées suivantes : envoi par mail (consentement RGPD), photo souvenir, carnet des sceaux de la saison.
