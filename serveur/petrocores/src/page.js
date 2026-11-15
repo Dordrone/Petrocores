@@ -31,7 +31,7 @@ tr.off{opacity:.45}code{font-family:monospace;font-size:1rem;font-weight:bold}
 #planche{display:none}
 .carte{border:1px dashed #6b6355;border-radius:8px;padding:10px;display:flex;gap:10px;align-items:center;break-inside:avoid}
 .carte img{width:120px;height:120px}.carte b{font-family:monospace;font-size:1.25rem}
-.carte p{margin:3px 0;font-size:.72rem}
+.carte p{margin:3px 0;font-size:.72rem}.carte p.desc{font-size:.6rem;line-height:1.25}
 @media print{
   body{background:#fff;padding:0;max-width:none}
   #ecran{display:none}#planche{display:grid;grid-template-columns:1fr 1fr;gap:8mm}
@@ -48,6 +48,7 @@ tr.off{opacity:.45}code{font-family:monospace;font-size:1rem;font-weight:bold}
 <div class="cadre"><form onsubmit="creer(event)">
   <label>Épisode<input id="f-episode" value="saint-genies" list="episodes" required><datalist id="episodes"><option value="saint-genies"><option value="*"></datalist></label>
   <label>Client<input id="f-client" list="clients" placeholder="Office de tourisme Sarlat" required><datalist id="clients"></datalist></label>
+  <label class="niveaux">Niveau<select id="f-niveau"><option value="ecuyer">🛡 Écuyer</option><option value="chevalier">⚔ Chevalier</option><option value="grandmaitre">✠ Grand Maître</option></select></label>
   <label>Canal<select id="f-canal"><option value="main">À la main</option><option value="web">Web</option><option value="play">Play Store</option></select></label>
   <label>Nombre de codes<input id="f-nombre" type="number" min="1" max="200" value="1" style="width:6em"></label>
   <label>Téléphones par code<input id="f-max" type="number" min="1" max="50" value="__DEFAUT__" style="width:6em"></label>
@@ -59,11 +60,19 @@ tr.off{opacity:.45}code{font-family:monospace;font-size:1rem;font-weight:bold}
 <h2>Codes</h2>
 <div class="outils">
   <label>Filtrer par client<select id="filtre" onchange="afficher()"><option value="">Tous</option></select></label>
-  <label>État<select id="etat" onchange="afficher()"><option value="">Tous</option><option value="libre">Jamais activés</option><option value="pris">Activés</option><option value="off">Désactivés</option></select></label>
+  <label>État<select id="etat" onchange="afficher()"><option value="">Tous</option><option value="libre">Jamais activés</option><option value="pris">Activés</option><option value="off">Désactivés</option><option value="promo">Codes promo</option></select></label>
   <button class="second" onclick="imprimer()">Imprimer la planche (codes affichés)</button>
   <button class="second" onclick="exporter()">Exporter en CSV</button>
 </div>
 <div id="liste">Chargement…</div>
+
+<h2 class="niveaux">Codes promo de fin de niveau</h2>
+<div class="cadre niveaux"><form onsubmit="regler(event)">
+  <label>Donner un code promo<select id="r-active"><option value="1">Oui</option><option value="0">Non</option></select></label>
+  <label>Valable (jours)<input id="r-jours" type="number" min="1" max="3650" style="width:6em"></label>
+  <label style="flex:1;min-width:14em">Offre (note sur le code : « -30 % », « offert »…)<input id="r-note"></label>
+  <button>Enregistrer</button>
+</form><p style="font-size:.8rem;margin:8px 0 0">À la fin de l\'Écuyer (ou du Chevalier), le joueur reçoit sous son parchemin un code du niveau suivant, un seul par code acheté. Il apparaît ici dans la liste (canal « promo »).</p></div>
 
 <h2>Clé de déchiffrement d'un épisode</h2>
 <div class="cadre"><form onsubmit="cle(event)">
@@ -90,6 +99,18 @@ var APP = '__APP__';
 var PASS = sessionStorage.getItem('p') || prompt('Mot de passe administrateur :') || '';
 sessionStorage.setItem('p', PASS);
 var CODES = [];
+// Pour l'instant (15/11) : un code ouvre les 3 niveaux, pas de promos → choix du niveau et réglages promo cachés.
+var TOUS = __TOUS__;
+if (TOUS) document.querySelectorAll('.niveaux').forEach(function(x){ x.style.display = 'none'; });
+var NIV = { ecuyer: '🛡 Écuyer', chevalier: '⚔ Chevalier', grandmaitre: '✠ Grand Maître' };
+function niv(c){ return c.niveau || 'grandmaitre'; }
+function nomNiv(c){ return TOUS ? 'les 3' : NIV[niv(c)]; }
+// Titres et descriptions des niveaux : lus dans l'épisode publié (une seule source, écrite par Claude chat).
+var EPISODES = {};
+function episodeTextes(slug){
+  if (!(slug in EPISODES)) EPISODES[slug] = fetch(APP.replace('app/index.html', 'scenario/' + slug + '/episode.json')).then(function(r){ return r.json(); }).catch(function(){ return {}; });
+  return EPISODES[slug];
+}
 function esc(s){ return String(s == null ? '' : s).replace(/[&<>"']/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); }
 function jour(ms){ return ms ? new Date(Number(ms)).toLocaleDateString('fr-FR') : '—'; }
 function dire(t){ document.getElementById('msg').textContent = t || ''; }
@@ -131,14 +152,15 @@ function visibles(){
     if (e === 'libre') return !c.active && Number(c.actif);
     if (e === 'pris') return !!c.active;
     if (e === 'off') return !Number(c.actif);
+    if (e === 'promo') return c.canal === 'promo';
     return true;
   });
 }
 function afficher(){
   var l = visibles();
-  var h = '<p style="font-size:.8rem">' + l.length + ' code(s)</p><table><tr><th>Code</th><th>Client</th><th>Épisode</th><th>Créé</th><th>Activé</th><th>Téléphones</th><th>Terminée</th><th>Expire</th><th>Note</th><th>État</th></tr>';
+  var h = '<p style="font-size:.8rem">' + l.length + ' code(s)</p><table><tr><th>Code</th><th>Niveau</th><th>Client</th><th>Épisode</th><th>Créé</th><th>Activé</th><th>Téléphones</th><th>Terminée</th><th>Expire</th><th>Note</th><th>État</th></tr>';
   l.forEach(function(c){
-    h += '<tr class="' + (Number(c.actif) ? '' : 'off') + '"><td><code>' + esc(c.code) + '</code></td><td>' + esc(c.client) + '<br><small>' + esc(c.canal) + '</small></td><td>' + esc(c.episode) + '</td>'
+    h += '<tr class="' + (Number(c.actif) ? '' : 'off') + '"><td><code>' + esc(c.code) + '</code></td><td>' + nomNiv(c) + '</td><td>' + esc(c.client) + '<br><small>' + esc(c.canal) + '</small></td><td>' + esc(c.episode) + '</td>'
       + '<td>' + jour(c.cree) + '</td><td>' + jour(c.active) + '</td><td>' + c.appareils + ' / ' + c.max_appareils + '</td>'
       + '<td>' + (Number(c.fin) ? 'oui' + (c.sceau ? ' (' + esc(c.sceau) + ')' : '') : 'non') + '</td><td>' + jour(c.expire) + '</td><td>' + esc(c.note) + '</td>'
       + '<td><button class="second" data-code="' + esc(c.code) + '" onclick="basculer(this.dataset.code)">' + (Number(c.actif) ? 'Actif ✓' : 'Désactivé ✗') + '</button></td></tr>';
@@ -147,12 +169,21 @@ function afficher(){
 }
 function creer(ev){
   ev.preventDefault(); dire('');
-  api('/api/codes', { episode: v('f-episode'), client: v('f-client'), canal: v('f-canal'), nombre: v('f-nombre'), max_appareils: v('f-max'), expire: v('f-expire'), note: v('f-note') })
+  api('/api/codes', { episode: v('f-episode'), client: v('f-client'), canal: v('f-canal'), niveau: v('f-niveau'), nombre: v('f-nombre'), max_appareils: v('f-max'), expire: v('f-expire'), note: v('f-note') })
     .then(function(r){ return r.json(); }).then(function(d){
       if (d.erreur) { dire(d.erreur); return; }
       dire(d.codes.length + ' code(s) créé(s) : ' + d.codes.slice(0, 5).join(', ') + (d.codes.length > 5 ? '…' : ''));
       document.getElementById('filtre').value = ''; return charger();
     });
+}
+function chargerReglages(){
+  api('/api/reglages').then(function(r){ return r.json(); }).then(function(d){
+    document.getElementById('r-active').value = d.promo_active; document.getElementById('r-jours').value = d.promo_jours; document.getElementById('r-note').value = d.promo_note;
+  });
+}
+function regler(ev){
+  ev.preventDefault();
+  api('/api/reglages', { promo_active: v('r-active'), promo_jours: v('r-jours'), promo_note: v('r-note') }).then(function(){ dire('Réglages des promos enregistrés.'); });
 }
 function basculer(code){ api('/api/toggle', { code: code }).then(charger); }
 function cle(ev){
@@ -169,10 +200,21 @@ function exporter(){
 function imprimer(){
   var l = visibles().filter(function(c){ return Number(c.actif); });
   if (!l.length) { dire('Aucun code actif à imprimer.'); return; }
+  var slugs = {}; l.forEach(function(c){ slugs[c.episode === '*' ? 'saint-genies' : c.episode] = 1; });
+  Promise.all(Object.keys(slugs).map(function(s){ return episodeTextes(s).then(function(e){ slugs[s] = e; }); })).then(function(){ planche(l, slugs); });
+}
+function texteNiveau(c, slugs){
+  if (TOUS) return '';
+  var e = slugs[c.episode === '*' ? 'saint-genies' : c.episode] || {}, n = e.niveaux && e.niveaux[niv(c)];
+  if (!n) return '<p><b style="font-family:Georgia">' + NIV[niv(c)] + '</b></p>';
+  return '<p><b style="font-family:Georgia;font-size:.9rem">' + esc(n.titre.fr) + ' · ' + esc(n.titre.en.replace(/^\\S+\\s+/, '')) + ' · ' + esc(n.titre.es.replace(/^\\S+\\s+/, '')) + '</b> — ' + esc(n.sous.fr) + '</p>'
+    + ['fr', 'en', 'es'].map(function(lg){ return '<p class="desc">' + lg.toUpperCase() + ' — ' + esc(n.desc[lg]) + '</p>'; }).join('');
+}
+function planche(l, slugs){
   document.getElementById('planche').innerHTML = l.map(function(c){
     var lien = APP + '?' + (c.episode === '*' ? '' : 'episode=' + encodeURIComponent(c.episode) + '&') + 'code=' + encodeURIComponent(c.code);
     var q = qrcode(0, 'M'); q.addData(lien); q.make();
-    return '<div class="carte"><img src="' + q.createDataURL(6, 0) + '" alt=""><div><b>' + esc(c.code) + '</b>'
+    return '<div class="carte"><img src="' + q.createDataURL(6, 0) + '" alt=""><div><b>' + esc(c.code) + '</b>' + texteNiveau(c, slugs)
       + '<p>FR — Scannez le QR code, ou ouvrez l\\'application et touchez « J\\'ai un code ».</p>'
       + '<p>EN — Scan the QR code, or open the app and tap “I have a code”.</p>'
       + '<p>ES — Escanee el código QR, o abra la aplicación y toque «Tengo un código».</p>'
@@ -215,10 +257,16 @@ function stats(){
       + (lignes.length ? lignes.map(function(l){
         return '<tr><td><code>' + esc(l.k) + '</code></td><td>' + l.atteintes + '</td><td>' + l.indices + '</td><td>' + l.solutions + '</td><td>' + l.abandons + '</td></tr>';
       }).join('') : '<tr><td colspan="5">Aucune donnée</td></tr>') + '</table>';
-    h += '<div class="deux">' + tableau('Sceaux obtenus', d.sceaux, t.terminees) + tableau('Langues', d.langues, lancees) + tableau('Parcours', d.parcours, lancees)
+    h += '<h2>Classement des Grands Maîtres (meilleurs temps, pénalités comprises)</h2><table><tr><th>#</th><th>Temps</th><th>Sceau</th><th>Date</th><th>Client</th></tr>'
+      + (d.classement.length ? d.classement.map(function(c, i){
+        var m = Math.round(c.duree / 60);
+        return '<tr><td>' + (i + 1) + '</td><td>' + Math.floor(m / 60) + ' h ' + String(m % 60).padStart(2, '0') + '</td><td>' + esc(c.sceau) + '</td><td>' + jour(c.ts) + '</td><td>' + esc(c.client || '—') + '</td></tr>';
+      }).join('') : '<tr><td colspan="5">Aucune partie Grand Maître terminée</td></tr>') + '</table>';
+    h += '<div class="deux">' + tableau('Niveaux choisis', d.niveaux, lancees) + tableau('Niveaux terminés', d.niveaux_fin, t.terminees) + tableau('Sceaux obtenus', d.sceaux, t.terminees) + tableau('Langues', d.langues, lancees) + tableau('Parcours', d.parcours, lancees)
       + tableau('Téléphones activés par client', d.activations, t.activations) + '</div>';
     document.getElementById('stats').innerHTML = h;
   });
 }
 charger();
+chargerReglages();
 </script></body></html>`;

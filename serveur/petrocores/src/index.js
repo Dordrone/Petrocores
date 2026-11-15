@@ -12,6 +12,15 @@ const APPAREILS_DEFAUT = 2;
 // Alphabet des codes : pas de O/0, I/1, L (lisibles au comptoir et au téléphone).
 const ALPHABET = 'ABCDEFGHJKMNPQRSTUVWXYZ23456789';
 const EVENEMENTS = ['lancement', 'etape', 'indice', 'solution', 'fin'];
+// 15/11 : niveaux de jeu. Un code de niveau supérieur ouvre aussi les niveaux inférieurs (c'est l'app qui l'applique).
+const NIVEAUX = ['ecuyer', 'chevalier', 'grandmaitre'];
+const rangNiveau = n => NIVEAUX.indexOf(n);
+// Codes créés avant les niveaux : ils ouvrent tout (codes de test).
+const niveauCode = c => NIVEAUX.includes(c.niveau) ? c.niveau : 'grandmaitre';
+// 15/11 (Gonzalo) : POUR L'INSTANT un code ouvre les 3 niveaux jusqu'à son expiration, et pas de codes promo (tarifs à décider
+// après les tests en vrai). Remettre false pour que chaque code n'ouvre que son niveau, et que les promos repartent.
+const UN_CODE_TOUS_NIVEAUX = true;
+const REGLAGES_DEFAUT = { promo_active: '1', promo_jours: '180', promo_note: '' };
 
 const SCHEMA = [
   `CREATE TABLE IF NOT EXISTS petro_codes (
@@ -44,12 +53,21 @@ const SCHEMA = [
   )`,
   `CREATE INDEX IF NOT EXISTS petro_events_ts ON petro_events (ts)`,
   `CREATE TABLE IF NOT EXISTS petro_cles (episode TEXT PRIMARY KEY, cle TEXT NOT NULL)`,
+  // 15/11 : code promo donné à la fin d'un niveau (un seul par code d'origine et par niveau terminé).
+  `CREATE TABLE IF NOT EXISTS petro_promos (origine TEXT NOT NULL, niveau TEXT NOT NULL, promo TEXT NOT NULL, ts INTEGER NOT NULL, PRIMARY KEY (origine, niveau))`,
+  `CREATE TABLE IF NOT EXISTS petro_reglages (cle TEXT PRIMARY KEY, valeur TEXT)`,
+];
+// Colonnes ajoutées après coup (D1 ne connaît pas « ADD COLUMN IF NOT EXISTS » : erreur ignorée si elle existe déjà).
+const COLONNES = [
+  'ALTER TABLE petro_codes ADD COLUMN niveau TEXT',
+  'ALTER TABLE petro_events ADD COLUMN niveau TEXT',
 ];
 
 let pret = false;
 async function initDb(db) {
   if (pret) return;
   await db.batch(SCHEMA.map(s => db.prepare(s)));
+  for (const a of COLONNES) { try { await db.prepare(a).run(); } catch { /* colonne déjà là */ } }
   pret = true;
 }
 
@@ -109,7 +127,49 @@ async function verifier(req, db) {
   }
   const ep = c.episode === '*' ? episode : c.episode;
   const k = await db.prepare('SELECT cle FROM petro_cles WHERE episode = ?').bind(ep).first();
-  return json(req, { ok: true, code: c.code, episode: c.episode, cle: k ? k.cle : null, expire: c.expire ?? null });
+  return json(req, { ok: true, code: c.code, episode: c.episode, niveau: UN_CODE_TOUS_NIVEAUX ? 'grandmaitre' : niveauCode(c), cle: k ? k.cle : null, expire: c.expire ?? null });
+}
+
+async function reglages(db) {
+  const r = { ...REGLAGES_DEFAUT };
+  for (const x of (await db.prepare('SELECT cle, valeur FROM petro_reglages').all()).results) r[x.cle] = x.valeur;
+  return r;
+}
+
+// Fin d'un niveau : code promo pour le niveau suivant. Seulement si le code de la partie est exactement de ce niveau
+// (un code Chevalier qui rejoue l'Écuyer a déjà le Chevalier), et une seule fois par code : on renvoie le même ensuite.
+async function promo(req, db) {
+  let b;
+  try { b = await req.json(); } catch { return json(req, { ok: false }); }
+  const r = await reglages(db);
+  if (UN_CODE_TOUS_NIVEAUX || r.promo_active !== '1') return json(req, { ok: false, raison: 'off' });
+  const niveau = txt(b.niveau, 20);
+  const suivant = NIVEAUX[rangNiveau(niveau) + 1];
+  if (rangNiveau(niveau) < 0 || !suivant) return json(req, { ok: false, raison: 'niveau' });
+  const c = await trouverCode(db, b.code);
+  if (!c || Number(c.actif) !== 1) return json(req, { ok: false, raison: 'inconnu' });
+  if (niveauCode(c) !== niveau) return json(req, { ok: false, raison: 'niveau' });
+  const deja = await db.prepare('SELECT promo FROM petro_promos WHERE origine = ? AND niveau = ?').bind(c.code, niveau).first();
+  if (deja) return json(req, { ok: true, promo: deja.promo });
+  const now = Date.now();
+  const jours = Math.max(1, Number(r.promo_jours) || 180);
+  for (let essais = 0; essais < 20; essais++) {
+    const code = nouveauCode(c.episode);
+    try {
+      await db.batch([
+        db.prepare('INSERT INTO petro_codes (code, episode, client, canal, niveau, max_appareils, expire, note, cree) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)')
+          .bind(code, c.episode, c.client, 'promo', suivant, Number(c.max_appareils) || APPAREILS_DEFAUT, now + jours * 86400000,
+            txt((r.promo_note ? r.promo_note + ' — ' : '') + 'promo de ' + c.code, 200), now),
+        db.prepare('INSERT INTO petro_promos (origine, niveau, promo, ts) VALUES (?, ?, ?, ?)').bind(c.code, niveau, code, now),
+      ]);
+      return json(req, { ok: true, promo: code });
+    } catch {
+      // deux appels en même temps : l'autre a déjà créé la promo
+      const d2 = await db.prepare('SELECT promo FROM petro_promos WHERE origine = ? AND niveau = ?').bind(c.code, niveau).first();
+      if (d2) return json(req, { ok: true, promo: d2.promo });
+    }
+  }
+  return json(req, { ok: false, raison: 'erreur' });
 }
 
 async function evenements(req, db) {
@@ -130,8 +190,8 @@ async function evenements(req, db) {
       if (!(cle in clients)) clients[cle] = await trouverCode(db, e.code);
       c = clients[cle];
     }
-    ops.push(db.prepare('INSERT INTO petro_events (ts, ev, partie, episode, etape, lang, parcours, duree, sceau, client) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)')
-      .bind(ts, ev, txt(e.partie, 40), txt(e.episode, 40), txt(e.etape, 20), txt(e.lang, 5), txt(e.parcours, 5),
+    ops.push(db.prepare('INSERT INTO petro_events (ts, ev, partie, episode, etape, lang, parcours, niveau, duree, sceau, client) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)')
+      .bind(ts, ev, txt(e.partie, 40), txt(e.episode, 40), txt(e.etape, 20), txt(e.lang, 5), txt(e.parcours, 5), txt(e.niveau, 20),
         Math.max(0, Math.round(Number(e.duree) || 0)), txt(e.sceau, 10), c ? c.client : null));
     if (ev === 'fin' && c) ops.push(db.prepare('UPDATE petro_codes SET fin = 1, sceau = ? WHERE code = ?').bind(txt(e.sceau, 10), c.code));
   }
@@ -149,6 +209,7 @@ async function creerCodes(req, db) {
   const episode = txt(b.episode, 40) || '*';
   const client = txt(b.client, 60);
   const canal = ['main', 'web', 'play'].includes(b.canal) ? b.canal : 'main';
+  const niveau = UN_CODE_TOUS_NIVEAUX ? 'grandmaitre' : NIVEAUX.includes(b.niveau) ? b.niveau : 'ecuyer';
   const nombre = Math.min(Math.max(Math.round(Number(b.nombre) || 1), 1), 200);
   const max = Math.min(Math.max(Math.round(Number(b.max_appareils) || APPAREILS_DEFAUT), 1), 50);
   // Expiration : fin de la journée choisie (heure de Paris approchée : UTC+1).
@@ -160,8 +221,8 @@ async function creerCodes(req, db) {
   for (let essais = 0; crees.length < nombre && essais < nombre * 20; essais++) {
     const code = nouveauCode(episode);
     try {
-      await db.prepare('INSERT INTO petro_codes (code, episode, client, canal, max_appareils, expire, note, cree) VALUES (?, ?, ?, ?, ?, ?, ?, ?)')
-        .bind(code, episode, client, canal, max, expire, txt(b.note, 200), now).run();
+      await db.prepare('INSERT INTO petro_codes (code, episode, client, canal, niveau, max_appareils, expire, note, cree) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)')
+        .bind(code, episode, client, canal, niveau, max, expire, txt(b.note, 200), now).run();
       crees.push(code);
     } catch { /* code déjà pris (clé primaire) : on en tire un autre */ }
   }
@@ -199,10 +260,13 @@ async function statistiques(req, db, url) {
     WHERE e.ev = 'etape' AND e.partie NOT IN (SELECT partie FROM petro_events WHERE ev = 'fin' AND partie IS NOT NULL)
     GROUP BY e.etape`);
   const clients = (await db.prepare("SELECT DISTINCT client FROM petro_codes ORDER BY client").all()).results.map(r => r.client);
+  // Classement des Grands Maîtres : meilleurs temps (pénalités comprises), sans nom d'équipe (rien de personnel n'est envoyé).
+  const classement = await q(`SELECT duree, sceau, ts, client FROM petro_events WHERE ${filtre} AND ev = 'fin' AND niveau = 'grandmaitre' AND duree > 0 ORDER BY duree LIMIT 20`);
   return json(req, {
     totaux, clients,
     atteintes: await par('etape', 'etape'), indices: await par('etape', 'indice'), solutions: await par('etape', 'solution'), abandons,
     sceaux: await par('sceau', 'fin'), langues: await par('lang', 'lancement'), parcours: await par('parcours', 'lancement'),
+    niveaux: await par('niveau', 'lancement'), niveaux_fin: await par('niveau', 'fin'), classement,
     activations: await par('client', 'activation'),
   });
 }
@@ -219,6 +283,7 @@ export default {
 
     if (req.method === 'POST' && url.pathname === '/api/verify') return verifier(req, db);
     if (req.method === 'POST' && url.pathname === '/api/event') return evenements(req, db);
+    if (req.method === 'POST' && url.pathname === '/api/promo') return promo(req, db);
 
     if (url.pathname.startsWith('/api/')) {
       if (!admin(req, env)) return json(req, { erreur: 'Mot de passe incorrect.' }, 401);
@@ -228,6 +293,14 @@ export default {
       }
       if (req.method === 'POST' && url.pathname === '/api/codes') return creerCodes(req, db);
       if (req.method === 'GET' && url.pathname === '/api/stats') return statistiques(req, db, url);
+      if (req.method === 'GET' && url.pathname === '/api/reglages') return json(req, await reglages(db));
+      if (req.method === 'POST' && url.pathname === '/api/reglages') {
+        const b = await req.json();
+        const ops = Object.keys(REGLAGES_DEFAUT).filter(k => k in b)
+          .map(k => db.prepare('INSERT OR REPLACE INTO petro_reglages (cle, valeur) VALUES (?, ?)').bind(k, txt(b[k], 100)));
+        if (ops.length) await db.batch(ops);
+        return json(req, { ok: true });
+      }
       if (req.method === 'POST' && url.pathname === '/api/toggle') {
         const b = await req.json();
         await db.prepare('UPDATE petro_codes SET actif = 1 - actif WHERE code = ?').bind(txt(b.code, 20)).run();
@@ -241,10 +314,10 @@ export default {
         return json(req, { ok: true });
       }
       if (req.method === 'GET' && url.pathname === '/api/export.csv') {
-        const lignes = [['code', 'episode', 'client', 'canal', 'appareils', 'max', 'cree', 'active', 'expire', 'actif', 'terminee', 'sceau', 'note']
+        const lignes = [['code', 'episode', 'niveau', 'client', 'canal', 'appareils', 'max', 'cree', 'active', 'expire', 'actif', 'terminee', 'sceau', 'note']
           .map(csvCase).join(';')];
         for (const c of await listeCodes(db)) {
-          lignes.push([c.code, c.episode, c.client, c.canal, c.appareils, c.max_appareils, jour(c.cree), jour(c.active), jour(c.expire),
+          lignes.push([c.code, c.episode, niveauCode(c), c.client, c.canal, c.appareils, c.max_appareils, jour(c.cree), jour(c.active), jour(c.expire),
             Number(c.actif) ? 'oui' : 'non', Number(c.fin) ? 'oui' : 'non', c.sceau, c.note].map(csvCase).join(';'));
         }
         // BOM : Excel ouvre le fichier avec les bons accents.
@@ -256,7 +329,7 @@ export default {
     }
 
     if (url.pathname !== '/') return new Response('Introuvable', { status: 404 });
-    return new Response(PAGE.replace('__APP__', APP).replace('__DEFAUT__', String(APPAREILS_DEFAUT)), {
+    return new Response(PAGE.replace('__APP__', APP).replace('__TOUS__', String(UN_CODE_TOUS_NIVEAUX)).replace('__DEFAUT__', String(APPAREILS_DEFAUT)), {
       headers: { 'Content-Type': 'text/html; charset=utf-8', 'Cache-Control': 'no-store' },
     });
   },

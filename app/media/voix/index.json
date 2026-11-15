@@ -594,6 +594,286 @@
    "fichier": "media/voix/fr/p2_apres.mp3",
    "duree": 3.6,
    "texte": "Juste. Et maintenant, écoutez-moi bien…"
+  },
+  "niveau_ecuyer": {
+   "fichier": "media/voix/fr/niveau_ecuyer.mp3",
+   "duree": 9.9,
+   "texte": "Écuyers, bienvenue dans ma quête. Je vous montrerai chaque lieu, et je vous aiderai si vous vous égarez. Ouvrez bien les yeux."
+  },
+  "niveau_chevalier": {
+   "fichier": "media/voix/fr/niveau_chevalier.mp3",
+   "duree": 10.1,
+   "texte": "Chevaliers, je ne vous tiendrai plus la main. Je vous dirai où aller par énigmes, et mon aide sera rare. Montrez-moi que vous méritez vos éperons."
+  },
+  "niveau_grandmaitre": {
+   "fichier": "media/voix/fr/niveau_grandmaitre.mp3",
+   "duree": 12.9,
+   "texte": "Grands Maîtres… Peu sont arrivés jusqu'ici. Pas d'image, pas de chemin tracé, pas de retour en arrière. Seuls votre esprit et ma devise vous mèneront à mon secret."
+  },
+  "d1_trouver": {
+   "fichier": "media/voix/fr/d1_trouver.mp3",
+   "duree": 9.2,
+   "texte": "Cherchez l'homme d'Église qui fit chanter tout le village : son totem se dresse près de la salle où l'on danse les jours de fête."
+  },
+  "m1_trouver": {
+   "fichier": "media/voix/fr/m1_trouver.mp3",
+   "duree": 9.8,
+   "texte": "Faites le tour de la maison de Dieu. Derrière elle, face à sa partie arrondie, des têtes de pierre vous regardent d'en haut."
+  },
+  "f1_trouver": {
+   "fichier": "media/voix/fr/f1_trouver.mp3",
+   "duree": 7.7,
+   "texte": "Là où les enfants du village apprenaient à lire, tout près de la maison commune, un totem se souvient des récréations."
+  },
+  "c1_trouver": {
+   "fichier": "media/voix/fr/c1_trouver.mp3",
+   "duree": 7.2,
+   "texte": "Allez sur la place, face au château d'en bas. Restez dehors : sa cour n'est pas à vous."
+  },
+  "l1_trouver": {
+   "fichier": "media/voix/fr/l1_trouver.mp3",
+   "duree": 10.6,
+   "texte": "Montez au jardin perché à l'ouest de l'église. Un grand cadre y attend votre portrait, et les toits de pierre y racontent leur poids."
+  },
+  "r1_trouver": {
+   "fichier": "media/voix/fr/r1_trouver.mp3",
+   "duree": 8.4,
+   "texte": "Montez vers la chapelle des seigneurs : le totem vous attend là où l'on pesait les bœufs les jours de foire."
+  },
+  "r1_recit": {
+   "fichier": "media/voix/fr/r1_recit.mp3",
+   "duree": 8.3,
+   "texte": "Après ma mort, ce village a vécu de ses foires. Les bêtes montaient la butte, les marchands criaient, la bascule pesait tout."
+  },
+  "r1_question": {
+   "fichier": "media/voix/fr/r1_question.mp3",
+   "duree": 6.0,
+   "texte": "Combien de foires par an se tenaient ici au vingtième siècle ? (en chiffres)"
+  },
+  "r1_indice1": {
+   "fichier": "media/voix/fr/r1_indice1.mp3",
+   "duree": 3.0,
+   "texte": "Soulevez le clapet du jour de marché."
+  },
+  "r1_apres": {
+   "fichier": "media/voix/fr/r1_apres.mp3",
+   "duree": 5.2,
+   "texte": "Cinq. Et la bascule est toujours là : regardez autour de vous."
+  },
+  "r2_recit": {
+   "fichier": "media/voix/fr/r2_recit.mp3",
+   "duree": 8.1,
+   "texte": "Devant la chapelle dormaient les morts du village… jusqu'au jour où le cimetière devint trop petit."
+  },
+  "r2_question": {
+   "fichier": "media/voix/fr/r2_question.mp3",
+   "duree": 4.8,
+   "texte": "En quelle année le cimetière fut-il déplacé hors du bourg ? (en chiffres)"
+  },
+  "r2_indice1": {
+   "fichier": "media/voix/fr/r2_indice1.mp3",
+   "duree": 2.0,
+   "texte": "Au début du vingtième siècle."
+  },
+  "r2_apres": {
+   "fichier": "media/voix/fr/r2_apres.mp3",
+   "duree": 6.0,
+   "texte": "Un fragment de pierre tombale se cache encore dans l'herbe. Les curieux le trouveront."
+  },
+  "v1_trouver": {
+   "fichier": "media/voix/fr/v1_trouver.mp3",
+   "duree": 7.2,
+   "texte": "Cherchez la tour carrée qui veille sur la butte : elle est plus vieille que le château d'en bas."
+  },
+  "v1_recit": {
+   "fichier": "media/voix/fr/v1_recit.mp3",
+   "duree": 7.9,
+   "texte": "Cette tour, je l'ai vue debout, entière, avec sa grande sœur à côté. Aujourd'hui il n'en reste qu'une."
+  },
+  "v1_question": {
+   "fichier": "media/voix/fr/v1_question.mp3",
+   "duree": 6.5,
+   "texte": "Depuis quelle année ce donjon est-il inscrit aux Monuments historiques ? (en chiffres)"
+  },
+  "v1_indice1": {
+   "fichier": "media/voix/fr/v1_indice1.mp3",
+   "duree": 4.1,
+   "texte": "Lisez le panneau des ruines autrefois visibles."
+  },
+  "v1_apres": {
+   "fichier": "media/voix/fr/v1_apres.mp3",
+   "duree": 4.3,
+   "texte": "Et la grande tour fut abattue il y a à peine soixante ans."
+  },
+  "v2_recit": {
+   "fichier": "media/voix/fr/v2_recit.mp3",
+   "duree": 4.1,
+   "texte": "On raconte qu'on pouvait fuir d'ici sans être vu…"
+  },
+  "v2_question": {
+   "fichier": "media/voix/fr/v2_question.mp3",
+   "duree": 4.8,
+   "texte": "Selon la tradition, qu'est-ce qui reliait le donjon au château d'en bas ?"
+  },
+  "v2_indice1": {
+   "fichier": "media/voix/fr/v2_indice1.mp3",
+   "duree": 2.4,
+   "texte": "Il passe sous vos pieds…"
+  },
+  "v2_apres": {
+   "fichier": "media/voix/fr/v2_apres.mp3",
+   "duree": 6.4,
+   "texte": "Un souterrain. Personne ne l'a jamais retrouvé. Moi, je sais… mais je me tais."
+  },
+  "t1_trouver": {
+   "fichier": "media/voix/fr/t1_trouver.mp3",
+   "duree": 6.7,
+   "texte": "Redescendez un peu le long des ruines : un panneau y raconte trois siècles de guerre."
+  },
+  "t1_recit": {
+   "fichier": "media/voix/fr/t1_recit.mp3",
+   "duree": 9.3,
+   "texte": "Après moi vinrent les Anglais. Le village fut pris, repris, vendu contre de l'or… jusqu'à ce qu'un chevalier breton passe par ici."
+  },
+  "t1_question": {
+   "fichier": "media/voix/fr/t1_question.mp3",
+   "duree": 5.7,
+   "texte": "Quel chevalier libéra le village en route vers Limoges ? (son nom de famille)"
+  },
+  "t1_indice1": {
+   "fichier": "media/voix/fr/t1_indice1.mp3",
+   "duree": 1.8,
+   "texte": "Son prénom est Bertrand."
+  },
+  "t1_apres": {
+   "fichier": "media/voix/fr/t1_apres.mp3",
+   "duree": 7.0,
+   "texte": "Bertrand du Guesclin, le dogue noir de Brocéliande. Un vrai chevalier, celui-là."
+  },
+  "t2_recit": {
+   "fichier": "media/voix/fr/t2_recit.mp3",
+   "duree": 8.9,
+   "texte": "Puis les chrétiens se battirent entre eux. Devant Sarlat, une famille de ce village se couvrit de gloire."
+  },
+  "t2_question": {
+   "fichier": "media/voix/fr/t2_question.mp3",
+   "duree": 4.1,
+   "texte": "Quelle famille fut seigneur de Saint-Geniès jusqu'à la Révolution ?"
+  },
+  "t2_indice1": {
+   "fichier": "media/voix/fr/t2_indice1.mp3",
+   "duree": 5.2,
+   "texte": "Un nom terrible… que vous avez déjà lu sur le plan de la gare."
+  },
+  "t2_apres": {
+   "fichier": "media/voix/fr/t2_apres.mp3",
+   "duree": 6.1,
+   "texte": "Les Massacré. Un nom qui fait peur, pour des seigneurs qui ont tenu bon."
+  },
+  "r3_recit": {
+   "fichier": "media/voix/fr/r3_recit.mp3",
+   "duree": 6.0,
+   "texte": "Un jour d'été, un savant venu de Gironde s'assit ici pour dessiner nos ruines."
+  },
+  "r3_question": {
+   "fichier": "media/voix/fr/r3_question.mp3",
+   "duree": 4.9,
+   "texte": "En quelle année Léo Drouyn vint-il à Saint-Geniès ? (en chiffres)"
+  },
+  "r3_indice1": {
+   "fichier": "media/voix/fr/r3_indice1.mp3",
+   "duree": 3.9,
+   "texte": "Lisez le clapet des esquisses de Léo Drouyn."
+  },
+  "r3_apres": {
+   "fichier": "media/voix/fr/r3_apres.mp3",
+   "duree": 5.2,
+   "texte": "Un dix-neuf juillet. Sans ses dessins, on aurait oublié la grande tour."
+  },
+  "k1_trouver": {
+   "fichier": "media/voix/fr/k1_trouver.mp3",
+   "duree": 8.1,
+   "texte": "Montez au plus haut du bourg. Sur son rocher, la maison des morts des seigneurs garde mon secret."
+  },
+  "k1_recit": {
+   "fichier": "media/voix/fr/k1_recit.mp3",
+   "duree": 9.9,
+   "texte": "Cette chapelle fut bâtie après ma mort, pour y enterrer les seigneurs. Sur ses murs, des saints veillent depuis sept siècles."
+  },
+  "k1_question": {
+   "fichier": "media/voix/fr/k1_question.mp3",
+   "duree": 5.5,
+   "texte": "Sur le disque du panneau, quel saint porte le Christ sur ses épaules ?"
+  },
+  "k1_indice1": {
+   "fichier": "media/voix/fr/k1_indice1.mp3",
+   "duree": 2.8,
+   "texte": "C'est le patron des voyageurs."
+  },
+  "k1_apres": {
+   "fichier": "media/voix/fr/k1_apres.mp3",
+   "duree": 6.0,
+   "texte": "Christophe, le passeur de rivière. Il protège les voyageurs… comme vous."
+  },
+  "k2_recit": {
+   "fichier": "media/voix/fr/k2_recit.mp3",
+   "duree": 7.8,
+   "texte": "Un autre ne porte pas un enfant, mais une balance. Sur ses plateaux, il pèse ce que valent nos vies."
+  },
+  "k2_question": {
+   "fichier": "media/voix/fr/k2_question.mp3",
+   "duree": 2.5,
+   "texte": "Quel archange pèse les âmes ?"
+  },
+  "k2_indice1": {
+   "fichier": "media/voix/fr/k2_indice1.mp3",
+   "duree": 4.2,
+   "texte": "Il a donné son nom à un célèbre mont de Normandie."
+  },
+  "k2_apres": {
+   "fichier": "media/voix/fr/k2_apres.mp3",
+   "duree": 7.2,
+   "texte": "Michel. Un jour, il pèsera aussi mon âme. J'espère que mon secret pèsera en ma faveur."
+  },
+  "x1_recit": {
+   "fichier": "media/voix/fr/x1_recit.mp3",
+   "duree": 3.8,
+   "texte": "Assez de lecture. Voyons si vous avez de la mémoire."
+  },
+  "x1_question": {
+   "fichier": "media/voix/fr/x1_question.mp3",
+   "duree": 8.6,
+   "texte": "Combien d'années séparent l'arrivée du train à Saint-Geniès et le départ des morts hors du bourg ? (en chiffres)"
+  },
+  "x1_indice1": {
+   "fichier": "media/voix/fr/x1_indice1.mp3",
+   "duree": 6.0,
+   "texte": "Reprenez deux réponses déjà trouvées : celle du train, et celle du cimetière."
+  },
+  "x1_apres": {
+   "fichier": "media/voix/fr/x1_apres.mp3",
+   "duree": 5.3,
+   "texte": "Dix ans. Vous avez bonne mémoire. Il vous en faudra pour la dernière épreuve."
+  },
+  "z1_recit": {
+   "fichier": "media/voix/fr/z1_recit.mp3",
+   "duree": 13.3,
+   "texte": "Voici ma devise, celle de tous les Templiers : Non nobis, Domine, non nobis, sed nomini tuo da gloriam. Retenez-la bien : elle est la clé de mon dernier message."
+  },
+  "z1_question": {
+   "fichier": "media/voix/fr/z1_question.mp3",
+   "duree": 13.0,
+   "texte": "Mon dernier message est chiffré : DOWZVO. Reculez chaque lettre dans l'alphabet d'autant de rangs que ma devise compte de mots. Quel mot obtenez-vous ?"
+  },
+  "z1_indice1": {
+   "fichier": "media/voix/fr/z1_indice1.mp3",
+   "duree": 3.4,
+   "texte": "Ma devise compte dix mots. D devient T."
+  },
+  "z1_apres": {
+   "fichier": "media/voix/fr/z1_apres.mp3",
+   "duree": 7.1,
+   "texte": "Le Temple. Mon Ordre. Vous avez lu mon dernier message : il est temps d'ouvrir mon secret."
   }
  },
  "en": {
@@ -1191,6 +1471,286 @@
    "fichier": "media/voix/en/p2_apres.mp3",
    "duree": 3.6,
    "texte": "Correct. And now, listen to me carefully…"
+  },
+  "niveau_ecuyer": {
+   "fichier": "media/voix/en/niveau_ecuyer.mp3",
+   "duree": 9.3,
+   "texte": "Squires, welcome to my quest. I will show you every place, and help you if you lose your way. Keep your eyes open."
+  },
+  "niveau_chevalier": {
+   "fichier": "media/voix/en/niveau_chevalier.mp3",
+   "duree": 10.5,
+   "texte": "Knights, I will no longer hold your hand. I will tell you where to go in riddles, and my help will be rare. Show me you deserve your spurs."
+  },
+  "niveau_grandmaitre": {
+   "fichier": "media/voix/en/niveau_grandmaitre.mp3",
+   "duree": 10.9,
+   "texte": "Grand Masters… Few have come this far. No picture, no marked path, no turning back. Only your wits and my motto will lead you to my secret."
+  },
+  "d1_trouver": {
+   "fichier": "media/voix/en/d1_trouver.mp3",
+   "duree": 10.0,
+   "texte": "Look for the churchman who made the whole village sing: his post stands near the hall where people dance on feast days."
+  },
+  "m1_trouver": {
+   "fichier": "media/voix/en/m1_trouver.mp3",
+   "duree": 7.8,
+   "texte": "Walk around the house of God. Behind it, facing its rounded end, stone heads look down at you."
+  },
+  "f1_trouver": {
+   "fichier": "media/voix/en/f1_trouver.mp3",
+   "duree": 8.1,
+   "texte": "Where the village children learned to read, right next to the town hall, a post remembers break times."
+  },
+  "c1_trouver": {
+   "fichier": "media/voix/en/c1_trouver.mp3",
+   "duree": 7.0,
+   "texte": "Go to the square, facing the lower castle. Stay outside: its courtyard is not yours."
+  },
+  "l1_trouver": {
+   "fichier": "media/voix/en/l1_trouver.mp3",
+   "duree": 9.9,
+   "texte": "Climb to the raised garden west of the church. A big frame awaits your portrait there, and the stone roofs tell of their weight."
+  },
+  "r1_trouver": {
+   "fichier": "media/voix/en/r1_trouver.mp3",
+   "duree": 7.6,
+   "texte": "Climb towards the lords' chapel: the post awaits you where the oxen were weighed on fair days."
+  },
+  "r1_recit": {
+   "fichier": "media/voix/en/r1_recit.mp3",
+   "duree": 10.7,
+   "texte": "After my death, this village lived from its fairs. Cattle climbed the mound, merchants shouted, the weighbridge weighed everything."
+  },
+  "r1_question": {
+   "fichier": "media/voix/en/r1_question.mp3",
+   "duree": 6.1,
+   "texte": "How many fairs a year were held here in the twentieth century? (in digits)"
+  },
+  "r1_indice1": {
+   "fichier": "media/voix/en/r1_indice1.mp3",
+   "duree": 2.4,
+   "texte": "Lift the market-day flap."
+  },
+  "r1_apres": {
+   "fichier": "media/voix/en/r1_apres.mp3",
+   "duree": 5.0,
+   "texte": "Five. And the weighbridge is still there: look around you."
+  },
+  "r2_recit": {
+   "fichier": "media/voix/en/r2_recit.mp3",
+   "duree": 7.6,
+   "texte": "In front of the chapel lay the village dead… until the day the graveyard became too small."
+  },
+  "r2_question": {
+   "fichier": "media/voix/en/r2_question.mp3",
+   "duree": 5.5,
+   "texte": "In what year was the graveyard moved out of the village? (in digits)"
+  },
+  "r2_indice1": {
+   "fichier": "media/voix/en/r2_indice1.mp3",
+   "duree": 3.3,
+   "texte": "At the start of the twentieth century."
+  },
+  "r2_apres": {
+   "fichier": "media/voix/en/r2_apres.mp3",
+   "duree": 6.5,
+   "texte": "A fragment of a gravestone still hides in the grass. The curious will find it."
+  },
+  "v1_trouver": {
+   "fichier": "media/voix/en/v1_trouver.mp3",
+   "duree": 6.3,
+   "texte": "Look for the square tower watching over the mound: it is older than the lower castle."
+  },
+  "v1_recit": {
+   "fichier": "media/voix/en/v1_recit.mp3",
+   "duree": 7.3,
+   "texte": "I saw this tower standing whole, with its big sister beside it. Today only one remains."
+  },
+  "v1_question": {
+   "fichier": "media/voix/en/v1_question.mp3",
+   "duree": 6.2,
+   "texte": "Since what year has this keep been a listed historic monument? (in digits)"
+  },
+  "v1_indice1": {
+   "fichier": "media/voix/en/v1_indice1.mp3",
+   "duree": 3.8,
+   "texte": "Read the sign about the ruins once visible."
+  },
+  "v1_apres": {
+   "fichier": "media/voix/en/v1_apres.mp3",
+   "duree": 5.1,
+   "texte": "And the great tower was pulled down barely sixty years ago."
+  },
+  "v2_recit": {
+   "fichier": "media/voix/en/v2_recit.mp3",
+   "duree": 3.6,
+   "texte": "They say one could flee from here unseen…"
+  },
+  "v2_question": {
+   "fichier": "media/voix/en/v2_question.mp3",
+   "duree": 5.6,
+   "texte": "According to tradition, what linked the keep to the lower castle?"
+  },
+  "v2_indice1": {
+   "fichier": "media/voix/en/v2_indice1.mp3",
+   "duree": 2.4,
+   "texte": "It runs beneath your feet…"
+  },
+  "v2_apres": {
+   "fichier": "media/voix/en/v2_apres.mp3",
+   "duree": 5.0,
+   "texte": "A tunnel. No one has ever found it. I know… but I keep silent."
+  },
+  "t1_trouver": {
+   "fichier": "media/voix/en/t1_trouver.mp3",
+   "duree": 7.3,
+   "texte": "Go a little way back down along the ruins: a sign there tells of three centuries of war."
+  },
+  "t1_recit": {
+   "fichier": "media/voix/en/t1_recit.mp3",
+   "duree": 9.1,
+   "texte": "After me came the English. The village was taken, retaken, sold for gold… until a Breton knight came this way."
+  },
+  "t1_question": {
+   "fichier": "media/voix/en/t1_question.mp3",
+   "duree": 5.4,
+   "texte": "Which knight freed the village on his way to Limoges? (surname)"
+  },
+  "t1_indice1": {
+   "fichier": "media/voix/en/t1_indice1.mp3",
+   "duree": 2.5,
+   "texte": "His first name is Bertrand."
+  },
+  "t1_apres": {
+   "fichier": "media/voix/en/t1_apres.mp3",
+   "duree": 6.5,
+   "texte": "Bertrand du Guesclin, the Black Dog of Brocéliande. A true knight, that one."
+  },
+  "t2_recit": {
+   "fichier": "media/voix/en/t2_recit.mp3",
+   "duree": 7.8,
+   "texte": "Then Christians fought each other. Before Sarlat, a family from this village covered itself in glory."
+  },
+  "t2_question": {
+   "fichier": "media/voix/en/t2_question.mp3",
+   "duree": 5.2,
+   "texte": "Which family were lords of Saint-Geniès until the Revolution?"
+  },
+  "t2_indice1": {
+   "fichier": "media/voix/en/t2_indice1.mp3",
+   "duree": 5.0,
+   "texte": "A terrible name… which you already read on the station plan."
+  },
+  "t2_apres": {
+   "fichier": "media/voix/en/t2_apres.mp3",
+   "duree": 5.7,
+   "texte": "The Massacré family. A frightening name, for lords who stood firm."
+  },
+  "r3_recit": {
+   "fichier": "media/voix/en/r3_recit.mp3",
+   "duree": 5.9,
+   "texte": "One summer day, a scholar from the Gironde sat here to draw our ruins."
+  },
+  "r3_question": {
+   "fichier": "media/voix/en/r3_question.mp3",
+   "duree": 5.1,
+   "texte": "In what year did Léo Drouyn come to Saint-Geniès? (in digits)"
+  },
+  "r3_indice1": {
+   "fichier": "media/voix/en/r3_indice1.mp3",
+   "duree": 3.7,
+   "texte": "Read the flap about Léo Drouyn's sketches."
+  },
+  "r3_apres": {
+   "fichier": "media/voix/en/r3_apres.mp3",
+   "duree": 6.9,
+   "texte": "On a nineteenth of July. Without his drawings, the great tower would be forgotten."
+  },
+  "k1_trouver": {
+   "fichier": "media/voix/en/k1_trouver.mp3",
+   "duree": 8.4,
+   "texte": "Climb to the highest point of the village. On its rock, the lords' house of the dead guards my secret."
+  },
+  "k1_recit": {
+   "fichier": "media/voix/en/k1_recit.mp3",
+   "duree": 9.5,
+   "texte": "This chapel was built after my death, to bury the lords. On its walls, saints have kept watch for seven centuries."
+  },
+  "k1_question": {
+   "fichier": "media/voix/en/k1_question.mp3",
+   "duree": 5.4,
+   "texte": "On the sign's disc, which saint carries Christ on his shoulders?"
+  },
+  "k1_indice1": {
+   "fichier": "media/voix/en/k1_indice1.mp3",
+   "duree": 3.3,
+   "texte": "He is the patron saint of travellers."
+  },
+  "k1_apres": {
+   "fichier": "media/voix/en/k1_apres.mp3",
+   "duree": 5.8,
+   "texte": "Christopher, the river ferryman. He protects travellers… like you."
+  },
+  "k2_recit": {
+   "fichier": "media/voix/en/k2_recit.mp3",
+   "duree": 8.0,
+   "texte": "Another carries not a child but a pair of scales. On its pans he weighs what our lives are worth."
+  },
+  "k2_question": {
+   "fichier": "media/voix/en/k2_question.mp3",
+   "duree": 2.7,
+   "texte": "Which archangel weighs souls?"
+  },
+  "k2_indice1": {
+   "fichier": "media/voix/en/k2_indice1.mp3",
+   "duree": 3.6,
+   "texte": "A famous mount in Normandy bears his name."
+  },
+  "k2_apres": {
+   "fichier": "media/voix/en/k2_apres.mp3",
+   "duree": 7.2,
+   "texte": "Michael. One day he will weigh my soul too. I hope my secret will tip the scales in my favour."
+  },
+  "x1_recit": {
+   "fichier": "media/voix/en/x1_recit.mp3",
+   "duree": 4.1,
+   "texte": "Enough reading. Let us see if you have a memory."
+  },
+  "x1_question": {
+   "fichier": "media/voix/en/x1_question.mp3",
+   "duree": 8.9,
+   "texte": "How many years separate the train's arrival in Saint-Geniès and the dead leaving the village? (in digits)"
+  },
+  "x1_indice1": {
+   "fichier": "media/voix/en/x1_indice1.mp3",
+   "duree": 6.1,
+   "texte": "Take two answers you already found: the train one and the graveyard one."
+  },
+  "x1_apres": {
+   "fichier": "media/voix/en/x1_apres.mp3",
+   "duree": 5.8,
+   "texte": "Ten years. You have a good memory. You will need it for the last trial."
+  },
+  "z1_recit": {
+   "fichier": "media/voix/en/z1_recit.mp3",
+   "duree": 12.3,
+   "texte": "Here is my motto, that of all the Templars: Non nobis, Domine, non nobis, sed nomini tuo da gloriam. Remember it well: it is the key to my last message."
+  },
+  "z1_question": {
+   "fichier": "media/voix/en/z1_question.mp3",
+   "duree": 11.3,
+   "texte": "My last message is coded: DOWZVO. Move each letter back in the alphabet by as many places as my motto has words. What word do you get?"
+  },
+  "z1_indice1": {
+   "fichier": "media/voix/en/z1_indice1.mp3",
+   "duree": 3.0,
+   "texte": "My motto has ten words. D becomes T."
+  },
+  "z1_apres": {
+   "fichier": "media/voix/en/z1_apres.mp3",
+   "duree": 6.6,
+   "texte": "The Temple. My Order. You have read my last message: it is time to open my secret."
   }
  },
  "es": {
@@ -1788,6 +2348,286 @@
    "fichier": "media/voix/es/p2_apres.mp3",
    "duree": 3.3,
    "texte": "Correcto. Y ahora, escuchadme bien…"
+  },
+  "niveau_ecuyer": {
+   "fichier": "media/voix/es/niveau_ecuyer.mp3",
+   "duree": 9.6,
+   "texte": "Escuderos, bienvenidos a mi búsqueda. Os mostraré cada lugar y os ayudaré si os perdéis. Abrid bien los ojos."
+  },
+  "niveau_chevalier": {
+   "fichier": "media/voix/es/niveau_chevalier.mp3",
+   "duree": 12.1,
+   "texte": "Caballeros, ya no os llevaré de la mano. Os diré adónde ir con enigmas, y mi ayuda será escasa. Demostradme que merecéis vuestras espuelas."
+  },
+  "niveau_grandmaitre": {
+   "fichier": "media/voix/es/niveau_grandmaitre.mp3",
+   "duree": 13.5,
+   "texte": "Grandes Maestres… Pocos han llegado hasta aquí. Sin imagen, sin camino trazado, sin vuelta atrás. Solo vuestro ingenio y mi lema os llevarán a mi secreto."
+  },
+  "d1_trouver": {
+   "fichier": "media/voix/es/d1_trouver.mp3",
+   "duree": 11.2,
+   "texte": "Buscad al hombre de Iglesia que hizo cantar a todo el pueblo: su tótem se alza junto a la sala donde se baila los días de fiesta."
+  },
+  "m1_trouver": {
+   "fichier": "media/voix/es/m1_trouver.mp3",
+   "duree": 9.9,
+   "texte": "Rodead la casa de Dios. Detrás de ella, frente a su parte redondeada, unas cabezas de piedra os miran desde lo alto."
+  },
+  "f1_trouver": {
+   "fichier": "media/voix/es/f1_trouver.mp3",
+   "duree": 6.0,
+   "texte": "Donde los niños del pueblo aprendían a leer, junto a la casa consistorial, un tótem recuerda los recreos."
+  },
+  "c1_trouver": {
+   "fichier": "media/voix/es/c1_trouver.mp3",
+   "duree": 7.1,
+   "texte": "Id a la plaza, frente al castillo de abajo. Quedaos fuera: su patio no es vuestro."
+  },
+  "l1_trouver": {
+   "fichier": "media/voix/es/l1_trouver.mp3",
+   "duree": 10.8,
+   "texte": "Subid al jardín elevado al oeste de la iglesia. Allí un gran marco espera vuestro retrato, y los tejados de piedra cuentan su peso."
+  },
+  "r1_trouver": {
+   "fichier": "media/voix/es/r1_trouver.mp3",
+   "duree": 8.6,
+   "texte": "Subid hacia la capilla de los señores: el tótem os espera donde se pesaban los bueyes los días de feria."
+  },
+  "r1_recit": {
+   "fichier": "media/voix/es/r1_recit.mp3",
+   "duree": 10.4,
+   "texte": "Tras mi muerte, este pueblo vivió de sus ferias. El ganado subía la loma, los mercaderes gritaban, la báscula lo pesaba todo."
+  },
+  "r1_question": {
+   "fichier": "media/voix/es/r1_question.mp3",
+   "duree": 5.4,
+   "texte": "¿Cuántas ferias al año se celebraban aquí en el siglo veinte? (en cifras)"
+  },
+  "r1_indice1": {
+   "fichier": "media/voix/es/r1_indice1.mp3",
+   "duree": 3.5,
+   "texte": "Levantad la solapa del día de mercado."
+  },
+  "r1_apres": {
+   "fichier": "media/voix/es/r1_apres.mp3",
+   "duree": 5.2,
+   "texte": "Cinco. Y la báscula sigue ahí: mirad a vuestro alrededor."
+  },
+  "r2_recit": {
+   "fichier": "media/voix/es/r2_recit.mp3",
+   "duree": 6.8,
+   "texte": "Delante de la capilla descansaban los muertos del pueblo… hasta el día en que el cementerio se quedó pequeño."
+  },
+  "r2_question": {
+   "fichier": "media/voix/es/r2_question.mp3",
+   "duree": 5.7,
+   "texte": "¿En qué año se trasladó el cementerio fuera del pueblo? (en cifras)"
+  },
+  "r2_indice1": {
+   "fichier": "media/voix/es/r2_indice1.mp3",
+   "duree": 2.9,
+   "texte": "A principios del siglo veinte."
+  },
+  "r2_apres": {
+   "fichier": "media/voix/es/r2_apres.mp3",
+   "duree": 6.1,
+   "texte": "Un fragmento de lápida aún se esconde en la hierba. Los curiosos lo encontrarán."
+  },
+  "v1_trouver": {
+   "fichier": "media/voix/es/v1_trouver.mp3",
+   "duree": 7.0,
+   "texte": "Buscad la torre cuadrada que vigila la loma: es más antigua que el castillo de abajo."
+  },
+  "v1_recit": {
+   "fichier": "media/voix/es/v1_recit.mp3",
+   "duree": 6.9,
+   "texte": "Vi esta torre en pie, entera, con su hermana mayor al lado. Hoy solo queda una."
+  },
+  "v1_question": {
+   "fichier": "media/voix/es/v1_question.mp3",
+   "duree": 7.3,
+   "texte": "¿Desde qué año está este torreón catalogado como monumento histórico? (en cifras)"
+  },
+  "v1_indice1": {
+   "fichier": "media/voix/es/v1_indice1.mp3",
+   "duree": 3.4,
+   "texte": "Leed el panel de las ruinas antes visibles."
+  },
+  "v1_apres": {
+   "fichier": "media/voix/es/v1_apres.mp3",
+   "duree": 4.7,
+   "texte": "Y la gran torre fue derribada hace apenas sesenta años."
+  },
+  "v2_recit": {
+   "fichier": "media/voix/es/v2_recit.mp3",
+   "duree": 4.1,
+   "texte": "Dicen que se podía huir de aquí sin ser visto…"
+  },
+  "v2_question": {
+   "fichier": "media/voix/es/v2_question.mp3",
+   "duree": 5.9,
+   "texte": "Según la tradición, ¿qué unía el torreón con el castillo de abajo?"
+  },
+  "v2_indice1": {
+   "fichier": "media/voix/es/v2_indice1.mp3",
+   "duree": 2.4,
+   "texte": "Pasa bajo vuestros pies…"
+  },
+  "v2_apres": {
+   "fichier": "media/voix/es/v2_apres.mp3",
+   "duree": 5.9,
+   "texte": "Un pasadizo. Nadie lo ha encontrado jamás. Yo lo sé… pero me callo."
+  },
+  "t1_trouver": {
+   "fichier": "media/voix/es/t1_trouver.mp3",
+   "duree": 7.0,
+   "texte": "Bajad un poco a lo largo de las ruinas: allí un panel cuenta tres siglos de guerra."
+  },
+  "t1_recit": {
+   "fichier": "media/voix/es/t1_recit.mp3",
+   "duree": 11.4,
+   "texte": "Después de mí llegaron los ingleses. El pueblo fue tomado, retomado, vendido por oro… hasta que un caballero bretón pasó por aquí."
+  },
+  "t1_question": {
+   "fichier": "media/voix/es/t1_question.mp3",
+   "duree": 5.1,
+   "texte": "¿Qué caballero liberó el pueblo camino de Limoges? (su apellido)"
+  },
+  "t1_indice1": {
+   "fichier": "media/voix/es/t1_indice1.mp3",
+   "duree": 2.4,
+   "texte": "Su nombre es Bertrand."
+  },
+  "t1_apres": {
+   "fichier": "media/voix/es/t1_apres.mp3",
+   "duree": 6.9,
+   "texte": "Bertrand du Guesclin, el dogo negro de Brocéliande. Un verdadero caballero."
+  },
+  "t2_recit": {
+   "fichier": "media/voix/es/t2_recit.mp3",
+   "duree": 8.5,
+   "texte": "Luego los cristianos lucharon entre sí. Ante Sarlat, una familia de este pueblo se cubrió de gloria."
+  },
+  "t2_question": {
+   "fichier": "media/voix/es/t2_question.mp3",
+   "duree": 4.0,
+   "texte": "¿Qué familia fue señora de Saint-Geniès hasta la Revolución?"
+  },
+  "t2_indice1": {
+   "fichier": "media/voix/es/t2_indice1.mp3",
+   "duree": 5.4,
+   "texte": "Un nombre terrible… que ya leísteis en el plano de la estación."
+  },
+  "t2_apres": {
+   "fichier": "media/voix/es/t2_apres.mp3",
+   "duree": 6.3,
+   "texte": "Los Massacré. Un nombre que asusta, para unos señores que resistieron."
+  },
+  "r3_recit": {
+   "fichier": "media/voix/es/r3_recit.mp3",
+   "duree": 7.7,
+   "texte": "Un día de verano, un sabio venido de la Gironda se sentó aquí a dibujar nuestras ruinas."
+  },
+  "r3_question": {
+   "fichier": "media/voix/es/r3_question.mp3",
+   "duree": 4.8,
+   "texte": "¿En qué año vino Léo Drouyn a Saint-Geniès? (en cifras)"
+  },
+  "r3_indice1": {
+   "fichier": "media/voix/es/r3_indice1.mp3",
+   "duree": 4.0,
+   "texte": "Leed la solapa de los bocetos de Léo Drouyn."
+  },
+  "r3_apres": {
+   "fichier": "media/voix/es/r3_apres.mp3",
+   "duree": 6.5,
+   "texte": "Un diecinueve de julio. Sin sus dibujos, se habría olvidado la gran torre."
+  },
+  "k1_trouver": {
+   "fichier": "media/voix/es/k1_trouver.mp3",
+   "duree": 8.0,
+   "texte": "Subid a lo más alto del pueblo. Sobre su roca, la casa de los muertos de los señores guarda mi secreto."
+  },
+  "k1_recit": {
+   "fichier": "media/voix/es/k1_recit.mp3",
+   "duree": 10.7,
+   "texte": "Esta capilla se construyó tras mi muerte, para enterrar a los señores. En sus muros, unos santos velan desde hace siete siglos."
+  },
+  "k1_question": {
+   "fichier": "media/voix/es/k1_question.mp3",
+   "duree": 5.1,
+   "texte": "En el disco del panel, ¿qué santo lleva a Cristo sobre los hombros?"
+  },
+  "k1_indice1": {
+   "fichier": "media/voix/es/k1_indice1.mp3",
+   "duree": 2.7,
+   "texte": "Es el patrón de los viajeros."
+  },
+  "k1_apres": {
+   "fichier": "media/voix/es/k1_apres.mp3",
+   "duree": 6.3,
+   "texte": "Cristóbal, el barquero del río. Protege a los viajeros… como vosotros."
+  },
+  "k2_recit": {
+   "fichier": "media/voix/es/k2_recit.mp3",
+   "duree": 8.0,
+   "texte": "Otro no lleva un niño, sino una balanza. En sus platillos pesa lo que valen nuestras vidas."
+  },
+  "k2_question": {
+   "fichier": "media/voix/es/k2_question.mp3",
+   "duree": 2.8,
+   "texte": "¿Qué arcángel pesa las almas?"
+  },
+  "k2_indice1": {
+   "fichier": "media/voix/es/k2_indice1.mp3",
+   "duree": 4.2,
+   "texte": "Un famoso monte de Normandía lleva su nombre."
+  },
+  "k2_apres": {
+   "fichier": "media/voix/es/k2_apres.mp3",
+   "duree": 7.2,
+   "texte": "Miguel. Un día pesará también mi alma. Espero que mi secreto incline la balanza a mi favor."
+  },
+  "x1_recit": {
+   "fichier": "media/voix/es/x1_recit.mp3",
+   "duree": 3.7,
+   "texte": "Basta de leer. Veamos si tenéis memoria."
+  },
+  "x1_question": {
+   "fichier": "media/voix/es/x1_question.mp3",
+   "duree": 9.0,
+   "texte": "¿Cuántos años separan la llegada del tren a Saint-Geniès y la salida de los muertos fuera del pueblo? (en cifras)"
+  },
+  "x1_indice1": {
+   "fichier": "media/voix/es/x1_indice1.mp3",
+   "duree": 6.4,
+   "texte": "Retomad dos respuestas ya encontradas: la del tren y la del cementerio."
+  },
+  "x1_apres": {
+   "fichier": "media/voix/es/x1_apres.mp3",
+   "duree": 5.9,
+   "texte": "Diez años. Tenéis buena memoria. La necesitaréis para la última prueba."
+  },
+  "z1_recit": {
+   "fichier": "media/voix/es/z1_recit.mp3",
+   "duree": 13.1,
+   "texte": "He aquí mi lema, el de todos los templarios: Non nobis, Domine, non nobis, sed nomini tuo da gloriam. Recordadlo bien: es la clave de mi último mensaje."
+  },
+  "z1_question": {
+   "fichier": "media/voix/es/z1_question.mp3",
+   "duree": 13.2,
+   "texte": "Mi último mensaje está cifrado: DOWZVO. Retroceded cada letra en el alfabeto tantos puestos como palabras tiene mi lema. ¿Qué palabra obtenéis?"
+  },
+  "z1_indice1": {
+   "fichier": "media/voix/es/z1_indice1.mp3",
+   "duree": 4.5,
+   "texte": "Mi lema tiene diez palabras. La D se convierte en T."
+  },
+  "z1_apres": {
+   "fichier": "media/voix/es/z1_apres.mp3",
+   "duree": 7.2,
+   "texte": "El Temple. Mi Orden. Habéis leído mi último mensaje: es hora de abrir mi secreto."
   }
  }
 }

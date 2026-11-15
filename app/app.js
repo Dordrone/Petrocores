@@ -94,23 +94,26 @@ const UI = {
   sceauMot_bois: { fr: "Même le plus humble des frères reçoit un sceau : celui de bois. Revenez tenter l'or !", en: 'Even the humblest brother receives a seal: the wooden one. Come back and try for gold!', es: 'Hasta el más humilde de los hermanos recibe un sello: el de madera. ¡Volved a intentar el oro!' },
   victoire: { fr: 'Mission accomplie !', en: 'Mission accomplished!', es: '¡Misión cumplida!' },
   // 14/11 : parchemin d'honneur (textes PROVISOIRES de Claude Code, à revoir par Claude chat).
-  nomsTitre: { fr: "Le parchemin de l'Ordre", en: "The Order's parchment", es: 'El pergamino de la Orden' },
-  nomsExplication: { fr: "Frère Aymeric veut graver vos noms sur le parchemin d'honneur des Templiers. Inscrivez les prénoms de votre compagnie.", en: "Brother Aymeric wants to engrave your names on the Templars' parchment of honour. Write the first names of your company.", es: 'Fray Aymeric quiere grabar vuestros nombres en el pergamino de honor de los templarios. Escribid los nombres de vuestra compañía.' },
+  nomsTitre: { fr: 'Vos noms dans la légende', en: 'Your names in the legend', es: 'Vuestros nombres en la leyenda' },
+  nomsExplication: { fr: "Avant de vous livrer mon secret, je veux graver vos noms sur le parchemin d'honneur de l'Ordre. Inscrivez les prénoms de votre compagnie.", en: "Before I reveal my secret, I wish to engrave your names on the Order's parchment of honour. Write the first names of your company.", es: 'Antes de revelaros mi secreto, quiero grabar vuestros nombres en el pergamino de honor de la Orden. Escribid los nombres de vuestra compañía.' },
   nomsChamp: { fr: 'Prénom {n}', en: 'Name {n}', es: 'Nombre {n}' },
   nomsSceller: { fr: '✒️ Sceller le parchemin', en: '✒️ Seal the parchment', es: '✒️ Sellar el pergamino' },
   nomsModifier: { fr: '✏️ Modifier les noms', en: '✏️ Edit the names', es: '✏️ Cambiar los nombres' },
-  nomsPrive: { fr: 'Les noms restent sur ce téléphone.', en: 'The names stay on this phone.', es: 'Los nombres se quedan en este teléfono.' },
+  nomsPrive: { fr: "Les prénoms restent sur ce téléphone : rien n'est envoyé.", en: 'The names stay on this phone: nothing is sent.', es: 'Los nombres se quedan en este teléfono: no se envía nada.' },
   parcheminEnregistrer: { fr: '💾 Enregistrer le parchemin', en: '💾 Save the parchment', es: '💾 Guardar el pergamino' },
   parcheminPartager: { fr: '📤 Partager', en: '📤 Share', es: '📤 Compartir' },
   parcheminTitre: { fr: "Parchemin d'honneur", en: 'Parchment of Honour', es: 'Pergamino de honor' },
   parcheminOrdre: { fr: "Ordre du Temple · Pétrocores", en: 'Order of the Temple · Pétrocores', es: 'Orden del Temple · Pétrocores' },
-  parcheminIntro: { fr: "Par la présente, l'Ordre du Temple reconnaît que", en: 'By these presents, the Order of the Temple recognises that', es: 'Por la presente, la Orden del Temple reconoce que' },
+  parcheminIntro: { fr: 'Moi, Frère Aymeric, certifie que', en: 'I, Brother Aymeric, hereby certify that', es: 'Yo, Fray Aymeric, certifico que' },
   parcheminCompagnie: { fr: 'de la compagnie « {e} »', en: 'of the company “{e}”', es: 'de la compañía «{e}»' },
-  parcheminExploit: { fr: 'ont percé le secret de', en: 'have uncovered the secret of', es: 'han desvelado el secreto de' },
+  parcheminExploit: { fr: 'ont mené à son terme la quête', en: 'have completed the quest', es: 'han llevado a término la búsqueda' },
+  parcheminExploit1: { fr: 'a mené à son terme la quête', en: 'has completed the quest', es: 'ha llevado a término la búsqueda' },
   parcheminDate: { fr: 'le {d}, en {t}', en: 'on {d}, in {t}', es: 'el {d}, en {t}' },
-  parcheminChemin: { fr: 'Le chemin parcouru', en: 'The path taken', es: 'El camino recorrido' },
+  parcheminChemin: { fr: 'Le chemin de la compagnie', en: "The company's path", es: 'El camino de la compañía' },
   parcheminSigne: { fr: 'Frère Aymeric', en: 'Brother Aymeric', es: 'Fray Aymeric' },
   parcheminRole: { fr: 'chevalier du Temple', en: 'Knight of the Temple', es: 'caballero del Temple' },
+  parcheminDevise: { fr: 'Non nobis, Domine, non nobis, sed nomini tuo da gloriam', en: 'Non nobis, Domine, non nobis, sed nomini tuo da gloriam', es: 'Non nobis, Domine, non nobis, sed nomini tuo da gloriam' },
+  parcheminPartage: { fr: "Nous avons percé le secret de Frère Aymeric ! ⚜", en: "We uncovered Brother Aymeric's secret! ⚜", es: '¡Hemos desvelado el secreto de Fray Aymeric! ⚜' },
   tempsFinal: { fr: 'Temps de votre équipe', en: "Your team's time", es: 'Tiempo de su equipo' },
   dontPenalites: { fr: 'dont {p} de pénalités', en: 'including {p} of penalties', es: 'de los cuales {p} de penalización' },
   min: { fr: 'min', en: 'min', es: 'min' },
@@ -162,6 +165,13 @@ const UI = {
   fragmentsTrouves: { fr: 'Fragments trouvés : {n}/{t}', en: 'Fragments found: {n}/{t}', es: 'Fragmentos encontrados: {n}/{t}' },
   manqueUn: { fr: 'Il vous manque 1 fragment.', en: 'You are missing 1 fragment.', es: 'Le falta 1 fragmento.' },
   manquent: { fr: 'Il vous manque {n} fragments.', en: 'You are missing {n} fragments.', es: 'Le faltan {n} fragmentos.' },
+  // 15/11 niveaux — PROVISOIRE (Code) : à relire par Claude chat. Les autres textes des niveaux sont dans l'épisode ("interface", "niveaux").
+  niveauConfirme: { fr: 'Commencer la quête {n} ?', en: 'Begin the {n} quest?', es: '¿Empezar la búsqueda {n}?' },
+  niveauVotre: { fr: 'Votre quête : {n}', en: 'Your quest: {n}', es: 'Vuestra búsqueda: {n}' },
+  photoLieu: { fr: '📷 Voir la photo du lieu · +{p}', en: '📷 Show a photo of the place · +{p}', es: '📷 Ver la foto del lugar · +{p}' },
+  boussoleActiver: { fr: '🧭 Activer la boussole', en: '🧭 Turn on the compass', es: '🧭 Activar la brújula' },
+  boussoleAide: { fr: 'La flèche pointe vers le lieu.', en: 'The arrow points to the place.', es: 'La flecha apunta hacia el lugar.' },
+  boussoleNord: { fr: "Pas de boussole sur ce téléphone : tenez-le le haut vers le nord, la flèche pointe vers le lieu.", en: 'No compass on this phone: hold it with the top facing north, the arrow points to the place.', es: 'Este teléfono no tiene brújula: sujetadlo con la parte de arriba hacia el norte, la flecha apunta hacia el lugar.' },
 };
 
 const DEBUG = new URLSearchParams(location.search).get('debug') === '1';
@@ -178,7 +188,8 @@ let diagnostics = [];
 
 // ---------- Petits outils ----------
 function t(cle, vars) {
-  let s = UI[cle][langue];
+  const o = UI[cle] || (ep && ep.interface && ep.interface[cle]);
+  let s = o ? (o[langue] || o.fr) : cle;
   for (const k in vars || {}) s = s.replace('{' + k + '}', vars[k]);
   return s;
 }
@@ -233,8 +244,30 @@ function chronoTexte(sec) {
   return (h ? h + ':' : '') + mm + ':' + String(s).padStart(2, '0');
 }
 function secondesJeu() { return (((S.fin || Date.now()) - S.debut) / 1000) + S.penalite; }
-function penaliteIndice() { return ep.penalites && ep.penalites.indice_s !== undefined ? ep.penalites.indice_s : PENALITE_INDICE_S; }
-function penaliteSolution() { return ep.penalites && ep.penalites.solution_s !== undefined ? ep.penalites.solution_s : PENALITE_SOLUTION_S; }
+function penaliteIndice() { return facteurNiveau() * (ep.penalites && ep.penalites.indice_s !== undefined ? ep.penalites.indice_s : PENALITE_INDICE_S); }
+function penaliteSolution() { return facteurNiveau() * (ep.penalites && ep.penalites.solution_s !== undefined ? ep.penalites.solution_s : PENALITE_SOLUTION_S); }
+
+// ---------- 15/11 : 3 niveaux (Écuyer / Chevalier / Grand Maître) donnés par le code. Réglages dans l'épisode : "niveaux". ----------
+const NIVEAUX = ['ecuyer', 'chevalier', 'grandmaitre'];
+const PROMOS = false;   // 15/11 (Gonzalo) : codes promo mis de côté pour l'instant (tarifs à décider après les tests en vrai)
+function rangNiveau(n) { return Math.max(0, NIVEAUX.indexOf(n)); }
+function cfgNiveau() { return (ep && ep.niveaux && S && ep.niveaux[S.niveau || 'ecuyer']) || {}; }
+function facteurNiveau() { return cfgNiveau().penalite || 1; }
+function nomNiveau(id) { return L(ep.niveaux[id].titre).replace(/^\S+\s+/, ''); }   // sans l'emoji
+// Niveau le plus haut ouvert sur ce téléphone : celui du code (un code supérieur ouvre aussi les niveaux inférieurs). Sans code : Écuyer.
+function niveauMax() {
+  if (!ep.chiffre) return 'grandmaitre';
+  const a = lire(cleAcces());
+  if (!a || !ep.ouvert) return 'ecuyer';
+  return NIVEAUX.includes(a.niveau) ? a.niveau : 'grandmaitre';   // clé gardée avant les niveaux (téléphones de test)
+}
+// Parcours A/B/C (rotation des stations du bourg) tiré au hasard pour chaque partie : deux groupes ne se suivent pas.
+function parcoursAuHasard(partie) {
+  const k = Object.keys(ep.parcours || {});
+  return k.length ? k[parseInt(partie.slice(0, 6), 16) % k.length] : null;
+}
+// Les étapes chiffrées n'ont pas encore leur niveau : l'ordre est recalculé dès que l'épisode est ouvert.
+function recalculerOrdre() { if (S && ep.niveaux && S.phase !== 'fin') S.ordre = calculerOrdre(S.parcours, S.niveau || 'ecuyer'); }
 
 // ---------- Étapes et variantes ----------
 function aDesCoordonnees(e) { return typeof e.lat === 'number' && typeof e.lon === 'number'; }
@@ -267,17 +300,19 @@ function cleEtape() { return S.phase === 'final' ? 'final' : String(S.idx); }
 // Ordre des étapes de l'équipe (indices dans ep.etapes) : "depart" commun, puis les "stations" de son "parcours".
 // Sans "parcours" dans l'épisode : toutes les étapes dans l'ordre du fichier.
 function indexEtape(id) { return ep.etapes.findIndex(e => String(e.id) === String(id)); }
-function calculerOrdre(choix) {
+function calculerOrdre(choix, niveau) {
   if (!ep.parcours) return ep.etapes.map((_, i) => i);
   const stations = ep.stations || {};
-  const ids = (ep.depart || []).concat(...(ep.parcours[choix] || []).map(s => stations[s] || []));
-  return ids.map(indexEtape).filter(i => i >= 0);
+  const fin = (ep.niveaux && ep.niveaux[niveau] && ep.niveaux[niveau].stations_fin) || [];
+  const ids = (ep.depart || []).concat(...(ep.parcours[choix] || []).concat(fin).map(s => stations[s] || []));
+  return ids.map(indexEtape).filter(i => i >= 0 && !(ep.etapes[i].niveau && rangNiveau(ep.etapes[i].niveau) > rangNiveau(niveau)));
 }
 // Sauvegardes d'avant les parcours : ordre linéaire.
 function completerEtat() {
   if (!S.ordre) { S.ordre = ep.etapes.map((_, i) => i); S.rang = S.idx; }
   if (!S.vues) S.vues = [];
   if (!S.partie) S.partie = idAleatoire();
+  recalculerOrdre();
 }
 
 function commencerJeu() {
@@ -504,6 +539,61 @@ function majTrajet() {
       + ' | conf ' + confirmations + '/' + CONFIRMATIONS + ' | rayon ' + (e.rayon_m || RAYON_DEFAUT) + ' m';
   }
   dessinerCarte();
+  dessinerBoussole();
+}
+
+// ---------- Boussole (Grand Maître) : flèche vers le lieu, sans distance ----------
+let cap = null, capEcoute = false, capAutorise = false, capDepuis = 0;
+function surOrientation(ev) {
+  let h = null;
+  if (typeof ev.webkitCompassHeading === 'number') h = ev.webkitCompassHeading;   // iPhone
+  else if (ev.absolute && typeof ev.alpha === 'number') h = 360 - ev.alpha;        // Android
+  if (h === null) return;
+  cap = h;
+  dessinerBoussole();
+}
+function ecouterBoussole() {
+  if (capEcoute) return;
+  capEcoute = true;
+  capDepuis = Date.now();
+  window.addEventListener('deviceorientationabsolute', surOrientation);
+  window.addEventListener('deviceorientation', surOrientation);
+}
+function azimut(a, b) {
+  const r = Math.PI / 180, dl = (b.lon - a.lon) * r;
+  const y = Math.sin(dl) * Math.cos(b.lat * r);
+  const x = Math.cos(a.lat * r) * Math.sin(b.lat * r) - Math.sin(a.lat * r) * Math.cos(b.lat * r) * Math.cos(dl);
+  return (Math.atan2(y, x) / r + 360) % 360;
+}
+function dessinerBoussole() {
+  const c = $('boussole');
+  if (!c || !S) return;
+  const ratio = window.devicePixelRatio || 1, W = c.clientWidth, H = c.clientHeight;
+  if (c.width !== Math.round(W * ratio)) { c.width = Math.round(W * ratio); c.height = Math.round(H * ratio); }
+  const g = c.getContext('2d');
+  g.setTransform(ratio, 0, 0, ratio, 0, 0);
+  g.clearRect(0, 0, W, H);
+  const R = Math.min(W, H) / 2 - 6, cx = W / 2, cy = H / 2;
+  g.save(); g.translate(cx, cy);
+  g.fillStyle = '#fbf5e6'; g.strokeStyle = '#3b2a1a'; g.lineWidth = 3;
+  g.beginPath(); g.arc(0, 0, R, 0, 7); g.fill(); g.stroke();
+  g.rotate(-(cap || 0) * Math.PI / 180);   // le cadran suit le nord réel
+  g.font = 'bold 18px Georgia, serif'; g.textAlign = 'center'; g.textBaseline = 'middle';
+  [['N', 0], ['E', 90], ['S', 180], ['O', 270]].forEach(([l, a]) => {
+    const x = Math.sin(a * Math.PI / 180) * (R - 18), y = -Math.cos(a * Math.PI / 180) * (R - 18);
+    g.fillStyle = l === 'N' ? '#8c2f23' : '#6b6355'; g.fillText(l, x, y);
+  });
+  if (pos) {
+    g.rotate(azimut(pos, cible()) * Math.PI / 180);
+    g.fillStyle = '#8c2f23';
+    g.beginPath(); g.moveTo(0, -(R - 40)); g.lineTo(18, 10); g.lineTo(0, 0); g.lineTo(-18, 10); g.closePath(); g.fill();
+    g.fillStyle = '#3b2a1a';
+    g.beginPath(); g.moveTo(0, R - 60); g.lineTo(10, 10); g.lineTo(0, 0); g.lineTo(-10, 10); g.closePath(); g.fill();
+  }
+  g.restore();
+  const info = $('boussole-info');
+  // Sans mesure de cap 3 s après l'activation : téléphone sans boussole → flèche orientée nord en haut.
+  if (info) info.textContent = cap !== null ? t('boussoleAide') : capEcoute && Date.now() - capDepuis > 3000 ? t('boussoleNord') : '';
 }
 
 // ---------- Mini-carte (projection avec correction cos(lat)) ----------
@@ -821,6 +911,7 @@ function ouvrirAllerEtape() {
 function ouvrirMenu() {
   ouvrirCouche(el('div', { class: 'cadre' },
     bouton(t('carnet'), apresMenu(ouvrirCarnet)),
+    ...(ep.niveaux && S.niveau ? [bouton(t('niveauVotre', { n: L(ep.niveaux[S.niveau].titre) }), apresMenu(ouvrirNiveauInfo), 'second')] : []),
     ...(BOUTON_PANNEAU_TOUJOURS ? [bouton(t('allerEtape'), apresMenu(ouvrirAllerEtape), 'second')] : []),
     ...S.vues.map(chemin => bouton(nomVideo(chemin), apresMenu(() => jouerVideo(chemin)), 'second')),
     bouton(t('fermer'), fermerCouche, 'leger')));
@@ -893,7 +984,7 @@ async function activerCode(saisie) {
   } catch (e) { return 'code_reseau'; }
   if (!d.ok) return UI['code_' + d.raison] ? 'code_' + d.raison : 'code_inconnu';
   if (!d.cle || !(await dechiffrerEpisode(d.cle))) return 'code_cle';
-  ecrire(cleAcces(), { code: d.code, cle: d.cle });
+  ecrire(cleAcces(), { code: d.code, cle: d.cle, niveau: d.niveau || 'grandmaitre' });
   codeEnAttente = '';
   diagnostics = verifierEpisode();
   preparerHorsLigne();   // les photos des étapes ouvertes passent en cache
@@ -919,7 +1010,11 @@ function zoneCode(apres) {
 }
 // En cours de partie, à la fin de la partie gratuite.
 function ecranCode(v) {
-  v.append(el('h2', {}, t('codeTitre')), el('p', { class: 'texte' }, t('codeExplication')), zoneCode(() => entrerEtape(S.idx)));
+  v.append(el('h2', {}, t('codeTitre')), el('p', { class: 'texte' }, t('codeExplication')), zoneCode(() => {
+    if (ep.niveaux && rangNiveau(niveauMax()) > 0) { S.phase = 'niveau'; S.niveauSuite = true; sauver(); afficher(); return; }
+    recalculerOrdre();
+    entrerRang(S.rang);
+  }));
 }
 // Depuis l'écran d'équipe.
 function ouvrirSaisieCode() {
@@ -936,9 +1031,22 @@ function stat(ev, plus) {
   if (!S || slugEpisode === 'demo' || (DEBUG && !SERVEUR_TEST)) return;
   const a = lire(cleAcces());
   const file = lire('petrocores_file') || [];
-  file.push(Object.assign({ ev, t: Date.now(), partie: S.partie, episode: slugEpisode, lang: langue, parcours: S.parcours || '', code: a ? a.code : '' }, plus));
+  file.push(Object.assign({ ev, t: Date.now(), partie: S.partie, episode: slugEpisode, lang: langue, parcours: S.parcours || '', niveau: S.niveau || '', code: a ? a.code : '' }, plus));
   ecrire('petrocores_file', file.slice(-300));
   viderFile();
+}
+// Fin d'un niveau : le serveur donne (une seule fois par code et par niveau) un code promo pour le niveau suivant.
+async function demanderPromo() {
+  const a = lire(cleAcces());
+  if (!a || !a.code || slugEpisode === 'demo') return null;
+  try {
+    const r = await fetch(SERVEUR + '/api/promo', {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ code: a.code, niveau: S.niveau, episode: slugEpisode, partie: S.partie })
+    });
+    const d = await r.json();
+    return d.ok ? d.promo : null;
+  } catch (e) { return null; }
 }
 let envoiEnCours = false;
 async function viderFile() {
@@ -969,6 +1077,7 @@ function afficher() {
   if (!afficher.jeu) ecranAccueil(v);
   else if (S.phase === 'son') commencerJeu();   // ancien écran « Test du son »
   else if (S.phase === 'code') { if (ep.etapes[S.idx].verrou) ecranCode(v); else { entrerEtape(S.idx); return; } }
+  else if (S.phase === 'niveau') ecranNiveau(v);
   else if (S.phase === 'variante') ecranVariante(v);
   else if (enTrajet()) ecranTrajet(v);
   else if (S.phase === 'enigme' || S.phase === 'final') ecranEnigme(v);
@@ -981,7 +1090,8 @@ function majBarre() {
   $('b-langue').textContent = langue.toUpperCase();
   if (!S) return;
   $('b-voix').textContent = S.voix ? '🔊' : '🔇';
-  $('b-etape').textContent = (S.parcours ? S.parcours + ' · ' : '') + (S.phase === 'final' ? t('enigmeFinale')
+  const marque = ep.niveaux ? (S.niveau && S.phase !== 'niveau' ? L(ep.niveaux[S.niveau].titre).split(' ')[0] + ' · ' : '') : (S.parcours ? S.parcours + ' · ' : '');
+  $('b-etape').textContent = marque + (S.phase === 'niveau' ? t('niveauChoisir') : S.phase === 'final' ? t('enigmeFinale')
     : S.phase === 'fin' ? S.equipe
     : S.phase === 'bienvenue' ? t('bienvenue')
     : t('etape') + ' ' + (S.rang + 1) + '/' + S.ordre.length);
@@ -998,9 +1108,9 @@ function changerLangue(l) {
   ecrire('petrocores_langue', l);
   afficher();
 }
-function nouvelEtat(equipe, parcours) {
+function nouvelEtat(equipe, parcours, niveau) {
   return {
-    equipe, parcours, partie: idAleatoire(), ordre: calculerOrdre(parcours), rang: 0, debut: Date.now(), fin: null, penalite: 0, idx: 0, phase: null,
+    equipe, parcours, niveau, partie: idAleatoire(), ordre: calculerOrdre(parcours, niveau), rang: 0, debut: Date.now(), fin: null, penalite: 0, idx: 0, phase: null,
     voix: true, variantes: {}, indices: {}, solutions: {}, fragments: {}, vues: []
   };
 }
@@ -1060,7 +1170,7 @@ function ecranAccueil(v) {
     if (ep.codes_equipe) v.append(el('label', { htmlFor: 'code' }, t('code')), code);
     // Parcours : l'organisateur dit à chaque groupe sa lettre (ordre différent des stations).
     let parcours = null;
-    if (ep.parcours) {
+    if (ep.parcours && !ep.niveaux) {
       const choix = Object.keys(ep.parcours).map(k => el('button', {
         type: 'button', class: 'langue', 'data-k': k, onclick: () => {
           parcours = k;
@@ -1076,7 +1186,17 @@ function ecranAccueil(v) {
         msg.textContent = t('codeFaux');
         return;
       }
-      if (ep.parcours && !parcours) { msg.textContent = t('parcoursVide'); return; }
+      if (ep.parcours && !ep.niveaux && !parcours) { msg.textContent = t('parcoursVide'); return; }
+      if (ep.niveaux) {
+        S = nouvelEtat(equipe, null, null);   // niveau choisi à l'écran suivant (le plus haut ouvert est proposé)
+        S.parcours = parcoursAuHasard(S.partie);
+        S.ordre = calculerOrdre(S.parcours, S.niveau);
+        S.phase = 'niveau';
+        sauver();
+        lancerPartie();
+        afficher();
+        return;
+      }
       S = nouvelEtat(equipe, parcours);
       lancerPartie();
       debutPartie();
@@ -1087,6 +1207,43 @@ function ecranAccueil(v) {
   ajouterBoutonInstaller(v);
   if (DEBUG) { v.append(el('p', { id: 'debug-voix', class: 'discret' })); majDebugVoix(); }
   if (DEBUG && diagnostics.length) v.append(el('div', { id: 'diagnostic' }, diagnostics.join('\n')));
+}
+
+// « Choisissez votre quête » : au départ (avec ou sans code), et de nouveau quand un code est saisi en cours de partie.
+function ecranNiveau(v) {
+  const max = rangNiveau(niveauMax());
+  let choisi = S.niveauSuite || !S.niveau || rangNiveau(S.niveau) > max ? NIVEAUX[max] : S.niveau;
+  v.append(el('h1', {}, t('niveauChoisir')));
+  const cartes = NIVEAUX.map((id, r) => {
+    const n = ep.niveaux[id], ouvert = r <= max;
+    return el('button', {
+      type: 'button', class: 'carte-niveau' + (ouvert ? '' : ' ferme'), 'data-id': id,
+      onclick: () => {
+        if (!ouvert) return;
+        choisi = id;
+        maj();
+        parler([voixItem(n.voix, 'niveau_' + id)]);
+      }
+    }, el('b', {}, L(n.titre)), el('span', { class: 'sous' }, L(n.sous)), el('span', { class: 'desc' }, L(n.desc)),
+      ouvert ? '' : el('span', { class: 'verrou' }, t('niveauVerrou', { n: nomNiveau(id) })));
+  });
+  const maj = () => cartes.forEach(c => c.classList.toggle('actif', c.dataset.id === choisi));
+  maj();
+  v.append(...cartes, bouton(t('niveauCommencer'), () => confirmer(t('niveauConfirme', { n: L(ep.niveaux[choisi].titre) }), () => choisirNiveau(choisi))));
+}
+function choisirNiveau(id) {
+  S.niveau = id;
+  S.ordre = calculerOrdre(S.parcours, id);
+  if (S.niveauSuite) { delete S.niveauSuite; sauver(); entrerRang(S.rang); return; }
+  S.phase = null;
+  sauver();
+  debutPartie();
+}
+function ouvrirNiveauInfo() {
+  const n = ep.niveaux[S.niveau || 'ecuyer'];
+  ouvrirCouche(el('div', { class: 'cadre' },
+    el('h2', {}, L(n.titre)), el('p', { class: 'discret' }, L(n.sous)), el('p', { class: 'texte' }, L(n.desc)),
+    bouton(t('fermer'), fermerCouche, 'leger')));
 }
 
 function ecranVariante(v) {
@@ -1102,13 +1259,47 @@ function ecranVariante(v) {
 
 function ecranTrajet(v) {
   const e = cible();
-  v.append(el('h2', {}, L(e.nom)));
-  v.append(el('p', { class: 'texte' }, L(e.consigne_trajet) || t('rendezVous')));
-  v.append(el('canvas', { id: 'carte' }));
-  v.append(el('p', { id: 'distance' }), el('p', { id: 'gps', class: 'discret' }));
+  const cfg = cfgNiveau();
+  const enigme = S.phase === 'trajet' && e.trouver && cfg.trajet && cfg.trajet !== 'photo';
+  const boussole = enigme && cfg.trajet === 'boussole';
+  if (!enigme) v.append(el('h2', {}, L(e.nom)));   // Chevalier / Grand Maître : le nom du lieu trahirait l'énigme
+  if (enigme) {
+    const textes = [voixItem(e.trouver, e.id + '_trouver')];
+    v.append(el('p', { class: 'texte enigme-lieu' }, L(e.trouver)));
+    v.append(bouton(ep.narrateur ? t('ecouterNarrateur', { n: L(ep.narrateur) }) : t('ecouter'), () => parler(textes), 'leger'));
+    parlerAuto(textes);
+  } else v.append(el('p', { class: 'texte' }, L(e.consigne_trajet) || t('rendezVous')));
+  if (boussole) {
+    v.append(el('canvas', { id: 'boussole' }), el('p', { id: 'boussole-info', class: 'discret centre' }));
+    if (window.DeviceOrientationEvent && typeof DeviceOrientationEvent.requestPermission === 'function' && !capAutorise) {
+      const b = bouton(t('boussoleActiver'), () => DeviceOrientationEvent.requestPermission()
+        .then(r => { if (r === 'granted') { capAutorise = true; ecouterBoussole(); b.remove(); } }).catch(() => {}), 'second');
+      v.append(b);
+    } else ecouterBoussole();
+    v.append(el('p', { id: 'distance', hidden: true }), el('p', { id: 'gps', class: 'discret' }));
+  } else {
+    v.append(el('canvas', { id: 'carte' }));
+    v.append(el('p', { id: 'distance' }), el('p', { id: 'gps', class: 'discret' }));
+  }
   if (DEBUG) v.append(el('p', { id: 'debug-gps' }));
   v.append(el('div', { id: 'gps-exact', class: 'encart alerte', hidden: true }, t('gpsExact')));
-  if (e.photo) v.append(imagePhoto(e.photo));
+  if (!enigme) { if (e.photo) v.append(imagePhoto(e.photo)); }
+  else if (!boussole && e.photo) {
+    // Chevalier : la photo du lieu devient un indice (même pénalité qu'un indice).
+    S.photosLieu = S.photosLieu || {};
+    if (S.photosLieu[S.idx]) v.append(imagePhoto(e.photo));
+    else {
+      const b = bouton(t('photoLieu', { p: dureeTexte(penaliteIndice()) }), () => {
+        S.photosLieu[S.idx] = 1;
+        S.penalite += penaliteIndice();
+        stat('indice', { etape: String(e.id) + '_photo' });
+        sauver();
+        majChrono();
+        b.replaceWith(imagePhoto(e.photo));
+      }, 'leger');
+      v.append(b);
+    }
+  }
   // 07/11 : bouton sous la photo du panneau ; toujours visible tant que BOUTON_PANNEAU_TOUJOURS = true.
   v.append(bouton(t(BOUTON_PANNEAU_TOUJOURS || e.panneau ? 'devantPanneau' : 'arrive'), arrivee, 'second'));
   v.lastChild.id = 'secours';
@@ -1141,6 +1332,7 @@ function ecranEnigme(v) {
   if (e.silence && S.phase !== 'final') { ecoute.hidden = true; v.append(el('div', { class: 'encart' }, t('silence'))); }
   if (DEBUG) { v.append(el('p', { id: 'debug-voix', class: 'discret' })); majDebugVoix(); }
   if (e.question) v.append(el('p', { class: 'question texte' }, L(e.question)));
+  if (e.affiche) v.append(el('p', { class: 'affiche' }, e.affiche));
 
   const msg = el('div', { class: 'message' });
   const faux = () => {
@@ -1181,7 +1373,8 @@ function ecranEnigme(v) {
 
 function zoneIndices(v, e) {
   const cle = cleEtape();
-  const indices = e.indices || [];
+  const cfg = cfgNiveau();
+  const indices = (e.indices || []).slice(0, cfg.indices || Infinity);
   const liste = el('div');
   const actions = el('div');
   v.append(liste, actions);
@@ -1201,7 +1394,7 @@ function zoneIndices(v, e) {
         maj();
         parler([voixItem(indices[vus], cleVoix('indice' + (vus + 1)))]);
       }, 'leger'));
-    } else if ((e.reponses || []).length) {
+    } else if ((e.reponses || []).length && cfg.passer !== false) {
       const p = dureeTexte(penaliteSolution());
       actions.append(bouton(t('solution', { p }), () => confirmer(t('solutionConfirme', { p }), () => {
         S.solutions[cle] = texteSolution(e);
@@ -1239,7 +1432,8 @@ function ecranApres(v) {
   if (!dernier) {
     // Nouveau lieu (pas une question enchaînée au même endroit) : on annonce la destination.
     const suite = resoudre(S.ordre[S.rang + 1]);
-    if (suite.deverrouillage !== 'reponse' && aDesCoordonnees(suite)) v.append(el('p', { class: 'question' }, t('prochaine', { n: L(suite.nom) })));
+    const cache = suite.trouver && cfgNiveau().trajet && cfgNiveau().trajet !== 'photo';
+    if (suite.deverrouillage !== 'reponse' && aDesCoordonnees(suite) && !cache) v.append(el('p', { class: 'question' }, t('prochaine', { n: L(suite.nom) })));
   }
   v.append(bouton(t(!dernier ? 'suivante' : ep.final ? 'versFinale' : 'terminer'), etapeSuivante));
   parlerAuto(textes);
@@ -1401,14 +1595,14 @@ async function dessinerParchemin() {
   g.fillStyle = ENCRE;
   if (S.noms && S.noms.length) { g.font = 'italic 32px Georgia, serif'; g.fillText(t('parcheminCompagnie', { e: S.equipe }), W / 2, y); y += 56; }
   g.font = 'italic 34px Georgia, serif';
-  g.fillText(t('parcheminExploit'), W / 2, y); y += 58;
+  g.fillText(t(S.noms && S.noms.length === 1 ? 'parcheminExploit1' : 'parcheminExploit'), W / 2, y); y += 58;
   texteAjuste(g, L(ep.titre), W / 2, y, W - 240, 'bold {t}px Georgia, serif', 42); y += 54;
   const date = new Date(S.fin || Date.now()).toLocaleDateString(VOIX_LANG[langue], { day: 'numeric', month: 'long', year: 'numeric' });
   g.font = 'italic 32px Georgia, serif';
   g.fillText(t('parcheminDate', { d: date, t: chronoTexte(secondesJeu()) }), W / 2, y);
 
   // carte du chemin parcouru
-  const cx0 = 150, cy0 = y + 75, cw = W - 300, ch = 270;
+  const cx0 = 150, cy0 = y + 75, cw = W - 300, ch = Math.max(190, Math.min(270, H - 330 - 70 - cy0));
   g.strokeStyle = 'rgba(59,42,26,.55)'; g.lineWidth = 2; g.setLineDash([2, 6]);
   g.strokeRect(cx0, cy0, cw, ch); g.setLineDash([]);
   g.font = 'italic 24px Georgia, serif'; g.fillStyle = OR;
@@ -1443,7 +1637,7 @@ async function dessinerParchemin() {
   }
 
   // signature + sceau
-  const sy = cy0 + ch + 70;
+  const sy = Math.min(cy0 + ch + 70, H - 330);  // sceau et « ✠ Sceau » au-dessus de la devise
   g.textAlign = 'left'; g.fillStyle = ENCRE;
   g.font = 'italic 44px "Brush Script MT", "Segoe Script", cursive';
   g.fillText(t('parcheminSigne'), 150, sy + 20);
@@ -1454,6 +1648,7 @@ async function dessinerParchemin() {
   g.fillText('✠ ' + t('sceau_' + sceau), 150, sy + 112);
   g.textAlign = 'center'; g.font = '20px Georgia, serif'; g.fillStyle = 'rgba(59,42,26,.7)';
   g.fillText('escape-game-dordogne.fr', W / 2, H - 112);
+  g.font = 'italic 22px Georgia, serif'; g.fillText(t('parcheminDevise'), W / 2, H - 144);
   if (imgSceau) {
     g.save(); g.translate(W - 260, sy + 40); g.rotate(-0.2);
     g.shadowColor = 'rgba(0,0,0,.45)'; g.shadowBlur = 14; g.shadowOffsetY = 6;
@@ -1475,7 +1670,7 @@ function partagerParchemin(canvas) {
   canvas.toBlob(blob => {
     const f = new File([blob], nomFichierParchemin(), { type: 'image/png' });
     if (navigator.canShare && navigator.canShare({ files: [f] })) {
-      navigator.share({ files: [f], title: t('parcheminTitre'), text: L(ep.titre) + ' · escape-game-dordogne.fr' }).catch(() => {});
+      navigator.share({ files: [f], title: t('parcheminTitre'), text: t('parcheminPartage') + ' ' + L(ep.titre) + ' · escape-game-dordogne.fr' }).catch(() => {});
     } else enregistrerParchemin(canvas);
   }, 'image/png');
 }
@@ -1498,6 +1693,17 @@ function ecranFin(v) {
     if (navigator.share) actions.append(bouton(t('parcheminPartager'), () => partagerParchemin(canvas), 'leger'));
     actions.append(bouton(t('nomsModifier'), () => { S.nomsSaisis = false; sauver(); afficher(); }, 'leger'));
   });
+  if (PROMOS && ep.niveaux && rangNiveau(S.niveau) < NIVEAUX.length - 1 && lire(cleAcces())) {
+    const zone = el('div', { class: 'encart promo', hidden: !S.promo }, S.promo ? t('promoFin', { c: S.promo }) : '');
+    v.append(zone);
+    if (!S.promo) demanderPromo().then(c => {
+      if (!c) return;
+      S.promo = c;
+      sauver();
+      zone.textContent = t('promoFin', { c });
+      zone.hidden = false;
+    });
+  }
   v.append(el('p', { class: 'nom-sceau' }, t('sceau_' + sceau)));
   v.append(el('p', { class: 'texte' }, t('sceauMot_' + sceau)));
   if (f.texte) v.append(el('p', { class: 'texte' }, L(f.texte)));
@@ -1713,7 +1919,7 @@ function verifierEpisode() {
     for (const l of LANGUES) if (!o[l]) pb.push(ou + ' : texte « ' + l + ' » manquant');
   };
   const verifierEtape = (e, ou) => {
-    for (const c of ['nom', 'consigne_trajet', 'recit', 'question', 'apres']) trilingue(e[c], ou + '.' + c);
+    for (const c of ['nom', 'consigne_trajet', 'trouver', 'recit', 'question', 'apres']) trilingue(e[c], ou + '.' + c);
     (e.indices || []).forEach((x, i) => trilingue(x, ou + '.indices[' + i + ']'));
     (e.choix || []).forEach((x, i) => trilingue(x, ou + '.choix[' + i + ']'));
     if (e.type && !['texte', 'code', 'choix', 'photo'].includes(e.type)) pb.push(ou + ' : type inconnu « ' + e.type + ' »');

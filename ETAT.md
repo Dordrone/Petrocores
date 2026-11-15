@@ -30,6 +30,12 @@
 - `BOUTON_PANNEAU_TOUJOURS = true` dans app.js = PROVISOIRE (tests entre amis) → remettre `false` avant la version payante.
 
 ## Prochain pour Claude Code
+
+- **14/11 (Claude chat)** : appliquer `CONSIGNES_PARCHEMIN_14-11.md` (textes du parchemin VALIDÉS par Gonzalo le 15/11).
+- **15/11 (Claude chat)** : `CONSIGNES_NIVEAUX_15-11.md` = 3 niveaux Écuyer / Chevalier / Grand Maître liés au code + promos.
+  Principe + noms validés par Gonzalo. Contenu complet (Chevalier + Grand Maître + descriptions) dans `_travail/niveaux_contenu.py`,
+  168 voix FAITES (index.json = 525 entrées). Attendre que Gonzalo relise les énigmes avant de publier.
+
 1. `PROMPT_FABLE_CODE_12-11.md` : étapes 0 et 1 faites et en ligne (sw v18).
    Décisions de Gonzalo : GRATUIT jusqu'à l'église (p0 → e0b), code demandé avant la 1re station ; 2 téléphones par code par défaut ;
    13/11 : serveur sur CLOUDFLARE Workers + D1 (Val Town ferme), PAS de mail quotidien, onglet Statistiques.
@@ -126,3 +132,30 @@
   sceau gagné, signature Frère Aymeric, escape-game-dordogne.fr. Boutons Enregistrer (PNG) / Partager (téléphones) / Modifier les noms.
   → **Pour Claude chat** : les textes du parchemin sont PROVISOIRES, dans `UI` de app/app.js (clés noms* et parchemin*), à réécrire en fr/en/es
     (me les donner ici, je les recopie). Idées suivantes : envoi par mail (consentement RGPD), photo souvenir, carnet des sceaux de la saison.
+
+- **15/11 (Claude Code)** : `CONSIGNES_PARCHEMIN_14-11.md` APPLIQUÉ dans app/app.js (EN LOCAL, pas encore publié) :
+  textes validés fr/en/es, singulier `parcheminExploit1` si exactement 1 prénom, devise latine `parcheminDevise` au-dessus
+  du site, texte de partage `parcheminPartage`. Mise en page : carte un peu raccourcie si besoin pour que sceau et devise
+  ne se chevauchent pas. Publication (sw v21) après accord de Gonzalo.
+
+- **15/11 (Claude Code)** : `CONSIGNES_NIVEAUX_15-11.md` APPLIQUÉ — EN LOCAL, RIEN PUBLIÉ (app, épisode, serveur) :
+  · `fabriquer_episode.py` importe `_travail/niveaux_contenu.py` tel quel : 11 étapes ajoutées (31 au total), `trouver` sur d1 m1 f1 c1 l1,
+    stations R V T K, `"niveaux"` (réglages + titres/desc/voix) et `"interface"` dans l'épisode. z1 : champ `"affiche": "DOWZVO"`.
+    Sauvegarde : `_travail/fabriquer_episode_avant_niveaux.py`.
+  · App : écran « Choisissez votre quête » après le nom d'équipe (démo : Écuyer seul, autres grisés) et de nouveau si un code est
+    saisi au moment payant ; parcours A/B/C tiré au hasard (plus de lettres) ; Chevalier et Grand Maître = stations du bourg puis
+    toujours T → V → R (→ K) jusqu'à la chapelle (code final là-bas) ; Chevalier : énigme `trouver` + bouton « voir la photo » (pénalité
+    d'indice), nom du lieu caché ; Grand Maître : boussole seule (pas de carte ni de distance), pas de « Voir la réponse » ;
+    1 indice, pénalités ×2/×3 ; rappel du niveau dans le menu ☰ ; code promo sous le parchemin.
+  · Textes PROVISOIRES ajoutés par Code dans app.js (à relire, Claude chat) : niveauConfirme, niveauVotre, photoLieu,
+    boussoleActiver, boussoleAide, boussoleNord.
+  · Serveur (pas redéployé) : colonne `niveau` sur les codes (anciens codes = Grand Maître, nouveaux = choix dans l'admin, Écuyer par défaut),
+    /api/verify renvoie le niveau, /api/promo (1 promo par code et par niveau terminé, seulement si le code est de ce niveau ; crée un
+    vrai code du niveau suivant, canal « promo »), réglages promo dans l'admin, niveau dans les stats + classement Grand Maître,
+    planche A4 avec titre + description du niveau (lus dans l'épisode publié).
+  · Testé en local (serveur `wrangler dev --local` + app) : 3 niveaux, code en cours de partie, boussole, DOWZVO, promo, stats.
+  · Publier = sw v21 + épisode + `npx wrangler deploy` (les colonnes s'ajoutent toutes seules à la base).
+- **15/11 (Gonzalo → Claude Code)** : POUR L'INSTANT un même code ouvre les 3 niveaux jusqu'à sa date d'expiration, et PAS de codes promo
+  (tarifs à décider après les tests en vrai). Serveur : `UN_CODE_TOUS_NIVEAUX = true` (index.js) → /api/verify répond Grand Maître pour
+  tout code, /api/promo répond « off », l'admin cache le choix du niveau et les réglages promo. App : `PROMOS = false`.
+  Le reste (niveau par code, promos) est écrit et testé : il suffira de remettre ces deux réglages pour l'activer.
