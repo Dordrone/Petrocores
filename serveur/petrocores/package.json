@@ -1,0 +1,9 @@
+{
+  "name": "petrocores-serveur",
+  "private": true,
+  "type": "module",
+  "description": "Serveur Pétrocores (Cloudflare Worker). Déploiement : npx wrangler deploy",
+  "dependencies": {
+    "worker-mailer": "1.3.0"
+  }
+}

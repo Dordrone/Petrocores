@@ -462,7 +462,7 @@
   },
   "final_recit": {
    "fichier": "media/voix/fr/final_recit.mp3",
-   "duree": 14.5,
+   "duree": 14.6,
    "texte": "Vingt ans après ma fuite, en 1327, Gaubert la Chaminade fit bâtir la chapelle du Cheylard… et y fit peindre saint Georges, apparu aux croisés. Ce n'était pas un hasard."
   },
   "final_indice1": {
@@ -874,6 +874,11 @@
    "fichier": "media/voix/fr/z1_apres.mp3",
    "duree": 7.1,
    "texte": "Le Temple. Mon Ordre. Vous avez lu mon dernier message : il est temps d'ouvrir mon secret."
+  },
+  "final_texte": {
+   "fichier": "media/voix/fr/final_texte.mp3",
+   "duree": 21.4,
+   "texte": "1327 ! Vous avez percé le premier sceau. Mon secret ne dormait pas dans un coffre : il vit dans ce village, dans ses pierres et dans ceux qui savent les lire. Désormais, vous en êtes. Gravez vos noms sur le parchemin de l'Ordre… et revenez : d'autres sceaux vous attendent."
   }
  },
  "en": {
@@ -1339,7 +1344,7 @@
   },
   "final_recit": {
    "fichier": "media/voix/en/final_recit.mp3",
-   "duree": 16.0,
+   "duree": 16.3,
    "texte": "Twenty years after my escape, in 1327, Gaubert la Chaminade had the Cheylard chapel built… and had Saint George painted there, who appeared to the crusaders. It was no coincidence."
   },
   "final_indice1": {
@@ -1751,6 +1756,11 @@
    "fichier": "media/voix/en/z1_apres.mp3",
    "duree": 6.6,
    "texte": "The Temple. My Order. You have read my last message: it is time to open my secret."
+  },
+  "final_texte": {
+   "fichier": "media/voix/en/final_texte.mp3",
+   "duree": 22.8,
+   "texte": "1327! You have broken the first seal. My secret was never asleep in a chest: it lives in this village, in its stones and in those who can read them. From now on, you are among them. Engrave your names on the Order's parchment… and come back: other seals await you."
   }
  },
  "es": {
@@ -2216,7 +2226,7 @@
   },
   "final_recit": {
    "fichier": "media/voix/es/final_recit.mp3",
-   "duree": 16.4,
+   "duree": 17.2,
    "texte": "Veinte años después de mi huida, en 1327, Gaubert la Chaminade mandó construir la capilla del Cheylard… y pintar en ella a san Jorge, aparecido a los cruzados. No fue casualidad."
   },
   "final_indice1": {
@@ -2628,6 +2638,11 @@
    "fichier": "media/voix/es/z1_apres.mp3",
    "duree": 7.2,
    "texte": "El Temple. Mi Orden. Habéis leído mi último mensaje: es hora de abrir mi secreto."
+  },
+  "final_texte": {
+   "fichier": "media/voix/es/final_texte.mp3",
+   "duree": 23.4,
+   "texte": "¡1327! Habéis roto el primer sello. Mi secreto no dormía en un cofre: vive en este pueblo, en sus piedras y en quienes saben leerlas. Desde ahora, sois de los suyos. Grabad vuestros nombres en el pergamino de la Orden… y volved: otros sellos os esperan."
   }
  }
 }

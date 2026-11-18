@@ -150,6 +150,11 @@ const UI = {
   code_episode: { fr: 'Ce code est prévu pour un autre village.', en: 'This code is for another village.', es: 'Este código es para otro pueblo.' },
   code_appareils: { fr: 'Ce code est déjà utilisé sur trop de téléphones.', en: 'This code is already in use on too many phones.', es: 'Este código ya se usa en demasiados teléfonos.' },
   code_reseau: { fr: 'Pas de connexion : il faut du réseau pour vérifier le code (une seule fois).', en: 'No connection: a network is needed to check the code (only once).', es: 'Sin conexión: hace falta red para comprobar el código (solo una vez).' },
+  // 18/11 règle « jour J » (CONSIGNES_TARIF_ACTIVATION_18-11, Claude chat)
+  code_utilise: { fr: "Ce code a été utilisé le {d} : il n'est plus valable.", en: 'This code was used on {d}: it is no longer valid.', es: 'Este código se usó el {d}: ya no es válido.' },
+  code_horszone: { fr: "Votre code s'activera sur place, à Saint-Geniès.", en: 'Your code will activate on site, in Saint-Geniès.', es: 'Vuestro código se activará allí mismo, en Saint-Geniès.' },
+  // PROVISOIRE (Code, 18/11) : à relire par Claude chat.
+  code_position: { fr: "Le code s'active sur place : autorisez la position du téléphone, puis validez à nouveau.", en: 'The code activates on site: allow the phone to use your location, then check it again.', es: 'El código se activa allí mismo: permitid la ubicación del teléfono y volved a validarlo.' },
   code_cle: { fr: "Code accepté, mais le jeu n'a pas pu s'ouvrir. Contactez l'organisateur.", en: 'Code accepted, but the game could not be opened. Contact the organiser.', es: 'Código aceptado, pero el juego no se pudo abrir. Contacte con el organizador.' },
   plansApple: { fr: 'Plans (Apple)', en: 'Apple Maps', es: 'Mapas (Apple)' },
   bienvenue: { fr: 'Bienvenue', en: 'Welcome', es: 'Bienvenida' },
@@ -166,12 +171,12 @@ const UI = {
   manqueUn: { fr: 'Il vous manque 1 fragment.', en: 'You are missing 1 fragment.', es: 'Le falta 1 fragmento.' },
   manquent: { fr: 'Il vous manque {n} fragments.', en: 'You are missing {n} fragments.', es: 'Le faltan {n} fragmentos.' },
   // 15/11 niveaux — PROVISOIRE (Code) : à relire par Claude chat. Les autres textes des niveaux sont dans l'épisode ("interface", "niveaux").
-  niveauConfirme: { fr: 'Commencer la quête {n} ?', en: 'Begin the {n} quest?', es: '¿Empezar la búsqueda {n}?' },
-  niveauVotre: { fr: 'Votre quête : {n}', en: 'Your quest: {n}', es: 'Vuestra búsqueda: {n}' },
-  photoLieu: { fr: '📷 Voir la photo du lieu · +{p}', en: '📷 Show a photo of the place · +{p}', es: '📷 Ver la foto del lugar · +{p}' },
-  boussoleActiver: { fr: '🧭 Activer la boussole', en: '🧭 Turn on the compass', es: '🧭 Activar la brújula' },
-  boussoleAide: { fr: 'La flèche pointe vers le lieu.', en: 'The arrow points to the place.', es: 'La flecha apunta hacia el lugar.' },
-  boussoleNord: { fr: "Pas de boussole sur ce téléphone : tenez-le le haut vers le nord, la flèche pointe vers le lieu.", en: 'No compass on this phone: hold it with the top facing north, the arrow points to the place.', es: 'Este teléfono no tiene brújula: sujetadlo con la parte de arriba hacia el norte, la flecha apunta hacia el lugar.' },
+  niveauConfirme: { fr: "Prêts à partir pour la quête {n} ?", en: "Ready to set off on the {n} quest?", es: "¿Listos para partir en la búsqueda {n}?" },
+  niveauVotre: { fr: "Votre quête : {n}", en: "Your quest: {n}", es: "Vuestra búsqueda: {n}" },
+  photoLieu: { fr: "📷 Montrer la photo du lieu (+{p})", en: "📷 Show a photo of the place (+{p})", es: "📷 Mostrar la foto del lugar (+{p})" },
+  boussoleActiver: { fr: "🧭 Activer la boussole", en: "🧭 Turn on the compass", es: "🧭 Activar la brújula" },
+  boussoleAide: { fr: "La flèche montre la direction du lieu. Tenez le téléphone à plat.", en: "The arrow shows the direction of the place. Hold the phone flat.", es: "La flecha indica la dirección del lugar. Sujetad el teléfono en horizontal." },
+  boussoleNord: { fr: "Ce téléphone n'a pas de boussole : tenez-le à plat, le haut tourné vers le nord, et la flèche montrera le lieu.", en: "This phone has no compass: hold it flat with the top facing north, and the arrow will show the place.", es: "Este teléfono no tiene brújula: sujetadlo en horizontal con la parte de arriba hacia el norte, y la flecha indicará el lugar." },
 };
 
 const DEBUG = new URLSearchParams(location.search).get('debug') === '1';
@@ -967,24 +972,57 @@ async function dechiffrerEpisode(cleB64) {
     return true;
   } catch (e) { return false; }
 }
+// 18/11 : après minuit le jour de l'activation, une NOUVELLE partie redemande un code (la partie en cours continue).
+function accesPerime() {
+  const a = lire(cleAcces());
+  return !!(a && a.fin && Date.now() > Number(a.fin));
+}
+function partieEnCours() {
+  const x = lire(cleSauvegarde());
+  return !!(x && x.phase && x.phase !== 'fin');
+}
+// Bouton « Nouvelle partie » : si le code est périmé, on retire la clé et on recharge (les étapes payantes se referment).
+function nouvellePartieAcces() {
+  if (!accesPerime()) return false;
+  effacer(cleAcces());
+  location.reload();
+  return true;
+}
 // Au chargement : rouvre le jeu avec la clé gardée sur ce téléphone (marche hors-ligne).
 async function ouvrirAccesGarde() {
+  if (ep.chiffre && accesPerime() && !partieEnCours()) effacer(cleAcces());
   const a = ep.chiffre && lire(cleAcces());
   if (a && a.cle && !(await dechiffrerEpisode(a.cle))) effacer(cleAcces());   // l'épisode a changé de clé : le code sera redemandé
 }
-// Vérifie un code en ligne (une seule fois), garde la clé, déchiffre. Renvoie null si tout va bien, sinon le nom du message d'erreur.
+// 18/11 : le code s'active SUR PLACE (le serveur vérifie que le téléphone est près du village) : position demandée une fois.
+function positionPourCode() {
+  return new Promise(ok => {
+    if (!navigator.geolocation) { ok(null); return; }
+    navigator.geolocation.getCurrentPosition(
+      p => ok({ lat: p.coords.latitude, lon: p.coords.longitude, precision: Math.round(p.coords.accuracy || 0) }),
+      () => ok(null), { enableHighAccuracy: true, timeout: 15000, maximumAge: 120000 });
+  });
+}
+const dateJour = ms => new Date(Number(ms)).toLocaleDateString({ fr: 'fr-FR', en: 'en-GB', es: 'es-ES' }[langue] || 'fr-FR',
+  { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'Europe/Paris' });
+// Vérifie un code en ligne (une seule fois), garde la clé, déchiffre. Renvoie null si tout va bien, sinon le message d'erreur (déjà traduit).
 async function activerCode(saisie) {
   let d;
+  const position = await positionPourCode();
   try {
     const r = await fetch(SERVEUR + '/api/verify', {
       method: 'POST', headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ code: saisie, appareil: idAppareil(), episode: slugEpisode })
+      body: JSON.stringify({ code: saisie, appareil: idAppareil(), episode: slugEpisode, position })
     });
     d = await r.json();
-  } catch (e) { return 'code_reseau'; }
-  if (!d.ok) return UI['code_' + d.raison] ? 'code_' + d.raison : 'code_inconnu';
-  if (!d.cle || !(await dechiffrerEpisode(d.cle))) return 'code_cle';
-  ecrire(cleAcces(), { code: d.code, cle: d.cle, niveau: d.niveau || 'grandmaitre' });
+  } catch (e) { return t('code_reseau'); }
+  if (!d.ok) {
+    if (d.raison === 'utilise') return t('code_utilise', { d: d.active ? dateJour(d.active) : '' });
+    return t(UI['code_' + d.raison] ? 'code_' + d.raison : 'code_inconnu');
+  }
+  if (!d.cle || !(await dechiffrerEpisode(d.cle))) return t('code_cle');
+  // fin : minuit le jour de l'activation (codes « jour J ») ; la partie en cours n'est jamais coupée (voir accesPerime).
+  ecrire(cleAcces(), { code: d.code, cle: d.cle, niveau: d.niveau || 'grandmaitre', fin: d.fin_jour || null });
   codeEnAttente = '';
   diagnostics = verifierEpisode();
   preparerHorsLigne();   // les photos des étapes ouvertes passent en cache
@@ -1001,7 +1039,7 @@ function zoneCode(apres) {
     msg.textContent = t('codeEnCours');
     const erreur = await activerCode(champ.value);
     valider.disabled = false;
-    if (erreur) { msg.textContent = t(erreur); return; }
+    if (erreur) { msg.textContent = erreur; return; }
     toast(t('codeOk'));
     apres();
   });
@@ -1159,6 +1197,7 @@ function ecranAccueil(v) {
     v.append(bouton(t('nouvelle'), () => confirmer(t('nouvelleConfirme'), () => {
       effacer(cleSauvegarde());
       effacer('petrocores_en_cours');
+      if (nouvellePartieAcces()) return;
       S = null;
       afficher();
     }), 'second'));
@@ -1707,11 +1746,12 @@ function ecranFin(v) {
   v.append(el('p', { class: 'nom-sceau' }, t('sceau_' + sceau)));
   v.append(el('p', { class: 'texte' }, t('sceauMot_' + sceau)));
   if (f.texte) v.append(el('p', { class: 'texte' }, L(f.texte)));
-  const textes = [{ t: UI['sceauMot_' + sceau][langue] || UI['sceauMot_' + sceau].fr, k: 'sceau_' + sceau }, aLire(f.texte)];
+  const textes = [{ t: UI['sceauMot_' + sceau][langue] || UI['sceauMot_' + sceau].fr, k: 'sceau_' + sceau }, voixItem(f.texte, 'final_texte')];
   v.append(bouton(t('ecouter'), () => parler(textes), 'leger'));
   v.append(bouton(t('nouvelle'), () => confirmer(t('nouvelleConfirme'), () => {
     effacer(cleSauvegarde());
     effacer('petrocores_en_cours');
+    if (nouvellePartieAcces()) return;
     S = null;
     afficher.jeu = false;
     afficher();
@@ -2006,16 +2046,13 @@ async function demarrer() {
   // "photos_dossier" se lit depuis app/, comme les vidéos ; sans ce champ : photos/ à côté de l'épisode.
   urlPhotos = ep.photos_dossier ? new URL(ep.photos_dossier, location.href) : new URL('photos/', urlEpisode);
   await ouvrirAccesGarde();
-  // Lien ou QR code « ?code=… » : le code est vérifié tout de suite ; s'il échoue, il reste pré-rempli dans l'écran de saisie.
-  let erreurCode = null;
-  const codeDuLien = estVerrouille() && codeEnAttente;
-  if (codeDuLien) erreurCode = await activerCode(codeDuLien);
+  // Lien ou QR code « ?code=… » : 18/11, le code est seulement PRÉ-REMPLI dans l'écran de saisie (après l'église) ;
+  // il ne s'active qu'à ce moment-là, sur place (règle « valable le jour de l'activation »).
   diagnostics = verifierEpisode();
   S = lire(cleSauvegarde());
   if (S) completerEtat();
   afficher.jeu = false;
   afficher();
-  if (codeDuLien) toast(t(erreurCode || 'codeOk'), 6000);
   preparerHorsLigne();
   viderFile();
   if (DEBUG) window.PETRO = { surPosition };

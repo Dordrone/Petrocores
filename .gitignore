@@ -20,3 +20,6 @@ app/media/bienvenue_saint_genies.es.mp4
 app/media/bienvenue_saint_genies.en.vtt
 app/media/bienvenue_saint_genies.es.vtt
 graphify-out/
+
+# Documents administratifs privés (Kbis, attestation INPI…) — NE JAMAIS PUBLIER
+PRIVE_ne_pas_publier/

@@ -2,9 +2,84 @@
 <html lang="fr">
 <head>
 <meta charset="utf-8">
-<title>Pétrocores</title>
-<meta http-equiv="refresh" content="0; url=app/index.html">
-<script>location.replace('app/index.html' + location.search);</script>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Pétrocores — Escape game en plein air à Saint-Geniès (Dordogne)</title>
+<meta name="description" content="Escape game en plein air à Saint-Geniès, Périgord noir. Sur votre téléphone, en autonomie, toute l'année. Gratuit jusqu'à l'église. En français, anglais et espagnol.">
+<meta name="theme-color" content="#1c1a17">
+<meta property="og:title" content="Pétrocores — L'escape game en plein air de Saint-Geniès">
+<meta property="og:image" content="https://escape-game-dordogne.fr/site/aymeric.jpg">
+<link rel="icon" href="app/icons/icon-192.png">
+<link rel="apple-touch-icon" href="app/icons/apple-touch-icon.png">
+<script>
+  // Anciens liens et QR vers la racine avec ?code= ou ?episode= : on les envoie au jeu, comme avant.
+  if (/[?&](code|episode)=/.test(location.search)) location.replace('app/index.html' + location.search);
+</script>
+<link rel="stylesheet" href="site/vitrine.css">
 </head>
-<body><a href="app/index.html">Pétrocores</a></body>
+<body data-page="accueil">
+<div id="bandeau-test" class="test" data-t="bandeauTest" hidden></div>
+
+<header class="entete">
+  <div class="langues"></div>
+  <div class="page">
+    <h1><small>Pétrocores</small><span data-t="titre"></span></h1>
+    <p data-t="accroche"></p>
+    <div class="boutons">
+      <button id="b-acheter" class="bouton" data-t="acheter" disabled></button>
+      <button id="b-offrir" class="bouton or" data-t="offrir" hidden></button>
+      <a class="bouton second" href="app/?episode=saint-genies" data-t="essayer"></a>
+    </div>
+  </div>
+</header>
+
+<main class="page">
+  <h2 data-t="hComment"></h2>
+  <ol id="comment" class="etapes"></ol>
+  <div class="photos">
+    <img src="scenario/saint-genies/photos/sg_chateau_place_1.jpg" alt="Saint-Geniès : le château" loading="lazy">
+    <img src="scenario/saint-genies/photos/sg_eglise_vierge_portail.jpg" alt="Saint-Geniès : l'église" loading="lazy">
+    <img src="scenario/saint-genies/photos/sg_totem_la_chapelle_4.jpg" alt="Saint-Geniès : la chapelle" loading="lazy">
+  </div>
+
+  <h2 data-t="hQuetes"></h2>
+  <div id="quetes" class="quetes"></div>
+  <p class="note" data-t="quetesNote"></p>
+
+  <h2 data-t="hInfos"></h2>
+  <ul id="infos" class="infos"></ul>
+
+  <h2 data-t="hFaq"></h2>
+  <dl id="faq" class="faq"></dl>
+
+  <div class="boutons" style="margin-top:28px">
+    <button id="b-acheter-2" class="bouton" data-t="acheter" disabled></button>
+  </div>
+
+  <footer>
+    <a href="mentions.html" data-t="mentions"></a> · <a href="cgv.html" data-t="cgvLien"></a> · <a href="mailto:contact@escape-game-dordogne.fr">contact@escape-game-dordogne.fr</a>
+    <p>DORDRONE · Saint-Geniès, Dordogne</p>
+  </footer>
+</main>
+
+<div id="achat" class="fond" hidden>
+  <form id="f-achat" class="panneau" novalidate>
+    <button type="button" class="fermer" aria-label="×">×</button>
+    <h2 id="h-achat"></h2>
+    <label for="f-email" data-t="email"></label>
+    <input id="f-email" type="email" autocomplete="email" inputmode="email" required>
+    <div id="z-cadeau" hidden>
+      <label for="f-prenom" data-t="prenom"></label>
+      <input id="f-prenom" type="text" maxlength="40" autocomplete="off">
+      <label for="f-message" data-t="message"></label>
+      <textarea id="f-message" maxlength="300"></textarea>
+    </div>
+    <label class="case"><input id="f-cgv" type="checkbox"><span data-html="cgv"></span></label>
+    <div class="erreur" id="erreur" role="alert"></div>
+    <button id="b-payer" class="bouton" type="submit"></button>
+    <p class="securise">🔒 <span data-t="securise"></span><br><small data-t="tva"></small></p>
+  </form>
+</div>
+
+<script src="site/vitrine.js"></script>
+</body>
 </html>

@@ -1,4 +1,4 @@
-// Page d'administration (onglets Codes et Statistiques). Le JavaScript du navigateur n'utilise pas de gabarits `…`
+// Page d'administration (onglets Codes, Ventes en ligne et Statistiques). Le JavaScript du navigateur n'utilise pas de gabarits `…`
 // (on est déjà dans un gabarit) ; les apostrophes des textes sont écrites \\'.
 export const PAGE = `<!DOCTYPE html><html lang="fr"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -40,7 +40,7 @@ tr.off{opacity:.45}code{font-family:monospace;font-size:1rem;font-weight:bold}
 </style></head><body>
 <div id="ecran">
 <h1>Pétrocores — Administration</h1>
-<div class="onglets"><button id="o-codes" class="actif" onclick="onglet('codes')">Codes clients</button><button id="o-stats" onclick="onglet('stats')">Statistiques</button></div>
+<div class="onglets"><button id="o-codes" class="actif" onclick="onglet('codes')">Codes clients</button><button id="o-ventes" onclick="onglet('ventes')">Ventes en ligne</button><button id="o-stats" onclick="onglet('stats')">Statistiques</button></div>
 <div id="msg"></div>
 
 <div id="p-codes">
@@ -52,10 +52,11 @@ tr.off{opacity:.45}code{font-family:monospace;font-size:1rem;font-weight:bold}
   <label>Canal<select id="f-canal"><option value="main">À la main</option><option value="web">Web</option><option value="play">Play Store</option></select></label>
   <label>Nombre de codes<input id="f-nombre" type="number" min="1" max="200" value="1" style="width:6em"></label>
   <label>Téléphones par code<input id="f-max" type="number" min="1" max="50" value="__DEFAUT__" style="width:6em"></label>
-  <label>Expire le (facultatif)<input id="f-expire" type="date"></label>
+  <label>À utiliser avant le (facultatif)<input id="f-expire" type="date"></label>
+  <label title="Ancien fonctionnement : valable tous les jours jusqu'à la date ci-contre"><input id="f-multi" type="checkbox"> Multi-jours</label>
   <label style="flex:1;min-width:12em">Note<input id="f-note" placeholder="facultatif"></label>
   <button>Créer</button>
-</form></div>
+</form><p style="font-size:.8rem;margin:8px 0 0">Règle normale (18/11) : le code s'active sur place à Saint-Geniès et reste valable jusqu'à minuit ce jour-là, pour ses 2 téléphones. « Multi-jours » : valable chaque jour jusqu'à la date choisie (ancien fonctionnement).</p></div>
 
 <h2>Codes</h2>
 <div class="outils">
@@ -80,6 +81,32 @@ tr.off{opacity:.45}code{font-family:monospace;font-size:1rem;font-weight:bold}
   <label style="flex:1;min-width:16em">Clé (donnée par Claude Code, à coller une seule fois)<input id="k-cle" required></label>
   <button>Enregistrer la clé</button>
 </form><p id="cles" style="font-size:.8rem;margin:8px 0 0"></p></div>
+</div>
+
+<div id="p-ventes" hidden>
+<p id="v-mode" class="cadre" style="font-weight:bold"></p>
+<h2>Réglages de la vente</h2>
+<div class="cadre"><form onsubmit="reglerVente(event)">
+  <label>Vente ouverte<select id="rv-active"><option value="1">Oui</option><option value="0">Non</option></select></label>
+  <label>Prix d'un code (€)<input id="rv-prix" inputmode="decimal" style="width:6em"></label>
+  <label>Délai pour venir jouer (jours)<input id="rv-jours" type="number" min="1" max="3650" style="width:6em"></label>
+  <label>Téléphones par code<input id="rv-max" type="number" min="1" max="50" style="width:6em"></label>
+  <label>Effacer les emails après (mois)<input id="rv-rgpd" type="number" min="1" max="120" style="width:6em"></label>
+  <button>Enregistrer</button>
+</form><p style="font-size:.8rem;margin:8px 0 0">Le prix est lu par la vitrine : c'est le seul endroit où le changer. Le code vendu s'active sur place et vaut pour la journée (jusqu'à minuit, 2 téléphones). Un remboursement se fait dans SumUp, puis « Désactiver le code » ici.</p></div>
+<h2>Email du code</h2>
+<div class="cadre"><form onsubmit="mailEssai(event)">
+  <p style="font-size:.8rem;margin:0 0 8px">Après chaque paiement, le code part tout seul depuis contact@escape-game-dordogne.fr (boîte OVH). Pour vérifier que l'envoi marche :</p>
+  <label>Envoyer un email d'essai à<input id="me-adresse" type="email" style="width:16em"></label>
+  <button>Envoyer</button>
+</form></div>
+<h2>Commandes</h2>
+<div class="outils">
+  <label>Statut<select id="v-filtre" onchange="afficherVentes()"><option value="">Toutes</option><option value="paye">Payées</option><option value="attente">En attente</option><option value="echec">Refusées</option><option value="expire">Expirées</option><option value="erreur">Erreurs</option></select></label>
+  <button class="second" onclick="chargerVentes()">Actualiser</button>
+  <button class="second" onclick="exporterVentes()">Exporter en CSV</button>
+</div>
+<div id="ventes">Chargement…</div>
 </div>
 
 <div id="p-stats" hidden>
@@ -124,12 +151,13 @@ function api(chemin, corps){
   });
 }
 function onglet(nom){
-  ['codes', 'stats'].forEach(function(n){
+  ['codes', 'ventes', 'stats'].forEach(function(n){
     document.getElementById('p-' + n).hidden = n !== nom;
     document.getElementById('o-' + n).className = n === nom ? 'actif' : '';
   });
   dire('');
   if (nom === 'stats') stats();
+  if (nom === 'ventes') chargerVentes();
 }
 
 // ---------- Codes ----------
@@ -158,18 +186,33 @@ function visibles(){
 }
 function afficher(){
   var l = visibles();
-  var h = '<p style="font-size:.8rem">' + l.length + ' code(s)</p><table><tr><th>Code</th><th>Niveau</th><th>Client</th><th>Épisode</th><th>Créé</th><th>Activé</th><th>Téléphones</th><th>Terminée</th><th>Expire</th><th>Note</th><th>État</th></tr>';
+  var h = '<p style="font-size:.8rem">' + l.length + ' code(s)</p><table><tr><th>Code</th><th>Niveau</th><th>Client</th><th>Épisode</th><th>Créé</th><th>Activé</th><th>Téléphones</th><th>Terminée</th><th>Validité</th><th>Note</th><th>État</th></tr>';
   l.forEach(function(c){
     h += '<tr class="' + (Number(c.actif) ? '' : 'off') + '"><td><code>' + esc(c.code) + '</code></td><td>' + nomNiv(c) + '</td><td>' + esc(c.client) + '<br><small>' + esc(c.canal) + '</small></td><td>' + esc(c.episode) + '</td>'
       + '<td>' + jour(c.cree) + '</td><td>' + jour(c.active) + '</td><td>' + c.appareils + ' / ' + c.max_appareils + '</td>'
-      + '<td>' + (Number(c.fin) ? 'oui' + (c.sceau ? ' (' + esc(c.sceau) + ')' : '') : 'non') + '</td><td>' + jour(c.expire) + '</td><td>' + esc(c.note) + '</td>'
+      + '<td>' + (Number(c.fin) ? 'oui' + (c.sceau ? ' (' + esc(c.sceau) + ')' : '') : 'non') + '</td><td>' + validite(c) + '</td><td>' + esc(c.note) + '</td>'
       + '<td><button class="second" data-code="' + esc(c.code) + '" onclick="basculer(this.dataset.code)">' + (Number(c.actif) ? 'Actif ✓' : 'Désactivé ✗') + '</button></td></tr>';
   });
   document.getElementById('liste').innerHTML = h + '</table>';
 }
+// 18/11 : « jour J » = activé le … / valable jusqu'au … minuit ; avant activation : à utiliser avant le …
+function heure(ms){ return new Date(Number(ms)).toLocaleString('fr-FR', { day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit', timeZone: 'Europe/Paris' }); }
+function validite(c){
+  if (c.regle !== 'jour') return (c.expire ? 'jusqu\\'au ' + jour(c.expire) : 'sans limite') + '<br><small>multi-jours</small>';
+  if (!c.fin_jour) return 'en attente' + (c.expire ? '<br><small>à activer avant le ' + jour(c.expire) + '</small>' : '');
+  var fini = Number(c.fin_jour) < Date.now();
+  return (fini ? 'terminé' : 'valable') + '<br><small>activé le ' + heure(c.active) + '<br>expire le ' + heure(c.fin_jour) + '</small>'
+    + '<br><button class="second" data-code="' + esc(c.code) + '" onclick="prolonger(this.dataset.code)">Prolonger d\\'un jour</button>';
+}
+function prolonger(code){
+  if (!confirm('Donner un jour de plus au code ' + code + ' ? (s\\'il est déjà terminé : valable jusqu\\'à ce soir minuit)')) return;
+  api('/api/prolonger', { code: code }).then(function(r){ return r.json(); }).then(function(d){
+    dire(d.ok ? 'Code ' + code + ' valable jusqu\\'au ' + heure(d.fin_jour) + '.' : (d.erreur || 'Erreur.')); charger();
+  });
+}
 function creer(ev){
   ev.preventDefault(); dire('');
-  api('/api/codes', { episode: v('f-episode'), client: v('f-client'), canal: v('f-canal'), niveau: v('f-niveau'), nombre: v('f-nombre'), max_appareils: v('f-max'), expire: v('f-expire'), note: v('f-note') })
+  api('/api/codes', { episode: v('f-episode'), client: v('f-client'), canal: v('f-canal'), niveau: v('f-niveau'), nombre: v('f-nombre'), max_appareils: v('f-max'), expire: v('f-expire'), multi: document.getElementById('f-multi').checked, note: v('f-note') })
     .then(function(r){ return r.json(); }).then(function(d){
       if (d.erreur) { dire(d.erreur); return; }
       dire(d.codes.length + ' code(s) créé(s) : ' + d.codes.slice(0, 5).join(', ') + (d.codes.length > 5 ? '…' : ''));
@@ -178,6 +221,8 @@ function creer(ev){
 }
 function chargerReglages(){
   api('/api/reglages').then(function(r){ return r.json(); }).then(function(d){
+    document.getElementById('rv-active').value = d.vente_active; document.getElementById('rv-prix').value = String(d.vente_prix).replace('.', ',');
+    document.getElementById('rv-jours').value = d.vente_validite_jours; document.getElementById('rv-max').value = d.vente_appareils; document.getElementById('rv-rgpd').value = d.rgpd_mois;
     document.getElementById('r-active').value = d.promo_active; document.getElementById('r-jours').value = d.promo_jours; document.getElementById('r-note').value = d.promo_note;
   });
 }
@@ -218,9 +263,97 @@ function planche(l, slugs){
       + '<p>FR — Scannez le QR code, ou ouvrez l\\'application et touchez « J\\'ai un code ».</p>'
       + '<p>EN — Scan the QR code, or open the app and tap “I have a code”.</p>'
       + '<p>ES — Escanee el código QR, o abra la aplicación y toque «Tengo un código».</p>'
-      + '<p>' + c.max_appareils + ' tél. max' + (c.expire ? ' · valable jusqu\\'au ' + jour(c.expire) : '') + '</p></div></div>';
+      + '<p>' + c.max_appareils + ' tél. max' + (c.regle === 'jour' ? ' · valable le jour de l\\'activation (sur place), jusqu\\'à minuit' + (c.expire ? ' · à activer avant le ' + jour(c.expire) : '')
+        : (c.expire ? ' · valable jusqu\\'au ' + jour(c.expire) : '')) + '</p></div></div>';
   }).join('');
   setTimeout(function(){ window.print(); }, 200);
+}
+
+// ---------- Ventes en ligne (16/11) ----------
+var VENTES = [];
+var STATUTS = { attente: '⏳ en attente', paye: '✅ payée', echec: '❌ refusée', expire: '⌛ expirée', erreur: '⚠ erreur SumUp', anomalie: '⚠ montant anormal' };
+// Texte de l'email du code (Claude chat, VITRINE_TEXTES_16-11) : le serveur l'envoie tout seul (même texte dans index.js) ; ici, copie de secours.
+var MAIL = {
+  objet: { fr: 'Votre code Pétrocores — Saint-Geniès', en: 'Your Pétrocores code — Saint-Geniès', es: 'Vuestro código Pétrocores — Saint-Geniès' },
+  corps: {
+    fr: "Bonjour, merci pour votre achat ! Votre code : {CODE}. Il s'active sur place, à Saint-Geniès, et reste valable jusqu'à minuit ce jour-là, sur 2 téléphones. À utiliser avant le {DATE}. Pour jouer : rendez-vous au parking du lavoir de Saint-Geniès, ouvrez {LIEN} et entrez le code. Frère Aymeric vous attend. — Gonzalo, DORDRONE · contact@escape-game-dordogne.fr",
+    en: "Hello, thank you for your purchase! Your code: {CODE}. It activates on site in Saint-Geniès and stays valid until midnight that day, on 2 phones. To be used before {DATE}. To play: go to the wash-house car park in Saint-Geniès, open {LIEN} and enter the code. Brother Aymeric is waiting for you. — Gonzalo, DORDRONE · contact@escape-game-dordogne.fr",
+    es: "Hola, ¡gracias por vuestra compra! Vuestro código: {CODE}. Se activa allí mismo, en Saint-Geniès, y es válido hasta medianoche ese día, en 2 móviles. A usar antes del {DATE}. Para jugar: id al aparcamiento del lavadero de Saint-Geniès, abrid {LIEN} e introducid el código. Fray Aymeric os espera. — Gonzalo, DORDRONE · contact@escape-game-dordogne.fr"
+  },
+  cadeau: { fr: '🎁 Un cadeau pour {PRENOM} : « {MESSAGE} »', en: '🎁 A gift for {PRENOM}: “{MESSAGE}”', es: '🎁 Un regalo para {PRENOM}: «{MESSAGE}»' }
+};
+function texteMail(x){
+  var lg = MAIL.objet[x.lang] ? x.lang : 'fr';
+  var date = x.expire ? new Date(Number(x.expire)).toLocaleDateString({ fr: 'fr-FR', en: 'en-GB', es: 'es-ES' }[lg], { day: 'numeric', month: 'long', year: 'numeric' }) : '';
+  var lien = APP.replace('index.html', '') + '?episode=' + encodeURIComponent(x.episode) + '&code=' + encodeURIComponent(x.code);
+  var corps = MAIL.corps[lg].replace('{CODE}', x.code).replace('{DATE}', date).replace('{LIEN}', lien);
+  if (Number(x.cadeau)) corps = MAIL.cadeau[lg].replace('{PRENOM}', x.prenom || '').replace('{MESSAGE}', x.message || '') + '\\n\\n' + corps;
+  return { objet: MAIL.objet[lg], corps: corps };
+}
+function chargerVentes(){
+  return api('/api/ventes').then(function(r){ return r.json(); }).then(function(d){
+    VENTES = d.ventes;
+    document.getElementById('v-mode').innerHTML = !d.branchee ? '⚠ SumUp n\\'est pas encore branché (clés manquantes) : la vitrine affiche « bientôt ».'
+      : d.simulation ? '🧪 SIMULATION locale (aucun SumUp).' : d.test ? '🧪 MODE TEST : paiements avec le compte de test SumUp, aucun argent réel.' : '💶 MODE RÉEL : vrais paiements.';
+    afficherVentes();
+  });
+}
+function afficherVentes(){
+  var f = v('v-filtre'), l = VENTES.filter(function(x){ return !f || x.statut === f; });
+  var payees = VENTES.filter(function(x){ return x.statut === 'paye' && !Number(x.test); });
+  var total = payees.reduce(function(s, x){ return s + Number(x.montant); }, 0);
+  var h = '<p style="font-size:.8rem">' + l.length + ' commande(s) · ' + payees.length + ' vente(s) réelle(s) payée(s) = ' + (total / 100).toFixed(2).replace('.', ',') + ' €</p>'
+    + '<table><tr><th>Date</th><th>Email</th><th>Montant</th><th>Statut</th><th>Code</th><th>Cadeau</th><th></th></tr>';
+  l.forEach(function(x){
+    h += '<tr class="' + (x.code && !Number(x.actif) ? 'off' : '') + '"><td>' + new Date(Number(x.ts)).toLocaleString('fr-FR') + (Number(x.test) ? '<br><small>TEST</small>' : '') + '</td>'
+      + '<td>' + esc(x.email) + '<br><small>' + esc(x.lang) + ' · ' + esc(x.id) + '</small>'
+        + (x.email_envoye ? '<br><small>📧 envoyé le ' + new Date(Number(x.email_envoye)).toLocaleString('fr-FR') + '</small>'
+          : x.email_erreur ? '<br><small style="color:#8c2f23">⚠ email non parti : ' + esc(x.email_erreur) + '</small>'
+          : x.code ? '<br><small>📧 pas encore envoyé</small>' : '') + '</td>'
+      + '<td>' + (x.montant / 100).toFixed(2).replace('.', ',') + ' €</td>'
+      + '<td>' + (STATUTS[x.statut] || esc(x.statut)) + '<br><small>' + esc(x.statut_sumup || '') + (x.transaction_code ? ' · ' + esc(x.transaction_code) : '') + '</small></td>'
+      + '<td>' + (x.code ? '<code>' + esc(x.code) + '</code><br><small>à activer avant le ' + jour(x.expire) + '</small>' : '—') + '</td>'
+      + '<td>' + (Number(x.cadeau) ? '🎁 ' + esc(x.prenom) : 'non') + '</td><td>'
+      + (x.code ? '<button class="second" data-id="' + esc(x.id) + '" onclick="renvoyerMail(this.dataset.id)">' + (x.email_envoye ? 'Renvoyer l\\'email' : 'Envoyer l\\'email') + '</button> '
+        + '<button class="second" data-id="' + esc(x.id) + '" onclick="copierMail(this.dataset.id)">Copier l\\'email</button> '
+        + '<button class="second" data-code="' + esc(x.code) + '" onclick="basculerVente(this.dataset.code)">' + (Number(x.actif) ? 'Désactiver le code' : 'Réactiver le code') + '</button>'
+        : x.statut !== 'erreur' ? '<button class="second" data-id="' + esc(x.id) + '" onclick="reverifier(this.dataset.id)">Redemander à SumUp</button>' : '')
+      + '</td></tr>';
+  });
+  document.getElementById('ventes').innerHTML = h + '</table>';
+}
+function copierMail(id){
+  var x = VENTES.filter(function(y){ return y.id === id; })[0]; if (!x) return;
+  var m = texteMail(x), t = 'À : ' + x.email + '\\nObjet : ' + m.objet + '\\n\\n' + m.corps;
+  (navigator.clipboard ? navigator.clipboard.writeText(t) : Promise.reject()).then(function(){ dire('Email copié : colle-le dans ta messagerie (à ' + x.email + ').'); }, function(){ prompt('Copie ce texte :', t); });
+}
+function renvoyerMail(id){
+  var x = VENTES.filter(function(y){ return y.id === id; })[0]; if (!x) return;
+  if (!confirm('Envoyer le code ' + x.code + ' à ' + x.email + ' ?')) return;
+  dire('Envoi en cours…');
+  api('/api/ventes/email', { id: id }).then(function(r){ return r.json(); }).then(function(d){
+    dire(d.ok ? '📧 Email envoyé à ' + x.email + '.' : '⚠ Email non parti : ' + (d.erreur || '?')); chargerVentes();
+  });
+}
+function mailEssai(ev){
+  ev.preventDefault();
+  var a = v('me-adresse'); if (!a) return;
+  dire('Envoi en cours…');
+  api('/api/mail-essai', { email: a }).then(function(r){ return r.json(); }).then(function(d){
+    dire(d.ok ? '📧 Email d\\'essai envoyé à ' + a + ' : regarde ta boîte (et les spams).' : '⚠ Email non parti : ' + (d.erreur || '?'));
+  });
+}
+function basculerVente(code){ if (confirm('Changer l\\'état du code ' + code + ' ? (après un remboursement fait dans SumUp : le désactiver)')) api('/api/toggle', { code: code }).then(chargerVentes); }
+function reverifier(id){ api('/api/ventes/verifier', { id: id }).then(function(r){ return r.json(); }).then(function(d){ dire('SumUp dit : ' + ((d.vente && d.vente.statut_sumup) || '?')); chargerVentes(); }); }
+function exporterVentes(){
+  api('/api/ventes.csv').then(function(r){ return r.blob(); }).then(function(b){
+    var a = document.createElement('a'); a.href = URL.createObjectURL(b); a.download = 'petrocores-ventes.csv'; a.click();
+  });
+}
+function reglerVente(ev){
+  ev.preventDefault();
+  api('/api/reglages', { vente_active: v('rv-active'), vente_prix: v('rv-prix').replace(',', '.'), vente_validite_jours: v('rv-jours'), vente_appareils: v('rv-max'), rgpd_mois: v('rv-rgpd') })
+    .then(function(){ dire('Réglages de la vente enregistrés.'); });
 }
 
 // ---------- Statistiques ----------
@@ -264,6 +397,13 @@ function stats(){
       }).join('') : '<tr><td colspan="5">Aucune partie Grand Maître terminée</td></tr>') + '</table>';
     h += '<div class="deux">' + tableau('Niveaux choisis', d.niveaux, lancees) + tableau('Niveaux terminés', d.niveaux_fin, t.terminees) + tableau('Sceaux obtenus', d.sceaux, t.terminees) + tableau('Langues', d.langues, lancees) + tableau('Parcours', d.parcours, lancees)
       + tableau('Téléphones activés par client', d.activations, t.activations) + '</div>';
+    // 16/11 : ventes en ligne par jour, et part des groupes « démo » (sans code) qui achètent.
+    var nv = d.ventes.reduce(function(s, x){ return s + x.n; }, 0), nr = d.ventes.reduce(function(s, x){ return s + x.n - x.t; }, 0);
+    h += '<h2>Ventes en ligne</h2><div class="tuiles">' + tuile(nr, 'ventes réelles payées') + tuile(nv - nr, 'ventes de test')
+      + tuile(taux(nv, (t.sans_code || 0) + nv), 'des groupes démo ont acheté (ventes ÷ (démos + ventes), approché)') + '</div>'
+      + '<table><tr><th>Jour</th><th>Ventes</th><th>dont test</th><th>Montant</th></tr>' + (d.ventes.length ? d.ventes.map(function(x){
+        return '<tr><td>' + esc(x.k) + '</td><td>' + x.n + '</td><td>' + x.t + '</td><td>' + (x.s / 100).toFixed(2).replace('.', ',') + ' €</td></tr>';
+      }).join('') : '<tr><td colspan="4">Aucune vente</td></tr>') + '</table>';
     document.getElementById('stats').innerHTML = h;
   });
 }

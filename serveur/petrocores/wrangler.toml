@@ -2,8 +2,15 @@
 name = "petrocores"
 main = "src/index.js"
 compatibility_date = "2026-10-01"
+# 17/11 : demandé par worker-mailer (email du code par SMTP OVH)
+compatibility_flags = ["nodejs_compat"]
 
 [[d1_databases]]
 binding = "DB"
 database_name = "petrocores"
 database_id = "8a418164-200c-43bc-9fdb-16068d761935"
+
+# 16/11 vente en ligne : "true" tant qu'on teste avec le compte de test (sandbox) SumUp. Passage en réel = "false" + vraie clé,
+# seulement avec l'accord de Gonzalo. Les secrets SUMUP_API_KEY et SUMUP_MERCHANT_CODE se posent avec « npx wrangler secret put ».
+[vars]
+MODE_TEST = "true"

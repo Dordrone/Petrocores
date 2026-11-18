@@ -32,6 +32,13 @@
 ## Prochain pour Claude Code
 
 - **14/11 (Claude chat)** : appliquer `CONSIGNES_PARCHEMIN_14-11.md` (textes du parchemin VALIDÉS par Gonzalo le 15/11).
+- **18/11 (Claude chat)** : `CONSIGNES_TARIF_ACTIVATION_18-11.md` = 15 €, 2 tél., code valable le JOUR de l'activation (sur place,
+  jusqu'à minuit, pour les 2 tél.) + MISE EN LIGNE de ce qui est fait avec la VENTE FERMÉE (médiateur + INPI en cours).
+- **16/11 soir (Claude chat)** : `CONSIGNES_16-11_SOIR.md` = infos légales (Kbis) reportées, textes provisoires vitrine relus,
+  avis Brevo, TEXTE FINAL (fin du [À COMPLÉTER]) + voix final_texte/final_recit + correction moteur (voix du final).
+- **16/11 (Claude chat)** : VENTE EN LIGNE SumUp → `CONSIGNES_SUMUP_16-11.md` (+ `VITRINE_TEXTES_16-11.md`, `CGV_BROUILLON_16-11.md`).
+  Mise en place EN MODE TEST autorisée par Gonzalo ; rien d'encaissé en réel sans son accord.
+- **15/11 soir (Claude chat)** : textes provisoires de Code relus → `CONSIGNES_TEXTES_CODE_15-11.md` (6 clés + noms p0-p2 validés).
 - **15/11 (Claude chat)** : `CONSIGNES_NIVEAUX_15-11.md` = 3 niveaux Écuyer / Chevalier / Grand Maître liés au code + promos.
   Principe + noms validés par Gonzalo. Contenu complet (Chevalier + Grand Maître + descriptions) dans `_travail/niveaux_contenu.py`,
   168 voix FAITES (index.json = 525 entrées). Attendre que Gonzalo relise les énigmes avant de publier.
@@ -159,3 +166,60 @@
   (tarifs à décider après les tests en vrai). Serveur : `UN_CODE_TOUS_NIVEAUX = true` (index.js) → /api/verify répond Grand Maître pour
   tout code, /api/promo répond « off », l'admin cache le choix du niveau et les réglages promo. App : `PROMOS = false`.
   Le reste (niveau par code, promos) est écrit et testé : il suffira de remettre ces deux réglages pour l'activer.
+
+- **16/11 (Claude Code)** : `CONSIGNES_TEXTES_CODE_15-11.md` recopié dans `UI` de app/app.js (6 clés, FR/EN/ES). EN LOCAL, pas encore publié (attend l'accord de Gonzalo ; publier = sw v22).
+
+- **16/11 (Claude Code)** : vente SumUp EN MODE TEST — FAIT EN LOCAL, RIEN PUBLIÉ NI DÉPLOYÉ (attend Gonzalo).
+  · Serveur (`serveur/petrocores/src/index.js`) : table `petro_ventes` ; GET /api/offre (prix lu dans les réglages : vente_prix,
+    vente_validite_jours, vente_appareils, vente_active, rgpd_mois) ; POST /api/achat (commande + checkout SumUp Hosted Checkout,
+    redirect_url = /merci.html?commande=ID, return_url = /api/sumup-webhook) ; GET /api/commande/ID ; webhook = simple « sonnette »,
+    le statut est TOUJOURS redemandé à SumUp (PAID + montant + référence) ; un seul code par commande (testé avec 3 appels simultanés).
+    Code créé : client « Vente en ligne » (ou « Vente en ligne (test) »), canal web, Grand Maître, email seulement dans la vente.
+    `wrangler.toml` : [vars] MODE_TEST = "true". Secrets à poser par Gonzalo : SUMUP_API_KEY, SUMUP_MERCHANT_CODE.
+    Essais locaux sans SumUp : SIMULATION=1 (faux paiement /api/simul), inactif en ligne et dès qu'une clé existe.
+  · Admin : onglet « Ventes en ligne » (réglages prix/validité/téléphones/RGPD, commandes, « Copier l'email », désactiver le code,
+    « Redemander à SumUp », CSV) + Statistiques : ventes par jour, test à part, part des groupes démo qui achètent.
+  · Site : `index.html` (vitrine, remplace la redirection ; ?code=/?episode= renvoient toujours vers /app/), `merci.html`, `cgv.html`,
+    `mentions.html`, `site/vitrine.css`, `site/vitrine.js` (textes), `site/aymeric.jpg` (image de la vidéo intro v4, 8 s).
+    Quêtes lues dans episode.json. CGV et mentions = brouillon FR, champs [..] surlignés, bandeau « brouillon ».
+  · Email automatique PAS branché (EMAIL_AUTO = false) : la page merci n'annonce pas l'email ; l'admin copie le texte à envoyer.
+  · Pour Claude chat — textes PROVISOIRES (Code) à relire, marqués dans site/vitrine.js : bientot, bandeauTest, titres de sections
+    (hComment, hQuetes, hInfos, hFaq, hAchat, hCadeau), errEmail/errCgv/errPrenom/errServeur/errReseau, valable, recevoirEmail, lent,
+    probleme, inconnue, accueil, enFrancais (CGV en français seulement). « arrive par email » (comment1, CGV art. 4) est faux tant
+    que l'email automatique n'existe pas.
+  · 16/11 (suite) : Gonzalo a posé SUMUP_API_KEY + SUMUP_MERCHANT_CODE (compte SANDBOX confirmé : étiquette orange). Serveur DÉPLOYÉ
+    avec son accord (version 321f3831…, MODE_TEST=true). Vérifié : /api/offre → vente ouverte, test ; /api/achat → page SumUp créée
+    (commande d'essai VPGYPV4Y7TAJPQG non payée, email example.com). Vitrine PAS publiée : essai depuis localhost:8123?serveur=…
+  · 16/11 : ✅ ESSAI SumUp SANDBOX RÉUSSI par Gonzalo (carte de test) : commande payée (PAID, transaction TAAA7HRE37P), code SG-8BEQ-VY
+    créé et rendu sur la page merci. Reste avant la vraie vente : prix/validité/téléphones, infos légales (SIRET, adresse, TVA,
+    médiateur), relecture CGV + textes provisoires (Claude chat), email automatique (proposé : Brevo), publier la vitrine (git),
+    puis clé RÉELLE + MODE_TEST="false" avec l'accord de Gonzalo.
+  · 17/11 (Claude Code) : EMAIL DU CODE BRANCHÉ (en local, PAS publié). Choix de Gonzalo : pas de Brevo, la boîte OVH (Zimbra)
+    contact@escape-game-dordogne.fr en SMTP (ssl0.ovh.net:465), bibliothèque npm worker-mailer 1.3.0 (serveur/petrocores/package.json,
+    + compatibility_flags nodejs_compat). Mot de passe = secret SMTP_PASS tapé par Gonzalo (jamais dans le dépôt).
+    Le serveur envoie l'email (textes de VITRINE_TEXTES_16-11, section Email, FR/EN/ES, objet « [TEST] » en mode test) une seule
+    fois, au moment où le code est rattaché à la commande ; échec = noté, la vente n'est pas bloquée. Admin : état de l'email par
+    commande, bouton « Envoyer/Renvoyer l'email », « Envoyer un email d'essai à… » ; « Copier l'email » gardé en secours.
+    Vitrine : EMAIL_AUTO = true → la page merci dit de nouveau « Il vous a aussi été envoyé par email » (comment1 et CGV art. 4
+    deviennent vrais). Texte « recevoirEmail » (bouton « bientôt ») n'est plus affiché.
+    Testé en local : email d'essai + faux achat cadeau (Léa) → 2 emails partis vers l'adresse de Gonzalo.
+    Pour la mise en ligne (avec l'accord de Gonzalo) : il tape « npx wrangler secret put SMTP_PASS », puis npx wrangler deploy.
+  · 17/11 : ✅ Emails bien reçus dans Gmail (simplement en retard au début : nouvelle adresse). Gonzalo a ajouté DMARC
+    (_dmarc TXT « v=DMARC1; p=none; rua=mailto:contact@…; aspf=r ») et vérifié DKIM chez OVH. Journal SMTP détaillé
+    possible en local : --var SMTP_DEBUG:1. Reste : secret SMTP_PASS sur Cloudflare + déploiement, avec l'accord de Gonzalo.
+  · 17/11 : Gonzalo a posé SMTP_PASS sur Cloudflare. Serveur DÉPLOYÉ avec son accord (version 2c1c89f5…, toujours MODE_TEST=true) :
+    l'email du code part maintenant aussi depuis le serveur en ligne. Vitrine toujours PAS publiée.
+  · 18/11 (Claude Code) : CONSIGNES_16-11_SOIR + CONSIGNES_TARIF_ACTIVATION_18-11 APPLIQUÉES EN LOCAL, testées (PAS encore publiées :
+    attend le « oui » de Gonzalo). Mentions + CGV : infos Kbis/SIRET, TVA 293 B, 15 €, art. 4 « jour J », « [médiateur : en cours] »,
+    plus de bandeau brouillon. Vitrine : textes relus (bientot, hAchat, hCadeau, valable, errReseau, infos, quetesNote), « PROVISOIRE »
+    retirés, mention TVA sous « Payer » et sur la page merci, bandeau « mode test » caché quand la vente est fermée.
+    Jeu (sw v22) : texte final regénéré (fabriquer_episode.py → episode.json, seul final.texte change), voix final_texte jouée ;
+    « ?code= » ne fait plus que PRÉ-REMPLIR le code ; l'app envoie sa position à /api/verify ; messages utilise/horszone/position ;
+    après minuit, une NOUVELLE partie referme le jeu (la partie en cours continue).
+    Serveur : colonnes regle ('jour'|'fixe') + fin_jour ; 1re activation seulement à moins de 2 km du parking du lavoir (+ marge de
+    précision GPS, max 1 km), puis valable jusqu'à minuit (Paris, été/hiver) pour les 2 téléphones ; ventes en ligne et nouveaux codes
+    = « jour J », case « Multi-jours » dans l'admin = ancien fonctionnement ; codes déjà créés (testeurs) = multi-jours, inchangés.
+    Admin : colonne Validité (en attente / activé le… / expire le…), bouton « Prolonger d'un jour », réglage « Délai pour venir jouer ».
+    Réglages par défaut : vente_prix 15, vente_active 0 (la base en ligne n'a aucun réglage enregistré → vente FERMÉE dès le déploiement).
+    Email du code : nouveau texte de validité. Pour Claude chat — PROVISOIRE (Code) à relire : app « code_position » (FR/EN/ES),
+    vitrine « tva » EN/ES. Rappel : BOUTON_PANNEAU_TOUJOURS = true (tests entre amis) toujours en place.
