@@ -519,14 +519,14 @@ function composerMail(v, expire) {
   return { objet, text, html };
 }
 
-async function smtpEnvoyer(env, to, objet, text, html) {
+async function smtpEnvoyer(env, to, objet, text, html, bcc) {
   await WorkerMailer.send({
     host: SMTP.host, port: SMTP.port, secure: SMTP.secure, startTls: false, authType: ['plain', 'login'],
     credentials: { username: SMTP.user, password: env.SMTP_PASS },
     socketTimeoutMs: 15000, responseTimeoutMs: 15000, name: 'escape-game-dordogne.fr',
     logLevel: String(env.SMTP_DEBUG) === '1' ? 0 : 2, // 0 = journal détaillé (essais en local : --var SMTP_DEBUG:1)
   }, {
-    from: { name: 'Pétrocores', email: SMTP.user }, reply: SMTP.user, to, subject: objet, text, html,
+    from: { name: 'Pétrocores', email: SMTP.user }, reply: SMTP.user, to, subject: objet, text, html, ...(bcc ? { bcc } : {}),
   });
 }
 
@@ -541,7 +541,7 @@ async function envoyerCode(env, db, id) {
     try {
       const c = await db.prepare('SELECT expire FROM petro_codes WHERE code = ?').bind(v.code).first();
       const m = composerMail(v, c ? c.expire : Date.now());
-      await smtpEnvoyer(env, v.email, m.objet, m.text, m.html);
+      await smtpEnvoyer(env, v.email, m.objet, m.text, m.html, SMTP.user); // 18/11 : copie cachée à contact@ (demande de Gonzalo)
     } catch (e) { erreur = txt(String((e && e.message) || e), 200) || 'erreur SMTP'; }
   }
   if (erreur) await db.prepare('UPDATE petro_ventes SET email_erreur = ? WHERE id = ?').bind(erreur, id).run();

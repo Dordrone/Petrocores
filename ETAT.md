@@ -228,3 +228,5 @@
 - GitHub `d35595c` : jeu sw **v22**, vitrine, mentions légales, CGV, texte final + voix. En ligne sur escape-game-dordogne.fr (vérifié : v22, « La vente en ligne ouvre très bientôt », RCS dans les mentions).
 - Serveur Cloudflare déployé (version ad96461d) : `/api/offre` → vente **fermée**, 15 €, MODE_TEST toujours "true". Colonnes `regle` / `fin_jour` présentes dans la base en ligne.
 - Reste avant d'ouvrir la vente : médiateur, activité INPI, relecture des textes PROVISOIRE (code_position, tva EN/ES), BOUTON_PANNEAU_TOUJOURS → false, vraie clé SumUp + MODE_TEST="false" (accord de Gonzalo).
+
+- 18/11 soir : copie cachée de chaque email de code à contact@ (serveur 0ed68c48). Code offert à une testeuse : SG-UQYV-35 (vente V8BZ47XWEX5, 0 €, OFFERT) ; email à envoyer par Gonzalo depuis l'admin.
