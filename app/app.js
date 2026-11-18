@@ -27,7 +27,9 @@ const SOUS_TITRES_VIDEOS = true;  // false coupe les sous-titres si les .vtt ne 
 const RAYON_BIENVENUE = 5;        // m, si "bienvenue_lieu" ne donne pas "rayon_m"
 const ACCURACY_BIENVENUE = 8;     // m, si "bienvenue_lieu" ne donne pas "precision_m"
 const SECOURS_PANNEAU_M = 15;     // à moins de 15 m…
-const BOUTON_PANNEAU_TOUJOURS = true; // PROVISOIRE (tests entre amis, 07/11) : « Je suis devant le panneau » toujours visible. Remettre false avant la version payante.
+// 18/11 soir : « Je suis devant le panneau » et « Aller à une étape » ne sont plus pour tout le monde :
+// seulement en mode testeur (code « Testeur » créé dans l'admin) ou en ?debug=1.
+const panneauToujours = () => DEBUG || estTesteur();
 const SECOURS_PANNEAU_MS = 15000; // …depuis 15 s sans déclenchement → « Je suis devant le panneau »
 // 07/11 : sceau de fin selon les pénalités (secondes) : 0 = or, ≤ 10 min = argent, ≤ 20 min = bronze, au-delà = bois.
 const SCEAUX = [[0, 'or'], [600, 'argent'], [1200, 'bronze'], [Infinity, 'bois']];
@@ -156,6 +158,16 @@ const UI = {
   // PROVISOIRE (Code, 18/11) : à relire par Claude chat.
   code_position: { fr: "Le code s'active sur place : autorisez la position du téléphone, puis validez à nouveau.", en: 'The code activates on site: allow the phone to use your location, then check it again.', es: 'El código se activa allí mismo: permitid la ubicación del teléfono y volved a validarlo.' },
   code_cle: { fr: "Code accepté, mais le jeu n'a pas pu s'ouvrir. Contactez l'organisateur.", en: 'Code accepted, but the game could not be opened. Contact the organiser.', es: 'Código aceptado, pero el juego no se pudo abrir. Contacte con el organizador.' },
+  // 18/11 soir : mode testeur — PROVISOIRE (Code) : à relire par Claude chat.
+  testeurTitre: { fr: '🐞 Mode testeur', en: '🐞 Tester mode', es: '🐞 Modo probador' },
+  testeurExplication: { fr: "Entrez le code testeur que Gonzalo vous a donné. Il marche 15 jours, partout : vous pourrez avancer sans GPS (« Je suis devant le panneau ») et signaler chaque problème.", en: 'Enter the tester code Gonzalo gave you. It works for 15 days, anywhere: you can move on without GPS (“I am in front of the sign”) and report every problem.', es: 'Introducid el código de probador que os dio Gonzalo. Funciona 15 días, en cualquier sitio: podréis avanzar sin GPS («Estoy delante del panel») y señalar cada problema.' },
+  testeurOk: { fr: '✓ Mode testeur activé', en: '✓ Tester mode on', es: '✓ Modo probador activado' },
+  testeurPasCode: { fr: "Ce code n'est pas un code testeur : le jeu est ouvert, mais sans les outils de test.", en: 'This is not a tester code: the game is unlocked, but without the testing tools.', es: 'Este código no es de probador: el juego está abierto, pero sin las herramientas de prueba.' },
+  bugBouton: { fr: '🐞 Signaler un problème', en: '🐞 Report a problem', es: '🐞 Señalar un problema' },
+  bugAide: { fr: "Décrivez ce qui ne va pas (texte, voix, photo, GPS, énigme…). L'étape, la langue et le téléphone sont ajoutés tout seuls.", en: 'Describe what is wrong (text, voice, photo, GPS, puzzle…). The step, language and phone are added automatically.', es: 'Describid lo que falla (texto, voz, foto, GPS, enigma…). La etapa, el idioma y el teléfono se añaden solos.' },
+  bugEnvoyer: { fr: 'Envoyer', en: 'Send', es: 'Enviar' },
+  bugMerci: { fr: '✓ Merci, problème envoyé', en: '✓ Thank you, problem sent', es: '✓ Gracias, problema enviado' },
+  bugErreur: { fr: "Pas envoyé (réseau ?). Votre texte est gardé : réessayez.", en: 'Not sent (network?). Your text is kept: try again.', es: 'No enviado (¿red?). Vuestro texto se conserva: volved a intentarlo.' },
   plansApple: { fr: 'Plans (Apple)', en: 'Apple Maps', es: 'Mapas (Apple)' },
   bienvenue: { fr: 'Bienvenue', en: 'Welcome', es: 'Bienvenida' },
   suivezMoi: { fr: "Bienvenue ! Suivez-moi jusqu'au point rouge.", en: 'Welcome! Follow me to the red dot.', es: '¡Bienvenidos! Síganme hasta el punto rojo.' },
@@ -536,7 +548,7 @@ function majTrajet() {
   if (e.panneau && utilisable && brute <= SECOURS_PANNEAU_M) { if (!presDepuis) presDepuis = now; }
   else presDepuis = 0;
   const panneauBloque = presDepuis && now - presDepuis > SECOURS_PANNEAU_MS;
-  $('secours').hidden = !(BOUTON_PANNEAU_TOUJOURS || DEBUG || gpsErreur || sansPrecision || panneauBloque || now - debutTrajet > TRAJET_LONG_MS);
+  $('secours').hidden = !(panneauToujours() || gpsErreur || sansPrecision || panneauBloque || now - debutTrajet > TRAJET_LONG_MS);
   if (DEBUG) {
     const m = d => d === null ? '-' : d.toFixed(1) + ' m';
     $('debug-gps').textContent = 'acc ' + (pos ? m(pos.acc) : '-') + ' (≤ ' + precisionVoulue(e) + ') | brute ' + m(brute)
@@ -915,9 +927,10 @@ function ouvrirAllerEtape() {
 }
 function ouvrirMenu() {
   ouvrirCouche(el('div', { class: 'cadre' },
+    ...(estTesteur() ? [bouton(t('bugBouton'), apresMenu(ouvrirBug))] : []),
     bouton(t('carnet'), apresMenu(ouvrirCarnet)),
     ...(ep.niveaux && S.niveau ? [bouton(t('niveauVotre', { n: L(ep.niveaux[S.niveau].titre) }), apresMenu(ouvrirNiveauInfo), 'second')] : []),
-    ...(BOUTON_PANNEAU_TOUJOURS ? [bouton(t('allerEtape'), apresMenu(ouvrirAllerEtape), 'second')] : []),
+    ...(panneauToujours() ? [bouton(t('allerEtape'), apresMenu(ouvrirAllerEtape), 'second')] : []),
     ...S.vues.map(chemin => bouton(nomVideo(chemin), apresMenu(() => jouerVideo(chemin)), 'second')),
     bouton(t('fermer'), fermerCouche, 'leger')));
 }
@@ -1022,7 +1035,8 @@ async function activerCode(saisie) {
   }
   if (!d.cle || !(await dechiffrerEpisode(d.cle))) return t('code_cle');
   // fin : minuit le jour de l'activation (codes « jour J ») ; la partie en cours n'est jamais coupée (voir accesPerime).
-  ecrire(cleAcces(), { code: d.code, cle: d.cle, niveau: d.niveau || 'grandmaitre', fin: d.fin_jour || null });
+  ecrire(cleAcces(), { code: d.code, cle: d.cle, niveau: d.niveau || 'grandmaitre', fin: d.fin_jour || null, testeur: !!d.testeur });
+  majBoutonBug();
   codeEnAttente = '';
   diagnostics = verifierEpisode();
   preparerHorsLigne();   // les photos des étapes ouvertes passent en cache
@@ -1053,6 +1067,71 @@ function ecranCode(v) {
     recalculerOrdre();
     entrerRang(S.rang);
   }));
+}
+// ---------- 18/11 soir : mode testeur ----------
+// Code « Testeur » (admin) : 15 jours, partout, avec « Je suis devant le panneau » et « Signaler un problème ».
+const VERSION_APP = 'v23';
+function estTesteur() {
+  const a = slugEpisode && lire(cleAcces());
+  return !!(a && a.testeur && !accesPerime());
+}
+function majBoutonBug() { const b = $('b-bug'); if (b) b.hidden = !estTesteur(); }
+// Lien « ?testeur=1 » (bouton « Mode testeur » de la vitrine) : saisie du code testeur dès l'ouverture.
+function ouvrirModeTesteur() {
+  const msg = el('p', { class: 'discret' });
+  ouvrirCouche(el('div', { class: 'cadre' },
+    el('h2', {}, t('testeurTitre')),
+    el('p', { class: 'texte' }, t('testeurExplication')),
+    zoneCode(() => {
+      fermerCouche();
+      if (!estTesteur()) toast(t('testeurPasCode'), 6000); else toast(t('testeurOk'));
+      afficher();
+    }),
+    msg,
+    bouton(t('fermer'), fermerCouche, 'leger')));
+}
+function etapeCourante() {
+  try {
+    if (!S) return { id: '', nom: 'accueil' };
+    if (S.phase === 'final' || S.phase === 'fin') return { id: S.phase, nom: S.phase };
+    const e = ep.etapes[S.idx];
+    return { id: e ? String(e.id) : '', nom: (S.phase || '') + (e ? ' · ' + (L(e.nom) || e.id) : '') };
+  } catch (x) { return { id: '', nom: '' }; }
+}
+let brouillonBug = '';
+function ouvrirBug() {
+  const zone = el('textarea', { class: 'champ', rows: 6 });
+  zone.value = brouillonBug;
+  zone.addEventListener('input', () => { brouillonBug = zone.value; });
+  const msg = el('div', { class: 'message' });
+  const envoyer = bouton(t('bugEnvoyer'), async () => {
+    const texte = zone.value.trim();
+    if (!texte) return;
+    const a = lire(cleAcces()) || {};
+    const et = etapeCourante();
+    envoyer.disabled = true;
+    msg.textContent = t('codeEnCours');
+    try {
+      const r = await fetch(SERVEUR + '/api/bug', {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ code: a.code, episode: slugEpisode, etape: et.id, nom_etape: et.nom, lang: langue, niveau: (S && S.niveau) || '',
+          appareil: navigator.userAgent.slice(0, 220) + ' · ' + screen.width + '×' + screen.height, version: VERSION_APP, texte })
+      });
+      const d = await r.json();
+      if (!d.ok) throw new Error(d.raison);
+      brouillonBug = '';
+      fermerCouche();
+      toast(t('bugMerci'));
+    } catch (e) {
+      envoyer.disabled = false;
+      msg.textContent = t('bugErreur');
+    }
+  });
+  ouvrirCouche(el('div', { class: 'cadre' },
+    el('h2', {}, t('bugBouton')),
+    el('p', { class: 'discret' }, t('bugAide') + ' (' + etapeCourante().nom + ')'),
+    zone, msg, envoyer,
+    bouton(t('fermer'), fermerCouche, 'leger')));
 }
 // Depuis l'écran d'équipe.
 function ouvrirSaisieCode() {
@@ -1339,10 +1418,10 @@ function ecranTrajet(v) {
       v.append(b);
     }
   }
-  // 07/11 : bouton sous la photo du panneau ; toujours visible tant que BOUTON_PANNEAU_TOUJOURS = true.
-  v.append(bouton(t(BOUTON_PANNEAU_TOUJOURS || e.panneau ? 'devantPanneau' : 'arrive'), arrivee, 'second'));
+  // 07/11 : bouton sous la photo du panneau ; visible en mode testeur (18/11).
+  v.append(bouton(t(panneauToujours() || e.panneau ? 'devantPanneau' : 'arrive'), arrivee, 'second'));
   v.lastChild.id = 'secours';
-  v.lastChild.hidden = !BOUTON_PANNEAU_TOUJOURS;
+  v.lastChild.hidden = !panneauToujours();
   v.append(el('p', { class: 'discret' }, t('ecranAllume')));
   majTrajet();
 }
@@ -2019,6 +2098,7 @@ async function demarrer() {
     majBarre();
   });
   $('b-menu').addEventListener('click', ouvrirMenu);
+  if ($('b-bug')) $('b-bug').addEventListener('click', ouvrirBug);
   preparerVoix();
   document.addEventListener('click', debloquerVoix, { once: true });
   document.addEventListener('touchend', debloquerVoix, { once: true });
@@ -2053,6 +2133,8 @@ async function demarrer() {
   if (S) completerEtat();
   afficher.jeu = false;
   afficher();
+  majBoutonBug();
+  if (params.get('testeur') === '1' && !estTesteur() && ep.chiffre) ouvrirModeTesteur();
   preparerHorsLigne();
   viderFile();
   if (DEBUG) window.PETRO = { surPosition };

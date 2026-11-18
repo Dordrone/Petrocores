@@ -230,3 +230,9 @@
 - Reste avant d'ouvrir la vente : médiateur, activité INPI, relecture des textes PROVISOIRE (code_position, tva EN/ES), BOUTON_PANNEAU_TOUJOURS → false, vraie clé SumUp + MODE_TEST="false" (accord de Gonzalo).
 
 - 18/11 soir : copie cachée de chaque email de code à contact@ (serveur 0ed68c48). Code offert à une testeuse : SG-UQYV-35 (vente V8BZ47XWEX5, 0 €, OFFERT) ; email à envoyer par Gonzalo depuis l'admin.
+
+## 18/11 soir — Mode testeur (Claude Code, publié avec l'accord de Gonzalo)
+- Admin : « Type de code » = Client (jour J) / 🐞 Testeur (15 jours dès la 1re activation, partout, sans contrôle de position) / Multi-jours. Onglet « 🐞 Testeurs » = problèmes signalés (table petro_bugs, bouton Traité).
+- Vitrine : lien discret « 🐞 Mode testeur » sous « Essayer gratuitement » → app/?episode=saint-genies&testeur=1 (saisie du code testeur).
+- Jeu sw v23 : avec un code testeur → bouton 🐞 (barre + menu) « Signaler un problème » (POST /api/bug : étape, langue, téléphone ajoutés) et « Je suis devant le panneau » / « Aller à une étape ». BOUTON_PANNEAU_TOUJOURS supprimé : les clients ne voient plus ces boutons.
+- Pour Claude chat : textes testeurTitre, testeurExplication, testeurOk, testeurPasCode, bugBouton, bugAide, bugEnvoyer, bugMerci, bugErreur (app.js) et « testeur » (vitrine.js) = PROVISOIRE, à relire.

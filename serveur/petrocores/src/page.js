@@ -40,7 +40,7 @@ tr.off{opacity:.45}code{font-family:monospace;font-size:1rem;font-weight:bold}
 </style></head><body>
 <div id="ecran">
 <h1>Pétrocores — Administration</h1>
-<div class="onglets"><button id="o-codes" class="actif" onclick="onglet('codes')">Codes clients</button><button id="o-ventes" onclick="onglet('ventes')">Ventes en ligne</button><button id="o-stats" onclick="onglet('stats')">Statistiques</button></div>
+<div class="onglets"><button id="o-codes" class="actif" onclick="onglet('codes')">Codes clients</button><button id="o-ventes" onclick="onglet('ventes')">Ventes en ligne</button><button id="o-stats" onclick="onglet('stats')">Statistiques</button><button id="o-bugs" onclick="onglet('bugs')">🐞 Testeurs</button></div>
 <div id="msg"></div>
 
 <div id="p-codes">
@@ -53,10 +53,10 @@ tr.off{opacity:.45}code{font-family:monospace;font-size:1rem;font-weight:bold}
   <label>Nombre de codes<input id="f-nombre" type="number" min="1" max="200" value="1" style="width:6em"></label>
   <label>Téléphones par code<input id="f-max" type="number" min="1" max="50" value="__DEFAUT__" style="width:6em"></label>
   <label>À utiliser avant le (facultatif)<input id="f-expire" type="date"></label>
-  <label title="Ancien fonctionnement : valable tous les jours jusqu'à la date ci-contre"><input id="f-multi" type="checkbox"> Multi-jours</label>
+  <label>Type de code<select id="f-regle"><option value="jour">Client (jour J, sur place)</option><option value="testeur">🐞 Testeur (15 jours, partout)</option><option value="fixe">Multi-jours (ancien)</option></select></label>
   <label style="flex:1;min-width:12em">Note<input id="f-note" placeholder="facultatif"></label>
   <button>Créer</button>
-</form><p style="font-size:.8rem;margin:8px 0 0">Règle normale (18/11) : le code s'active sur place à Saint-Geniès et reste valable jusqu'à minuit ce jour-là, pour ses 2 téléphones. « Multi-jours » : valable chaque jour jusqu'à la date choisie (ancien fonctionnement).</p></div>
+</form><p style="font-size:.8rem;margin:8px 0 0">Règle normale (18/11) : le code s'active sur place à Saint-Geniès et reste valable jusqu'à minuit ce jour-là, pour ses 2 téléphones. « Testeur » : valable 15 jours à partir de la 1re activation, n'importe où ; le jeu affiche « Je suis devant le panneau » et « Signaler un problème » (retours dans l'onglet Testeurs). « Multi-jours » : valable chaque jour jusqu'à la date choisie (ancien fonctionnement).</p></div>
 
 <h2>Codes</h2>
 <div class="outils">
@@ -118,6 +118,15 @@ tr.off{opacity:.45}code{font-family:monospace;font-size:1rem;font-weight:bold}
 </div>
 <div id="stats">Chargement…</div>
 </div>
+
+<div id="p-bugs" hidden>
+<p class="cadre" style="font-size:.85rem;margin-top:10px">Problèmes signalés depuis le jeu par les testeurs (bouton « 🐞 Signaler un problème », visible seulement avec un code « Testeur »). Pour donner l'accès : onglet Codes clients, Type de code = Testeur, puis donner le code au testeur : sur <b>escape-game-dordogne.fr</b>, il touche « 🐞 Mode testeur » et le tape.</p>
+<div class="outils">
+  <label>Afficher<select id="b-filtre" onchange="afficherBugs()"><option value="">À traiter</option><option value="tous">Tous</option></select></label>
+  <button class="second" onclick="chargerBugs()">Actualiser</button>
+</div>
+<div id="bugs">Chargement…</div>
+</div>
 </div>
 <div id="planche"></div>
 
@@ -151,12 +160,13 @@ function api(chemin, corps){
   });
 }
 function onglet(nom){
-  ['codes', 'ventes', 'stats'].forEach(function(n){
+  ['codes', 'ventes', 'stats', 'bugs'].forEach(function(n){
     document.getElementById('p-' + n).hidden = n !== nom;
     document.getElementById('o-' + n).className = n === nom ? 'actif' : '';
   });
   dire('');
   if (nom === 'stats') stats();
+  if (nom === 'bugs') chargerBugs();
   if (nom === 'ventes') chargerVentes();
 }
 
@@ -198,10 +208,11 @@ function afficher(){
 // 18/11 : « jour J » = activé le … / valable jusqu'au … minuit ; avant activation : à utiliser avant le …
 function heure(ms){ return new Date(Number(ms)).toLocaleString('fr-FR', { day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit', timeZone: 'Europe/Paris' }); }
 function validite(c){
-  if (c.regle !== 'jour') return (c.expire ? 'jusqu\\'au ' + jour(c.expire) : 'sans limite') + '<br><small>multi-jours</small>';
-  if (!c.fin_jour) return 'en attente' + (c.expire ? '<br><small>à activer avant le ' + jour(c.expire) + '</small>' : '');
+  if (c.regle !== 'jour' && c.regle !== 'testeur') return (c.expire ? 'jusqu\\'au ' + jour(c.expire) : 'sans limite') + '<br><small>multi-jours</small>';
+  var tt = c.regle === 'testeur' ? '🐞 testeur 15 j<br>' : '';
+  if (!c.fin_jour) return tt + 'en attente' + (c.expire ? '<br><small>à activer avant le ' + jour(c.expire) + '</small>' : '');
   var fini = Number(c.fin_jour) < Date.now();
-  return (fini ? 'terminé' : 'valable') + '<br><small>activé le ' + heure(c.active) + '<br>expire le ' + heure(c.fin_jour) + '</small>'
+  return tt + (fini ? 'terminé' : 'valable') + '<br><small>activé le ' + heure(c.active) + '<br>expire le ' + heure(c.fin_jour) + '</small>'
     + '<br><button class="second" data-code="' + esc(c.code) + '" onclick="prolonger(this.dataset.code)">Prolonger d\\'un jour</button>';
 }
 function prolonger(code){
@@ -210,9 +221,27 @@ function prolonger(code){
     dire(d.ok ? 'Code ' + code + ' valable jusqu\\'au ' + heure(d.fin_jour) + '.' : (d.erreur || 'Erreur.')); charger();
   });
 }
+// ---------- 18/11 : retours des testeurs ----------
+var BUGS = [];
+function chargerBugs(){
+  api('/api/bugs').then(function(r){ return r.json(); }).then(function(d){ BUGS = d.bugs || []; afficherBugs(); });
+}
+function afficherBugs(){
+  var tous = v('b-filtre') === 'tous';
+  var l = BUGS.filter(function(b){ return tous || !Number(b.traite); });
+  var h = '<p style="font-size:.8rem">' + l.length + ' message(s)</p><table><tr><th>Date</th><th>Testeur</th><th>Étape</th><th>Message</th><th>Téléphone</th><th></th></tr>';
+  l.forEach(function(b){
+    h += '<tr class="' + (Number(b.traite) ? 'off' : '') + '"><td>' + heure(b.ts) + '</td><td>' + esc(b.client) + '<br><small>' + esc(b.code) + '</small></td>'
+      + '<td>' + esc(b.nom_etape || b.etape) + '<br><small>' + esc(b.episode) + ' · ' + esc(b.lang) + (b.niveau ? ' · ' + esc(b.niveau) : '') + '</small></td>'
+      + '<td style="white-space:pre-wrap">' + esc(b.texte) + '</td><td><small>' + esc(b.appareil) + (b.version ? '<br>' + esc(b.version) : '') + '</small></td>'
+      + '<td><button class="second" data-id="' + b.id + '" data-t="' + (Number(b.traite) ? 0 : 1) + '" onclick="traiterBug(this.dataset.id, this.dataset.t)">' + (Number(b.traite) ? 'Rouvrir' : 'Traité ✓') + '</button></td></tr>';
+  });
+  document.getElementById('bugs').innerHTML = h + '</table>';
+}
+function traiterBug(id, t){ api('/api/bugs/traite', { id: Number(id), traite: t === '1' }).then(chargerBugs); }
 function creer(ev){
   ev.preventDefault(); dire('');
-  api('/api/codes', { episode: v('f-episode'), client: v('f-client'), canal: v('f-canal'), niveau: v('f-niveau'), nombre: v('f-nombre'), max_appareils: v('f-max'), expire: v('f-expire'), multi: document.getElementById('f-multi').checked, note: v('f-note') })
+  api('/api/codes', { episode: v('f-episode'), client: v('f-client'), canal: v('f-canal'), niveau: v('f-niveau'), nombre: v('f-nombre'), max_appareils: v('f-max'), expire: v('f-expire'), regle: v('f-regle'), note: v('f-note') })
     .then(function(r){ return r.json(); }).then(function(d){
       if (d.erreur) { dire(d.erreur); return; }
       dire(d.codes.length + ' code(s) créé(s) : ' + d.codes.slice(0, 5).join(', ') + (d.codes.length > 5 ? '…' : ''));

@@ -10,6 +10,9 @@
 //   18/11 règle « jour J » (CONSIGNES_TARIF_ACTIVATION_18-11) : un code (regle = 'jour') s'active SUR PLACE (position à moins de
 //   ~2 km du village) et reste valable jusqu'à minuit (Paris) ce jour-là pour tous ses téléphones (fin_jour, partagé).
 //   Avant activation, « expire » = date limite pour venir jouer. regle = 'fixe' (ou vide : anciens codes) = ancien fonctionnement.
+//   18/11 soir, mode testeur (demande de Gonzalo) : regle = 'testeur' = valable 15 jours à partir de la 1re activation, n'importe où
+//   (pas de contrôle de position). L'app affiche alors « Je suis devant le panneau » et « Signaler un problème ».
+//   POST /api/bug (public, mais seulement avec un code testeur actif) ; /api/bugs, /api/bugs/traite (admin).
 import { PAGE } from './page.js';
 import { WorkerMailer } from 'worker-mailer';
 
@@ -78,7 +81,13 @@ const SCHEMA = [
     test INTEGER NOT NULL DEFAULT 1, retour TEXT
   )`,
   `CREATE INDEX IF NOT EXISTS petro_ventes_checkout ON petro_ventes (checkout_id)`,
+  // 18/11 : problèmes signalés par les testeurs depuis le jeu.
+  `CREATE TABLE IF NOT EXISTS petro_bugs (
+    id INTEGER PRIMARY KEY, ts INTEGER NOT NULL, code TEXT, client TEXT, episode TEXT, etape TEXT, nom_etape TEXT,
+    lang TEXT, niveau TEXT, appareil TEXT, version TEXT, texte TEXT NOT NULL, traite INTEGER NOT NULL DEFAULT 0
+  )`,
 ];
+const JOURS_TESTEUR = 15;
 // Colonnes ajoutées après coup (D1 ne connaît pas « ADD COLUMN IF NOT EXISTS » : erreur ignorée si elle existe déjà).
 const COLONNES = [
   'ALTER TABLE petro_codes ADD COLUMN niveau TEXT',
@@ -151,7 +160,9 @@ function minuitParis(t) {
   }
   return Date.UTC(y, m - 1, d, 22, 59, 59, 999);
 }
-const regleJour = c => c.regle === 'jour';
+// « jour J » et « testeur » : une date de fin (fin_jour) fixée à la 1re activation, partagée par tous les téléphones du code.
+const regleJour = c => c.regle === 'jour' || c.regle === 'testeur';
+const estTesteur = c => c.regle === 'testeur';
 
 async function verifier(req, db) {
   let b;
@@ -178,7 +189,7 @@ async function verifier(req, db) {
     const ops = [];
     if (jourJ && !finJour) {
       // 1re activation : seulement sur place (le code ne « brûle » pas si on le tape chez soi la veille).
-      const centre = VILLAGES[ep];
+      const centre = estTesteur(c) ? null : VILLAGES[ep];   // testeur : n'importe où (tests chez soi)
       if (centre) {
         const p = b.position || {};
         const lat = Number(p.lat), lon = Number(p.lon);
@@ -186,7 +197,7 @@ async function verifier(req, db) {
         const marge = Math.min(Math.max(Number(p.precision) || 0, 0), 1000);
         if (distanceM(centre, { lat, lon }) > RAYON_ACTIVATION_M + marge) return json(req, { ok: false, raison: 'horszone' });
       }
-      finJour = minuitParis(now);
+      finJour = estTesteur(c) ? minuitParis(now + (JOURS_TESTEUR - 1) * 86400000) : minuitParis(now);
       ops.push(db.prepare('UPDATE petro_codes SET fin_jour = COALESCE(fin_jour, ?) WHERE code = ?').bind(finJour, c.code));
     }
     ops.push(
@@ -199,7 +210,25 @@ async function verifier(req, db) {
   }
   const k = await db.prepare('SELECT cle FROM petro_cles WHERE episode = ?').bind(ep).first();
   return json(req, { ok: true, code: c.code, episode: c.episode, niveau: UN_CODE_TOUS_NIVEAUX ? 'grandmaitre' : niveauCode(c), cle: k ? k.cle : null,
-    expire: c.expire ?? null, fin_jour: jourJ ? finJour : null });
+    expire: c.expire ?? null, fin_jour: jourJ ? finJour : null, testeur: estTesteur(c) });
+}
+
+// 18/11 : un testeur signale un problème depuis le jeu (seulement avec un code testeur actif et pas périmé).
+async function signalerBug(req, db) {
+  let b;
+  try { b = await req.json(); } catch { return json(req, { ok: false, raison: 'format' }, 400); }
+  const texte = txt(b.texte, 2000);
+  if (!texte) return json(req, { ok: false, raison: 'vide' }, 400);
+  const c = await trouverCode(db, b.code);
+  const now = Date.now();
+  if (!c || !estTesteur(c) || Number(c.actif) !== 1 || (c.fin_jour && now > Number(c.fin_jour) + 86400000))
+    return json(req, { ok: false, raison: 'code' }, 403);
+  const n = await db.prepare('SELECT COUNT(*) AS n FROM petro_bugs WHERE code = ? AND ts > ?').bind(c.code, now - 86400000).first();
+  if (n && n.n >= 100) return json(req, { ok: false, raison: 'trop' }, 429);
+  await db.prepare('INSERT INTO petro_bugs (ts, code, client, episode, etape, nom_etape, lang, niveau, appareil, version, texte) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)')
+    .bind(now, c.code, c.client, txt(b.episode, 40), txt(b.etape, 20), txt(b.nom_etape, 120), txt(b.lang, 5), txt(b.niveau, 20),
+      txt(b.appareil, 300), txt(b.version, 30), texte).run();
+  return json(req, { ok: true });
 }
 
 async function reglages(db) {
@@ -285,7 +314,8 @@ async function creerCodes(req, db) {
   const nombre = Math.min(Math.max(Math.round(Number(b.nombre) || 1), 1), 200);
   const max = Math.min(Math.max(Math.round(Number(b.max_appareils) || APPAREILS_DEFAUT), 1), 50);
   // 18/11 : par défaut « jour J » ; « multi-jours » (case de l'admin) = valable jusqu'à la date d'expiration, comme avant.
-  const regle = b.multi === true ? 'fixe' : 'jour';
+  // 18/11 soir : regle = 'testeur' (15 jours dès la 1re activation, n'importe où).
+  const regle = ['jour', 'fixe', 'testeur'].includes(b.regle) ? b.regle : b.multi === true ? 'fixe' : 'jour';
   // Expiration (ou, en jour J, date limite pour l'activer) : fin de la journée choisie, heure de Paris.
   const expire = b.expire ? minuitParis(Date.parse(String(b.expire) + 'T12:00:00Z')) : null;
   if (!client) return json(req, { erreur: 'Le nom du client est obligatoire.' }, 400);
@@ -603,6 +633,7 @@ export default {
     if (req.method === 'POST' && url.pathname === '/api/verify') return verifier(req, db);
     if (req.method === 'POST' && url.pathname === '/api/event') return evenements(req, db);
     if (req.method === 'POST' && url.pathname === '/api/promo') return promo(req, db);
+    if (req.method === 'POST' && url.pathname === '/api/bug') return signalerBug(req, db);
     // 16/11 vente en ligne
     if (req.method === 'GET' && url.pathname === '/api/offre') return offre(req, env, db);
     if (req.method === 'POST' && url.pathname === '/api/achat') return achat(req, env, db, url);
@@ -672,6 +703,14 @@ export default {
       if (req.method === 'POST' && url.pathname === '/api/toggle') {
         const b = await req.json();
         await db.prepare('UPDATE petro_codes SET actif = 1 - actif WHERE code = ?').bind(txt(b.code, 20)).run();
+        return json(req, { ok: true });
+      }
+      if (req.method === 'GET' && url.pathname === '/api/bugs') {
+        return json(req, { bugs: (await db.prepare('SELECT * FROM petro_bugs ORDER BY ts DESC LIMIT 1000').all()).results });
+      }
+      if (req.method === 'POST' && url.pathname === '/api/bugs/traite') {
+        const b = await req.json();
+        await db.prepare('UPDATE petro_bugs SET traite = ? WHERE id = ?').bind(b.traite ? 1 : 0, Number(b.id) || 0).run();
         return json(req, { ok: true });
       }
       // 18/11 : geste commercial (pluie, problème…) : un jour de plus. Code déjà périmé : valable jusqu'à ce soir minuit.

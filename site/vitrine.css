@@ -120,3 +120,7 @@ h2 { font-size: 24px; color: var(--rouge); margin: 36px 0 12px; }
 
 footer { border-top: 1px solid var(--trait); margin-top: 40px; padding-top: 16px; font-size: 15px; color: var(--gris); text-align: center; }
 footer a { margin: 0 6px; }
+
+/* 18/11 soir : lien discret « Mode testeur » sous les boutons */
+.lien-testeur { margin: 14px 0 0; font-size: 14px; text-align: center; }
+.lien-testeur a { color: inherit; opacity: .75; }

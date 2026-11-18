@@ -14,6 +14,8 @@ const T = {
   acheter: { fr: 'Acheter un code — {PRIX}', en: 'Buy a code — {PRIX}', es: 'Comprar un código — {PRIX}' },
   offrir: { fr: '🎁 Offrir', en: '🎁 Give as a gift', es: '🎁 Regalar' },
   essayer: { fr: 'Essayer gratuitement', en: 'Try it for free', es: 'Probar gratis' },
+  // 18/11 soir : accès des testeurs (code testeur donné par Gonzalo). PROVISOIRE (Code).
+  testeur: { fr: '🐞 Mode testeur (avec un code testeur)', en: '🐞 Tester mode (with a tester code)', es: '🐞 Modo probador (con un código de probador)' },
   bientot: { fr: 'La vente en ligne ouvre très bientôt', en: 'Online sales open very soon', es: 'La venta en línea abre muy pronto' },
   bandeauTest: { fr: '🧪 MODE TEST — aucun paiement réel', en: '🧪 TEST MODE — no real payment', es: '🧪 MODO PRUEBA — ningún pago real' },
 
