@@ -223,3 +223,8 @@
     Réglages par défaut : vente_prix 15, vente_active 0 (la base en ligne n'a aucun réglage enregistré → vente FERMÉE dès le déploiement).
     Email du code : nouveau texte de validité. Pour Claude chat — PROVISOIRE (Code) à relire : app « code_position » (FR/EN/ES),
     vitrine « tva » EN/ES. Rappel : BOUTON_PANNEAU_TOUJOURS = true (tests entre amis) toujours en place.
+
+## 18/11 — PUBLIÉ (Claude Code, avec l'accord de Gonzalo)
+- GitHub `d35595c` : jeu sw **v22**, vitrine, mentions légales, CGV, texte final + voix. En ligne sur escape-game-dordogne.fr (vérifié : v22, « La vente en ligne ouvre très bientôt », RCS dans les mentions).
+- Serveur Cloudflare déployé (version ad96461d) : `/api/offre` → vente **fermée**, 15 €, MODE_TEST toujours "true". Colonnes `regle` / `fin_jour` présentes dans la base en ligne.
+- Reste avant d'ouvrir la vente : médiateur, activité INPI, relecture des textes PROVISOIRE (code_position, tva EN/ES), BOUTON_PANNEAU_TOUJOURS → false, vraie clé SumUp + MODE_TEST="false" (accord de Gonzalo).
