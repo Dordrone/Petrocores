@@ -267,3 +267,29 @@ Notes pour Claude (chat) :
   la seconde avec "deverrouillage":"reponse". Une étape sans "question" affiche le récit et un bouton Continuer (briefing).
 - "selection":"heure" prend la première variante dont les heures/jours collent ; la dernière sert de repli (ne pas lui mettre d'heures).
 - 0 = dimanche dans "jours". Ajout moteur : après les 2 indices, bouton « Voir la réponse » (+5 min), pour qu'aucune équipe ne reste bloquée.
+
+## 19-20/11 — Variantes par niveau, chapelle Chevalier, sw v24 (déplacé d'ETAT.md le 20/11)
+- **19/11 nuit (Claude chat)** : `CONSIGNES_VARIANTES_NIVEAUX_19-11.md` = énigmes DIFFÉRENTES par niveau aux 20 panneaux communes
+  (40 variantes Chevalier/Grand Maître dans `_travail/variantes_contenu.py`), x1 refait, textes provisoires relus.
+  ✅ VOIX FAITES (492 + x1t_* recopiés des anciens x1, index.json = 1020 entrées).
+  À relire par Gonzalo avant publication.
+  ✅ 19/11 (Claude Code) — FAIT EN LOCAL, PAS PUBLIÉ (Gonzalo relit le 20/11) :
+  · Moteur : `"selection": "niveau"` (variante du niveau de la partie, Écuyer = base, sans écran de choix) ; le choix n'est FIGÉ
+    (S.variantes) qu'à l'ouverture de l'énigme → un niveau choisi au mur payant change les étapes pas encore jouées, jamais les jouées.
+    `"niveaux": [...]` = liste exacte (en plus de `"niveau"` minimum). cleVoix = id de la variante si elle donne ce texte (d1c_question),
+    sinon id de base (d1_trouver). Diagnostics ?debug=1 : réponses, niveau, niveaux. 0 problème.
+  · Chiffrement : les variantes des 5 étapes GRATUITES (p0…e0b) sont chiffrées à part (`secret.variantes`, outils/chiffrer_episode.mjs) ;
+    episode.json publié ne contient aucune réponse Chevalier/Grand Maître (vérifié : ni 1882, ni Thiviers, ni sinople).
+  · x1 : nouvelle version (1882 → 27) comme demandé. ⚠ AJOUT de Code : si p2 a été joué en ÉCUYER (partie gratuite AVANT le code,
+    cas fréquent), le joueur n'a jamais vu 1882 → le moteur garde l'ancienne question (train 1899 → 10) = variante `x1t`
+    (`"selection": "memoire"`, `"si_absent": "p2g"`). **Pour Claude chat : voix `x1t_question`, `x1t_indice1`, `x1t_apres` = les ANCIENS
+    MP3 x1_* (les renommer avant de les écraser), sinon voix du téléphone.**
+  · Chapelle Chevalier : station KC (kc1, kc2) après T → V → R, puis code final. Description Chevalier à jour (« Quatre lieux de plus »).
+  · Textes provisoires : marques PROVISOIRE retirées ; bugBouton ES « Informar de un problema », code_cle ES « Contactad ».
+  · xls : colonne « Niveau » + les 41 variantes (onglet Énigmes, 75 lignes). Sauvegardes `_travail/*_avant_variantes.*`.
+  · Testé en local (code testeur local) : Écuyer 20 étapes inchangées ; Chevalier 28 (variantes c + T V R + KC) ; Grand Maître 31
+    (variantes g + x1 = 27) ; mur GM après partie gratuite → p2 reste Écuyer, x1 = x1t (10) ; écran e0ac, réponse « le chœur », fragment 1.
+  · 🔴 BUG trouvé dans la v23 EN LIGNE : la fonction du bouton 🐞 s'appelait aussi `etapeCourante` et remplaçait la vraie → les énigmes
+    s'affichent VIDES (seulement « Écouter » + « Continuer », on passe tout sans répondre). Corrigé en local (`etapePourBug`). À publier vite.
+  · À la publication : sw v24 ; app.js, episode.json, outils/chiffrer_episode.mjs, site/vitrine.js ; voix + index.json de Claude chat.
+  · ✅ 20/11 : PUBLIÉ (commit 4477b07, sw v24) et vérifié en ligne.

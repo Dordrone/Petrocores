@@ -102,6 +102,7 @@
 - Tests sur téléphone (iPhone + Android) : GPS réel, voix MP3 et voix du téléphone, vidéos et sous-titres.
 
 ## Derniers faits (une ligne chacun ; détail dans ETAT_ARCHIVE.md)
+- 20/11 Claude Code : PUBLIÉ sw v24 (accord de Gonzalo) = correction des énigmes vides de la v23 + énigmes par niveau (variantes c/g), x1 refait (+ x1t), chapelle Chevalier KC, 502 voix de Claude chat. Vérifié en ligne (escape-game-dordogne.fr) : v24 servie, 33 étapes dont 28 chiffrées, aucune réponse en clair, énigme p0 affichée avec champ + Valider + Indice.
 - 08/11 Claude chat : voix MP3 d'Aymeric branchées et en ligne (sw v17).
 - 07/11 Claude chat : sw v13 → v16 (bouton panneau, étapes silencieuses, réponses tolérantes aux fautes, sceaux de fin) — voir `CONSIGNES_FAIT_PAR_CLAUDE_07-11.md`.
 - 05/11 Claude Code : station château dehors, voix du téléphone = Sentia, seules les photos citées sur GitHub, bienvenue EN/ES mises de côté.
