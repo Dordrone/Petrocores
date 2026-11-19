@@ -14,7 +14,7 @@ const T = {
   acheter: { fr: 'Acheter un code — {PRIX}', en: 'Buy a code — {PRIX}', es: 'Comprar un código — {PRIX}' },
   offrir: { fr: '🎁 Offrir', en: '🎁 Give as a gift', es: '🎁 Regalar' },
   essayer: { fr: 'Essayer gratuitement', en: 'Try it for free', es: 'Probar gratis' },
-  // 18/11 soir : accès des testeurs (code testeur donné par Gonzalo). PROVISOIRE (Code).
+  // 18/11 soir : accès des testeurs (code testeur donné par Gonzalo). Relu par Claude chat le 19/11.
   testeur: { fr: '🐞 Mode testeur (avec un code testeur)', en: '🐞 Tester mode (with a tester code)', es: '🐞 Modo probador (con un código de probador)' },
   bientot: { fr: 'La vente en ligne ouvre très bientôt', en: 'Online sales open very soon', es: 'La venta en línea abre muy pronto' },
   bandeauTest: { fr: '🧪 MODE TEST — aucun paiement réel', en: '🧪 TEST MODE — no real payment', es: '🧪 MODO PRUEBA — ningún pago real' },
@@ -63,7 +63,7 @@ const T = {
   },
   payer: { fr: 'Payer {PRIX} par carte', en: 'Pay {PRIX} by card', es: 'Pagar {PRIX} con tarjeta' },
   securise: { fr: 'Paiement sécurisé par SumUp', en: 'Secure payment by SumUp', es: 'Pago seguro con SumUp' },
-  // Mention légale près du prix (CONSIGNES_16-11_SOIR). EN/ES = PROVISOIRE (Code).
+  // Mention légale près du prix (CONSIGNES_16-11_SOIR). EN/ES relus par Claude chat le 19/11.
   tva: { fr: 'TVA non applicable, art. 293 B du CGI', en: 'VAT not applicable, art. 293 B of the French Tax Code (CGI)', es: 'IVA no aplicable, art. 293 B del CGI francés' },
   // messages d'erreur du formulaire
   errEmail: { fr: 'Vérifiez votre adresse email.', en: 'Please check your email address.', es: 'Revisad vuestra dirección de email.' },

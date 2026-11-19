@@ -31,10 +31,16 @@ const cleB64 = readFileSync(fichierCle, 'utf8').trim();
 const cle = await crypto.subtle.importKey('raw', Buffer.from(cleB64, 'base64'), 'AES-GCM', false, ['encrypt']);
 
 const gratuit = ep.gratuit.map(String);
-const secret = { etapes: {}, final: ep.final ?? null };
+const secret = { etapes: {}, variantes: {}, final: ep.final ?? null };
 const publie = { ...ep };
 publie.etapes = ep.etapes.map(e => {
-  if (gratuit.includes(String(e.id))) return e;
+  if (gratuit.includes(String(e.id))) {
+    // 19/11 : les variantes Chevalier / Grand Maître d'une étape gratuite contiennent leurs réponses → chiffrées à part.
+    if (!e.variantes) return e;
+    secret.variantes[e.id] = e.variantes;
+    const { variantes, ...clair } = e;
+    return clair;
+  }
   secret.etapes[e.id] = e;
   return { id: e.id, verrou: true };
 });
@@ -45,4 +51,4 @@ const donnees = await crypto.subtle.encrypt({ name: 'AES-GCM', iv }, cle, new Te
 publie.chiffre = { iv: b64(iv), donnees: b64(new Uint8Array(donnees)) };
 
 writeFileSync(sortie, JSON.stringify(publie, null, 2));
-console.log(`Épisode publié : ${gratuit.length} étapes en clair, ${Object.keys(secret.etapes).length} chiffrées + final → ${sortie}`);
+console.log(`Épisode publié : ${gratuit.length} étapes en clair (${Object.keys(secret.variantes).length} avec variantes chiffrées), ${Object.keys(secret.etapes).length} chiffrées + final → ${sortie}`);

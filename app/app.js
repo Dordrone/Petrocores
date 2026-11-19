@@ -95,7 +95,7 @@ const UI = {
   sceauMot_bronze: { fr: 'Le chemin fut long, mais vous êtes allés au bout : le sceau de bronze est à vous.', en: 'The road was long, but you made it to the end: the bronze seal is yours.', es: 'El camino fue largo, pero llegasteis al final: el sello de bronce es vuestro.' },
   sceauMot_bois: { fr: "Même le plus humble des frères reçoit un sceau : celui de bois. Revenez tenter l'or !", en: 'Even the humblest brother receives a seal: the wooden one. Come back and try for gold!', es: 'Hasta el más humilde de los hermanos recibe un sello: el de madera. ¡Volved a intentar el oro!' },
   victoire: { fr: 'Mission accomplie !', en: 'Mission accomplished!', es: '¡Misión cumplida!' },
-  // 14/11 : parchemin d'honneur (textes PROVISOIRES de Claude Code, à revoir par Claude chat).
+  // 14/11 : parchemin d'honneur (textes validés, CONSIGNES_PARCHEMIN_14-11).
   nomsTitre: { fr: 'Vos noms dans la légende', en: 'Your names in the legend', es: 'Vuestros nombres en la leyenda' },
   nomsExplication: { fr: "Avant de vous livrer mon secret, je veux graver vos noms sur le parchemin d'honneur de l'Ordre. Inscrivez les prénoms de votre compagnie.", en: "Before I reveal my secret, I wish to engrave your names on the Order's parchment of honour. Write the first names of your company.", es: 'Antes de revelaros mi secreto, quiero grabar vuestros nombres en el pergamino de honor de la Orden. Escribid los nombres de vuestra compañía.' },
   nomsChamp: { fr: 'Prénom {n}', en: 'Name {n}', es: 'Nombre {n}' },
@@ -155,15 +155,15 @@ const UI = {
   // 18/11 règle « jour J » (CONSIGNES_TARIF_ACTIVATION_18-11, Claude chat)
   code_utilise: { fr: "Ce code a été utilisé le {d} : il n'est plus valable.", en: 'This code was used on {d}: it is no longer valid.', es: 'Este código se usó el {d}: ya no es válido.' },
   code_horszone: { fr: "Votre code s'activera sur place, à Saint-Geniès.", en: 'Your code will activate on site, in Saint-Geniès.', es: 'Vuestro código se activará allí mismo, en Saint-Geniès.' },
-  // PROVISOIRE (Code, 18/11) : à relire par Claude chat.
+  // Code 18/11, relus par Claude chat le 19/11.
   code_position: { fr: "Le code s'active sur place : autorisez la position du téléphone, puis validez à nouveau.", en: 'The code activates on site: allow the phone to use your location, then check it again.', es: 'El código se activa allí mismo: permitid la ubicación del teléfono y volved a validarlo.' },
-  code_cle: { fr: "Code accepté, mais le jeu n'a pas pu s'ouvrir. Contactez l'organisateur.", en: 'Code accepted, but the game could not be opened. Contact the organiser.', es: 'Código aceptado, pero el juego no se pudo abrir. Contacte con el organizador.' },
-  // 18/11 soir : mode testeur — PROVISOIRE (Code) : à relire par Claude chat.
+  code_cle: { fr: "Code accepté, mais le jeu n'a pas pu s'ouvrir. Contactez l'organisateur.", en: 'Code accepted, but the game could not be opened. Contact the organiser.', es: 'Código aceptado, pero el juego no se pudo abrir. Contactad con el organizador.' },
+  // 18/11 soir : mode testeur (Code), relus par Claude chat le 19/11.
   testeurTitre: { fr: '🐞 Mode testeur', en: '🐞 Tester mode', es: '🐞 Modo probador' },
   testeurExplication: { fr: "Entrez le code testeur que Gonzalo vous a donné. Il marche 15 jours, partout : vous pourrez avancer sans GPS (« Je suis devant le panneau ») et signaler chaque problème.", en: 'Enter the tester code Gonzalo gave you. It works for 15 days, anywhere: you can move on without GPS (“I am in front of the sign”) and report every problem.', es: 'Introducid el código de probador que os dio Gonzalo. Funciona 15 días, en cualquier sitio: podréis avanzar sin GPS («Estoy delante del panel») y señalar cada problema.' },
   testeurOk: { fr: '✓ Mode testeur activé', en: '✓ Tester mode on', es: '✓ Modo probador activado' },
   testeurPasCode: { fr: "Ce code n'est pas un code testeur : le jeu est ouvert, mais sans les outils de test.", en: 'This is not a tester code: the game is unlocked, but without the testing tools.', es: 'Este código no es de probador: el juego está abierto, pero sin las herramientas de prueba.' },
-  bugBouton: { fr: '🐞 Signaler un problème', en: '🐞 Report a problem', es: '🐞 Señalar un problema' },
+  bugBouton: { fr: '🐞 Signaler un problème', en: '🐞 Report a problem', es: '🐞 Informar de un problema' },
   bugAide: { fr: "Décrivez ce qui ne va pas (texte, voix, photo, GPS, énigme…). L'étape, la langue et le téléphone sont ajoutés tout seuls.", en: 'Describe what is wrong (text, voice, photo, GPS, puzzle…). The step, language and phone are added automatically.', es: 'Describid lo que falla (texto, voz, foto, GPS, enigma…). La etapa, el idioma y el teléfono se añaden solos.' },
   bugEnvoyer: { fr: 'Envoyer', en: 'Send', es: 'Enviar' },
   bugMerci: { fr: '✓ Merci, problème envoyé', en: '✓ Thank you, problem sent', es: '✓ Gracias, problema enviado' },
@@ -182,7 +182,7 @@ const UI = {
   fragmentsTrouves: { fr: 'Fragments trouvés : {n}/{t}', en: 'Fragments found: {n}/{t}', es: 'Fragmentos encontrados: {n}/{t}' },
   manqueUn: { fr: 'Il vous manque 1 fragment.', en: 'You are missing 1 fragment.', es: 'Le falta 1 fragmento.' },
   manquent: { fr: 'Il vous manque {n} fragments.', en: 'You are missing {n} fragments.', es: 'Le faltan {n} fragmentos.' },
-  // 15/11 niveaux — PROVISOIRE (Code) : à relire par Claude chat. Les autres textes des niveaux sont dans l'épisode ("interface", "niveaux").
+  // 15/11 niveaux (Code), relus par Claude chat le 19/11. Les autres textes des niveaux sont dans l'épisode ("interface", "niveaux").
   niveauConfirme: { fr: "Prêts à partir pour la quête {n} ?", en: "Ready to set off on the {n} quest?", es: "¿Listos para partir en la búsqueda {n}?" },
   niveauVotre: { fr: "Votre quête : {n}", en: "Your quest: {n}", es: "Vuestra búsqueda: {n}" },
   photoLieu: { fr: "📷 Montrer la photo du lieu (+{p})", en: "📷 Show a photo of the place (+{p})", es: "📷 Mostrar la foto del lugar (+{p})" },
@@ -296,10 +296,29 @@ function varianteSelonHeure(base) {
     && (!v.jours || v.jours.includes(now.getDay()));
   return base.variantes.find(ouverte) || base.variantes[base.variantes.length - 1];
 }
+// 19/11 : "selection": "niveau" → la variante dont "niveau" = le niveau de la partie (Écuyer : l'étape de base), sans écran de choix.
+// "selection": "memoire" → la 1re variante dont "si_absent" (id d'une variante) n'a PAS été jouée (ex. x1 selon la version de p2 jouée).
+// Le choix n'est figé (S.variantes) qu'à l'ouverture de l'énigme : un niveau choisi plus tard (code saisi au mur payant)
+// change donc les étapes pas encore jouées, jamais celles déjà jouées.
+function idVariante(i) {
+  const base = ep.etapes[i];
+  if (S.variantes[i] !== undefined) return S.variantes[i];
+  if (base.selection === 'niveau') {
+    const v = base.variantes.find(x => x.niveau === (S.niveau || 'ecuyer'));
+    return v ? v.id : base.id;
+  }
+  if (base.selection === 'memoire') {
+    const jouees = Object.values(S.variantes);
+    const v = base.variantes.find(x => x.si_absent && !jouees.includes(x.si_absent));
+    return v ? v.id : base.id;
+  }
+  return undefined;
+}
 function resoudre(i) {
   const base = ep.etapes[i];
   if (!base.variantes) return base;
-  const v = base.variantes.find(x => x.id === S.variantes[i]);
+  const id = idVariante(i);
+  const v = base.variantes.find(x => x.id === id);
   return v ? Object.assign({}, base, v) : base;
 }
 function etapeCourante() {
@@ -322,7 +341,9 @@ function calculerOrdre(choix, niveau) {
   const stations = ep.stations || {};
   const fin = (ep.niveaux && ep.niveaux[niveau] && ep.niveaux[niveau].stations_fin) || [];
   const ids = (ep.depart || []).concat(...(ep.parcours[choix] || []).concat(fin).map(s => stations[s] || []));
-  return ids.map(indexEtape).filter(i => i >= 0 && !(ep.etapes[i].niveau && rangNiveau(ep.etapes[i].niveau) > rangNiveau(niveau)));
+  // "niveau" = niveau minimum ; "niveaux" = liste exacte (ex. la chapelle KC, réservée au Chevalier).
+  return ids.map(indexEtape).filter(i => i >= 0 && !(ep.etapes[i].niveau && rangNiveau(ep.etapes[i].niveau) > rangNiveau(niveau))
+    && !(Array.isArray(ep.etapes[i].niveaux) && !ep.etapes[i].niveaux.includes(niveau || 'ecuyer')));
 }
 // Sauvegardes d'avant les parcours : ordre linéaire.
 function completerEtat() {
@@ -345,7 +366,7 @@ function entrerEtape(i) {
   // Étape payante pas encore déchiffrée : on demande le code.
   if (ep.etapes[i].verrou) { S.phase = 'code'; sauver(); afficher(); return; }
   const base = ep.etapes[i];
-  if (base.variantes && !S.variantes[i]) {
+  if (base.variantes && S.variantes[i] === undefined && base.selection !== 'niveau' && base.selection !== 'memoire') {
     if (base.selection === 'heure') S.variantes[i] = varianteSelonHeure(base).id;
     else { S.phase = 'variante'; sauver(); afficher(); return; }
   }
@@ -364,6 +385,9 @@ function videoEtape(i) {
 // À l'arrivée sur une étape : sa vidéo (une seule fois), puis le récit et la question.
 function ouvrirEnigme() {
   S.phase = 'enigme';
+  // Figée une fois jouée (aussi quand les variantes ne sont pas encore déchiffrées : partie gratuite jouée en Écuyer).
+  const b = ep.etapes[S.idx];
+  if ((b.variantes || b.selection) && S.variantes[S.idx] === undefined) S.variantes[S.idx] = (b.variantes && idVariante(S.idx)) || b.id;
   stat('etape', { etape: String(ep.etapes[S.idx].id) });
   const video = videoEtape(S.idx);
   const nouvelle = video && !S.vues.includes(video);
@@ -743,7 +767,14 @@ function fichierVoix(k, texte) {
   const x = VOIX_MP3 && indexVoix && indexVoix[langue] && indexVoix[langue][k];
   return x && normVoix(x.texte) === normVoix(texte) ? x.fichier : null;
 }
-function cleVoix(champ) { return (S.phase === 'final' ? 'final' : ep.etapes[S.idx].id) + '_' + champ; }
+// Clé du MP3 : id de la VARIANTE active si c'est elle qui donne ce texte (ex. d1c_question), sinon id de l'étape (ex. d1_trouver).
+function cleVoix(champ) {
+  if (S.phase === 'final') return 'final_' + champ;
+  const base = ep.etapes[S.idx], e = resoudre(S.idx);
+  const v = e.id !== base.id && (base.variantes || []).find(x => x.id === e.id);
+  const propre = v && v[/^indice\d+$/.test(champ) ? 'indices' : champ] !== undefined;
+  return (propre ? e.id : base.id) + '_' + champ;
+}
 function voixItem(o, k) { const t = aLire(o); return t ? { t, k } : ''; }
 function direTTS(texte, apres) {
   if (!window.speechSynthesis) { if (apres) apres(); return; }
@@ -980,6 +1011,8 @@ async function dechiffrerEpisode(cleB64) {
     const clair = await crypto.subtle.decrypt({ name: 'AES-GCM', iv: b64Octets(ep.chiffre.iv) }, cle, b64Octets(ep.chiffre.donnees));
     const secret = JSON.parse(new TextDecoder().decode(clair));
     ep.etapes = ep.etapes.map(e => (e.verrou && secret.etapes[e.id]) || e);
+    // 19/11 : variantes Chevalier / Grand Maître des étapes GRATUITES (chiffrées à part : elles contiennent des réponses).
+    for (const e of ep.etapes) if (secret.variantes && secret.variantes[e.id]) e.variantes = secret.variantes[e.id];
     if (secret.final) ep.final = secret.final;
     ep.ouvert = true;
     return true;
@@ -1070,7 +1103,7 @@ function ecranCode(v) {
 }
 // ---------- 18/11 soir : mode testeur ----------
 // Code « Testeur » (admin) : 15 jours, partout, avec « Je suis devant le panneau » et « Signaler un problème ».
-const VERSION_APP = 'v23';
+const VERSION_APP = 'v24';
 function estTesteur() {
   const a = slugEpisode && lire(cleAcces());
   return !!(a && a.testeur && !accesPerime());
@@ -1090,7 +1123,8 @@ function ouvrirModeTesteur() {
     msg,
     bouton(t('fermer'), fermerCouche, 'leger')));
 }
-function etapeCourante() {
+// 19/11 : renommée. Elle s'appelait aussi etapeCourante et remplaçait la vraie → en v23 les énigmes s'affichaient vides.
+function etapePourBug() {
   try {
     if (!S) return { id: '', nom: 'accueil' };
     if (S.phase === 'final' || S.phase === 'fin') return { id: S.phase, nom: S.phase };
@@ -1108,7 +1142,7 @@ function ouvrirBug() {
     const texte = zone.value.trim();
     if (!texte) return;
     const a = lire(cleAcces()) || {};
-    const et = etapeCourante();
+    const et = etapePourBug();
     envoyer.disabled = true;
     msg.textContent = t('codeEnCours');
     try {
@@ -1129,7 +1163,7 @@ function ouvrirBug() {
   });
   ouvrirCouche(el('div', { class: 'cadre' },
     el('h2', {}, t('bugBouton')),
-    el('p', { class: 'discret' }, t('bugAide') + ' (' + etapeCourante().nom + ')'),
+    el('p', { class: 'discret' }, t('bugAide') + ' (' + etapePourBug().nom + ')'),
     zone, msg, envoyer,
     bouton(t('fermer'), fermerCouche, 'leger')));
 }
@@ -1382,7 +1416,7 @@ function ecranTrajet(v) {
   const boussole = enigme && cfg.trajet === 'boussole';
   if (!enigme) v.append(el('h2', {}, L(e.nom)));   // Chevalier / Grand Maître : le nom du lieu trahirait l'énigme
   if (enigme) {
-    const textes = [voixItem(e.trouver, e.id + '_trouver')];
+    const textes = [voixItem(e.trouver, cleVoix('trouver'))];
     v.append(el('p', { class: 'texte enigme-lieu' }, L(e.trouver)));
     v.append(bouton(ep.narrateur ? t('ecouterNarrateur', { n: L(ep.narrateur) }) : t('ecouter'), () => parler(textes), 'leger'));
     parlerAuto(textes);
@@ -2057,6 +2091,13 @@ function verifierEpisode() {
       verifierEtape(v, ou + '/' + v.id);
     });
     if (e.selection === 'heure' && !e.variantes) pb.push(ou + ' : selection « heure » sans variantes');
+    (e.variantes || []).forEach(v => {
+      if (!(v.reponses || e.reponses || []).length) pb.push(ou + '/' + v.id + ' : pas de réponses');
+      if (e.selection === 'niveau' && !NIVEAUX.includes(v.niveau)) pb.push(ou + '/' + v.id + ' : niveau inconnu « ' + v.niveau + ' »');
+      if (e.selection === 'memoire' && v.si_absent && !ep.etapes.some(x => (x.variantes || []).some(y => y.id === v.si_absent)) && (!ep.chiffre || ep.ouvert))
+        pb.push(ou + '/' + v.id + ' : si_absent « ' + v.si_absent + ' » inconnu');
+    });
+    if (Array.isArray(e.niveaux)) e.niveaux.forEach(n => { if (!NIVEAUX.includes(n)) pb.push(ou + ' : niveaux contient « ' + n + ' » inconnu'); });
   });
   if (ep.bienvenue_lieu) {
     trilingue(ep.bienvenue_lieu.nom, 'bienvenue_lieu.nom');

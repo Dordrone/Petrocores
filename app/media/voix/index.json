@@ -842,18 +842,18 @@
   },
   "x1_question": {
    "fichier": "media/voix/fr/x1_question.mp3",
-   "duree": 8.6,
-   "texte": "Combien d'années séparent l'arrivée du train à Saint-Geniès et le départ des morts hors du bourg ? (en chiffres)"
+   "duree": 9.3,
+   "texte": "Combien d'années séparent la candidature du village pour une gare et le départ des morts hors du bourg ? (en chiffres)"
   },
   "x1_indice1": {
    "fichier": "media/voix/fr/x1_indice1.mp3",
-   "duree": 6.0,
-   "texte": "Reprenez deux réponses déjà trouvées : celle du train, et celle du cimetière."
+   "duree": 6.9,
+   "texte": "Reprenez deux réponses déjà trouvées : celle de la gare, au lavoir, et celle du cimetière."
   },
   "x1_apres": {
    "fichier": "media/voix/fr/x1_apres.mp3",
-   "duree": 5.3,
-   "texte": "Dix ans. Vous avez bonne mémoire. Il vous en faudra pour la dernière épreuve."
+   "duree": 10.3,
+   "texte": "Vingt-sept ans. Autant que les jeunes musiciens de l'abbé Delprat. Vous avez bonne mémoire : il vous en faudra pour la dernière épreuve."
   },
   "z1_recit": {
    "fichier": "media/voix/fr/z1_recit.mp3",
@@ -879,6 +879,826 @@
    "fichier": "media/voix/fr/final_texte.mp3",
    "duree": 21.4,
    "texte": "1327 ! Vous avez percé le premier sceau. Mon secret ne dormait pas dans un coffre : il vit dans ce village, dans ses pierres et dans ceux qui savent les lire. Désormais, vous en êtes. Gravez vos noms sur le parchemin de l'Ordre… et revenez : d'autres sceaux vous attendent."
+  },
+  "x1t_question": {
+   "fichier": "media/voix/fr/x1t_question.mp3",
+   "duree": 8.6,
+   "texte": "Combien d'années séparent l'arrivée du train à Saint-Geniès et le départ des morts hors du bourg ? (en chiffres)"
+  },
+  "x1t_indice1": {
+   "fichier": "media/voix/fr/x1t_indice1.mp3",
+   "duree": 6.0,
+   "texte": "Reprenez deux réponses déjà trouvées : celle du train, et celle du cimetière."
+  },
+  "x1t_apres": {
+   "fichier": "media/voix/fr/x1t_apres.mp3",
+   "duree": 5.3,
+   "texte": "Dix ans. Vous avez bonne mémoire. Il vous en faudra pour la dernière épreuve."
+  },
+  "p0c_recit": {
+   "fichier": "media/voix/fr/p0c_recit.mp3",
+   "duree": 8.9,
+   "texte": "Chevaliers, ce panneau montre toute la balade. Chaque lieu y porte un numéro, comme les étapes d'un pèlerinage."
+  },
+  "p0c_question": {
+   "fichier": "media/voix/fr/p0c_question.mp3",
+   "duree": 7.1,
+   "texte": "Quel numéro porte l'église Notre-Dame-de-l'Assomption sur ce panneau ? (en chiffres)"
+  },
+  "p0c_indice1": {
+   "fichier": "media/voix/fr/p0c_indice1.mp3",
+   "duree": 4.6,
+   "texte": "Cherchez le nom de l'église dans la liste numérotée."
+  },
+  "p0c_apres": {
+   "fichier": "media/voix/fr/p0c_apres.mp3",
+   "duree": 6.9,
+   "texte": "Huit. C'est là-haut que je vous attends. Descendez d'abord vers le lavoir, au bord de l'eau."
+  },
+  "p0g_recit": {
+   "fichier": "media/voix/fr/p0g_recit.mp3",
+   "duree": 7.5,
+   "texte": "Grands Maîtres, un Templier sait compter avant de combattre. Ce panneau numérote chaque lieu de la balade."
+  },
+  "p0g_question": {
+   "fichier": "media/voix/fr/p0g_question.mp3",
+   "duree": 7.6,
+   "texte": "Additionnez le numéro de la lauze et celui du château. Quel nombre obtenez-vous ? (en chiffres)"
+  },
+  "p0g_indice1": {
+   "fichier": "media/voix/fr/p0g_indice1.mp3",
+   "duree": 3.7,
+   "texte": "La lauze et le château se suivent dans la liste."
+  },
+  "p0g_apres": {
+   "fichier": "media/voix/fr/p0g_apres.mp3",
+   "duree": 5.2,
+   "texte": "Dix-neuf. Bien compté. Descendez maintenant vers le lavoir."
+  },
+  "p1c_recit": {
+   "fichier": "media/voix/fr/p1c_recit.mp3",
+   "duree": 7.3,
+   "texte": "Cette rivière faisait tourner des roues, bien avant les machines. Le long de l'eau, les meuniers écrasaient le grain."
+  },
+  "p1c_question": {
+   "fichier": "media/voix/fr/p1c_question.mp3",
+   "duree": 6.6,
+   "texte": "Soulevez les clapets : combien de moulins jalonnaient la Chironde et le Sireyjol ? (en chiffres)"
+  },
+  "p1c_indice1": {
+   "fichier": "media/voix/fr/p1c_indice1.mp3",
+   "duree": 2.5,
+   "texte": "Lisez le clapet des moulins à eau."
+  },
+  "p1c_apres": {
+   "fichier": "media/voix/fr/p1c_apres.mp3",
+   "duree": 6.3,
+   "texte": "Onze moulins, sur sept kilomètres. Regardez maintenant le panneau du train, juste à côté."
+  },
+  "p1g_recit": {
+   "fichier": "media/voix/fr/p1g_recit.mp3",
+   "duree": 5.8,
+   "texte": "Un de ces moulins ne broyait pas seulement le grain : il a fini par fondre le fer."
+  },
+  "p1g_question": {
+   "fichier": "media/voix/fr/p1g_question.mp3",
+   "duree": 6.6,
+   "texte": "En quelle année le moulin des Ans devint-il une fonderie avec haut-fourneau ? (en chiffres)"
+  },
+  "p1g_indice1": {
+   "fichier": "media/voix/fr/p1g_indice1.mp3",
+   "duree": 4.5,
+   "texte": "Cherchez la forge des Ans dans le clapet des moulins."
+  },
+  "p1g_apres": {
+   "fichier": "media/voix/fr/p1g_apres.mp3",
+   "duree": 8.1,
+   "texte": "Juste. Fonte, minerai de fer et castine. Regardez maintenant le panneau du train, juste à côté."
+  },
+  "p2c_recit": {
+   "fichier": "media/voix/fr/p2c_recit.mp3",
+   "duree": 5.9,
+   "texte": "La gare existe toujours, transformée. Le panneau vous dit où regarder."
+  },
+  "p2c_question": {
+   "fichier": "media/voix/fr/p2c_question.mp3",
+   "duree": 7.2,
+   "texte": "À combien de mètres, face à vous, se trouvent les anciens bâtiments de la gare ? (en chiffres)"
+  },
+  "p2c_indice1": {
+   "fichier": "media/voix/fr/p2c_indice1.mp3",
+   "duree": 2.7,
+   "texte": "C'est la dernière phrase du panneau."
+  },
+  "p2c_apres": {
+   "fichier": "media/voix/fr/p2c_apres.mp3",
+   "duree": 3.4,
+   "texte": "Juste. Et maintenant, écoutez-moi bien…"
+  },
+  "p2g_recit": {
+   "fichier": "media/voix/fr/p2g_recit.mp3",
+   "duree": 6.8,
+   "texte": "Le village a dû se battre longtemps pour avoir son train. La bataille a commencé dans la salle du conseil."
+  },
+  "p2g_question": {
+   "fichier": "media/voix/fr/p2g_question.mp3",
+   "duree": 8.2,
+   "texte": "En quelle année le conseil municipal se porta-t-il candidat pour une gare ? Retenez bien cette année. (en chiffres)"
+  },
+  "p2g_indice1": {
+   "fichier": "media/voix/fr/p2g_indice1.mp3",
+   "duree": 5.4,
+   "texte": "Le conseil insistait sur les foires, le bourg et sa situation."
+  },
+  "p2g_apres": {
+   "fichier": "media/voix/fr/p2g_apres.mp3",
+   "duree": 5.4,
+   "texte": "Juste. Gardez-la en mémoire. Et maintenant, écoutez-moi bien…"
+  },
+  "e0ac_recit": {
+   "fichier": "media/voix/fr/e0ac_recit.mp3",
+   "duree": 9.1,
+   "texte": "Cette église a souffert des guerres, et on l'a reconstruite morceau par morceau. Un seul morceau est resté tel qu'on l'a bâti au début."
+  },
+  "e0ac_question": {
+   "fichier": "media/voix/fr/e0ac_question.mp3",
+   "duree": 5.0,
+   "texte": "Quelle est la seule partie romane conservée de l'église ?"
+  },
+  "e0ac_indice1": {
+   "fichier": "media/voix/fr/e0ac_indice1.mp3",
+   "duree": 3.6,
+   "texte": "Lisez le point numéro quatre du panneau."
+  },
+  "e0ac_apres": {
+   "fichier": "media/voix/fr/e0ac_apres.mp3",
+   "duree": 12.7,
+   "texte": "Le chœur, avec ses baies en demi-cercle. L'église est née au douzième siècle : retenez le premier chiffre de ce siècle, un. C'est le premier chiffre de mon code."
+  },
+  "e0ag_recit": {
+   "fichier": "media/voix/fr/e0ag_recit.mp3",
+   "duree": 8.0,
+   "texte": "Sur ce plan, chaque époque a sa couleur. Huit siècles de pierres, superposés comme des couches de terre."
+  },
+  "e0ag_question": {
+   "fichier": "media/voix/fr/e0ag_question.mp3",
+   "duree": 5.9,
+   "texte": "Combien de périodes différentes la légende du plan distingue-t-elle ? (en chiffres)"
+  },
+  "e0ag_indice1": {
+   "fichier": "media/voix/fr/e0ag_indice1.mp3",
+   "duree": 4.3,
+   "texte": "Attention : un même siècle peut compter deux fois."
+  },
+  "e0ag_apres": {
+   "fichier": "media/voix/fr/e0ag_apres.mp3",
+   "duree": 10.3,
+   "texte": "Six. Mais tout a commencé au douzième siècle : retenez le premier chiffre de ce siècle, un. C'est le premier chiffre de mon code."
+  },
+  "e0bc_recit": {
+   "fichier": "media/voix/fr/e0bc_recit.mp3",
+   "duree": 12.8,
+   "texte": "En mille trois cent sept, quand le roi fit arrêter mes frères, des seigneurs d'ici m'ont ouvert leur porte. Leur blason se cache sous un clapet de ce panneau."
+  },
+  "e0bc_question": {
+   "fichier": "media/voix/fr/e0bc_question.mp3",
+   "duree": 5.3,
+   "texte": "D'après ce clapet, de quelle couleur sont les trois bandes de leur blason ?"
+  },
+  "e0bc_indice1": {
+   "fichier": "media/voix/fr/e0bc_indice1.mp3",
+   "duree": 5.0,
+   "texte": "Sinople est le nom de cette couleur dans la langue des blasons."
+  },
+  "e0bc_apres": {
+   "fichier": "media/voix/fr/e0bc_apres.mp3",
+   "duree": 12.1,
+   "texte": "Vert, sinople. C'est le blason des Salignac, seigneurs d'ici quand j'y suis arrivé. Ils ont gardé mon secret… mais je l'ai dispersé dans le village. Suivez-moi."
+  },
+  "e0bg_recit": {
+   "fichier": "media/voix/fr/e0bg_recit.mp3",
+   "duree": 10.6,
+   "texte": "Des seigneurs d'ici m'ont caché quand le roi traquait mes frères. Leur blason est sous un clapet de ce panneau : lisez-le comme un héraut."
+  },
+  "e0bg_question": {
+   "fichier": "media/voix/fr/e0bg_question.mp3",
+   "duree": 4.6,
+   "texte": "D'après ce clapet, de quel métal est le fond de leur blason ?"
+  },
+  "e0bg_indice1": {
+   "fichier": "media/voix/fr/e0bg_indice1.mp3",
+   "duree": 5.9,
+   "texte": "En héraldique, il n'y a que deux métaux : l'un est jaune, l'autre blanc."
+  },
+  "e0bg_apres": {
+   "fichier": "media/voix/fr/e0bg_apres.mp3",
+   "duree": 11.5,
+   "texte": "D'or. Le blason des Salignac, seigneurs d'ici quand j'y suis arrivé. Ils ont gardé mon secret… mais je l'ai dispersé dans le village. Suivez-moi."
+  },
+  "d1c_recit": {
+   "fichier": "media/voix/fr/d1c_recit.mp3",
+   "duree": 6.3,
+   "texte": "Un curé est revenu de la guerre pour prendre ce village en main. Il y est resté plus de trente ans."
+  },
+  "d1c_question": {
+   "fichier": "media/voix/fr/d1c_question.mp3",
+   "duree": 6.1,
+   "texte": "En quelle année l'abbé Delprat devint-il curé de Saint-Geniès ? (en chiffres)"
+  },
+  "d1c_indice1": {
+   "fichier": "media/voix/fr/d1c_indice1.mp3",
+   "duree": 2.7,
+   "texte": "C'est l'année de la fin de la guerre."
+  },
+  "d1c_apres": {
+   "fichier": "media/voix/fr/d1c_apres.mp3",
+   "duree": 4.9,
+   "texte": "Juste. Il le resta jusqu'à sa mort, en soixante-dix-huit."
+  },
+  "d1g_recit": {
+   "fichier": "media/voix/fr/d1g_recit.mp3",
+   "duree": 8.7,
+   "texte": "L'association de l'abbé n'est pas née de rien : avant lui, des villageois chantaient déjà sous le vitrail."
+  },
+  "d1g_question": {
+   "fichier": "media/voix/fr/d1g_question.mp3",
+   "duree": 5.1,
+   "texte": "En quelle année furent créés la fanfare et le chœur d'origine ? (en chiffres)"
+  },
+  "d1g_indice1": {
+   "fichier": "media/voix/fr/d1g_indice1.mp3",
+   "duree": 3.2,
+   "texte": "C'est au début du vingtième siècle."
+  },
+  "d1g_apres": {
+   "fichier": "media/voix/fr/d1g_apres.mp3",
+   "duree": 6.2,
+   "texte": "Juste. Ils se nommèrent eux-mêmes société Saint-Roch, à cause du vitrail."
+  },
+  "d2c_recit": {
+   "fichier": "media/voix/fr/d2c_recit.mp3",
+   "duree": 8.0,
+   "texte": "La fanfare a grandi, grandi… jusqu'à défiler avec des dizaines de musiciens et de majorettes."
+  },
+  "d2c_question": {
+   "fichier": "media/voix/fr/d2c_question.mp3",
+   "duree": 5.1,
+   "texte": "Combien de majorettes l'association a-t-elle fini par compter ? (en chiffres)"
+  },
+  "d2c_indice1": {
+   "fichier": "media/voix/fr/d2c_indice1.mp3",
+   "duree": 3.6,
+   "texte": "Lisez le panneau « Un homme d'exception »."
+  },
+  "d2c_apres": {
+   "fichier": "media/voix/fr/d2c_apres.mp3",
+   "duree": 7.2,
+   "texte": "Quarante. Et je vous confie un chiffre : deux. Il prend la troisième place de mon code."
+  },
+  "d2g_recit": {
+   "fichier": "media/voix/fr/d2g_recit.mp3",
+   "duree": 9.9,
+   "texte": "Partis de rien, sans aucune expérience, les jeunes de l'abbé ont appris entre eux. À la fin, ils formaient une petite armée de musique."
+  },
+  "d2g_question": {
+   "fichier": "media/voix/fr/d2g_question.mp3",
+   "duree": 5.8,
+   "texte": "Combien de musiciens l'association a-t-elle fini par réunir ? (en chiffres)"
+  },
+  "d2g_indice1": {
+   "fichier": "media/voix/fr/d2g_indice1.mp3",
+   "duree": 3.6,
+   "texte": "Lisez le panneau « Un homme d'exception »."
+  },
+  "d2g_apres": {
+   "fichier": "media/voix/fr/d2g_apres.mp3",
+   "duree": 7.7,
+   "texte": "Soixante-dix. Et je vous confie un chiffre : deux. Il prend la troisième place de mon code."
+  },
+  "d3c_recit": {
+   "fichier": "media/voix/fr/d3c_recit.mp3",
+   "duree": 8.6,
+   "texte": "Avant d'être curé ici, l'abbé fut mobilisé, puis fait prisonnier. Mais où servait-il avant la guerre ?"
+  },
+  "d3c_question": {
+   "fichier": "media/voix/fr/d3c_question.mp3",
+   "duree": 5.0,
+   "texte": "Dans quelle ville était-il vicaire avant d'être mobilisé ?"
+  },
+  "d3c_indice1": {
+   "fichier": "media/voix/fr/d3c_indice1.mp3",
+   "duree": 4.5,
+   "texte": "Une ville du nord de la Dordogne, qui commence par TH."
+  },
+  "d3c_apres": {
+   "fichier": "media/voix/fr/d3c_apres.mp3",
+   "duree": 7.6,
+   "texte": "Thiviers. Il en revint avec une médaille militaire… et une idée fixe : réunir son village."
+  },
+  "d3g_recit": {
+   "fichier": "media/voix/fr/d3g_recit.mp3",
+   "duree": 7.7,
+   "texte": "L'œuvre de l'abbé lui a survécu : l'association vit encore, avec bien plus que des musiciens."
+  },
+  "d3g_question": {
+   "fichier": "media/voix/fr/d3g_question.mp3",
+   "duree": 5.6,
+   "texte": "Combien de membres l'association compte-t-elle encore, au moins ? (en chiffres)"
+  },
+  "d3g_indice1": {
+   "fichier": "media/voix/fr/d3g_indice1.mp3",
+   "duree": 4.2,
+   "texte": "Lisez le panneau « La réalisation des projets »."
+  },
+  "d3g_apres": {
+   "fichier": "media/voix/fr/d3g_apres.mp3",
+   "duree": 7.4,
+   "texte": "Plus de cent cinquante : fanfare, twirling, gym, chorale et danse. L'abbé aurait souri."
+  },
+  "m1c_recit": {
+   "fichier": "media/voix/fr/m1c_recit.mp3",
+   "duree": 8.4,
+   "texte": "Sous le toit du chevet, des têtes de pierre grimacent depuis le Moyen Âge. Les bâtisseurs leur donnaient un nom."
+  },
+  "m1c_question": {
+   "fichier": "media/voix/fr/m1c_question.mp3",
+   "duree": 5.6,
+   "texte": "Comment appelle-t-on ces pierres sculptées qui décorent la corniche du chevet ?"
+  },
+  "m1c_indice1": {
+   "fichier": "media/voix/fr/m1c_indice1.mp3",
+   "duree": 3.9,
+   "texte": "Le mot est sur le clapet « Une pierre multifonction »."
+  },
+  "m1c_apres": {
+   "fichier": "media/voix/fr/m1c_apres.mp3",
+   "duree": 12.6,
+   "texte": "Les modillons. Il y en a quatorze, et le treizième crie, la bouche grande ouverte. Il murmure un chiffre : trois. Il prend la deuxième place de mon code."
+  },
+  "m1g_recit": {
+   "fichier": "media/voix/fr/m1g_recit.mp3",
+   "duree": 11.0,
+   "texte": "Regardez les baies du chevet, et celles du mur du château en face. Les tailleurs de pierre les ont encadrées d'un motif végétal, signe du gothique."
+  },
+  "m1g_question": {
+   "fichier": "media/voix/fr/m1g_question.mp3",
+   "duree": 2.4,
+   "texte": "En forme de quelle plante sont ces motifs ?"
+  },
+  "m1g_indice1": {
+   "fichier": "media/voix/fr/m1g_indice1.mp3",
+   "duree": 5.7,
+   "texte": "Une petite plante à trois feuilles… parfois quatre, pour les chanceux."
+  },
+  "m1g_apres": {
+   "fichier": "media/voix/fr/m1g_apres.mp3",
+   "duree": 12.4,
+   "texte": "Le trèfle. Et sous le toit, le treizième modillon crie, la bouche grande ouverte. Il murmure un chiffre : trois. Il prend la deuxième place de mon code."
+  },
+  "m3c_recit": {
+   "fichier": "media/voix/fr/m3c_recit.mp3",
+   "duree": 7.6,
+   "texte": "Au-dessus du portail, une Vierge à l'Enfant veille sur le village. Un homme l'a offerte pour dire merci."
+  },
+  "m3c_question": {
+   "fichier": "media/voix/fr/m3c_question.mp3",
+   "duree": 4.7,
+   "texte": "Quel est le nom de famille du réfugié qui l'a offerte ?"
+  },
+  "m3c_indice1": {
+   "fichier": "media/voix/fr/m3c_indice1.mp3",
+   "duree": 6.1,
+   "texte": "Retournez lire le clapet de la statue de la Vierge, sur le grand panneau."
+  },
+  "m3c_apres": {
+   "fichier": "media/voix/fr/m3c_apres.mp3",
+   "duree": 8.6,
+   "texte": "Monsieur Poutriquet, réfugié alsacien. Saint-Geniès a toujours su accueillir ceux qui fuyaient… comme moi."
+  },
+  "m3g_recit": {
+   "fichier": "media/voix/fr/m3g_recit.mp3",
+   "duree": 9.8,
+   "texte": "Au-dessus du portail, une Vierge à l'Enfant veille. Elle est arrivée en des temps sombres, avec un homme qui fuyait la guerre."
+  },
+  "m3g_question": {
+   "fichier": "media/voix/fr/m3g_question.mp3",
+   "duree": 5.8,
+   "texte": "En quelle année le réfugié fut-il accueilli par les villageois ? (en chiffres)"
+  },
+  "m3g_indice1": {
+   "fichier": "media/voix/fr/m3g_indice1.mp3",
+   "duree": 4.5,
+   "texte": "Le clapet de la Vierge, sur le grand panneau, vous le dira."
+  },
+  "m3g_apres": {
+   "fichier": "media/voix/fr/m3g_apres.mp3",
+   "duree": 6.5,
+   "texte": "Juste. Saint-Geniès a toujours su accueillir ceux qui fuyaient… comme moi."
+  },
+  "f1c_recit": {
+   "fichier": "media/voix/fr/f1c_recit.mp3",
+   "duree": 7.7,
+   "texte": "Les premières maîtresses de ce village portaient le voile. Puis la République est passée par là."
+  },
+  "f1c_question": {
+   "fichier": "media/voix/fr/f1c_question.mp3",
+   "duree": 4.8,
+   "texte": "En quelle année l'école des filles fut-elle laïcisée ? (en chiffres)"
+  },
+  "f1c_indice1": {
+   "fichier": "media/voix/fr/f1c_indice1.mp3",
+   "duree": 2.1,
+   "texte": "Tout au début du vingtième siècle."
+  },
+  "f1c_apres": {
+   "fichier": "media/voix/fr/f1c_apres.mp3",
+   "duree": 7.5,
+   "texte": "Juste. Mais il fallut encore attendre plus de vingt ans une vraie école publique pour les filles."
+  },
+  "f1g_recit": {
+   "fichier": "media/voix/fr/f1g_recit.mp3",
+   "duree": 8.6,
+   "texte": "Filles d'un côté, garçons de l'autre : il a fallu une guerre pour que tout le monde s'assoie dans la même classe."
+  },
+  "f1g_question": {
+   "fichier": "media/voix/fr/f1g_question.mp3",
+   "duree": 6.0,
+   "texte": "En quelle année la mixité fut-elle proposée à l'école de Saint-Geniès ? (en chiffres)"
+  },
+  "f1g_indice1": {
+   "fichier": "media/voix/fr/f1g_indice1.mp3",
+   "duree": 3.3,
+   "texte": "Pendant la Seconde Guerre mondiale."
+  },
+  "f1g_apres": {
+   "fichier": "media/voix/fr/f1g_apres.mp3",
+   "duree": 5.3,
+   "texte": "Juste. Dans les bâtiments que vous voyez, de part et d'autre de la rue."
+  },
+  "f2c_recit": {
+   "fichier": "media/voix/fr/f2c_recit.mp3",
+   "duree": 7.5,
+   "texte": "Autrefois, chaque élève venait avec son panier-repas. Puis le village a ouvert une cantine."
+  },
+  "f2c_question": {
+   "fichier": "media/voix/fr/f2c_question.mp3",
+   "duree": 4.8,
+   "texte": "En quelle année la cantine scolaire fut-elle créée ? (en chiffres)"
+  },
+  "f2c_indice1": {
+   "fichier": "media/voix/fr/f2c_indice1.mp3",
+   "duree": 2.2,
+   "texte": "À la fin des années cinquante."
+  },
+  "f2c_apres": {
+   "fichier": "media/voix/fr/f2c_apres.mp3",
+   "duree": 10.5,
+   "texte": "Juste. Et le chemin qui séparait garçons et filles mesurait sept mètres. Retenez ce sept : c'est le dernier chiffre de mon code."
+  },
+  "f2g_recit": {
+   "fichier": "media/voix/fr/f2g_recit.mp3",
+   "duree": 8.3,
+   "texte": "En mille neuf cent trois, le maire se plaignait : la commune payait déjà deux loyers pour l'école des filles."
+  },
+  "f2g_question": {
+   "fichier": "media/voix/fr/f2g_question.mp3",
+   "duree": 4.3,
+   "texte": "Combien de francs coûtaient ces deux loyers ? (en chiffres)"
+  },
+  "f2g_indice1": {
+   "fichier": "media/voix/fr/f2g_indice1.mp3",
+   "duree": 3.2,
+   "texte": "Lisez le rapport du conseil municipal."
+  },
+  "f2g_apres": {
+   "fichier": "media/voix/fr/f2g_apres.mp3",
+   "duree": 12.0,
+   "texte": "Trois cent cinquante francs. Et le chemin qui séparait garçons et filles mesurait sept mètres. Retenez ce sept : c'est le dernier chiffre de mon code."
+  },
+  "f3c_recit": {
+   "fichier": "media/voix/fr/f3c_recit.mp3",
+   "duree": 11.3,
+   "texte": "En mille neuf cent trois, le maire voulait remplacer un instituteur. Pas parce qu'il était mauvais : l'école était trop petite pour sa famille."
+  },
+  "f3c_question": {
+   "fichier": "media/voix/fr/f3c_question.mp3",
+   "duree": 3.2,
+   "texte": "Comment s'appelait cet « excellent instituteur » ?"
+  },
+  "f3c_indice1": {
+   "fichier": "media/voix/fr/f3c_indice1.mp3",
+   "duree": 2.8,
+   "texte": "Lisez le rapport du conseil municipal."
+  },
+  "f3c_apres": {
+   "fichier": "media/voix/fr/f3c_apres.mp3",
+   "duree": 12.1,
+   "texte": "Monsieur Lacoste. On demanda au préfet un instituteur célibataire… Les écolières, elles, jouaient autour de la chapelle du Cheylard. Retenez ce nom."
+  },
+  "f3g_recit": {
+   "fichier": "media/voix/fr/f3g_recit.mp3",
+   "duree": 8.7,
+   "texte": "En mille neuf cent trois, l'école des garçons était trop petite pour loger deux ménages. Le maire avait une solution bien à lui."
+  },
+  "f3g_question": {
+   "fichier": "media/voix/fr/f3g_question.mp3",
+   "duree": 5.4,
+   "texte": "Quel genre d'instituteur le maire voulait-il qu'on nomme ? (un mot)"
+  },
+  "f3g_indice1": {
+   "fichier": "media/voix/fr/f3g_indice1.mp3",
+   "duree": 3.1,
+   "texte": "Pas de ménage : il devait vivre seul."
+  },
+  "f3g_apres": {
+   "fichier": "media/voix/fr/f3g_apres.mp3",
+   "duree": 10.6,
+   "texte": "Célibataire. Les écolières, elles, jouaient autour de la chapelle du Cheylard. Retenez ce nom : c'est là que tout se termine."
+  },
+  "c1c_recit": {
+   "fichier": "media/voix/fr/c1c_recit.mp3",
+   "duree": 8.6,
+   "texte": "Ce château a été agrandi au fil des siècles. Ses tours desservent les étages par un superbe escalier."
+  },
+  "c1c_question": {
+   "fichier": "media/voix/fr/c1c_question.mp3",
+   "duree": 3.9,
+   "texte": "Combien de niveaux les tours desservent-elles ? (en chiffres)"
+  },
+  "c1c_indice1": {
+   "fichier": "media/voix/fr/c1c_indice1.mp3",
+   "duree": 2.4,
+   "texte": "Lisez le point numéro deux du panneau."
+  },
+  "c1c_apres": {
+   "fichier": "media/voix/fr/c1c_apres.mp3",
+   "duree": 6.3,
+   "texte": "Quatre niveaux, et un escalier à vis. Les seigneurs aimaient monter haut."
+  },
+  "c1g_recit": {
+   "fichier": "media/voix/fr/c1g_recit.mp3",
+   "duree": 7.3,
+   "texte": "Deux maisons de chevaliers, que j'ai connues, furent un jour réunies par un nouveau bâtiment."
+  },
+  "c1g_question": {
+   "fichier": "media/voix/fr/c1g_question.mp3",
+   "duree": 6.3,
+   "texte": "De quel siècle date le bâtiment qui relie les deux maisons ? (en chiffres)"
+  },
+  "c1g_indice1": {
+   "fichier": "media/voix/fr/c1g_indice1.mp3",
+   "duree": 2.4,
+   "texte": "Lisez le point numéro un du panneau."
+  },
+  "c1g_apres": {
+   "fichier": "media/voix/fr/c1g_apres.mp3",
+   "duree": 7.8,
+   "texte": "Le seizième siècle, après la destruction du château d'en haut. Les Gontaud avaient besoin d'une nouvelle demeure."
+  },
+  "c2c_recit": {
+   "fichier": "media/voix/fr/c2c_recit.mp3",
+   "duree": 8.4,
+   "texte": "Avant les familles seigneuriales, le village avait déjà son propre blason. Faites tourner le disque du panneau."
+  },
+  "c2c_question": {
+   "fichier": "media/voix/fr/c2c_question.mp3",
+   "duree": 6.2,
+   "texte": "Quel animal figurait sur le blason de Saint-Geniès avant l'arrivée des Salignac ?"
+  },
+  "c2c_indice1": {
+   "fichier": "media/voix/fr/c2c_indice1.mp3",
+   "duree": 3.4,
+   "texte": "Un roi des animaux, en or sur fond bleu."
+  },
+  "c2c_apres": {
+   "fichier": "media/voix/fr/c2c_apres.mp3",
+   "duree": 5.9,
+   "texte": "Un lion d'or sur fond d'azur. Le lion veillait sur le village bien avant moi."
+  },
+  "c2g_recit": {
+   "fichier": "media/voix/fr/c2g_recit.mp3",
+   "duree": 9.7,
+   "texte": "Les derniers seigneurs du village portaient trois écureuils d'or sur leur blason. Ils ont vécu ici jusqu'au siècle dernier."
+  },
+  "c2g_question": {
+   "fichier": "media/voix/fr/c2g_question.mp3",
+   "duree": 4.6,
+   "texte": "Jusqu'en quelle année ont-ils habité le château ? (en chiffres)"
+  },
+  "c2g_indice1": {
+   "fichier": "media/voix/fr/c2g_indice1.mp3",
+   "duree": 3.6,
+   "texte": "Cherchez la famille numéro un du disque."
+  },
+  "c2g_apres": {
+   "fichier": "media/voix/fr/c2g_apres.mp3",
+   "duree": 3.6,
+   "texte": "Juste. Près de deux siècles dans ces murs."
+  },
+  "c3c_recit": {
+   "fichier": "media/voix/fr/c3c_recit.mp3",
+   "duree": 5.2,
+   "texte": "Regardez bien les tours du château : elles ne se ressemblent pas. L'une est carrée."
+  },
+  "c3c_question": {
+   "fichier": "media/voix/fr/c3c_question.mp3",
+   "duree": 2.5,
+   "texte": "Quelle est la forme de l'autre tour ?"
+  },
+  "c3c_indice1": {
+   "fichier": "media/voix/fr/c3c_indice1.mp3",
+   "duree": 2.6,
+   "texte": "Ni ronde, ni carrée : allongée."
+  },
+  "c3c_apres": {
+   "fichier": "media/voix/fr/c3c_apres.mp3",
+   "duree": 8.3,
+   "texte": "Ovale. Les pierres se cachent, mais ne mentent pas. Continuez : mon secret vous attend ailleurs."
+  },
+  "c3g_recit": {
+   "fichier": "media/voix/fr/c3g_recit.mp3",
+   "duree": 7.9,
+   "texte": "Dans les tours, on monte en tournant autour d'un axe de pierre, comme une coquille d'escargot."
+  },
+  "c3g_question": {
+   "fichier": "media/voix/fr/c3g_question.mp3",
+   "duree": 4.8,
+   "texte": "Quel type d'escalier dessert les étages ? (escalier à …)"
+  },
+  "c3g_indice1": {
+   "fichier": "media/voix/fr/c3g_indice1.mp3",
+   "duree": 4.2,
+   "texte": "Comme l'objet que l'on tourne avec un tournevis."
+  },
+  "c3g_apres": {
+   "fichier": "media/voix/fr/c3g_apres.mp3",
+   "duree": 7.7,
+   "texte": "À vis. Les pierres se cachent, mais ne mentent pas. Continuez : mon secret vous attend ailleurs."
+  },
+  "l1c_recit": {
+   "fichier": "media/voix/fr/l1c_recit.mp3",
+   "duree": 6.5,
+   "texte": "Un toit de pierre ne craint ni la foudre ni le vent. Il traverse les générations."
+  },
+  "l1c_question": {
+   "fichier": "media/voix/fr/l1c_question.mp3",
+   "duree": 5.6,
+   "texte": "Combien d'années un toit de lauze peut-il durer, au maximum ? (en chiffres)"
+  },
+  "l1c_indice1": {
+   "fichier": "media/voix/fr/l1c_indice1.mp3",
+   "duree": 3.1,
+   "texte": "Lisez le point numéro un du panneau."
+  },
+  "l1c_apres": {
+   "fichier": "media/voix/fr/l1c_apres.mp3",
+   "duree": 4.2,
+   "texte": "Deux cents ans. Plus que la vie de six générations."
+  },
+  "l1g_recit": {
+   "fichier": "media/voix/fr/l1g_recit.mp3",
+   "duree": 5.4,
+   "texte": "Quand on la sort de terre, la lauze est ocre. Le temps la change vite."
+  },
+  "l1g_question": {
+   "fichier": "media/voix/fr/l1g_question.mp3",
+   "duree": 4.7,
+   "texte": "Au bout de combien d'années la lauze devient-elle grise ? (en chiffres)"
+  },
+  "l1g_indice1": {
+   "fichier": "media/voix/fr/l1g_indice1.mp3",
+   "duree": 3.3,
+   "texte": "Lisez le point numéro un du panneau."
+  },
+  "l1g_apres": {
+   "fichier": "media/voix/fr/l1g_apres.mp3",
+   "duree": 3.7,
+   "texte": "Deux ans. Gris métallisé, comme une armure."
+  },
+  "l2c_recit": {
+   "fichier": "media/voix/fr/l2c_recit.mp3",
+   "duree": 7.5,
+   "texte": "Poser un toit de lauze est un travail de patience. Un maître lauzier n'avance pas vite."
+  },
+  "l2c_question": {
+   "fichier": "media/voix/fr/l2c_question.mp3",
+   "duree": 6.1,
+   "texte": "Combien de mètres carrés un lauzier pose-t-il environ par jour ? (en chiffres)"
+  },
+  "l2c_indice1": {
+   "fichier": "media/voix/fr/l2c_indice1.mp3",
+   "duree": 2.7,
+   "texte": "Lisez le point numéro deux du panneau."
+  },
+  "l2c_apres": {
+   "fichier": "media/voix/fr/l2c_apres.mp3",
+   "duree": 5.1,
+   "texte": "Un seul mètre carré par jour. Imaginez le toit de l'église…"
+  },
+  "l2g_recit": {
+   "fichier": "media/voix/fr/l2g_recit.mp3",
+   "duree": 8.8,
+   "texte": "Les premières lauzes posées, tout en bas du toit, dépassent du mur. Elles ont un rôle bien précis : guider la pluie."
+  },
+  "l2g_question": {
+   "fichier": "media/voix/fr/l2g_question.mp3",
+   "duree": 3.3,
+   "texte": "Comment appelle-t-on ces lauzes qui servent de gouttière ?"
+  },
+  "l2g_indice1": {
+   "fichier": "media/voix/fr/l2g_indice1.mp3",
+   "duree": 3.7,
+   "texte": "Soulevez le clapet de la pose définitive."
+  },
+  "l2g_apres": {
+   "fichier": "media/voix/fr/l2g_apres.mp3",
+   "duree": 4.6,
+   "texte": "Les rondières. Elles dépassent d'environ vingt centimètres."
+  },
+  "l3c_recit": {
+   "fichier": "media/voix/fr/l3c_recit.mp3",
+   "duree": 7.3,
+   "texte": "Sous les lauzes, il faut une charpente solide, d'un bois que les insectes détestent et qui ne pourrit pas."
+  },
+  "l3c_question": {
+   "fichier": "media/voix/fr/l3c_question.mp3",
+   "duree": 2.8,
+   "texte": "En quel bois étaient autrefois les charpentes ?"
+  },
+  "l3c_indice1": {
+   "fichier": "media/voix/fr/l3c_indice1.mp3",
+   "duree": 2.4,
+   "texte": "L'arbre qui donne les châtaignes."
+  },
+  "l3c_apres": {
+   "fichier": "media/voix/fr/l3c_apres.mp3",
+   "duree": 11.9,
+   "texte": "Le châtaignier. Aujourd'hui, on prend du chêne. Avant de partir, faites-vous une photo dans le grand cadre : le château et l'église vous regardent."
+  },
+  "l3g_recit": {
+   "fichier": "media/voix/fr/l3g_recit.mp3",
+   "duree": 6.0,
+   "texte": "Dans une charpente de lauze, pas un clou : tout tient avec des chevilles de bois."
+  },
+  "l3g_question": {
+   "fichier": "media/voix/fr/l3g_question.mp3",
+   "duree": 2.0,
+   "texte": "En quel bois sont ces chevilles ?"
+  },
+  "l3g_indice1": {
+   "fichier": "media/voix/fr/l3g_indice1.mp3",
+   "duree": 2.8,
+   "texte": "Lisez le point numéro trois du panneau."
+  },
+  "l3g_apres": {
+   "fichier": "media/voix/fr/l3g_apres.mp3",
+   "duree": 9.0,
+   "texte": "L'acacia. Avant de partir, faites-vous une photo dans le grand cadre : le château et l'église vous regardent."
+  },
+  "kc1_trouver": {
+   "fichier": "media/voix/fr/kc1_trouver.mp3",
+   "duree": 8.3,
+   "texte": "Montez au plus haut du bourg. Sur son rocher, la maison des morts des seigneurs garde mon secret."
+  },
+  "kc1_recit": {
+   "fichier": "media/voix/fr/kc1_recit.mp3",
+   "duree": 11.6,
+   "texte": "Cette chapelle fut bâtie après ma fuite, pour les seigneurs d'ici. Sur ses murs, on a peint un chevalier que nous, Templiers, connaissions bien."
+  },
+  "kc1_question": {
+   "fichier": "media/voix/fr/kc1_question.mp3",
+   "duree": 4.7,
+   "texte": "Sur le disque du panneau, quel saint à cheval terrasse le dragon ?"
+  },
+  "kc1_apres": {
+   "fichier": "media/voix/fr/kc1_apres.mp3",
+   "duree": 8.6,
+   "texte": "Saint Georges. On dit qu'il prit la tête des croisés devant Jérusalem. Il n'est pas sur ces murs par hasard."
+  },
+  "kc1_indice1": {
+   "fichier": "media/voix/fr/kc1_indice1.mp3",
+   "duree": 4.6,
+   "texte": "Il serait apparu aux croisés, au siège de Jérusalem."
+  },
+  "kc2_recit": {
+   "fichier": "media/voix/fr/kc2_recit.mp3",
+   "duree": 10.1,
+   "texte": "Regardez l'entrée de la chapelle, sans y entrer : un petit toit la protège. Il est tout neuf, mais fidèle aux plans anciens."
+  },
+  "kc2_question": {
+   "fichier": "media/voix/fr/kc2_question.mp3",
+   "duree": 5.6,
+   "texte": "En quelle année l'auvent de l'entrée a-t-il été reconstruit ? (en chiffres)"
+  },
+  "kc2_apres": {
+   "fichier": "media/voix/fr/kc2_apres.mp3",
+   "duree": 9.6,
+   "texte": "Deux mille quatorze. On répare encore ce que j'ai connu. Maintenant, rassemblez vos chiffres : mon secret est ici."
+  },
+  "kc2_indice1": {
+   "fichier": "media/voix/fr/kc2_indice1.mp3",
+   "duree": 3.5,
+   "texte": "Lisez le point numéro cinq du panneau."
   }
  },
  "en": {
@@ -1724,18 +2544,18 @@
   },
   "x1_question": {
    "fichier": "media/voix/en/x1_question.mp3",
-   "duree": 8.9,
-   "texte": "How many years separate the train's arrival in Saint-Geniès and the dead leaving the village? (in digits)"
+   "duree": 9.2,
+   "texte": "How many years separate the village's application for a station and the dead leaving the village? (in digits)"
   },
   "x1_indice1": {
    "fichier": "media/voix/en/x1_indice1.mp3",
-   "duree": 6.1,
-   "texte": "Take two answers you already found: the train one and the graveyard one."
+   "duree": 7.8,
+   "texte": "Take two answers you already found: the station one, at the wash-house, and the graveyard one."
   },
   "x1_apres": {
    "fichier": "media/voix/en/x1_apres.mp3",
-   "duree": 5.8,
-   "texte": "Ten years. You have a good memory. You will need it for the last trial."
+   "duree": 10.1,
+   "texte": "Twenty-seven years. As many as Father Delprat's young musicians. You have a good memory: you will need it for the last trial."
   },
   "z1_recit": {
    "fichier": "media/voix/en/z1_recit.mp3",
@@ -1761,6 +2581,826 @@
    "fichier": "media/voix/en/final_texte.mp3",
    "duree": 22.8,
    "texte": "1327! You have broken the first seal. My secret was never asleep in a chest: it lives in this village, in its stones and in those who can read them. From now on, you are among them. Engrave your names on the Order's parchment… and come back: other seals await you."
+  },
+  "x1t_question": {
+   "fichier": "media/voix/en/x1t_question.mp3",
+   "duree": 8.9,
+   "texte": "How many years separate the train's arrival in Saint-Geniès and the dead leaving the village? (in digits)"
+  },
+  "x1t_indice1": {
+   "fichier": "media/voix/en/x1t_indice1.mp3",
+   "duree": 6.1,
+   "texte": "Take two answers you already found: the train one and the graveyard one."
+  },
+  "x1t_apres": {
+   "fichier": "media/voix/en/x1t_apres.mp3",
+   "duree": 5.8,
+   "texte": "Ten years. You have a good memory. You will need it for the last trial."
+  },
+  "p0c_recit": {
+   "fichier": "media/voix/en/p0c_recit.mp3",
+   "duree": 8.2,
+   "texte": "Knights, this sign shows the whole trail. Every place on it has a number, like the stages of a pilgrimage."
+  },
+  "p0c_question": {
+   "fichier": "media/voix/en/p0c_question.mp3",
+   "duree": 7.3,
+   "texte": "What number does the church of Notre-Dame-de-l'Assomption have on this sign? (in digits)"
+  },
+  "p0c_indice1": {
+   "fichier": "media/voix/en/p0c_indice1.mp3",
+   "duree": 4.1,
+   "texte": "Look for the church's name in the numbered list."
+  },
+  "p0c_apres": {
+   "fichier": "media/voix/en/p0c_apres.mp3",
+   "duree": 7.3,
+   "texte": "Eight. That is where I await you, up there. First go down to the wash-house, by the water."
+  },
+  "p0g_recit": {
+   "fichier": "media/voix/en/p0g_recit.mp3",
+   "duree": 8.6,
+   "texte": "Grand Masters, a Templar knows how to count before he fights. This sign numbers every place on the trail."
+  },
+  "p0g_question": {
+   "fichier": "media/voix/en/p0g_question.mp3",
+   "duree": 7.0,
+   "texte": "Add the number of the lauze and the number of the castle. What do you get? (in digits)"
+  },
+  "p0g_indice1": {
+   "fichier": "media/voix/en/p0g_indice1.mp3",
+   "duree": 5.2,
+   "texte": "The lauze and the castle come one after the other in the list."
+  },
+  "p0g_apres": {
+   "fichier": "media/voix/en/p0g_apres.mp3",
+   "duree": 4.6,
+   "texte": "Nineteen. Well counted. Now go down to the wash-house."
+  },
+  "p1c_recit": {
+   "fichier": "media/voix/en/p1c_recit.mp3",
+   "duree": 7.4,
+   "texte": "This river turned wheels long before machines. Along the water, millers ground the grain."
+  },
+  "p1c_question": {
+   "fichier": "media/voix/en/p1c_question.mp3",
+   "duree": 6.6,
+   "texte": "Lift the flaps: how many mills lined the Chironde and the Sireyjol? (in digits)"
+  },
+  "p1c_indice1": {
+   "fichier": "media/voix/en/p1c_indice1.mp3",
+   "duree": 3.2,
+   "texte": "Read the flap about the water mills."
+  },
+  "p1c_apres": {
+   "fichier": "media/voix/en/p1c_apres.mp3",
+   "duree": 7.1,
+   "texte": "Eleven mills, over seven kilometres. Now look at the railway sign, right next to it."
+  },
+  "p1g_recit": {
+   "fichier": "media/voix/en/p1g_recit.mp3",
+   "duree": 5.9,
+   "texte": "One of these mills did not only grind grain: it ended up melting iron."
+  },
+  "p1g_question": {
+   "fichier": "media/voix/en/p1g_question.mp3",
+   "duree": 7.1,
+   "texte": "In what year did the Moulin des Ans become a foundry with a blast furnace? (in digits)"
+  },
+  "p1g_indice1": {
+   "fichier": "media/voix/en/p1g_indice1.mp3",
+   "duree": 3.5,
+   "texte": "Look for the Ans forge in the mills flap."
+  },
+  "p1g_apres": {
+   "fichier": "media/voix/en/p1g_apres.mp3",
+   "duree": 7.9,
+   "texte": "Correct. Cast iron, iron ore and limestone flux. Now look at the railway sign, right next to it."
+  },
+  "p2c_recit": {
+   "fichier": "media/voix/en/p2c_recit.mp3",
+   "duree": 6.2,
+   "texte": "The station still exists, transformed. The sign tells you where to look."
+  },
+  "p2c_question": {
+   "fichier": "media/voix/en/p2c_question.mp3",
+   "duree": 6.2,
+   "texte": "How many metres in front of you are the old station buildings? (in digits)"
+  },
+  "p2c_indice1": {
+   "fichier": "media/voix/en/p2c_indice1.mp3",
+   "duree": 3.1,
+   "texte": "It is the last sentence of the sign."
+  },
+  "p2c_apres": {
+   "fichier": "media/voix/en/p2c_apres.mp3",
+   "duree": 3.6,
+   "texte": "Correct. And now, listen to me carefully…"
+  },
+  "p2g_recit": {
+   "fichier": "media/voix/en/p2g_recit.mp3",
+   "duree": 6.7,
+   "texte": "The village had to fight a long time to get its train. The battle began in the council chamber."
+  },
+  "p2g_question": {
+   "fichier": "media/voix/en/p2g_question.mp3",
+   "duree": 7.6,
+   "texte": "In what year did the town council apply for a station? Remember this year well. (in digits)"
+  },
+  "p2g_indice1": {
+   "fichier": "media/voix/en/p2g_indice1.mp3",
+   "duree": 5.3,
+   "texte": "The council stressed the fairs, the village and its location."
+  },
+  "p2g_apres": {
+   "fichier": "media/voix/en/p2g_apres.mp3",
+   "duree": 4.8,
+   "texte": "Correct. Keep it in mind. And now, listen to me carefully…"
+  },
+  "e0ac_recit": {
+   "fichier": "media/voix/en/e0ac_recit.mp3",
+   "duree": 9.1,
+   "texte": "This church suffered in the wars and was rebuilt piece by piece. Only one part remains as it was first built."
+  },
+  "e0ac_question": {
+   "fichier": "media/voix/en/e0ac_question.mp3",
+   "duree": 5.5,
+   "texte": "Which is the only Romanesque part of the church still standing?"
+  },
+  "e0ac_indice1": {
+   "fichier": "media/voix/en/e0ac_indice1.mp3",
+   "duree": 3.0,
+   "texte": "Read point number four on the sign."
+  },
+  "e0ac_apres": {
+   "fichier": "media/voix/en/e0ac_apres.mp3",
+   "duree": 13.0,
+   "texte": "The choir, with its semicircular windows. The church was born in the twelfth century: remember the first digit of that century, one. It is the first digit of my code."
+  },
+  "e0ag_recit": {
+   "fichier": "media/voix/en/e0ag_recit.mp3",
+   "duree": 7.8,
+   "texte": "On this plan, each period has its colour. Eight centuries of stone, layered like strata of earth."
+  },
+  "e0ag_question": {
+   "fichier": "media/voix/en/e0ag_question.mp3",
+   "duree": 5.4,
+   "texte": "How many different periods does the plan's key show? (in digits)"
+  },
+  "e0ag_indice1": {
+   "fichier": "media/voix/en/e0ag_indice1.mp3",
+   "duree": 3.4,
+   "texte": "Careful: one century may appear twice."
+  },
+  "e0ag_apres": {
+   "fichier": "media/voix/en/e0ag_apres.mp3",
+   "duree": 10.3,
+   "texte": "Six. But it all began in the twelfth century: remember the first digit of that century, one. It is the first digit of my code."
+  },
+  "e0bc_recit": {
+   "fichier": "media/voix/en/e0bc_recit.mp3",
+   "duree": 13.4,
+   "texte": "In thirteen hundred and seven, when the King had my brothers arrested, lords from here opened their door to me. Their coat of arms hides under a flap on this sign."
+  },
+  "e0bc_question": {
+   "fichier": "media/voix/en/e0bc_question.mp3",
+   "duree": 6.6,
+   "texte": "According to this flap, what colour are the three bands on their coat of arms?"
+  },
+  "e0bc_indice1": {
+   "fichier": "media/voix/en/e0bc_indice1.mp3",
+   "duree": 5.4,
+   "texte": "Sinople is the name of this colour in the language of heraldry."
+  },
+  "e0bc_apres": {
+   "fichier": "media/voix/en/e0bc_apres.mp3",
+   "duree": 13.1,
+   "texte": "Green, sinople. It is the coat of arms of the Salignac family, lords here when I arrived. They kept my secret… but I scattered it around the village. Follow me."
+  },
+  "e0bg_recit": {
+   "fichier": "media/voix/en/e0bg_recit.mp3",
+   "duree": 10.7,
+   "texte": "Lords from here hid me when the King was hunting my brothers. Their coat of arms is under a flap on this sign: read it like a herald."
+  },
+  "e0bg_question": {
+   "fichier": "media/voix/en/e0bg_question.mp3",
+   "duree": 6.3,
+   "texte": "According to this flap, what metal is the background of their coat of arms?"
+  },
+  "e0bg_indice1": {
+   "fichier": "media/voix/en/e0bg_indice1.mp3",
+   "duree": 5.9,
+   "texte": "In heraldry there are only two metals: one is yellow, the other white."
+  },
+  "e0bg_apres": {
+   "fichier": "media/voix/en/e0bg_apres.mp3",
+   "duree": 11.8,
+   "texte": "Gold. The coat of arms of the Salignac family, lords here when I arrived. They kept my secret… but I scattered it around the village. Follow me."
+  },
+  "d1c_recit": {
+   "fichier": "media/voix/en/d1c_recit.mp3",
+   "duree": 7.8,
+   "texte": "A priest came back from the war to take this village in hand. He stayed for more than thirty years."
+  },
+  "d1c_question": {
+   "fichier": "media/voix/en/d1c_question.mp3",
+   "duree": 6.9,
+   "texte": "In what year did Father Delprat become parish priest of Saint-Geniès? (in digits)"
+  },
+  "d1c_indice1": {
+   "fichier": "media/voix/en/d1c_indice1.mp3",
+   "duree": 2.5,
+   "texte": "It is the year the war ended."
+  },
+  "d1c_apres": {
+   "fichier": "media/voix/en/d1c_apres.mp3",
+   "duree": 5.0,
+   "texte": "Correct. He remained so until his death, in seventy-eight."
+  },
+  "d1g_recit": {
+   "fichier": "media/voix/en/d1g_recit.mp3",
+   "duree": 9.5,
+   "texte": "The priest's association did not come from nowhere: before him, villagers already sang beneath the stained-glass window."
+  },
+  "d1g_question": {
+   "fichier": "media/voix/en/d1g_question.mp3",
+   "duree": 5.6,
+   "texte": "In what year were the original band and choir founded? (in digits)"
+  },
+  "d1g_indice1": {
+   "fichier": "media/voix/en/d1g_indice1.mp3",
+   "duree": 3.8,
+   "texte": "It is at the start of the twentieth century."
+  },
+  "d1g_apres": {
+   "fichier": "media/voix/en/d1g_apres.mp3",
+   "duree": 6.7,
+   "texte": "Correct. They named themselves the Saint-Roch society, because of the window."
+  },
+  "d2c_recit": {
+   "fichier": "media/voix/en/d2c_recit.mp3",
+   "duree": 6.9,
+   "texte": "The band grew and grew… until it paraded with dozens of musicians and majorettes."
+  },
+  "d2c_question": {
+   "fichier": "media/voix/en/d2c_question.mp3",
+   "duree": 5.4,
+   "texte": "How many majorettes did the association end up with? (in digits)"
+  },
+  "d2c_indice1": {
+   "fichier": "media/voix/en/d2c_indice1.mp3",
+   "duree": 3.3,
+   "texte": "Read the 'Un homme d'exception' panel."
+  },
+  "d2c_apres": {
+   "fichier": "media/voix/en/d2c_apres.mp3",
+   "duree": 6.5,
+   "texte": "Forty. And I entrust you with a digit: two. It takes the third place in my code."
+  },
+  "d2g_recit": {
+   "fichier": "media/voix/en/d2g_recit.mp3",
+   "duree": 11.2,
+   "texte": "Starting from nothing, with no experience, the priest's young people taught each other. In the end, they formed a small army of music."
+  },
+  "d2g_question": {
+   "fichier": "media/voix/en/d2g_question.mp3",
+   "duree": 6.6,
+   "texte": "How many musicians did the association end up bringing together? (in digits)"
+  },
+  "d2g_indice1": {
+   "fichier": "media/voix/en/d2g_indice1.mp3",
+   "duree": 3.3,
+   "texte": "Read the 'Un homme d'exception' panel."
+  },
+  "d2g_apres": {
+   "fichier": "media/voix/en/d2g_apres.mp3",
+   "duree": 6.7,
+   "texte": "Seventy. And I entrust you with a digit: two. It takes the third place in my code."
+  },
+  "d3c_recit": {
+   "fichier": "media/voix/en/d3c_recit.mp3",
+   "duree": 9.1,
+   "texte": "Before he was priest here, the abbé was called up, then taken prisoner. But where did he serve before the war?"
+  },
+  "d3c_question": {
+   "fichier": "media/voix/en/d3c_question.mp3",
+   "duree": 4.5,
+   "texte": "In which town was he a curate before being called up?"
+  },
+  "d3c_indice1": {
+   "fichier": "media/voix/en/d3c_indice1.mp3",
+   "duree": 4.1,
+   "texte": "A town in northern Dordogne, beginning with TH."
+  },
+  "d3c_apres": {
+   "fichier": "media/voix/en/d3c_apres.mp3",
+   "duree": 8.0,
+   "texte": "Thiviers. He came back with a military medal… and one fixed idea: to bring his village together."
+  },
+  "d3g_recit": {
+   "fichier": "media/voix/en/d3g_recit.mp3",
+   "duree": 7.9,
+   "texte": "The priest's work outlived him: the association is still alive, with far more than musicians."
+  },
+  "d3g_question": {
+   "fichier": "media/voix/en/d3g_question.mp3",
+   "duree": 5.9,
+   "texte": "At least how many members does the association still have? (in digits)"
+  },
+  "d3g_indice1": {
+   "fichier": "media/voix/en/d3g_indice1.mp3",
+   "duree": 3.7,
+   "texte": "Read the 'La réalisation des projets' panel."
+  },
+  "d3g_apres": {
+   "fichier": "media/voix/en/d3g_apres.mp3",
+   "duree": 8.3,
+   "texte": "More than one hundred and fifty: band, twirling, gym, choir and dancing. The abbé would have smiled."
+  },
+  "m1c_recit": {
+   "fichier": "media/voix/en/m1c_recit.mp3",
+   "duree": 9.8,
+   "texte": "Under the roof of the chevet, stone heads have been grimacing since the Middle Ages. The builders had a name for them."
+  },
+  "m1c_question": {
+   "fichier": "media/voix/en/m1c_question.mp3",
+   "duree": 6.0,
+   "texte": "What are these carved stones decorating the chevet's cornice called?"
+  },
+  "m1c_indice1": {
+   "fichier": "media/voix/en/m1c_indice1.mp3",
+   "duree": 4.4,
+   "texte": "The word is on the 'Une pierre multifonction' flap."
+  },
+  "m1c_apres": {
+   "fichier": "media/voix/en/m1c_apres.mp3",
+   "duree": 11.4,
+   "texte": "Corbels. There are fourteen, and the thirteenth screams, mouth wide open. It whispers a digit: three. It takes the second place in my code."
+  },
+  "m1g_recit": {
+   "fichier": "media/voix/en/m1g_recit.mp3",
+   "duree": 12.3,
+   "texte": "Look at the windows of the chevet, and those in the castle wall opposite. The stonemasons framed them with a plant motif, a sign of the Gothic style."
+  },
+  "m1g_question": {
+   "fichier": "media/voix/en/m1g_question.mp3",
+   "duree": 3.6,
+   "texte": "What plant are these motifs shaped like?"
+  },
+  "m1g_indice1": {
+   "fichier": "media/voix/en/m1g_indice1.mp3",
+   "duree": 5.0,
+   "texte": "A small three-leaved plant… sometimes four, for the lucky."
+  },
+  "m1g_apres": {
+   "fichier": "media/voix/en/m1g_apres.mp3",
+   "duree": 11.6,
+   "texte": "Clover. And under the roof, the thirteenth corbel screams, mouth wide open. It whispers a digit: three. It takes the second place in my code."
+  },
+  "m3c_recit": {
+   "fichier": "media/voix/en/m3c_recit.mp3",
+   "duree": 7.8,
+   "texte": "Above the doorway, a Virgin and Child watches over the village. A man gave it to say thank you."
+  },
+  "m3c_question": {
+   "fichier": "media/voix/en/m3c_question.mp3",
+   "duree": 4.0,
+   "texte": "What is the surname of the refugee who gave it?"
+  },
+  "m3c_indice1": {
+   "fichier": "media/voix/en/m3c_indice1.mp3",
+   "duree": 4.2,
+   "texte": "Go back and read the Virgin statue flap on the big sign."
+  },
+  "m3c_apres": {
+   "fichier": "media/voix/en/m3c_apres.mp3",
+   "duree": 8.0,
+   "texte": "Mr Poutriquet, a refugee from Alsace. Saint-Geniès has always welcomed those who fled… like me."
+  },
+  "m3g_recit": {
+   "fichier": "media/voix/en/m3g_recit.mp3",
+   "duree": 8.7,
+   "texte": "Above the doorway, a Virgin and Child keeps watch. She arrived in dark times, with a man fleeing the war."
+  },
+  "m3g_question": {
+   "fichier": "media/voix/en/m3g_question.mp3",
+   "duree": 5.6,
+   "texte": "In what year was the refugee taken in by the villagers? (in digits)"
+  },
+  "m3g_indice1": {
+   "fichier": "media/voix/en/m3g_indice1.mp3",
+   "duree": 3.8,
+   "texte": "The Virgin flap on the big sign will tell you."
+  },
+  "m3g_apres": {
+   "fichier": "media/voix/en/m3g_apres.mp3",
+   "duree": 5.7,
+   "texte": "Correct. Saint-Geniès has always welcomed those who fled… like me."
+  },
+  "f1c_recit": {
+   "fichier": "media/voix/en/f1c_recit.mp3",
+   "duree": 6.1,
+   "texte": "The village's first schoolmistresses wore the veil. Then the Republic came along."
+  },
+  "f1c_question": {
+   "fichier": "media/voix/en/f1c_question.mp3",
+   "duree": 5.2,
+   "texte": "In what year did the girls' school become secular? (in digits)"
+  },
+  "f1c_indice1": {
+   "fichier": "media/voix/en/f1c_indice1.mp3",
+   "duree": 3.8,
+   "texte": "At the very start of the twentieth century."
+  },
+  "f1c_apres": {
+   "fichier": "media/voix/en/f1c_apres.mp3",
+   "duree": 7.0,
+   "texte": "Correct. But a proper state school for girls was still more than twenty years away."
+  },
+  "f1g_recit": {
+   "fichier": "media/voix/en/f1g_recit.mp3",
+   "duree": 7.7,
+   "texte": "Girls on one side, boys on the other: it took a war for everyone to sit in the same classroom."
+  },
+  "f1g_question": {
+   "fichier": "media/voix/en/f1g_question.mp3",
+   "duree": 6.0,
+   "texte": "In what year was mixed schooling proposed in Saint-Geniès? (in digits)"
+  },
+  "f1g_indice1": {
+   "fichier": "media/voix/en/f1g_indice1.mp3",
+   "duree": 2.5,
+   "texte": "During the Second World War."
+  },
+  "f1g_apres": {
+   "fichier": "media/voix/en/f1g_apres.mp3",
+   "duree": 5.7,
+   "texte": "Correct. In the buildings you can see, on either side of the street."
+  },
+  "f2c_recit": {
+   "fichier": "media/voix/en/f2c_recit.mp3",
+   "duree": 7.3,
+   "texte": "In the old days, each pupil came with a packed lunch. Then the village opened a canteen."
+  },
+  "f2c_question": {
+   "fichier": "media/voix/en/f2c_question.mp3",
+   "duree": 4.7,
+   "texte": "In what year was the school canteen created? (in digits)"
+  },
+  "f2c_indice1": {
+   "fichier": "media/voix/en/f2c_indice1.mp3",
+   "duree": 2.4,
+   "texte": "At the end of the fifties."
+  },
+  "f2c_apres": {
+   "fichier": "media/voix/en/f2c_apres.mp3",
+   "duree": 10.6,
+   "texte": "Correct. And the path that separated boys and girls was seven metres wide. Remember this seven: it is the last digit of my code."
+  },
+  "f2g_recit": {
+   "fichier": "media/voix/en/f2g_recit.mp3",
+   "duree": 9.0,
+   "texte": "In nineteen hundred and three, the mayor complained: the town was already paying two rents for the girls' school."
+  },
+  "f2g_question": {
+   "fichier": "media/voix/en/f2g_question.mp3",
+   "duree": 4.5,
+   "texte": "How many francs did these two rents cost? (in digits)"
+  },
+  "f2g_indice1": {
+   "fichier": "media/voix/en/f2g_indice1.mp3",
+   "duree": 2.7,
+   "texte": "Read the town council report."
+  },
+  "f2g_apres": {
+   "fichier": "media/voix/en/f2g_apres.mp3",
+   "duree": 11.7,
+   "texte": "Three hundred and fifty francs. And the path that separated boys and girls was seven metres wide. Remember this seven: it is the last digit of my code."
+  },
+  "f3c_recit": {
+   "fichier": "media/voix/en/f3c_recit.mp3",
+   "duree": 10.4,
+   "texte": "In nineteen hundred and three, the mayor wanted to replace a teacher. Not because he was bad: the school was too small for his family."
+  },
+  "f3c_question": {
+   "fichier": "media/voix/en/f3c_question.mp3",
+   "duree": 4.0,
+   "texte": "What was the name of this 'excellent teacher'?"
+  },
+  "f3c_indice1": {
+   "fichier": "media/voix/en/f3c_indice1.mp3",
+   "duree": 2.7,
+   "texte": "Read the town council report."
+  },
+  "f3c_apres": {
+   "fichier": "media/voix/en/f3c_apres.mp3",
+   "duree": 10.5,
+   "texte": "Mr Lacoste. They asked the prefect for a single teacher… The schoolgirls played around the Cheylard chapel. Remember that name."
+  },
+  "f3g_recit": {
+   "fichier": "media/voix/en/f3g_recit.mp3",
+   "duree": 9.2,
+   "texte": "In nineteen hundred and three, the boys' school was too small to house two households. The mayor had his own solution."
+  },
+  "f3g_question": {
+   "fichier": "media/voix/en/f3g_question.mp3",
+   "duree": 5.2,
+   "texte": "What kind of teacher did the mayor want appointed? (one word)"
+  },
+  "f3g_indice1": {
+   "fichier": "media/voix/en/f3g_indice1.mp3",
+   "duree": 3.0,
+   "texte": "No household: he had to live alone."
+  },
+  "f3g_apres": {
+   "fichier": "media/voix/en/f3g_apres.mp3",
+   "duree": 8.9,
+   "texte": "Single. The schoolgirls played around the Cheylard chapel. Remember that name: that is where it all ends."
+  },
+  "c1c_recit": {
+   "fichier": "media/voix/en/c1c_recit.mp3",
+   "duree": 8.3,
+   "texte": "This castle was enlarged over the centuries. Its towers serve the floors with a superb staircase."
+  },
+  "c1c_question": {
+   "fichier": "media/voix/en/c1c_question.mp3",
+   "duree": 4.1,
+   "texte": "How many levels do the towers serve? (in digits)"
+  },
+  "c1c_indice1": {
+   "fichier": "media/voix/en/c1c_indice1.mp3",
+   "duree": 2.9,
+   "texte": "Read point number two on the sign."
+  },
+  "c1c_apres": {
+   "fichier": "media/voix/en/c1c_apres.mp3",
+   "duree": 5.7,
+   "texte": "Four levels, and a spiral staircase. The lords liked to climb high."
+  },
+  "c1g_recit": {
+   "fichier": "media/voix/en/c1g_recit.mp3",
+   "duree": 6.0,
+   "texte": "Two knights' houses, which I knew, were one day joined by a new building."
+  },
+  "c1g_question": {
+   "fichier": "media/voix/en/c1g_question.mp3",
+   "duree": 5.9,
+   "texte": "Which century does the building joining the two houses date from? (in digits)"
+  },
+  "c1g_indice1": {
+   "fichier": "media/voix/en/c1g_indice1.mp3",
+   "duree": 3.0,
+   "texte": "Read point number one on the sign."
+  },
+  "c1g_apres": {
+   "fichier": "media/voix/en/c1g_apres.mp3",
+   "duree": 6.6,
+   "texte": "The sixteenth century, after the upper castle was destroyed. The Gontaud family needed a new home."
+  },
+  "c2c_recit": {
+   "fichier": "media/voix/en/c2c_recit.mp3",
+   "duree": 8.3,
+   "texte": "Before the lordly families, the village already had its own coat of arms. Turn the disc on the sign."
+  },
+  "c2c_question": {
+   "fichier": "media/voix/en/c2c_question.mp3",
+   "duree": 7.5,
+   "texte": "What animal was on the coat of arms of Saint-Geniès before the Salignac family arrived?"
+  },
+  "c2c_indice1": {
+   "fichier": "media/voix/en/c2c_indice1.mp3",
+   "duree": 3.8,
+   "texte": "A king of beasts, gold on a blue background."
+  },
+  "c2c_apres": {
+   "fichier": "media/voix/en/c2c_apres.mp3",
+   "duree": 6.6,
+   "texte": "A gold lion on an azure field. The lion watched over the village long before me."
+  },
+  "c2g_recit": {
+   "fichier": "media/voix/en/c2g_recit.mp3",
+   "duree": 8.8,
+   "texte": "The village's last lords bore three gold squirrels on their arms. They lived here until the last century."
+  },
+  "c2g_question": {
+   "fichier": "media/voix/en/c2g_question.mp3",
+   "duree": 4.7,
+   "texte": "Until what year did they live in the castle? (in digits)"
+  },
+  "c2g_indice1": {
+   "fichier": "media/voix/en/c2g_indice1.mp3",
+   "duree": 3.4,
+   "texte": "Look for family number one on the disc."
+  },
+  "c2g_apres": {
+   "fichier": "media/voix/en/c2g_apres.mp3",
+   "duree": 4.4,
+   "texte": "Correct. Nearly two centuries within these walls."
+  },
+  "c3c_recit": {
+   "fichier": "media/voix/en/c3c_recit.mp3",
+   "duree": 5.8,
+   "texte": "Look closely at the castle towers: they are not alike. One is square."
+  },
+  "c3c_question": {
+   "fichier": "media/voix/en/c3c_question.mp3",
+   "duree": 2.7,
+   "texte": "What shape is the other tower?"
+  },
+  "c3c_indice1": {
+   "fichier": "media/voix/en/c3c_indice1.mp3",
+   "duree": 3.3,
+   "texte": "Neither round nor square: elongated."
+  },
+  "c3c_apres": {
+   "fichier": "media/voix/en/c3c_apres.mp3",
+   "duree": 6.7,
+   "texte": "Oval. Stones hide, but they do not lie. Carry on: my secret awaits you elsewhere."
+  },
+  "c3g_recit": {
+   "fichier": "media/voix/en/c3g_recit.mp3",
+   "duree": 6.3,
+   "texte": "In the towers, you climb by turning around a stone axis, like a snail's shell."
+  },
+  "c3g_question": {
+   "fichier": "media/voix/en/c3g_question.mp3",
+   "duree": 4.8,
+   "texte": "What type of staircase serves the floors? (a … staircase)"
+  },
+  "c3g_indice1": {
+   "fichier": "media/voix/en/c3g_indice1.mp3",
+   "duree": 4.7,
+   "texte": "Like the thing you turn with a screwdriver (in French)."
+  },
+  "c3g_apres": {
+   "fichier": "media/voix/en/c3g_apres.mp3",
+   "duree": 6.8,
+   "texte": "Spiral. Stones hide, but they do not lie. Carry on: my secret awaits you elsewhere."
+  },
+  "l1c_recit": {
+   "fichier": "media/voix/en/l1c_recit.mp3",
+   "duree": 6.2,
+   "texte": "A stone roof fears neither lightning nor wind. It lasts for generations."
+  },
+  "l1c_question": {
+   "fichier": "media/voix/en/l1c_question.mp3",
+   "duree": 4.8,
+   "texte": "At most, how many years can a lauze roof last? (in digits)"
+  },
+  "l1c_indice1": {
+   "fichier": "media/voix/en/l1c_indice1.mp3",
+   "duree": 3.0,
+   "texte": "Read point number one on the sign."
+  },
+  "l1c_apres": {
+   "fichier": "media/voix/en/l1c_apres.mp3",
+   "duree": 5.0,
+   "texte": "Two hundred years. More than the lives of six generations."
+  },
+  "l1g_recit": {
+   "fichier": "media/voix/en/l1g_recit.mp3",
+   "duree": 6.1,
+   "texte": "When it comes out of the ground, lauze is ochre. Time changes it quickly."
+  },
+  "l1g_question": {
+   "fichier": "media/voix/en/l1g_question.mp3",
+   "duree": 4.6,
+   "texte": "After how many years does lauze turn grey? (in digits)"
+  },
+  "l1g_indice1": {
+   "fichier": "media/voix/en/l1g_indice1.mp3",
+   "duree": 3.0,
+   "texte": "Read point number one on the sign."
+  },
+  "l1g_apres": {
+   "fichier": "media/voix/en/l1g_apres.mp3",
+   "duree": 3.4,
+   "texte": "Two years. Metallic grey, like armour."
+  },
+  "l2c_recit": {
+   "fichier": "media/voix/en/l2c_recit.mp3",
+   "duree": 5.8,
+   "texte": "Laying a lauze roof takes patience. A master roofer does not go fast."
+  },
+  "l2c_question": {
+   "fichier": "media/voix/en/l2c_question.mp3",
+   "duree": 5.6,
+   "texte": "About how many square metres does a roofer lay per day? (in digits)"
+  },
+  "l2c_indice1": {
+   "fichier": "media/voix/en/l2c_indice1.mp3",
+   "duree": 3.0,
+   "texte": "Read point number two on the sign."
+  },
+  "l2c_apres": {
+   "fichier": "media/voix/en/l2c_apres.mp3",
+   "duree": 4.5,
+   "texte": "Just one square metre a day. Imagine the church roof…"
+  },
+  "l2g_recit": {
+   "fichier": "media/voix/en/l2g_recit.mp3",
+   "duree": 9.5,
+   "texte": "The first lauzes laid, at the very bottom of the roof, overhang the wall. They have a precise job: guiding the rain."
+  },
+  "l2g_question": {
+   "fichier": "media/voix/en/l2g_question.mp3",
+   "duree": 4.3,
+   "texte": "What are these lauzes that act as a gutter called?"
+  },
+  "l2g_indice1": {
+   "fichier": "media/voix/en/l2g_indice1.mp3",
+   "duree": 3.3,
+   "texte": "Lift the flap about the final laying."
+  },
+  "l2g_apres": {
+   "fichier": "media/voix/en/l2g_apres.mp3",
+   "duree": 4.8,
+   "texte": "Rondières. They overhang by about twenty centimetres."
+  },
+  "l3c_recit": {
+   "fichier": "media/voix/en/l3c_recit.mp3",
+   "duree": 7.2,
+   "texte": "Under the lauzes you need a strong frame, of a wood insects hate and that does not rot."
+  },
+  "l3c_question": {
+   "fichier": "media/voix/en/l3c_question.mp3",
+   "duree": 4.3,
+   "texte": "What wood were the roof frames made of in the past?"
+  },
+  "l3c_indice1": {
+   "fichier": "media/voix/en/l3c_indice1.mp3",
+   "duree": 2.8,
+   "texte": "The tree that gives chestnuts."
+  },
+  "l3c_apres": {
+   "fichier": "media/voix/en/l3c_apres.mp3",
+   "duree": 10.0,
+   "texte": "Chestnut. Today, oak is used. Before you leave, take a photo in the big frame: the castle and the church are watching you."
+  },
+  "l3g_recit": {
+   "fichier": "media/voix/en/l3g_recit.mp3",
+   "duree": 6.5,
+   "texte": "In a lauze roof frame, not a single nail: everything is held with wooden pegs."
+  },
+  "l3g_question": {
+   "fichier": "media/voix/en/l3g_question.mp3",
+   "duree": 2.9,
+   "texte": "What wood are these pegs made of?"
+  },
+  "l3g_indice1": {
+   "fichier": "media/voix/en/l3g_indice1.mp3",
+   "duree": 3.0,
+   "texte": "Read point number three on the sign."
+  },
+  "l3g_apres": {
+   "fichier": "media/voix/en/l3g_apres.mp3",
+   "duree": 8.3,
+   "texte": "Acacia. Before you leave, take a photo in the big frame: the castle and the church are watching you."
+  },
+  "kc1_trouver": {
+   "fichier": "media/voix/en/kc1_trouver.mp3",
+   "duree": 7.8,
+   "texte": "Climb to the highest point of the village. On its rock, the lords' house of the dead guards my secret."
+  },
+  "kc1_recit": {
+   "fichier": "media/voix/en/kc1_recit.mp3",
+   "duree": 10.3,
+   "texte": "This chapel was built after my escape, for the lords of this place. On its walls they painted a knight we Templars knew well."
+  },
+  "kc1_question": {
+   "fichier": "media/voix/en/kc1_question.mp3",
+   "duree": 5.3,
+   "texte": "On the sign's disc, which saint on horseback slays the dragon?"
+  },
+  "kc1_apres": {
+   "fichier": "media/voix/en/kc1_apres.mp3",
+   "duree": 8.1,
+   "texte": "Saint George. They say he led the crusaders before Jerusalem. He is not on these walls by chance."
+  },
+  "kc1_indice1": {
+   "fichier": "media/voix/en/kc1_indice1.mp3",
+   "duree": 6.0,
+   "texte": "He is said to have appeared to the crusaders at the siege of Jerusalem."
+  },
+  "kc2_recit": {
+   "fichier": "media/voix/en/kc2_recit.mp3",
+   "duree": 9.6,
+   "texte": "Look at the chapel entrance, without going in: a little roof protects it. It is brand new, but true to the old plans."
+  },
+  "kc2_question": {
+   "fichier": "media/voix/en/kc2_question.mp3",
+   "duree": 5.9,
+   "texte": "In what year was the porch roof over the entrance rebuilt? (in digits)"
+  },
+  "kc2_apres": {
+   "fichier": "media/voix/en/kc2_apres.mp3",
+   "duree": 7.9,
+   "texte": "Twenty fourteen. They still repair what I once knew. Now gather your digits: my secret is here."
+  },
+  "kc2_indice1": {
+   "fichier": "media/voix/en/kc2_indice1.mp3",
+   "duree": 3.1,
+   "texte": "Read point number five on the sign."
   }
  },
  "es": {
@@ -2606,18 +4246,18 @@
   },
   "x1_question": {
    "fichier": "media/voix/es/x1_question.mp3",
-   "duree": 9.0,
-   "texte": "¿Cuántos años separan la llegada del tren a Saint-Geniès y la salida de los muertos fuera del pueblo? (en cifras)"
+   "duree": 8.0,
+   "texte": "¿Cuántos años separan la candidatura del pueblo para una estación y la salida de los muertos fuera del pueblo? (en cifras)"
   },
   "x1_indice1": {
    "fichier": "media/voix/es/x1_indice1.mp3",
-   "duree": 6.4,
-   "texte": "Retomad dos respuestas ya encontradas: la del tren y la del cementerio."
+   "duree": 8.4,
+   "texte": "Retomad dos respuestas ya encontradas: la de la estación, en el lavadero, y la del cementerio."
   },
   "x1_apres": {
    "fichier": "media/voix/es/x1_apres.mp3",
-   "duree": 5.9,
-   "texte": "Diez años. Tenéis buena memoria. La necesitaréis para la última prueba."
+   "duree": 11.0,
+   "texte": "Veintisiete años. Tantos como los jóvenes músicos del abad Delprat. Tenéis buena memoria: la necesitaréis para la última prueba."
   },
   "z1_recit": {
    "fichier": "media/voix/es/z1_recit.mp3",
@@ -2643,6 +4283,826 @@
    "fichier": "media/voix/es/final_texte.mp3",
    "duree": 23.4,
    "texte": "¡1327! Habéis roto el primer sello. Mi secreto no dormía en un cofre: vive en este pueblo, en sus piedras y en quienes saben leerlas. Desde ahora, sois de los suyos. Grabad vuestros nombres en el pergamino de la Orden… y volved: otros sellos os esperan."
+  },
+  "x1t_question": {
+   "fichier": "media/voix/es/x1t_question.mp3",
+   "duree": 9.0,
+   "texte": "¿Cuántos años separan la llegada del tren a Saint-Geniès y la salida de los muertos fuera del pueblo? (en cifras)"
+  },
+  "x1t_indice1": {
+   "fichier": "media/voix/es/x1t_indice1.mp3",
+   "duree": 6.4,
+   "texte": "Retomad dos respuestas ya encontradas: la del tren y la del cementerio."
+  },
+  "x1t_apres": {
+   "fichier": "media/voix/es/x1t_apres.mp3",
+   "duree": 5.9,
+   "texte": "Diez años. Tenéis buena memoria. La necesitaréis para la última prueba."
+  },
+  "p0c_recit": {
+   "fichier": "media/voix/es/p0c_recit.mp3",
+   "duree": 9.5,
+   "texte": "Caballeros, este panel muestra todo el paseo. Cada lugar lleva un número, como las etapas de una peregrinación."
+  },
+  "p0c_question": {
+   "fichier": "media/voix/es/p0c_question.mp3",
+   "duree": 5.9,
+   "texte": "¿Qué número lleva la iglesia Notre-Dame-de-l'Assomption en este panel? (en cifras)"
+  },
+  "p0c_indice1": {
+   "fichier": "media/voix/es/p0c_indice1.mp3",
+   "duree": 4.8,
+   "texte": "Buscad el nombre de la iglesia en la lista numerada."
+  },
+  "p0c_apres": {
+   "fichier": "media/voix/es/p0c_apres.mp3",
+   "duree": 6.2,
+   "texte": "Ocho. Allí arriba os espero. Primero bajad al lavadero, junto al agua."
+  },
+  "p0g_recit": {
+   "fichier": "media/voix/es/p0g_recit.mp3",
+   "duree": 9.1,
+   "texte": "Grandes Maestres, un templario sabe contar antes de combatir. Este panel numera cada lugar del paseo."
+  },
+  "p0g_question": {
+   "fichier": "media/voix/es/p0g_question.mp3",
+   "duree": 7.0,
+   "texte": "Sumad el número de la lauze y el del castillo. ¿Qué número obtenéis? (en cifras)"
+  },
+  "p0g_indice1": {
+   "fichier": "media/voix/es/p0g_indice1.mp3",
+   "duree": 4.3,
+   "texte": "La lauze y el castillo van seguidos en la lista."
+  },
+  "p0g_apres": {
+   "fichier": "media/voix/es/p0g_apres.mp3",
+   "duree": 4.7,
+   "texte": "Diecinueve. Bien contado. Bajad ahora al lavadero."
+  },
+  "p1c_recit": {
+   "fichier": "media/voix/es/p1c_recit.mp3",
+   "duree": 8.3,
+   "texte": "Este río hacía girar ruedas mucho antes de las máquinas. A lo largo del agua, los molineros molían el grano."
+  },
+  "p1c_question": {
+   "fichier": "media/voix/es/p1c_question.mp3",
+   "duree": 8.0,
+   "texte": "Levantad las solapas: ¿cuántos molinos había a lo largo del Chironde y del Sireyjol? (en cifras)"
+  },
+  "p1c_indice1": {
+   "fichier": "media/voix/es/p1c_indice1.mp3",
+   "duree": 3.5,
+   "texte": "Leed la solapa de los molinos de agua."
+  },
+  "p1c_apres": {
+   "fichier": "media/voix/es/p1c_apres.mp3",
+   "duree": 7.1,
+   "texte": "Once molinos, en siete kilómetros. Mirad ahora el panel del tren, justo al lado."
+  },
+  "p1g_recit": {
+   "fichier": "media/voix/es/p1g_recit.mp3",
+   "duree": 6.0,
+   "texte": "Uno de estos molinos no solo molía grano: acabó fundiendo hierro."
+  },
+  "p1g_question": {
+   "fichier": "media/voix/es/p1g_question.mp3",
+   "duree": 6.7,
+   "texte": "¿En qué año se convirtió el molino des Ans en una fundición con alto horno? (en cifras)"
+  },
+  "p1g_indice1": {
+   "fichier": "media/voix/es/p1g_indice1.mp3",
+   "duree": 4.3,
+   "texte": "Buscad la forja des Ans en la solapa de los molinos."
+  },
+  "p1g_apres": {
+   "fichier": "media/voix/es/p1g_apres.mp3",
+   "duree": 8.3,
+   "texte": "Correcto. Fundición, mineral de hierro y castina. Mirad ahora el panel del tren, justo al lado."
+  },
+  "p2c_recit": {
+   "fichier": "media/voix/es/p2c_recit.mp3",
+   "duree": 6.6,
+   "texte": "La estación sigue existiendo, transformada. El panel os dice dónde mirar."
+  },
+  "p2c_question": {
+   "fichier": "media/voix/es/p2c_question.mp3",
+   "duree": 6.6,
+   "texte": "¿A cuántos metros, frente a vosotros, están los antiguos edificios de la estación? (en cifras)"
+  },
+  "p2c_indice1": {
+   "fichier": "media/voix/es/p2c_indice1.mp3",
+   "duree": 2.1,
+   "texte": "Es la última frase del panel."
+  },
+  "p2c_apres": {
+   "fichier": "media/voix/es/p2c_apres.mp3",
+   "duree": 3.3,
+   "texte": "Correcto. Y ahora, escuchadme bien…"
+  },
+  "p2g_recit": {
+   "fichier": "media/voix/es/p2g_recit.mp3",
+   "duree": 7.2,
+   "texte": "El pueblo tuvo que luchar mucho para tener su tren. La batalla empezó en la sala del consejo."
+  },
+  "p2g_question": {
+   "fichier": "media/voix/es/p2g_question.mp3",
+   "duree": 9.2,
+   "texte": "¿En qué año presentó el ayuntamiento su candidatura para una estación? Recordad bien este año. (en cifras)"
+  },
+  "p2g_indice1": {
+   "fichier": "media/voix/es/p2g_indice1.mp3",
+   "duree": 5.2,
+   "texte": "El consejo insistía en las ferias, el pueblo y su situación."
+  },
+  "p2g_apres": {
+   "fichier": "media/voix/es/p2g_apres.mp3",
+   "duree": 5.5,
+   "texte": "Correcto. Guardadlo en la memoria. Y ahora, escuchadme bien…"
+  },
+  "e0ac_recit": {
+   "fichier": "media/voix/es/e0ac_recit.mp3",
+   "duree": 10.3,
+   "texte": "Esta iglesia sufrió las guerras y se reconstruyó pieza a pieza. Solo una parte sigue tal como se construyó al principio."
+  },
+  "e0ac_question": {
+   "fichier": "media/voix/es/e0ac_question.mp3",
+   "duree": 4.9,
+   "texte": "¿Cuál es la única parte románica que se conserva de la iglesia?"
+  },
+  "e0ac_indice1": {
+   "fichier": "media/voix/es/e0ac_indice1.mp3",
+   "duree": 3.5,
+   "texte": "Leed el punto número cuatro del panel."
+  },
+  "e0ac_apres": {
+   "fichier": "media/voix/es/e0ac_apres.mp3",
+   "duree": 12.2,
+   "texte": "El coro, con sus vanos en semicírculo. La iglesia nació en el siglo doce: recordad la primera cifra de ese siglo, uno. Es la primera cifra de mi código."
+  },
+  "e0ag_recit": {
+   "fichier": "media/voix/es/e0ag_recit.mp3",
+   "duree": 8.0,
+   "texte": "En este plano, cada época tiene su color. Ocho siglos de piedra, superpuestos como capas de tierra."
+  },
+  "e0ag_question": {
+   "fichier": "media/voix/es/e0ag_question.mp3",
+   "duree": 5.0,
+   "texte": "¿Cuántos periodos distintos señala la leyenda del plano? (en cifras)"
+  },
+  "e0ag_indice1": {
+   "fichier": "media/voix/es/e0ag_indice1.mp3",
+   "duree": 4.5,
+   "texte": "Cuidado: un mismo siglo puede aparecer dos veces."
+  },
+  "e0ag_apres": {
+   "fichier": "media/voix/es/e0ag_apres.mp3",
+   "duree": 10.3,
+   "texte": "Seis. Pero todo empezó en el siglo doce: recordad la primera cifra de ese siglo, uno. Es la primera cifra de mi código."
+  },
+  "e0bc_recit": {
+   "fichier": "media/voix/es/e0bc_recit.mp3",
+   "duree": 13.2,
+   "texte": "En mil trescientos siete, cuando el rey mandó arrestar a mis hermanos, unos señores de aquí me abrieron su puerta. Su escudo se esconde bajo una solapa de este panel."
+  },
+  "e0bc_question": {
+   "fichier": "media/voix/es/e0bc_question.mp3",
+   "duree": 5.7,
+   "texte": "Según esta solapa, ¿de qué color son las tres bandas de su escudo?"
+  },
+  "e0bc_indice1": {
+   "fichier": "media/voix/es/e0bc_indice1.mp3",
+   "duree": 5.7,
+   "texte": "Sinople es el nombre de este color en la lengua de los escudos."
+  },
+  "e0bc_apres": {
+   "fichier": "media/voix/es/e0bc_apres.mp3",
+   "duree": 11.7,
+   "texte": "Verde, sinople. Es el escudo de los Salignac, señores de aquí cuando llegué. Guardaron mi secreto… pero lo repartí por el pueblo. Seguidme."
+  },
+  "e0bg_recit": {
+   "fichier": "media/voix/es/e0bg_recit.mp3",
+   "duree": 12.4,
+   "texte": "Unos señores de aquí me escondieron cuando el rey perseguía a mis hermanos. Su escudo está bajo una solapa de este panel: leedlo como un heraldo."
+  },
+  "e0bg_question": {
+   "fichier": "media/voix/es/e0bg_question.mp3",
+   "duree": 5.1,
+   "texte": "Según esta solapa, ¿de qué metal es el fondo de su escudo?"
+  },
+  "e0bg_indice1": {
+   "fichier": "media/voix/es/e0bg_indice1.mp3",
+   "duree": 6.0,
+   "texte": "En heráldica solo hay dos metales: uno es amarillo y el otro blanco."
+  },
+  "e0bg_apres": {
+   "fichier": "media/voix/es/e0bg_apres.mp3",
+   "duree": 11.2,
+   "texte": "De oro. El escudo de los Salignac, señores de aquí cuando llegué. Guardaron mi secreto… pero lo repartí por el pueblo. Seguidme."
+  },
+  "d1c_recit": {
+   "fichier": "media/voix/es/d1c_recit.mp3",
+   "duree": 7.3,
+   "texte": "Un cura volvió de la guerra para hacerse cargo de este pueblo. Se quedó más de treinta años."
+  },
+  "d1c_question": {
+   "fichier": "media/voix/es/d1c_question.mp3",
+   "duree": 6.7,
+   "texte": "¿En qué año se convirtió el abad Delprat en párroco de Saint-Geniès? (en cifras)"
+  },
+  "d1c_indice1": {
+   "fichier": "media/voix/es/d1c_indice1.mp3",
+   "duree": 3.1,
+   "texte": "Es el año en que terminó la guerra."
+  },
+  "d1c_apres": {
+   "fichier": "media/voix/es/d1c_apres.mp3",
+   "duree": 4.9,
+   "texte": "Correcto. Lo fue hasta su muerte, en el setenta y ocho."
+  },
+  "d1g_recit": {
+   "fichier": "media/voix/es/d1g_recit.mp3",
+   "duree": 8.6,
+   "texte": "La asociación del abad no nació de la nada: antes de él, unos vecinos ya cantaban bajo la vidriera."
+  },
+  "d1g_question": {
+   "fichier": "media/voix/es/d1g_question.mp3",
+   "duree": 4.8,
+   "texte": "¿En qué año se crearon la banda y el coro originales? (en cifras)"
+  },
+  "d1g_indice1": {
+   "fichier": "media/voix/es/d1g_indice1.mp3",
+   "duree": 3.1,
+   "texte": "Es a principios del siglo veinte."
+  },
+  "d1g_apres": {
+   "fichier": "media/voix/es/d1g_apres.mp3",
+   "duree": 5.6,
+   "texte": "Correcto. Se llamaron a sí mismos sociedad Saint-Roch, por la vidriera."
+  },
+  "d2c_recit": {
+   "fichier": "media/voix/es/d2c_recit.mp3",
+   "duree": 6.9,
+   "texte": "La banda creció y creció… hasta desfilar con decenas de músicos y majorettes."
+  },
+  "d2c_question": {
+   "fichier": "media/voix/es/d2c_question.mp3",
+   "duree": 4.5,
+   "texte": "¿Cuántas majorettes llegó a tener la asociación? (en cifras)"
+  },
+  "d2c_indice1": {
+   "fichier": "media/voix/es/d2c_indice1.mp3",
+   "duree": 3.3,
+   "texte": "Leed el panel «Un homme d'exception»."
+  },
+  "d2c_apres": {
+   "fichier": "media/voix/es/d2c_apres.mp3",
+   "duree": 6.4,
+   "texte": "Cuarenta. Y os confío una cifra: dos. Ocupa el tercer lugar de mi código."
+  },
+  "d2g_recit": {
+   "fichier": "media/voix/es/d2g_recit.mp3",
+   "duree": 9.3,
+   "texte": "Partiendo de cero, sin experiencia, los jóvenes del abad aprendieron entre ellos. Al final, formaban un pequeño ejército de música."
+  },
+  "d2g_question": {
+   "fichier": "media/voix/es/d2g_question.mp3",
+   "duree": 4.9,
+   "texte": "¿Cuántos músicos llegó a reunir la asociación? (en cifras)"
+  },
+  "d2g_indice1": {
+   "fichier": "media/voix/es/d2g_indice1.mp3",
+   "duree": 3.2,
+   "texte": "Leed el panel «Un homme d'exception»."
+  },
+  "d2g_apres": {
+   "fichier": "media/voix/es/d2g_apres.mp3",
+   "duree": 6.3,
+   "texte": "Setenta. Y os confío una cifra: dos. Ocupa el tercer lugar de mi código."
+  },
+  "d3c_recit": {
+   "fichier": "media/voix/es/d3c_recit.mp3",
+   "duree": 9.8,
+   "texte": "Antes de ser cura aquí, el abad fue movilizado y luego hecho prisionero. Pero ¿dónde servía antes de la guerra?"
+  },
+  "d3c_question": {
+   "fichier": "media/voix/es/d3c_question.mp3",
+   "duree": 4.2,
+   "texte": "¿En qué ciudad era vicario antes de ser movilizado?"
+  },
+  "d3c_indice1": {
+   "fichier": "media/voix/es/d3c_indice1.mp3",
+   "duree": 4.9,
+   "texte": "Una ciudad del norte de la Dordoña que empieza por TH."
+  },
+  "d3c_apres": {
+   "fichier": "media/voix/es/d3c_apres.mp3",
+   "duree": 6.7,
+   "texte": "Thiviers. Volvió con una medalla militar… y una idea fija: unir a su pueblo."
+  },
+  "d3g_recit": {
+   "fichier": "media/voix/es/d3g_recit.mp3",
+   "duree": 5.9,
+   "texte": "La obra del abad le sobrevivió: la asociación sigue viva, con mucho más que músicos."
+  },
+  "d3g_question": {
+   "fichier": "media/voix/es/d3g_question.mp3",
+   "duree": 6.4,
+   "texte": "¿Cuántos miembros tiene todavía la asociación, como mínimo? (en cifras)"
+  },
+  "d3g_indice1": {
+   "fichier": "media/voix/es/d3g_indice1.mp3",
+   "duree": 3.9,
+   "texte": "Leed el panel «La réalisation des projets»."
+  },
+  "d3g_apres": {
+   "fichier": "media/voix/es/d3g_apres.mp3",
+   "duree": 8.1,
+   "texte": "Más de ciento cincuenta: banda, twirling, gimnasia, coral y baile. El abad habría sonreído."
+  },
+  "m1c_recit": {
+   "fichier": "media/voix/es/m1c_recit.mp3",
+   "duree": 10.6,
+   "texte": "Bajo el tejado de la cabecera, unas cabezas de piedra hacen muecas desde la Edad Media. Los constructores les daban un nombre."
+  },
+  "m1c_question": {
+   "fichier": "media/voix/es/m1c_question.mp3",
+   "duree": 5.6,
+   "texte": "¿Cómo se llaman estas piedras talladas que decoran la cornisa de la cabecera?"
+  },
+  "m1c_indice1": {
+   "fichier": "media/voix/es/m1c_indice1.mp3",
+   "duree": 5.1,
+   "texte": "La palabra está en la solapa «Une pierre multifonction»."
+  },
+  "m1c_apres": {
+   "fichier": "media/voix/es/m1c_apres.mp3",
+   "duree": 12.2,
+   "texte": "Los modillones. Hay catorce, y el decimotercero grita con la boca bien abierta. Susurra una cifra: tres. Ocupa el segundo lugar de mi código."
+  },
+  "m1g_recit": {
+   "fichier": "media/voix/es/m1g_recit.mp3",
+   "duree": 9.7,
+   "texte": "Mirad los vanos de la cabecera y los del muro del castillo de enfrente. Los canteros los enmarcaron con un motivo vegetal, señal del gótico."
+  },
+  "m1g_question": {
+   "fichier": "media/voix/es/m1g_question.mp3",
+   "duree": 3.2,
+   "texte": "¿Qué planta forman estos motivos?"
+  },
+  "m1g_indice1": {
+   "fichier": "media/voix/es/m1g_indice1.mp3",
+   "duree": 5.6,
+   "texte": "Una plantita de tres hojas… a veces cuatro, para los afortunados."
+  },
+  "m1g_apres": {
+   "fichier": "media/voix/es/m1g_apres.mp3",
+   "duree": 12.4,
+   "texte": "El trébol. Y bajo el tejado, el decimotercer modillón grita con la boca bien abierta. Susurra una cifra: tres. Ocupa el segundo lugar de mi código."
+  },
+  "m3c_recit": {
+   "fichier": "media/voix/es/m3c_recit.mp3",
+   "duree": 9.0,
+   "texte": "Sobre el pórtico, una Virgen con el Niño vela por el pueblo. Un hombre la regaló para dar las gracias."
+  },
+  "m3c_question": {
+   "fichier": "media/voix/es/m3c_question.mp3",
+   "duree": 4.5,
+   "texte": "¿Cuál es el apellido del refugiado que la regaló?"
+  },
+  "m3c_indice1": {
+   "fichier": "media/voix/es/m3c_indice1.mp3",
+   "duree": 6.0,
+   "texte": "Volved a leer la solapa de la estatua de la Virgen, en el gran panel."
+  },
+  "m3c_apres": {
+   "fichier": "media/voix/es/m3c_apres.mp3",
+   "duree": 9.6,
+   "texte": "El señor Poutriquet, refugiado alsaciano. Saint-Geniès siempre ha sabido acoger a quienes huían… como yo."
+  },
+  "m3g_recit": {
+   "fichier": "media/voix/es/m3g_recit.mp3",
+   "duree": 9.1,
+   "texte": "Sobre el pórtico, una Virgen con el Niño vela. Llegó en tiempos oscuros, con un hombre que huía de la guerra."
+  },
+  "m3g_question": {
+   "fichier": "media/voix/es/m3g_question.mp3",
+   "duree": 5.0,
+   "texte": "¿En qué año acogieron los vecinos al refugiado? (en cifras)"
+  },
+  "m3g_indice1": {
+   "fichier": "media/voix/es/m3g_indice1.mp3",
+   "duree": 4.6,
+   "texte": "La solapa de la Virgen, en el gran panel, os lo dirá."
+  },
+  "m3g_apres": {
+   "fichier": "media/voix/es/m3g_apres.mp3",
+   "duree": 5.4,
+   "texte": "Correcto. Saint-Geniès siempre ha sabido acoger a quienes huían… como yo."
+  },
+  "f1c_recit": {
+   "fichier": "media/voix/es/f1c_recit.mp3",
+   "duree": 6.8,
+   "texte": "Las primeras maestras de este pueblo llevaban velo. Luego llegó la República."
+  },
+  "f1c_question": {
+   "fichier": "media/voix/es/f1c_question.mp3",
+   "duree": 4.8,
+   "texte": "¿En qué año se laicizó la escuela de niñas? (en cifras)"
+  },
+  "f1c_indice1": {
+   "fichier": "media/voix/es/f1c_indice1.mp3",
+   "duree": 3.4,
+   "texte": "Justo a principios del siglo veinte."
+  },
+  "f1c_apres": {
+   "fichier": "media/voix/es/f1c_apres.mp3",
+   "duree": 7.3,
+   "texte": "Correcto. Pero aún hubo que esperar más de veinte años una verdadera escuela pública para niñas."
+  },
+  "f1g_recit": {
+   "fichier": "media/voix/es/f1g_recit.mp3",
+   "duree": 8.2,
+   "texte": "Niñas a un lado, niños al otro: hizo falta una guerra para que todos se sentaran en la misma clase."
+  },
+  "f1g_question": {
+   "fichier": "media/voix/es/f1g_question.mp3",
+   "duree": 5.7,
+   "texte": "¿En qué año se propuso la escuela mixta en Saint-Geniès? (en cifras)"
+  },
+  "f1g_indice1": {
+   "fichier": "media/voix/es/f1g_indice1.mp3",
+   "duree": 3.3,
+   "texte": "Durante la Segunda Guerra Mundial."
+  },
+  "f1g_apres": {
+   "fichier": "media/voix/es/f1g_apres.mp3",
+   "duree": 5.5,
+   "texte": "Correcto. En los edificios que veis, a ambos lados de la calle."
+  },
+  "f2c_recit": {
+   "fichier": "media/voix/es/f2c_recit.mp3",
+   "duree": 7.2,
+   "texte": "Antiguamente, cada alumno venía con su fiambrera. Luego el pueblo abrió un comedor."
+  },
+  "f2c_question": {
+   "fichier": "media/voix/es/f2c_question.mp3",
+   "duree": 4.4,
+   "texte": "¿En qué año se creó el comedor escolar? (en cifras)"
+  },
+  "f2c_indice1": {
+   "fichier": "media/voix/es/f2c_indice1.mp3",
+   "duree": 3.0,
+   "texte": "A finales de los años cincuenta."
+  },
+  "f2c_apres": {
+   "fichier": "media/voix/es/f2c_apres.mp3",
+   "duree": 10.6,
+   "texte": "Correcto. Y el camino que separaba a niños y niñas medía siete metros. Recordad este siete: es la última cifra de mi código."
+  },
+  "f2g_recit": {
+   "fichier": "media/voix/es/f2g_recit.mp3",
+   "duree": 8.8,
+   "texte": "En mil novecientos tres, el alcalde se quejaba: el municipio ya pagaba dos alquileres para la escuela de niñas."
+  },
+  "f2g_question": {
+   "fichier": "media/voix/es/f2g_question.mp3",
+   "duree": 4.6,
+   "texte": "¿Cuántos francos costaban esos dos alquileres? (en cifras)"
+  },
+  "f2g_indice1": {
+   "fichier": "media/voix/es/f2g_indice1.mp3",
+   "duree": 3.6,
+   "texte": "Leed el informe del consejo municipal."
+  },
+  "f2g_apres": {
+   "fichier": "media/voix/es/f2g_apres.mp3",
+   "duree": 12.6,
+   "texte": "Trescientos cincuenta francos. Y el camino que separaba a niños y niñas medía siete metros. Recordad este siete: es la última cifra de mi código."
+  },
+  "f3c_recit": {
+   "fichier": "media/voix/es/f3c_recit.mp3",
+   "duree": 11.3,
+   "texte": "En mil novecientos tres, el alcalde quería sustituir a un maestro. No porque fuera malo: la escuela era demasiado pequeña para su familia."
+  },
+  "f3c_question": {
+   "fichier": "media/voix/es/f3c_question.mp3",
+   "duree": 2.9,
+   "texte": "¿Cómo se llamaba ese «excelente maestro»?"
+  },
+  "f3c_indice1": {
+   "fichier": "media/voix/es/f3c_indice1.mp3",
+   "duree": 3.3,
+   "texte": "Leed el informe del consejo municipal."
+  },
+  "f3c_apres": {
+   "fichier": "media/voix/es/f3c_apres.mp3",
+   "duree": 11.8,
+   "texte": "El señor Lacoste. Pidieron al prefecto un maestro soltero… Las alumnas jugaban alrededor de la capilla del Cheylard. Recordad ese nombre."
+  },
+  "f3g_recit": {
+   "fichier": "media/voix/es/f3g_recit.mp3",
+   "duree": 10.6,
+   "texte": "En mil novecientos tres, la escuela de niños era demasiado pequeña para alojar a dos familias. El alcalde tenía su propia solución."
+  },
+  "f3g_question": {
+   "fichier": "media/voix/es/f3g_question.mp3",
+   "duree": 4.7,
+   "texte": "¿Qué tipo de maestro quería el alcalde que se nombrara? (una palabra)"
+  },
+  "f3g_indice1": {
+   "fichier": "media/voix/es/f3g_indice1.mp3",
+   "duree": 2.9,
+   "texte": "Sin familia: debía vivir solo."
+  },
+  "f3g_apres": {
+   "fichier": "media/voix/es/f3g_apres.mp3",
+   "duree": 9.5,
+   "texte": "Soltero. Las alumnas jugaban alrededor de la capilla del Cheylard. Recordad ese nombre: allí termina todo."
+  },
+  "c1c_recit": {
+   "fichier": "media/voix/es/c1c_recit.mp3",
+   "duree": 7.9,
+   "texte": "Este castillo se amplió con los siglos. Sus torres comunican los pisos con una soberbia escalera."
+  },
+  "c1c_question": {
+   "fichier": "media/voix/es/c1c_question.mp3",
+   "duree": 4.7,
+   "texte": "¿A cuántos niveles dan servicio las torres? (en cifras)"
+  },
+  "c1c_indice1": {
+   "fichier": "media/voix/es/c1c_indice1.mp3",
+   "duree": 3.2,
+   "texte": "Leed el punto número dos del panel."
+  },
+  "c1c_apres": {
+   "fichier": "media/voix/es/c1c_apres.mp3",
+   "duree": 7.0,
+   "texte": "Cuatro niveles y una escalera de caracol. A los señores les gustaba subir alto."
+  },
+  "c1g_recit": {
+   "fichier": "media/voix/es/c1g_recit.mp3",
+   "duree": 6.4,
+   "texte": "Dos casas de caballeros, que yo conocí, fueron unidas un día por un nuevo edificio."
+  },
+  "c1g_question": {
+   "fichier": "media/voix/es/c1g_question.mp3",
+   "duree": 5.5,
+   "texte": "¿De qué siglo es el edificio que une las dos casas? (en cifras)"
+  },
+  "c1g_indice1": {
+   "fichier": "media/voix/es/c1g_indice1.mp3",
+   "duree": 3.3,
+   "texte": "Leed el punto número uno del panel."
+  },
+  "c1g_apres": {
+   "fichier": "media/voix/es/c1g_apres.mp3",
+   "duree": 9.4,
+   "texte": "El siglo dieciséis, tras la destrucción del castillo de arriba. Los Gontaud necesitaban una nueva morada."
+  },
+  "c2c_recit": {
+   "fichier": "media/voix/es/c2c_recit.mp3",
+   "duree": 8.2,
+   "texte": "Antes de las familias señoriales, el pueblo ya tenía su propio escudo. Haced girar el disco del panel."
+  },
+  "c2c_question": {
+   "fichier": "media/voix/es/c2c_question.mp3",
+   "duree": 6.3,
+   "texte": "¿Qué animal figuraba en el escudo de Saint-Geniès antes de la llegada de los Salignac?"
+  },
+  "c2c_indice1": {
+   "fichier": "media/voix/es/c2c_indice1.mp3",
+   "duree": 4.2,
+   "texte": "Un rey de los animales, de oro sobre fondo azul."
+  },
+  "c2c_apres": {
+   "fichier": "media/voix/es/c2c_apres.mp3",
+   "duree": 7.0,
+   "texte": "Un león de oro sobre fondo azur. El león velaba por el pueblo mucho antes que yo."
+  },
+  "c2g_recit": {
+   "fichier": "media/voix/es/c2g_recit.mp3",
+   "duree": 7.1,
+   "texte": "Los últimos señores del pueblo llevaban tres ardillas de oro en su escudo. Vivieron aquí hasta el siglo pasado."
+  },
+  "c2g_question": {
+   "fichier": "media/voix/es/c2g_question.mp3",
+   "duree": 4.4,
+   "texte": "¿Hasta qué año vivieron en el castillo? (en cifras)"
+  },
+  "c2g_indice1": {
+   "fichier": "media/voix/es/c2g_indice1.mp3",
+   "duree": 3.6,
+   "texte": "Buscad la familia número uno del disco."
+  },
+  "c2g_apres": {
+   "fichier": "media/voix/es/c2g_apres.mp3",
+   "duree": 3.8,
+   "texte": "Correcto. Casi dos siglos entre estos muros."
+  },
+  "c3c_recit": {
+   "fichier": "media/voix/es/c3c_recit.mp3",
+   "duree": 5.6,
+   "texte": "Mirad bien las torres del castillo: no se parecen. Una es cuadrada."
+  },
+  "c3c_question": {
+   "fichier": "media/voix/es/c3c_question.mp3",
+   "duree": 2.4,
+   "texte": "¿Qué forma tiene la otra torre?"
+  },
+  "c3c_indice1": {
+   "fichier": "media/voix/es/c3c_indice1.mp3",
+   "duree": 3.0,
+   "texte": "Ni redonda ni cuadrada: alargada."
+  },
+  "c3c_apres": {
+   "fichier": "media/voix/es/c3c_apres.mp3",
+   "duree": 8.4,
+   "texte": "Ovalada. Las piedras se esconden, pero no mienten. Seguid: mi secreto os espera en otro lugar."
+  },
+  "c3g_recit": {
+   "fichier": "media/voix/es/c3g_recit.mp3",
+   "duree": 6.7,
+   "texte": "En las torres se sube girando alrededor de un eje de piedra, como la concha de un caracol."
+  },
+  "c3g_question": {
+   "fichier": "media/voix/es/c3g_question.mp3",
+   "duree": 5.0,
+   "texte": "¿Qué tipo de escalera da servicio a los pisos? (escalera de …)"
+  },
+  "c3g_indice1": {
+   "fichier": "media/voix/es/c3g_indice1.mp3",
+   "duree": 4.1,
+   "texte": "Como lo que se gira con un destornillador (en francés)."
+  },
+  "c3g_apres": {
+   "fichier": "media/voix/es/c3g_apres.mp3",
+   "duree": 8.2,
+   "texte": "De caracol. Las piedras se esconden, pero no mienten. Seguid: mi secreto os espera en otro lugar."
+  },
+  "l1c_recit": {
+   "fichier": "media/voix/es/l1c_recit.mp3",
+   "duree": 6.5,
+   "texte": "Un tejado de piedra no teme ni al rayo ni al viento. Atraviesa generaciones."
+  },
+  "l1c_question": {
+   "fichier": "media/voix/es/l1c_question.mp3",
+   "duree": 6.1,
+   "texte": "¿Cuántos años puede durar como máximo un tejado de lauze? (en cifras)"
+  },
+  "l1c_indice1": {
+   "fichier": "media/voix/es/l1c_indice1.mp3",
+   "duree": 3.2,
+   "texte": "Leed el punto número uno del panel."
+  },
+  "l1c_apres": {
+   "fichier": "media/voix/es/l1c_apres.mp3",
+   "duree": 4.9,
+   "texte": "Doscientos años. Más que la vida de seis generaciones."
+  },
+  "l1g_recit": {
+   "fichier": "media/voix/es/l1g_recit.mp3",
+   "duree": 5.9,
+   "texte": "Cuando sale de la tierra, la lauze es ocre. El tiempo la cambia rápido."
+  },
+  "l1g_question": {
+   "fichier": "media/voix/es/l1g_question.mp3",
+   "duree": 5.2,
+   "texte": "¿Al cabo de cuántos años se vuelve gris la lauze? (en cifras)"
+  },
+  "l1g_indice1": {
+   "fichier": "media/voix/es/l1g_indice1.mp3",
+   "duree": 3.2,
+   "texte": "Leed el punto número uno del panel."
+  },
+  "l1g_apres": {
+   "fichier": "media/voix/es/l1g_apres.mp3",
+   "duree": 4.2,
+   "texte": "Dos años. Gris metalizado, como una armadura."
+  },
+  "l2c_recit": {
+   "fichier": "media/voix/es/l2c_recit.mp3",
+   "duree": 8.2,
+   "texte": "Colocar un tejado de lauze es un trabajo de paciencia. Un maestro lauzero no avanza rápido."
+  },
+  "l2c_question": {
+   "fichier": "media/voix/es/l2c_question.mp3",
+   "duree": 5.9,
+   "texte": "¿Cuántos metros cuadrados coloca un lauzero al día, aproximadamente? (en cifras)"
+  },
+  "l2c_indice1": {
+   "fichier": "media/voix/es/l2c_indice1.mp3",
+   "duree": 3.2,
+   "texte": "Leed el punto número dos del panel."
+  },
+  "l2c_apres": {
+   "fichier": "media/voix/es/l2c_apres.mp3",
+   "duree": 5.5,
+   "texte": "Un solo metro cuadrado al día. Imaginad el tejado de la iglesia…"
+  },
+  "l2g_recit": {
+   "fichier": "media/voix/es/l2g_recit.mp3",
+   "duree": 8.8,
+   "texte": "Las primeras lauzes, abajo del todo, sobresalen del muro. Tienen una función precisa: guiar la lluvia."
+  },
+  "l2g_question": {
+   "fichier": "media/voix/es/l2g_question.mp3",
+   "duree": 3.1,
+   "texte": "¿Cómo se llaman estas lauzes que sirven de canalón?"
+  },
+  "l2g_indice1": {
+   "fichier": "media/voix/es/l2g_indice1.mp3",
+   "duree": 3.4,
+   "texte": "Levantad la solapa de la colocación definitiva."
+  },
+  "l2g_apres": {
+   "fichier": "media/voix/es/l2g_apres.mp3",
+   "duree": 4.7,
+   "texte": "Las rondières. Sobresalen unos veinte centímetros."
+  },
+  "l3c_recit": {
+   "fichier": "media/voix/es/l3c_recit.mp3",
+   "duree": 8.8,
+   "texte": "Bajo las lauzes hace falta una armadura sólida, de una madera que los insectos odian y que no se pudre."
+  },
+  "l3c_question": {
+   "fichier": "media/voix/es/l3c_question.mp3",
+   "duree": 4.2,
+   "texte": "¿De qué madera eran antiguamente las armaduras?"
+  },
+  "l3c_indice1": {
+   "fichier": "media/voix/es/l3c_indice1.mp3",
+   "duree": 2.3,
+   "texte": "El árbol que da castañas."
+  },
+  "l3c_apres": {
+   "fichier": "media/voix/es/l3c_apres.mp3",
+   "duree": 9.6,
+   "texte": "El castaño. Hoy se usa roble. Antes de iros, haceos una foto en el gran marco: el castillo y la iglesia os miran."
+  },
+  "l3g_recit": {
+   "fichier": "media/voix/es/l3g_recit.mp3",
+   "duree": 6.3,
+   "texte": "En una armadura de lauze, ni un clavo: todo se sujeta con clavijas de madera."
+  },
+  "l3g_question": {
+   "fichier": "media/voix/es/l3g_question.mp3",
+   "duree": 3.2,
+   "texte": "¿De qué madera son estas clavijas?"
+  },
+  "l3g_indice1": {
+   "fichier": "media/voix/es/l3g_indice1.mp3",
+   "duree": 3.4,
+   "texte": "Leed el punto número tres del panel."
+  },
+  "l3g_apres": {
+   "fichier": "media/voix/es/l3g_apres.mp3",
+   "duree": 8.2,
+   "texte": "La acacia. Antes de iros, haceos una foto en el gran marco: el castillo y la iglesia os miran."
+  },
+  "kc1_trouver": {
+   "fichier": "media/voix/es/kc1_trouver.mp3",
+   "duree": 7.5,
+   "texte": "Subid a lo más alto del pueblo. Sobre su roca, la casa de los muertos de los señores guarda mi secreto."
+  },
+  "kc1_recit": {
+   "fichier": "media/voix/es/kc1_recit.mp3",
+   "duree": 11.2,
+   "texte": "Esta capilla se construyó después de mi huida, para los señores de aquí. En sus muros pintaron a un caballero que los templarios conocíamos bien."
+  },
+  "kc1_question": {
+   "fichier": "media/voix/es/kc1_question.mp3",
+   "duree": 4.9,
+   "texte": "En el disco del panel, ¿qué santo a caballo derriba al dragón?"
+  },
+  "kc1_apres": {
+   "fichier": "media/voix/es/kc1_apres.mp3",
+   "duree": 8.9,
+   "texte": "San Jorge. Dicen que encabezó a los cruzados ante Jerusalén. No está en estos muros por casualidad."
+  },
+  "kc1_indice1": {
+   "fichier": "media/voix/es/kc1_indice1.mp3",
+   "duree": 5.6,
+   "texte": "Se dice que se apareció a los cruzados en el asedio de Jerusalén."
+  },
+  "kc2_recit": {
+   "fichier": "media/voix/es/kc2_recit.mp3",
+   "duree": 9.0,
+   "texte": "Mirad la entrada de la capilla, sin entrar: un tejadillo la protege. Es nuevo, pero fiel a los planos antiguos."
+  },
+  "kc2_question": {
+   "fichier": "media/voix/es/kc2_question.mp3",
+   "duree": 5.5,
+   "texte": "¿En qué año se reconstruyó el tejadillo de la entrada? (en cifras)"
+  },
+  "kc2_apres": {
+   "fichier": "media/voix/es/kc2_apres.mp3",
+   "duree": 9.1,
+   "texte": "Dos mil catorce. Todavía reparan lo que yo conocí. Ahora reunid vuestras cifras: mi secreto está aquí."
+  },
+  "kc2_indice1": {
+   "fichier": "media/voix/es/kc2_indice1.mp3",
+   "duree": 3.4,
+   "texte": "Leed el punto número cinco del panel."
   }
  }
 }
