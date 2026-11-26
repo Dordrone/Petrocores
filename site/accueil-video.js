@@ -42,8 +42,32 @@
     bLire.setAttribute('aria-label', tx('lire'));
     if (video.muted) { bSon.textContent = tx('ecouter'); bSon.removeAttribute('aria-label'); }
     else { bSon.textContent = '🔇'; bSon.setAttribute('aria-label', tx('couper')); }
-    const l = langue();
-    for (const piste of video.textTracks) piste.mode = piste.language === l ? 'showing' : 'disabled';
+    chargerSousTitres(langue());
+  }
+
+  // 27/11 : sous-titres affichés par la page (et non par le téléphone) : avec la vidéo en plein écran,
+  // les sous-titres du téléphone se plaçaient sur l'image entière, plus large que l'écran → phrase coupée.
+  let cues = [], langCues = '';
+  const sec = h => h.split(':').reduce((a, x) => a * 60 + parseFloat(x), 0);
+  async function chargerSousTitres(l) {
+    if (l === langCues) return;
+    langCues = l; cues = [];
+    try {
+      const txt = await (await fetch('site/accueil.' + l + '.vtt')).text();
+      if (l !== langCues) return;
+      cues = txt.replace(/\r/g, '').split(/\n\n+/).map(b => {
+        const m = b.match(/(\d[\d:.]+)\s*-->\s*(\d[\d:.]+)[^\n]*\n([\s\S]+)/);
+        return m && { de: sec(m[1]), a: sec(m[2]), texte: m[3].trim() };
+      }).filter(Boolean);
+    } catch { /* pas de sous-titres, la vidéo continue */ }
+    majSousTitre();
+  }
+  function majSousTitre() {
+    if (!fond) return;
+    const st = fond.querySelector('.va-st'), t0 = video.currentTime;
+    const c = cues.find(x => t0 >= x.de && t0 < x.a);
+    st.textContent = c ? c.texte : '';
+    st.hidden = !c;
   }
 
   function ouvrir(auto) {
@@ -55,10 +79,8 @@
     fond.innerHTML =
       '<video playsinline muted preload="auto" poster="site/accueil.jpg">' +
         '<source src="site/accueil.mp4" type="video/mp4">' +
-        '<track kind="subtitles" srclang="fr" label="Français" src="site/accueil.fr.vtt">' +
-        '<track kind="subtitles" srclang="en" label="English" src="site/accueil.en.vtt">' +
-        '<track kind="subtitles" srclang="es" label="Español" src="site/accueil.es.vtt">' +
       '</video>' +
+      '<p class="va-st" aria-live="polite" hidden></p>' +
       '<button type="button" class="va-passer"></button>' +
       '<button type="button" class="va-lire" hidden>▶</button>' +
       '<button type="button" class="va-son"></button>';
@@ -69,8 +91,10 @@
     bLire = fond.querySelector('.va-lire');
     bPasser = fond.querySelector('.va-passer');
     textes();
-    // certaines plateformes n'ont leurs pistes qu'après le chargement
-    video.addEventListener('loadedmetadata', textes);
+    langCues = '';
+    textes();
+    video.addEventListener('timeupdate', majSousTitre);
+    video.addEventListener('seeked', majSousTitre);
 
     bPasser.onclick = fermer;
     bSon.onclick = () => {
