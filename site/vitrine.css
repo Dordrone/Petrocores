@@ -124,3 +124,31 @@ footer a { margin: 0 6px; }
 /* 18/11 soir : lien discret « Mode testeur » sous les boutons */
 .lien-testeur { margin: 14px 0 0; font-size: 14px; text-align: center; }
 .lien-testeur a { color: inherit; opacity: .75; }
+
+/* vidéo de bienvenue (site/accueil-video.js) : plein écran sur téléphone, centrée sur ordinateur */
+.lien-video { margin: 8px 0 0; text-align: center; }
+.lien-video button {
+  background: none; border: 0; padding: 4px 0; cursor: pointer;
+  color: inherit; text-decoration: underline; font-size: 16px; opacity: .9;
+}
+html.video-ouverte, html.video-ouverte body { overflow: hidden; }
+.video-accueil {
+  position: fixed; inset: 0; z-index: 50; background: #0d0c0a;
+  display: flex; align-items: center; justify-content: center;
+  opacity: 0; transition: opacity .45s ease;
+}
+.video-accueil.visible { opacity: 1; }
+.video-accueil video { width: 100%; height: 100%; object-fit: contain; background: #0d0c0a; }
+@media (max-aspect-ratio: 3/4) { .video-accueil video { object-fit: cover; } }
+.video-accueil video::cue { font-family: Georgia, serif; font-size: 20px; background: rgba(0, 0, 0, .6); color: #fff; }
+.video-accueil button { font: bold 16px/1 system-ui, sans-serif; cursor: pointer; }
+.va-passer, .va-son {
+  position: absolute; min-height: 44px; padding: 0 16px; border-radius: 22px;
+  background: rgba(28, 26, 23, .7); color: #fff; border: 1px solid rgba(244, 234, 213, .55);
+}
+.va-passer { top: max(14px, env(safe-area-inset-top)); right: 14px; }
+.va-son { top: max(14px, env(safe-area-inset-top)); left: 14px; min-width: 44px; }
+.va-lire {
+  position: absolute; width: 88px; height: 88px; border-radius: 50%; font-size: 34px;
+  background: rgba(200, 155, 60, .92); color: var(--encre); border: 0; padding-left: 6px;
+}

@@ -27,10 +27,57 @@
   joués seulement si le texte de index.json = texte actuel de l'épisode, sinon voix du téléphone (choix de voix recopié de Sentia).
   Après toute modif de texte : régénérer la phrase avec OmniVoice + mettre à jour index.json.
 - Fin de partie : sceau or / argent / bronze / bois selon les pénalités.
-- `BOUTON_PANNEAU_TOUJOURS = true` dans app.js = PROVISOIRE (tests entre amis) → remettre `false` avant la version payante.
+- (27/11) BOUTON_PANNEAU_TOUJOURS n'existe plus (v23) : « Je suis devant le panneau » + « Aller à une étape » = codes 🐞 testeurs (et ?debug=1) seulement, à CHAQUE étape, MÊME après l'ouverture de la vente (demande de Gonzalo). Ne jamais les retirer des testeurs.
 
 ## Prochain pour Claude Code
 
+- **26/11 (Claude chat)** : VIDÉO D'ACCUEIL du site faite (Runway, accord de Gonzalo) → `CONSIGNES_VIDEO_ACCUEIL_26-11.md`
+  (plein écran au 1er passage, muette + sous-titres FR/EN/ES, 🔊, croix ✕). Gonzalo dépose le MP4 dans Dossier des modifications/5_Video accueil site/.
+
+- **26/11 (Claude Code) — VIDÉO DES RUINES (station V « La tour plus vieille que tout » v1 / « Le passage secret » v2, Chevalier
+  et Grand Maître), EN ATTENTE de la nouvelle vidéo de Gonzalo** : sa vidéo `scenario/saint-genies/photos/Ruines ancien chateau.mp4`
+  (chevalier IA devant le donjon, générée avec Pavo) recadrée sans le logo « Pavo » en bas à droite (bande du bas coupée ; la mention
+  « AI Generated » en haut à gauche est GARDÉE exprès) → `app/media/ruines_ancien_chateau.mp4` (720×904, 1,6 Mo), NON utilisée,
+  NON publiée. `sg_donjon_ruine_1.jpg` n'est utilisée nulle part dans le jeu (rien à remplacer). Gonzalo va REFAIRE la vidéo
+  (prompt donné le 26/11 : caméra fixe, le chevalier arrive depuis la tour et s'arrête DERRIÈRE le totem des ruines, épée dans une
+  main, bouclier dans l'autre, dernière seconde immobile, sans texte ni logo). Quand elle arrive : faire comme le totem 03 —
+  alléger, dernière image → photo de v1 ET v2 (remplace `sg_anciens_ruines_3/4.jpg`), `"video"` sur v1 dans `fabriquer_episode.py`,
+  tester en local (Chevalier, « Aller à une étape » → 23), montrer, publier seulement après son accord. Supprimer alors
+  `app/media/ruines_ancien_chateau.mp4` si elle n'est plus utile.
+- **22/11 (Claude Code) — VIDÉO D'ARRIVÉE AU TOTEM 03 — ✅ PUBLIÉ le 22/11 (accord de Gonzalo, commit ad4d8ee, sw v25)** : vidéo de Gonzalo
+  (« Photos iCloud/07oct2026/arriver au Totem 03 Regard autour de la chapelle (2).mp4 », 4,5 s, le chevalier vient tenir le totem)
+  allégée → `app/media/arrivee_totem03.mp4` (720×960, 1,7 Mo). Sa dernière image → `photos/sg_totem_03_arrivee_chevalier.jpg`.
+  `fabriquer_episode.py` : r1 (« Le jour de foire », 1re étape de la station R, jouée par Chevalier ET Grand Maître) reçoit
+  `"video"` (jouée une fois à l'arrivée) + cette photo ; r2 et r3 (même totem) reçoivent aussi cette photo (demande de Gonzalo :
+  le chevalier reste derrière le totem pour toutes les énigmes de ce totem). Textes et voix INCHANGÉS (r1_* MP3 lus, vérifié). Pour Claude chat : la photo
+  de r1 dans `niveaux_contenu.py` est remplacée par Code dans le fabricant ; à reprendre dans ton contenu si tu régénères autrement.
+  Testé en local (code testeur, Chevalier, « Aller à une étape » → 25) : vidéo OK, puis énigme avec la nouvelle photo et la voix d'Aymeric.
+  Publié SEUL (sw.js v25, episode.json, la vidéo, la photo) ; app.js (VERSION_APP reste 'v24') et les changements partenaires
+  (app.js, vitrine.js, serveur) restent NON publiés. Vérifié en ligne : v25 servie, vidéo et photo 200, episode.json = local, aucune fuite.
+- **20/11 (Claude Code) — ESPACE PARTENAIRES / VENDEURS : SERVEUR DÉPLOYÉ le 20/11 (accord de Gonzalo, pour qu'il teste l'admin en ligne ;
+  version e9f47bf5). PAS DANS GIT. app.js + vitrine.js (rattachement ?pv=) PAS ENCORE PUBLIÉS sur GitHub Pages** : tant qu'ils ne le sont pas,
+  les QR des partenaires ne comptent ni visites ni achats en ligne (l'admin, l'espace partenaire et les ventes au comptoir marchent déjà).
+  Décisions de Gonzalo (20/11) : il crée lui-même l'identifiant + mot de passe de chaque partenaire ; achat en ligne venu du QR d'un
+  partenaire = Gonzalo encaisse 15 € et doit au partenaire 3 € MOINS les frais SumUp (réglage « commission en ligne », 2,62 € par défaut
+  = 3 € − ~2,5 % de 15 €, À VÉRIFIER avec son tarif SumUp) ; vente encaissée au comptoir = le partenaire garde 3 € et doit 12 € (pas de frais).
+  · Serveur (`src/index.js`) : tables `petro_partenaires` (id = code du QR, identifiant, mdp PBKDF2, mode 'lien' | 'comptoir', commissions
+    particulières), `petro_pv_sessions`, `petro_pv_visites`, `petro_pv_reglements` ; colonnes `pv`/`pv_commission` (ventes), `pv`/`pv_commission`/`pv_du`
+    (codes), `pv` (évènements) — créées toutes seules au 1er appel comme le reste. Routes publiques `/api/pv/visite`, `/api/pv/connexion` ;
+    partenaire connecté (en-tête x-jeton) `/api/pv/moi`, `/api/pv/code` (code comptoir, mode comptoir seulement), `/api/pv/annuler` (24 h, jamais activé),
+    `/api/pv/deconnexion` ; admin `/api/partenaires` (liste, créer/modifier), `/api/partenaires/detail`, `/api/partenaires/regler`, `/api/partenaires/reglement-suppr`.
+    Une vente compte au paiement (en ligne) ou à la création (comptoir) ; code désactivé/annulé/test = ne compte plus.
+  · Admin (`src/page.js`) : onglet « 🤝 Partenaires » (commissions par défaut, fiche partenaire, liste avec solde, détail par mois :
+    ventes, codes activés ou non, QR + statistiques, bouton « ✓ Commission payée » / « ✓ Il m'a payé » + historique des règlements).
+  · Page partenaire (`src/partenaire.js`, adresse `/partenaire` du serveur, FR/EN/ES) : CA, codes vendus/activés, commission du mois, solde,
+    vente au comptoir (crée le code + QR), liste des ventes, statistiques et impression de son QR.
+  · QR d'un partenaire = `https://escape-game-dordogne.fr/?pv=ID` (vitrine). `site/vitrine.js` et `app/app.js` gardent l'ID 30 jours
+    (`petrocores_pv`), comptent la visite, l'ajoutent aux évènements (étapes de la partie gratuite p0…e0b par partenaire) et à l'achat SumUp.
+  · Testé en local (wrangler dev sur 8789, base de test séparée dans le scratchpad, SIMULATION, aucun secret réel) : création, doublon
+    d'identifiant refusé, visites, étapes gratuites (« dont sans code »), achat simulé via QR → 2,62 €, achat sans QR non compté, activation,
+    codes comptoir (3 € / 12 €), annulation, mode 'lien' refusé au comptoir, mauvais mot de passe, changement de mdp = session coupée,
+    règlements → solde à 0. Pages vues dans le navigateur (admin + partenaire FR/EN).
+  · Pour publier (après son « oui ») : `npx wrangler deploy` (serveur) ; app.js + vitrine.js sur GitHub Pages avec **sw v25**
+    (pas encore incrémenté). La vente reste FERMÉE et SumUp en test : rien ne change de ce côté.
 - **14/11 (Claude chat)** : appliquer `CONSIGNES_PARCHEMIN_14-11.md` (textes du parchemin VALIDÉS par Gonzalo le 15/11).
 - **18/11 (Claude chat)** : `CONSIGNES_TARIF_ACTIVATION_18-11.md` = 15 €, 2 tél., code valable le JOUR de l'activation (sur place,
   jusqu'à minuit, pour les 2 tél.) + MISE EN LIGNE de ce qui est fait avec la VENTE FERMÉE (médiateur + INPI en cours).
@@ -102,6 +149,7 @@
 - Tests sur téléphone (iPhone + Android) : GPS réel, voix MP3 et voix du téléphone, vidéos et sous-titres.
 
 ## Derniers faits (une ligne chacun ; détail dans ETAT_ARCHIVE.md)
+- 26/11 Claude Code (session promo) : teaser « Je code un jeu… » (21 s, FR, validé par Gonzalo) monté par `promo/monter_teaser.py` (sons CC0 + Earshot, voix OmniVoice) ; PROGRAMMÉ le 27/11 à 08:00 Paris : reel 9:16 sur Facebook + Instagram Dordrone (Business Suite), Short 1:1 sur YouTube DORDRONE (https://youtube.com/shorts/tTybx1bDBEo, IA déclarée). ⚠ L'extrait « Voyageurs… vous voici enfin » vient de l'intro v4 : vérifier qu'il ne contient pas la musique CapCut.
 - 20/11 Claude Code : PUBLIÉ sw v24 (accord de Gonzalo) = correction des énigmes vides de la v23 + énigmes par niveau (variantes c/g), x1 refait (+ x1t), chapelle Chevalier KC, 502 voix de Claude chat. Vérifié en ligne (escape-game-dordogne.fr) : v24 servie, 33 étapes dont 28 chiffrées, aucune réponse en clair, énigme p0 affichée avec champ + Valider + Indice.
 - 08/11 Claude chat : voix MP3 d'Aymeric branchées et en ligne (sw v17).
 - 07/11 Claude chat : sw v13 → v16 (bouton panneau, étapes silencieuses, réponses tolérantes aux fautes, sceaux de fin) — voir `CONSIGNES_FAIT_PAR_CLAUDE_07-11.md`.
@@ -228,7 +276,7 @@
 ## 18/11 — PUBLIÉ (Claude Code, avec l'accord de Gonzalo)
 - GitHub `d35595c` : jeu sw **v22**, vitrine, mentions légales, CGV, texte final + voix. En ligne sur escape-game-dordogne.fr (vérifié : v22, « La vente en ligne ouvre très bientôt », RCS dans les mentions).
 - Serveur Cloudflare déployé (version ad96461d) : `/api/offre` → vente **fermée**, 15 €, MODE_TEST toujours "true". Colonnes `regle` / `fin_jour` présentes dans la base en ligne.
-- Reste avant d'ouvrir la vente : médiateur, activité INPI, relecture des textes PROVISOIRE (code_position, tva EN/ES), BOUTON_PANNEAU_TOUJOURS → false, vraie clé SumUp + MODE_TEST="false" (accord de Gonzalo).
+- Reste avant d'ouvrir la vente : médiateur, activité INPI, relecture des textes PROVISOIRE (code_position, tva EN/ES), vraie clé SumUp + MODE_TEST="false" (accord de Gonzalo).
 
 - 18/11 soir : copie cachée de chaque email de code à contact@ (serveur 0ed68c48). Code offert à une testeuse : SG-UQYV-35 (vente V8BZ47XWEX5, 0 €, OFFERT) ; email à envoyer par Gonzalo depuis l'admin.
 
@@ -237,3 +285,16 @@
 - Vitrine : lien discret « 🐞 Mode testeur » sous « Essayer gratuitement » → app/?episode=saint-genies&testeur=1 (saisie du code testeur).
 - Jeu sw v23 : avec un code testeur → bouton 🐞 (barre + menu) « Signaler un problème » (POST /api/bug : étape, langue, téléphone ajoutés) et « Je suis devant le panneau » / « Aller à une étape ». BOUTON_PANNEAU_TOUJOURS supprimé : les clients ne voient plus ces boutons.
 - Pour Claude chat : textes testeurTitre, testeurExplication, testeurOk, testeurPasCode, bugBouton, bugAide, bugEnvoyer, bugMerci, bugErreur (app.js) et « testeur » (vitrine.js) = PROVISOIRE, à relire.
+
+## 26/11 soir (Claude chat)
+- ➡ Code : lire `CONSIGNES_VIDEO_ACCUEIL_VERTICALE_26-11.md` :
+  1) vidéo de bienvenue du site = `accueil_v10_vertical.mp4` (9:16), remplace accueil_v3 ; plein écran téléphone, centrée sur ordinateur ;
+  2) mode testeur : garder « Je suis devant le panneau » + « Aller à une étape » pour les codes testeurs, même après l'ouverture de la vente.
+- Pas de publication sans le « oui » de Gonzalo. Gonzalo doit vérifier la licence de l'appli Pavo (plan chapelle du Cheylard).
+- ✅ 26/11 nuit (Claude Code) point 1 FAIT EN LOCAL, NON PUBLIÉ : `site/accueil.mp4` (4,9 Mo) + `accueil.jpg` + `accueil.fr/en/es.vtt`
+  (calage mesuré sur la voix : 2,9-8,4 / 9,4-13,2 / 13,9-16,3 / 16,4-18,4 / 19,0-22,3 s) ; code à part `site/accueil-video.js`
+  (+ styles en fin de vitrine.css, 1 ligne dans index.html). 🔊 et ✕ en haut ; « ▶ Revoir la vidéo » sous « Mode testeur ».
+  Testé : téléphone plein écran, ordinateur centré, FR/EN, fermeture. ⚠ vitrine.js contient encore les changements non publiés de la session partenaires.
+  ✅ 27/11 PUBLIÉ (accord de Gonzalo), sans les changements partenaires de vitrine.js.
+  Point 2 vérifié dans le code : `panneauToujours() = DEBUG || estTesteur()`, rien ne dépend de la vente → OK, rien à changer.
+- earshot installé sur le PC de Gonzalo (sons gratuits) : `fabriquer_rires.bat` = exemple d'utilisation. Crédits Runway restants : ~67.
